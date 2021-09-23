@@ -1,0 +1,75 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class POLF : MonoBehaviour
+{
+    double curTime = 0;
+    float MaxSpeed = 0;
+    float impactDev = 0;
+    double MaxAlt = 0;
+    bool bailed = true;
+    string stats_msg = "stats go here";
+    // Start is called before the first frame update
+    //this is the script for the golf like mini game demo
+
+    float delay = .1f; //only one sec
+    float nextUsage;
+
+    bool timeStart = false;
+    bool curSceneOver = false;
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == true && curSceneOver == false)
+        {
+            curSceneOver = true;
+            stats_msg = "Flight facts: \n" + "Max Speed: " + MaxSpeed + "\n Impact: " + impactDev + "\n Max Altitude: " + MaxAlt + "\n Total Elapsed time: " + curTime + "Bailed: " + bailed;
+
+            //the case is gone, retry stage-
+            GameObject uiAltiText2 = GameObject.Find("txt_stats");
+            Text delta21 = uiAltiText2.GetComponent<Text>();
+            delta21.text = stats_msg;//.Substring(0, locCnt);
+
+
+
+        } else if (Time.time > nextUsage && timeStart == true) //continue scrolling
+        {
+
+            if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed>MaxSpeed)
+            {
+                MaxSpeed = GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed;
+            }
+            if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed>impactDev)
+            {
+                impactDev = GameObject.Find("Player_plane").GetComponent<mplane_controller>().impact;
+            }
+            if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().altitude>MaxAlt)
+            {
+                MaxAlt = GameObject.Find("Player_plane").GetComponent<mplane_controller>().altitude;
+            }
+            
+
+            curTime = curTime + 0.1;
+            nextUsage = Time.time + delay; //it is on display
+        }
+
+
+
+
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        timeStart = true;
+    }
+}

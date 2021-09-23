@@ -62,9 +62,12 @@
     <Compile Include="Assets\scripts\DestroyAfterStartTime.cs" />
     <Compile Include="Assets\scripts\realGenericButton.cs" />
     <Compile Include="Assets\scripts\DestroyAfterDistance.cs" />
-    <Compile Include="Assets\scripts\pIntegrity.cs" />
-    <Compile Include="Assets\scripts\VertMinusCameraFOV.cs" />
     <Compile Include="Assets\scripts\wogen1.cs" />
+    <Compile Include="Assets\scripts\TouchAndDie.cs" />
+    <Compile Include="Assets\scripts\pIntegrity.cs" />
+    <Compile Include="Assets\scripts\UPUPaway.cs" />
+    <Compile Include="Assets\scripts\VertMinusCameraFOV.cs" />
+    <Compile Include="Assets\scripts\POLF.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -19,7 +19,10 @@ public class mplane_controller : MonoBehaviour
     public float rotateSpeed=188;
     Vector3 pos;
     Vector3 velocity;
-    bool pdead = false;
+   public bool pdead = false;
+    bool toggleLandGear = true;
+   public bool onground = true;
+    bool heavyMass = false;
     System.Random blarg = new System.Random();
     // Start is called before the first frame update
     void Start()
@@ -125,34 +128,146 @@ public class mplane_controller : MonoBehaviour
             }
 
         }
-    }
 
+        if (Input.GetButtonDown("Jump") )
+          {
+            //Landing Gear
+            if (onground==false)
+            {
+                if (toggleLandGear == false)
+                {
+                    GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
+                    GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
+                    toggleLandGear = true;
+                }
+                else
+                {
+                    GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = false;
+                    GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = false;
+                    toggleLandGear = false;
+                }
+            }
+
+
+
+
+        }
+
+    }
+    public float impact;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+         impact = Vector3.Magnitude(rb.velocity);
+        //   Debug.Log(collision.gameObject.name+"  "+impact);
+
+        var direction = transform.InverseTransformPoint(collision.transform.position); //this helps us find which direction the object collided from
+
+        if (direction.y < -0.1f)
+        {
+            Debug.Log("The object collided with the right side of the ball!");
+        }
+        Debug.Log(direction.y);
+
+        // if (collision.transform.position.x < transform.position.x)
+      //  if (collision.gameObject.tag == "ground" && direction.y > 0f)
+     //   {
+
+     //   }
+      //  else
+        //{
+            if (impact > 15)
+            {
+
+                int randoExplod = UnityEngine.Random.Range(2, 5);
+                for (int qt = 0; qt < randoExplod; qt++)
+                {
+                    GameObject RepeatGround33 = Instantiate(Resources.Load("Exp2017")) as GameObject;
+                    RepeatGround33.name = "plaxplode(" + qt + ")";
+                    RepeatGround33.transform.position = new Vector2(transform.position.x + UnityEngine.Random.Range(-2, 2), transform.position.y - UnityEngine.Random.Range(-2, 2));
+
+                    rb.velocity = Vector3.zero;
+                    rb.freezeRotation = true;
+                    rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+
+                    if (pdead == false)
+                    {
+
+                        if (impact > 25)
+                        {
+                            GameObject pback = Instantiate(Resources.Load("player\\gib\\p_back")) as GameObject;
+                            pback.name = "p_back)";
+                            pback.transform.position = new Vector2(transform.position.x - 0.5f, transform.position.y);
+
+                            GameObject pmid = Instantiate(Resources.Load("player\\gib\\p_mid")) as GameObject;
+                            pmid.name = "p_mid)";
+                            pmid.transform.position = new Vector2(transform.position.x, transform.position.y);
+
+
+                            GameObject pfront = Instantiate(Resources.Load("player\\gib\\p_front")) as GameObject;
+                            pfront.name = "p_front)";
+                            pfront.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y);
+
+                            this.GetComponent<SpriteRenderer>().enabled = false;
+                            this.GetComponent<Collider2D>().enabled = false;
+                        }
+
+
+
+                    }
+
+
+                    pdead = true;
+                }
+
+            }
+       // }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        onground = true;
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        onground = false;
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        float impact = Vector3.Magnitude(rb.velocity);
-       Debug.Log(impact);
-        if (impact>15)
-        {
+    
 
-            int randoExplod = UnityEngine.Random.Range(2, 5);
-            for (int qt = 0; qt < randoExplod; qt++)
+    }
+    public double altitude;
+    
+    float[] speedArr=new float[10];
+    float res = 0;
+    int gib = 0;
+    private void LateUpdate()
+    {
+        if (GameObject.Find("planeTOP").GetComponent<TouchAndDie>().colSignal==true)
+        {
+            if (gib<5)
             {
-                GameObject RepeatGround33 = Instantiate(Resources.Load("Exp2017")) as GameObject;
-                RepeatGround33.name = "plaxplode("  + qt + ")";
-                RepeatGround33.transform.position = new Vector2(transform.position.x + UnityEngine.Random.Range(-2, 2), transform.position.y - UnityEngine.Random.Range(-2, 2));
+                GameObject pback = Instantiate(Resources.Load("player\\gib\\p_back")) as GameObject;
+                pback.name = "p_back)";
+                pback.transform.position = new Vector2(transform.position.x - 0.5f, transform.position.y);
+
+                GameObject pmid = Instantiate(Resources.Load("player\\gib\\p_mid")) as GameObject;
+                pmid.name = "p_mid)";
+                pmid.transform.position = new Vector2(transform.position.x, transform.position.y);
+
+
+                GameObject pfront = Instantiate(Resources.Load("player\\gib\\p_front")) as GameObject;
+                pfront.name = "p_front)";
+                pfront.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y);
+
+                this.GetComponent<SpriteRenderer>().enabled = false;
+                this.GetComponent<Collider2D>().enabled = false;
                 pdead = true;
-                rb.velocity = Vector3.zero;
-                rb.freezeRotation=true;
-                rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                gib++;
             }
 
         }
-    }
 
-    float[] speedArr=new float[10];
-    float res = 0;
-    private void LateUpdate()
-    {
         if (pdead==false)
         {
 
@@ -174,75 +289,139 @@ public class mplane_controller : MonoBehaviour
 
 
         GameObject txtAlt = GameObject.Find("txt_altitude");
-        txtAlt.GetComponent<Text>().text = "Altitude: " + Math.Round(transform.position.y,3);
+            altitude = Math.Round(transform.position.y, 3);
+        txtAlt.GetComponent<Text>().text = "Altitude: " + altitude;
 
         GameObject txtSpd = GameObject.Find("txt_speed");
         txtSpd.GetComponent<Text>().text = "Speed: " + Math.Round(Speed, 3);
-
-     //    Debug.Log("THE VALUE IS " + transform.rotation.eulerAngles.z);
-        if (engineSpool > 0)
+            rb.AddRelativeForce(Vector3.right * 20 * 340 * Time.deltaTime);
+            //    Debug.Log("THE VALUE IS " + transform.rotation.eulerAngles.z);
+            if (engineSpool > 0)
         {
-            rb.AddRelativeForce(Vector3.right * engineSpool * 340 * Time.deltaTime);
-        }
+            rb.AddRelativeForce(Vector3.right * engineSpool * 440 * Time.deltaTime);
+            }
         else
         {
             rb.AddRelativeForce(Vector3.right * engineSpool * 200 * Time.deltaTime);
         }
-      
-        if (transform.rotation.eulerAngles.z>5 && transform.rotation.eulerAngles.z<45)
-        {
-            rb.AddRelativeForce(Vector3.up * 1000 * Time.deltaTime*4);
-            Quaternion rot = transform.rotation;
-            rot.eulerAngles = rot.eulerAngles - new Vector3(0, 0, .01f);
-            transform.rotation = rot;
-        }
-        else if (transform.rotation.eulerAngles.z>45 && transform.rotation.eulerAngles.z<74)
-        {
-            res = transform.rotation.eulerAngles.z - 74;
-            Quaternion rot = transform.rotation;
-            rot.eulerAngles = rot.eulerAngles - new Vector3(0, 0, .05f);
-            transform.rotation = rot;
-            res = res * -50;
+
+            
+            if (transform.rotation.eulerAngles.z>0 && transform.rotation.eulerAngles.z<45)
+            {
+                rb.AddRelativeForce(Vector3.up * 2400 * Time.deltaTime*2);
+              
+                Quaternion rot = transform.rotation;
+                rot.eulerAngles = rot.eulerAngles - new Vector3(0, 0, .02f);
+                transform.rotation = rot;
+                rb.mass = 60;
+                rb.drag = .5f;
+                heavyMass = false;
+
+            }
+            else if (transform.rotation.eulerAngles.z>45 && transform.rotation.eulerAngles.z<74)
+            {
+                res = transform.rotation.eulerAngles.z - 74;
+                Quaternion rot = transform.rotation;
+                rot.eulerAngles = rot.eulerAngles - new Vector3(0, 0, .05f);
+                transform.rotation = rot;
+                res = res * -50;
+                rb.mass = 60;
+                rb.drag = .5f;
+                heavyMass = false;
                 //      rb.AddRelativeForce(Vector3.right * engineSpool * -res * Time.deltaTime);
             }
-            else if (transform.rotation.eulerAngles.z > 74 && transform.rotation.eulerAngles.z < 180)
-        {
-            //  rb.AddRelativeForce(new Vector3(-444, 0,0) * 50 * Time.deltaTime*4);
-            res = transform.rotation.eulerAngles.z - 74;
-            Quaternion rot = transform.rotation;
-            rot.eulerAngles = rot.eulerAngles- new Vector3(0, 0, .1f);
-            transform.rotation = rot;
-            res = res * -200;
-            rb.AddRelativeForce(Vector3.up * engineSpool * res * Time.deltaTime);
-        }
-        else if (transform.rotation.eulerAngles.z > 290 && transform.rotation.eulerAngles.z < 360)
-        {
-            res = transform.rotation.eulerAngles.z + 74;
-            Quaternion rot = transform.rotation;
-            rot.eulerAngles = rot.eulerAngles - new Vector3(0, 0, .05f);
-            transform.rotation = rot;
-            res = res * 5;
-            rb.AddRelativeForce(Vector3.right * engineSpool * res * Time.deltaTime);
-        }
-        else if (transform.rotation.eulerAngles.z > 184 && transform.rotation.eulerAngles.z < 290)
-        {
-            //  rb.AddRelativeForce(new Vector3(-444, 0,0) * 50 * Time.deltaTime*4);
-            res = transform.rotation.eulerAngles.z + 74;
-            Quaternion rot = transform.rotation;
-            rot.eulerAngles = rot.eulerAngles - new Vector3(0, 0, .1f);
-            transform.rotation = rot;
-            res = res * 20;
-            rb.AddRelativeForce(Vector3.right * engineSpool * res * Time.deltaTime);
-        }
-        else
-        {
-            rb.AddRelativeForce(Vector3.up * -444* Time.deltaTime*4);
-        }
-         
+                else if (transform.rotation.eulerAngles.z > 74 && transform.rotation.eulerAngles.z < 250)
+            {
+                //  rb.AddRelativeForce(new Vector3(-444, 0,0) * 50 * Time.deltaTime*4);
+
+                
+                    res = transform.rotation.eulerAngles.z - 74;
+                    Quaternion rot = transform.rotation;
+                    rot.eulerAngles = rot.eulerAngles - new Vector3(0, 0, .1f);
+                    transform.rotation = rot;
+                    res = res * 200;
+                
+            
+                //  rb.AddRelativeForce(Vector3.down * engineSpool * res * Time.deltaTime);
+                if (Speed<20)
+                {
+                    rb.mass = 175;
+                    rb.drag = .1f;
+                    heavyMass = true;
+                }
+
+            }
+            else if (transform.rotation.eulerAngles.z > 250 && transform.rotation.eulerAngles.z < 360)
+            {
+                rb.drag = .88f;
+            }
+
+
+                if (Speed < 25)
+            {
+                rb.AddRelativeForce(Vector3.up * 2500 * Time.deltaTime * 4);
+                if (Speed < 20 && engineSpool<20)
+                {
+                    rb.mass = 225;
+                    rb.drag = .01f;
+                    heavyMass = true;
+                }
+            }
+            else
+            {
+
+                // rb.AddRelativeForce(Vector3.up * 250 * Time.deltaTime * -4);
+            }
+
+            if (Speed>20)
+            {
+                rb.AddRelativeForce(Vector3.up * 2000 * Time.deltaTime * 4);
+                Quaternion rot = transform.rotation;
+                rot.eulerAngles = rot.eulerAngles + new Vector3(0, 0, .01f);
+                transform.rotation = rot;
+            }
+            else
+            {
+                if (!(transform.rotation.eulerAngles.z>260 && transform.rotation.eulerAngles.z < 290))
+                {
+                    res = transform.rotation.eulerAngles.z - 74;
+                    Quaternion rot = transform.rotation;
+                    rot.eulerAngles = rot.eulerAngles - new Vector3(0, 0, .05f);
+                    transform.rotation = rot;
+                    res = res * -50;
+
+
+                 if (transform.rotation.eulerAngles.z > 290 && transform.rotation.eulerAngles.z < 360)
+                    {
+                        res = transform.rotation.eulerAngles.z + 74;
+                         rot = transform.rotation;
+                        rot.eulerAngles = rot.eulerAngles - new Vector3(0, 0, .05f);
+                        transform.rotation = rot;
+                        res = res * 2;
+                        rb.AddRelativeForce(Vector3.right * engineSpool * res * Time.deltaTime);
+                    }
+                    else if (transform.rotation.eulerAngles.z > 184 && transform.rotation.eulerAngles.z < 290)
+                    {
+                        //  rb.AddRelativeForce(new Vector3(-444, 0,0) * 50 * Time.deltaTime*4);
+                        res = transform.rotation.eulerAngles.z + 74;
+                         rot = transform.rotation;
+                        rot.eulerAngles = rot.eulerAngles - new Vector3(0, 0, .1f);
+                        transform.rotation = rot;
+                        res = res * 20;
+                        rb.AddRelativeForce(Vector3.right * engineSpool * res * Time.deltaTime);
+                    }
+                    else
+                    {
+                        rb.AddRelativeForce(Vector3.up * -444 * Time.deltaTime * 4);
+                    }
 
 
 
-        StartCoroutine(GetSpeed());
+                }
+                rb.AddRelativeForce(Vector3.down * 1000 * Time.deltaTime * 10);
+                //      rb.AddRelativeForce(Vector3.right * engineSpool * -res * Time.deltaTime);
+            }
+            StartCoroutine(GetSpeed());
 
         if (Speed > 10) //faster so harder to move
         {
@@ -259,11 +438,12 @@ public class mplane_controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+      //  GameObject.Find("HOLDER").GetComponent<Transform>().transform.position = this.transform.position;
+     //   GameObject.Find("HOLDER").GetComponent<Transform>().transform.eulerAngles = this.transform.eulerAngles;
         if (pdead==false)
         {
 
-
+       //     DetectGround();
 
             moveVertSense = Input.GetAxis("Vertical");
             moveVertSense2 = Input.GetAxis("Vertical");
@@ -339,6 +519,7 @@ public class mplane_controller : MonoBehaviour
              //   else
             //    {
                     transform.Rotate(0, 0, -rotateSpeed * Time.deltaTime);
+
           //      }
 
                 //rb.velocity = Vector3.zero;
@@ -347,8 +528,16 @@ public class mplane_controller : MonoBehaviour
             else if (moveVertSense < 0)
             {
                 transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
-                // rb.velocity = Vector3.zero;
-            }
+                    if (onground == true && Speed>17)
+                    {
+                        rb.AddRelativeForce(Vector3.up * 5444 * Time.deltaTime * 4);
+                    }
+                    else if (onground == true && Speed < 17)
+                    {
+                      //  rb.drag = 2;
+                    }
+                    // rb.velocity = Vector3.zero;
+                }
 
 
 
@@ -379,6 +568,33 @@ public class mplane_controller : MonoBehaviour
     }
     public float Speed;
     public float UpdateDelay=1;
+    //interesting idea, could not get it to work yet
+    //https://forum.unity.com/threads/2d-rigidbody-bounces-over-tiled-colliders.413752/
+    //using 2d capsules greatly improved the detection
+    public bool IsGrounded { get; private set; }
+    public Transform groundRaycaster;
+    public Transform feetLocationTransform;
+    public float raycastDistance = .1f;
+    void DetectGround()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(groundRaycaster.position, -Vector2.up, raycastDistance);
+        if (hit.collider)
+        {
+            if (rb.velocity.y <= 0)
+            {
+                rb.gravityScale = 0;
+                Vector3 position = transform.position;
+                position.y = position.y - (feetLocationTransform.position.y - hit.point.y);
+                transform.position = position;
+            }
+            IsGrounded = true;
+        }
+        else
+        {
+            rb.gravityScale = 1;
+            IsGrounded = false;
+        }
+    }
 
     private IEnumerator GetSpeed()
     {

@@ -9,7 +9,7 @@ public class wogen1 : MonoBehaviour
     void Start()
     {
         float curPos = 0;
-        for (int i=0; i<99;i++)
+        for (int i=0; i<999;i++)
         {
             System.Random blarg = new System.Random();
             GameObject ExpDust = Instantiate(Resources.Load("ground\\airport")) as GameObject;
