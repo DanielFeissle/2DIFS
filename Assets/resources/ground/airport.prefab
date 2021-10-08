@@ -420,7 +420,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5060648563871663787}
   - component: {fileID: 4987759999592838003}
-  - component: {fileID: 4987759999592838013}
   - component: {fileID: 5406727807651129578}
   m_Layer: 0
   m_Name: airport
@@ -499,32 +498,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &4987759999592838013
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8806759316957545123}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 2.59, y: -2.0452008}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.12, y: 5.12}
-    newSize: {x: 5.12, y: 5.12}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.0737839, y: 1.0295984}
-  m_EdgeRadius: 0
 --- !u!61 &5406727807651129578
 BoxCollider2D:
   m_ObjectHideFlags: 0

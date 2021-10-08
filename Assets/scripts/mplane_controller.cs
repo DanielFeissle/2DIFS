@@ -24,11 +24,15 @@ public class mplane_controller : MonoBehaviour
    public bool onground = true;
     bool heavyMass = false;
     System.Random blarg = new System.Random();
+    public Animator ani;
     // Start is called before the first frame update
     void Start()
     {
         Vector3 pos = transform.position;
         rb = GetComponent<Rigidbody2D>();
+     //   ani =GameObject.Find("plane_wheel").GetComponent<Animator>();
+      //  ani.runtimeAnimatorController = Resources.Load("assets/sprites/plane_tire(64x64)_0") as RuntimeAnimatorController;
+        //   ani = this.GetComponent<Animator>();
     }
 
     //8-5-2021
@@ -129,9 +133,15 @@ public class mplane_controller : MonoBehaviour
 
         }
 
+
+
         if (Input.GetButtonDown("Jump") )
           {
             //Landing Gear
+
+            tireAni();
+
+
             if (onground==false)
             {
                 if (toggleLandGear == false)
@@ -139,12 +149,17 @@ public class mplane_controller : MonoBehaviour
                     GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
                     GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
                     toggleLandGear = true;
+
+                    Debug.Log("LANDING GEAR");
                 }
                 else
                 {
+
                     GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = false;
                     GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = false;
                     toggleLandGear = false;
+
+                    Debug.Log("NO LANDING GEAR");
                 }
             }
 
@@ -154,6 +169,29 @@ public class mplane_controller : MonoBehaviour
         }
 
     }
+
+    void tireAni()
+    {
+        for (int i=0; i<3;i++)
+        {
+            ani = GameObject.Find("plane_wheel_" + i).GetComponent<Animator>();
+
+            if (toggleLandGear == false)
+            {
+                ani.SetInteger("ani_tire", 2);
+                ani.speed = 0.1f;
+            }
+            else
+            {
+                ani.speed = 0.1f;
+                ani.SetInteger("ani_tire", 1);
+            }
+        }
+
+
+    }
+
+
     public float impact;
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -236,13 +274,36 @@ public class mplane_controller : MonoBehaviour
     
 
     }
+    public double OBJaltitude;
     public double altitude;
-    
+    float basense;
     float[] speedArr=new float[10];
     float res = 0;
     int gib = 0;
     private void LateUpdate()
     {
+
+        RaycastHit2D hit = Physics2D.Raycast(new Vector3(transform.position.x, transform.position.y - 0.1f, 0), -Vector2.up);
+        Debug.Log(hit.collider.name);
+
+
+
+        // If it hits something...
+        if (hit.collider != null)
+        {
+            if (transform.position.y<hit.collider.transform.position.y)
+            {
+                rb.angularDrag = 9999999999999999;
+                rb.AddForce(Vector2.up*-50);
+               // transform.position =  new Vector2(transform.position.x, hit.collider.transform.position.y + 0.0f);
+            }
+            else
+            {
+                rb.angularDrag = 117;
+            }
+
+        }
+
         if (GameObject.Find("planeTOP").GetComponent<TouchAndDie>().colSignal==true)
         {
             if (gib<5)
@@ -276,7 +337,7 @@ public class mplane_controller : MonoBehaviour
         throttle.GetComponent<Slider>().value = engineSpool;
 
         //lets do this the -- way- only one sensor
-        float basense = transform.rotation.eulerAngles.z;
+          basense = transform.rotation.eulerAngles.z;
 
         basense = basense - 180;
         basense = basense * -1;
@@ -290,7 +351,7 @@ public class mplane_controller : MonoBehaviour
 
         GameObject txtAlt = GameObject.Find("txt_altitude");
             altitude = Math.Round(transform.position.y, 3);
-        txtAlt.GetComponent<Text>().text = "Altitude: " + altitude;
+        txtAlt.GetComponent<Text>().text = "SEA: " + altitude;
 
         GameObject txtSpd = GameObject.Find("txt_speed");
         txtSpd.GetComponent<Text>().text = "Speed: " + Math.Round(Speed, 3);
@@ -308,14 +369,37 @@ public class mplane_controller : MonoBehaviour
             
             if (transform.rotation.eulerAngles.z>0 && transform.rotation.eulerAngles.z<45)
             {
-                rb.AddRelativeForce(Vector3.up * 2400 * Time.deltaTime*2);
-              
-                Quaternion rot = transform.rotation;
-                rot.eulerAngles = rot.eulerAngles - new Vector3(0, 0, .02f);
-                transform.rotation = rot;
-                rb.mass = 60;
-                rb.drag = .5f;
-                heavyMass = false;
+
+                if (engineSpool > 90 && altitude<100)
+                {
+                    rb.AddRelativeForce(Vector3.up * 2400 * Time.deltaTime * 2);
+
+                    Quaternion rot = transform.rotation;
+                    rot.eulerAngles = rot.eulerAngles - new Vector3(0, 0, .0001f);
+                    transform.rotation = rot;
+                }
+                else
+                {
+                    rb.AddRelativeForce(Vector3.up * 2400 * Time.deltaTime * 2);
+
+                    Quaternion rot = transform.rotation;
+                    rot.eulerAngles = rot.eulerAngles - new Vector3(0, 0, .02f);
+                    transform.rotation = rot;
+                }
+
+               if (altitude<150)
+                {
+                    rb.mass = 60;
+                    rb.drag = .5f;
+                    heavyMass = false;
+                }
+                else
+                {
+                    rb.mass = 88;
+                    rb.drag = .55f;
+                    heavyMass = true;
+                }
+
 
             }
             else if (transform.rotation.eulerAngles.z>45 && transform.rotation.eulerAngles.z<74)
@@ -564,8 +648,13 @@ public class mplane_controller : MonoBehaviour
         }
         }
 
-
     }
+
+    public float floatHeight;     // Desired floating height.
+    public float liftForce;       // Force to apply when lifting the rigidbody.
+    public float damping;         // Force reduction proportional to speed (reduces bouncing).
+
+
     public float Speed;
     public float UpdateDelay=1;
     //interesting idea, could not get it to work yet
