@@ -17,14 +17,15 @@ public class TouchAndDie : MonoBehaviour
     }
    public string defTag1 = "";
     public string defTag2 = "";
-    public bool colSignal = false;
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag != defTag1)
         {
             if (collision.tag != defTag2)
             {
-                colSignal = true;
+                GameObject.Find("Player_plane").GetComponent<mplane_controller>().colSignal = true;
+                GameObject.Find("Player_plane").GetComponent<mplane_controller>().postmortem = 1;
             }
         }
     }
