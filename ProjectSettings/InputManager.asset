@@ -19,7 +19,7 @@ InputManager:
     snap: 1
     invert: 0
     type: 0
-    axis: 0
+    axis: 27
     joyNum: 0
   - serializedVersion: 3
     m_Name: Vertical
@@ -150,7 +150,7 @@ InputManager:
     axis: 2
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Horizontal
+    m_Name: Horizontal_SPEC_Controller
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -164,7 +164,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 0
-    joyNum: 0
+    joyNum: 15
   - serializedVersion: 3
     m_Name: Vertical
     descriptiveName: 
@@ -484,4 +484,20 @@ InputManager:
     invert: 0
     type: 2
     axis: 5
+    joyNum: 16
+  - serializedVersion: 3
+    m_Name: Cont_Trigger
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 2
     joyNum: 0

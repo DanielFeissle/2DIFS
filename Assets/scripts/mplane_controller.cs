@@ -135,6 +135,15 @@ public class mplane_controller : MonoBehaviour
 
 
 
+        float TriggerRight = Input.GetAxis("Cont_Trigger");
+        if (TriggerRight!=0)
+        {
+            moveHorSense = TriggerRight;
+        }
+
+         //   Debug.Log("Your Value for Trigger is " + TriggerRight);
+
+
         if (Input.GetButtonDown("Jump") )
           {
             //Landing Gear
@@ -376,6 +385,8 @@ public class mplane_controller : MonoBehaviour
                         wheely.GetComponent<Rigidbody2D>().simulated = true;
                         wheely.GetComponent<Rigidbody2D>().AddForce(Vector2.left * i);
                         wheely.GetComponent<PolygonCollider2D>().enabled = true;
+                        wheely.GetComponent<Rigidbody2D>().gravityScale = 1;
+                        wheely.GetComponent<Rigidbody2D>().mass = 10;
                     }
 
                 }
@@ -589,7 +600,9 @@ public class mplane_controller : MonoBehaviour
 
             moveVertSense = Input.GetAxis("Vertical");
             moveVertSense2 = Input.GetAxis("Vertical");
-        moveHorSense= Input.GetAxis("Horizontal");
+         
+                moveHorSense = Input.GetAxis("Horizontal");
+ 
 
 
         if (moveVertSense == 0 )

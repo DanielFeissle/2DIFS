@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class wheelHealth : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class wheelHealth : MonoBehaviour
     int lastDamage = 0;
     float delay = 1.0f; //only half delay
     float nextUsage;
- 
+    Color curCol = Color.red;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +44,31 @@ public class wheelHealth : MonoBehaviour
                     }
                 }
             }
-
+            
+            if (wheelHP>80)
+            {
+                curCol = Color.green;
+            }
+            else if (wheelHP>33)
+            {
+                curCol = Color.yellow;
+            }
+            else
+            {
+                curCol = Color.red;
+            }
+            
+            if (this.gameObject.name== "planeSkid_front")
+            {
+                GameObject.Find("sld_tire_front").GetComponent<Slider>().value = wheelHP;
+                    GameObject.Find("Handle_front_tire").GetComponent<Image>().color=curCol;
+                //     GameObject.Find("sld_tire_front").GetComponent<Slider>().spriteState.disabledSprite = curCol;
+            }
+            else if (this.gameObject.name== "planeSkid_back")
+            {
+                GameObject.Find("sld_tire_back").GetComponent<Slider>().value = wheelHP;
+                GameObject.Find("Handle_back_tire").GetComponent<Image>().color = curCol;
+            }
 
             nextUsage = Time.time + delay; //it is on display
         }
@@ -60,6 +85,11 @@ public class wheelHealth : MonoBehaviour
     }
 
 
+
+
+
+
+
     void OnCollisionEnter2D(Collision2D c)
     {
         float impulse = 0f;
@@ -72,7 +102,7 @@ public class wheelHealth : MonoBehaviour
         {
             if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().engineSpool>55)
             {
-                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed > 20)
+                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed > 18)
                 {
                     Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" + impulse);
                     lastDamage = (Convert.ToInt32(impulse) / 2);
