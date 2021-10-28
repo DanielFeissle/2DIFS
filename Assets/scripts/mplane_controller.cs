@@ -20,7 +20,7 @@ public class mplane_controller : MonoBehaviour
     Vector3 pos;
     Vector3 velocity;
    public bool pdead = false;
-    bool toggleLandGear = true;
+    bool toggleLandGear = false;
    public bool onground = true;
     bool heavyMass = false;
     System.Random blarg = new System.Random();
@@ -148,26 +148,25 @@ public class mplane_controller : MonoBehaviour
           {
             //Landing Gear
 
-            tireAni();
 
 
             if (onground==false)
             {
                 if (toggleLandGear == false)
                 {
-                    GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
-                    GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
+                    GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = false;
+                    GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = false;
                     toggleLandGear = true;
-
+                    tireAni();
                     Debug.Log("LANDING GEAR");
                 }
                 else
                 {
 
-                    GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = false;
-                    GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = false;
+                    GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
+                    GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
                     toggleLandGear = false;
-
+                    tireAni();
                     Debug.Log("NO LANDING GEAR");
                 }
             }

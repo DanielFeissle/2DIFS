@@ -1,6 +1,8 @@
 # =============== #
 # Unity generated #
 # =============== #
+builds/
+Logs/
 Temp/
 Obj/
 UnityGenerated/
@@ -32,3 +34,4 @@ ExportedObj/
 Icon?
 ehthumbs.db
 Thumbs.db
+stdout.log
