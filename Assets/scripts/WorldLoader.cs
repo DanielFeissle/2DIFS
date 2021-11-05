@@ -13,7 +13,7 @@ public class WorldLoader : MonoBehaviour
         Debug.Log("HI");
 
 
-         ReadString();
+         ReadString("1x1");
 
      //   TextAsset txt = (TextAsset)Resources.Load("scenes\\readme", typeof(TextAsset));
       //  string content = txt.text;
@@ -30,21 +30,56 @@ public class WorldLoader : MonoBehaviour
     }
 
     //https://support.unity3d.com/hc/en-us/articles/115000341143-How-do-I-read-and-write-data-from-a-text-file-
-    static void ReadString()
+    static void ReadString(string sceneRead)
     {
         int xpos = 0;
 
-        TextAsset txt = (TextAsset)Resources.Load("scenes\\readme", typeof(TextAsset));
+        TextAsset txt = (TextAsset)Resources.Load("scenes\\"+sceneRead, typeof(TextAsset));
        foreach (string tta in txt.text.Split('\n') )
                 {
-            GameObject picky = Instantiate(Resources.Load("DefTextMesh")) as GameObject;
-            picky.name = "regCool";
-            picky.transform.position = new Vector2(xpos, 0);
-            TextMesh TxtTm = picky.GetComponent<TextMesh>();
-            TxtTm.text = tta.ToString();
-            xpos = xpos + 10;
-        }
+            if (tta.Substring(0,1)=="#")
+            {
+                Debug.Log("line comment");
+             
+            }
+            else
+            {
+                string[] sclir = tta.Split(',');
+                GameObject picky = Instantiate(Resources.Load(sclir[0])) as GameObject;
+                if (sclir[1]=="1")
+                {
+                    picky.tag = "ground";
+                } else if (sclir[1] == "2")
+                {
+                    picky.tag = "game";
+                }
+                var renderer = picky.GetComponent<Renderer>();
+                float width = renderer.bounds.size.x;
+                float height = renderer.bounds.size.y;
+                int startX = Convert.ToInt32(sclir[2]);
+                int endX = Convert.ToInt32(sclir[3]);
+                int startY = Convert.ToInt32(sclir[4]);
+                int endY = Convert.ToInt32(sclir[5]);
 
+                for (float x=startX;x<endX;x=x+ width)
+                {
+                    for (float y = startY; y < endY; y = y + height)
+                    {
+                        GameObject picky2 = Instantiate(Resources.Load(sclir[0])) as GameObject;
+                        Debug.Log("BUILDING"+sclir[0] + ":" + x + "," + y);
+                        picky2.name = sclir[0]+":"+x+","+y;
+                        picky2.transform.position = new Vector2(x, y);
+                    }
+                }
+
+              
+            //    TextMesh TxtTm = picky.GetComponent<TextMesh>();
+             //   TxtTm.text = tta.ToString();
+                //   xpos = xpos + 10;
+            }
+
+        }
+        Debug.Log("DONE");
     }
 
 }

@@ -1,0 +1,5 @@
+#lines that start with # are comments
+#values are seperated by commas (,)
+# Prefab,LayerOrder,StartX,EndX,StartY,EndY
+ground/airport,1,0,1000,0,1
+ground/airport,1,50,150,10,20

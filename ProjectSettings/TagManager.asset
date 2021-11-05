@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ground
   - game
+  - background
   layers:
   - Default
   - TransparentFX
