@@ -9,9 +9,9 @@ public class Build : MonoBehaviour
     //https://stackoverflow.com/questions/45081576/how-can-i-compile-a-unity3d-game-project-from-command-line-into-webgl
     static void build()
         {
-
-            // Place all your scenes here
-            string[] scenes = { "Assets/scenes/samplescene.unity" };
+        //https://docs.unity3d.com/Manual/BuildPlayerPipeline.html
+        // Place all your scenes here
+        string[] scenes = { "Assets/scenes/samplescene.unity" };
            /* string[] scenes = {"Assets/scenes/S_MainMenu.unity",
                             "Assets/scenes/S_Login.unity",
                             "Assets/scenes/S_Help.unity",
@@ -21,15 +21,19 @@ public class Build : MonoBehaviour
                             "Assets/scenes/S_Settings.unity",
                             "Assets/scenes/S_SceneSelector.unity"};
            */
-            string pathToDeploy = "builds/WebGLversion/";
+          //  string pathToDeploy = "builds/WebGLversion/";
 
-            BuildPipeline.BuildPlayer(scenes, pathToDeploy, BuildTarget.WebGL, BuildOptions.None);
+        //    BuildPipeline.BuildPlayer(scenes, pathToDeploy, BuildTarget.WebGL, BuildOptions.None);
+        
+                       string pathToDeploy = "builds/EXE/test.exe";
+
+            BuildPipeline.BuildPlayer(scenes, pathToDeploy, BuildTarget.StandaloneWindows, BuildOptions.None);
         }
 
 
 
-        // Start is called before the first frame update
-        void Start()
+    // Start is called before the first frame update
+    void Start()
     {
         
     }

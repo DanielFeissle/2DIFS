@@ -27,7 +27,21 @@ public class POLF : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (curSceneOver==true && GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == false)
+        {
+            //12-1-2021 this means that the player restarted the scene again
+            this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            timeStart = false;
+             curTime = 0;
+             MaxSpeed = 0;
+             impactDev = 0;
+             MaxAlt = 0;
+             bailed = true;
+            curSceneOver = false;
+            GameObject uiAltiText2 = GameObject.Find("txt_stats");
+            Text delta21 = uiAltiText2.GetComponent<Text>();
+            delta21.text = "";//.Substring(0, locCnt);
+        }
         if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == true && curSceneOver == false)
         {
             curSceneOver = true;

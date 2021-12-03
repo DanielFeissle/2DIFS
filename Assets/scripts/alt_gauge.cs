@@ -11,7 +11,7 @@ public class alt_gauge : MonoBehaviour
     {
         
     }
-
+    public float dips = .75f;
     // Update is called once per frame
     void Update()
     {
@@ -31,20 +31,30 @@ public class alt_gauge : MonoBehaviour
                     float pos = this.transform.position.y - hit.collider.bounds.center.y;
                     //ALTOBJ:
                     GameObject txtAlt = GameObject.Find("txt_alt_OBJ");
-
+                //    Debug.Log("CUR POSY" + pos);
                     txtAlt.GetComponent<Text>().text = "ALT: " + (Math.Round(pos, 2));
                     if (pos < .5f)
                     {
                         GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground = true;
+                     
                     }
                     else
                     {
                         GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground = false;
+                     
                     }
 
-                    if (pos < .25f)
+                    if (pos < .30f)
                     {
-                        GameObject.Find("Player_plane").GetComponent<Transform>().transform.position = new Vector2(GameObject.Find("Player_plane").GetComponent<Transform>().position.x, hit.collider.bounds.center.y + 0.75f);
+                        GameObject aoa_gauge = GameObject.Find("sld_AOA");
+                         
+                        if (aoa_gauge.GetComponent<Slider>().value>165)
+                        {
+                            GameObject.Find("Player_plane").GetComponent<Transform>().transform.position = new Vector2(GameObject.Find("Player_plane").GetComponent<Transform>().position.x, hit.collider.bounds.center.y + dips);
+                         
+                        }
+                       
+                         
                     }
                 }
           

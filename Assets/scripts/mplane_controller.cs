@@ -25,14 +25,46 @@ public class mplane_controller : MonoBehaviour
     bool heavyMass = false;
     System.Random blarg = new System.Random();
     public Animator ani;
+    Vector3 startLoc;
+    Quaternion SteuAngle;
+    Quaternion[] whang = new Quaternion[3];
+    Vector3 []  whipos=new Vector3[3];
     // Start is called before the first frame update
     void Start()
     {
+        startLoc = transform.position;
+        SteuAngle =  transform.rotation;
         Vector3 pos = transform.position;
         rb = GetComponent<Rigidbody2D>();
-     //   ani =GameObject.Find("plane_wheel").GetComponent<Animator>();
-      //  ani.runtimeAnimatorController = Resources.Load("assets/sprites/plane_tire(64x64)_0") as RuntimeAnimatorController;
+        //   ani =GameObject.Find("plane_wheel").GetComponent<Animator>();
+        //  ani.runtimeAnimatorController = Resources.Load("assets/sprites/plane_tire(64x64)_0") as RuntimeAnimatorController;
         //   ani = this.GetComponent<Animator>();
+
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (i == 0)
+            {
+                GameObject wheely = GameObject.Find("plane_wheel_" + i);
+                whipos[i] = wheely.transform.localPosition;
+                whang[i] = wheely.transform.localRotation;
+                wheely.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                wheely.GetComponent<Rigidbody2D>().simulated = false;
+                wheely.GetComponent<PolygonCollider2D>().enabled = false;
+            }
+            else
+            {
+                GameObject wheely = GameObject.Find("plane_wheel_" + i);
+                whipos[i] = wheely.transform.localPosition;
+                whang[i] = wheely.transform.localRotation;
+                wheely.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                wheely.GetComponent<Rigidbody2D>().simulated = false;
+                wheely.GetComponent<PolygonCollider2D>().enabled = false;
+            }
+
+        }
+
+
     }
 
     //8-5-2021
@@ -141,10 +173,10 @@ public class mplane_controller : MonoBehaviour
             moveHorSense = TriggerRight;
         }
 
-         //   Debug.Log("Your Value for Trigger is " + TriggerRight);
+        //   Debug.Log("Your Value for Trigger is " + TriggerRight);
 
 
-        if (Input.GetButtonDown("Jump") )
+            if (Input.GetButtonDown("Jump") )
           {
             //Landing Gear
 
@@ -226,7 +258,7 @@ public class mplane_controller : MonoBehaviour
     //        Debug.Log("The object collided with the right side of the ball!");
     //    }
      //   Debug.Log(direction.y);
-        Debug.Log(collision.name);
+     //   Debug.Log(collision.name);
         // if (collision.transform.position.x < transform.position.x)
       //  if (collision.gameObject.tag == "ground" && direction.y > 0f)
      //   {
@@ -316,7 +348,67 @@ public class mplane_controller : MonoBehaviour
     //3 - 
     private void LateUpdate()
     {
+        if (onground==true)
+        {
+            rb.mass = 60;
+            rb.drag = .5f;
+            heavyMass = false;
+        }
+        if (Input.GetButtonDown("Fire3"))
+        {
+            if (pdead == true)
+            {
+                GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
+                GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
+                GameObject.Find("planeSkid_back").GetComponent<wheelHealth>().wheelHP = 100;
+                GameObject.Find("planeSkid_front").GetComponent<wheelHealth>().wheelHP = 100;
 
+                this.GetComponent<SpriteRenderer>().enabled = true;
+                this.GetComponent<Collider2D>().enabled = true;
+                pdead = false;
+                colSignal = false;
+                postmortem = 0;
+                engineSpool = 0;
+                rb.mass = 60;
+                rb.drag = .5f;
+                heavyMass = false;
+                rb.constraints = RigidbodyConstraints2D.None;
+                //colSignal
+
+
+                for (int i = 0; i < 3; i++)
+                {
+                    if (i == 0)
+                    {
+                        GameObject wheely = GameObject.Find("plane_wheel_" + i);
+                        wheely.transform.localPosition= whipos[i];
+                        wheely.transform.localRotation = whang[i];
+                        wheely.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                        wheely.GetComponent<Rigidbody2D>().simulated = false;
+                        wheely.GetComponent<PolygonCollider2D>().enabled = false;
+                        wheely.GetComponent<SpriteRenderer>().enabled = true;
+                    }
+                    else
+                    {
+                        GameObject wheely = GameObject.Find("plane_wheel_" + i);
+                        wheely.transform.localPosition = whipos[i];
+                        wheely.transform.localRotation = whang[i];
+                        wheely.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                        wheely.GetComponent<Rigidbody2D>().simulated = false;
+                        wheely.GetComponent<PolygonCollider2D>().enabled = false;
+                        wheely.GetComponent<SpriteRenderer>().enabled = true;
+                    }
+
+                }
+
+                transform.position = startLoc;
+                transform.rotation = SteuAngle;
+                rb.mass = 60;
+                rb.drag = .5f;
+                heavyMass = false;
+            }
+
+        }
         RaycastHit2D hit = Physics2D.Raycast(new Vector3(transform.position.x, transform.position.y - 0.1f, 0), -Vector2.up);
       //  Debug.Log(hit.collider.name);
 
@@ -745,6 +837,7 @@ public class mplane_controller : MonoBehaviour
                 Vector3 position = transform.position;
                 position.y = position.y - (feetLocationTransform.position.y - hit.point.y);
                 transform.position = position;
+
             }
             IsGrounded = true;
         }

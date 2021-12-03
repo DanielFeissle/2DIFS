@@ -69,7 +69,7 @@ public class cam_distance : MonoBehaviour
         cam = Camera.main;
         Vector3 p = cam.ScreenToWorldPoint(new Vector3(0, cam.pixelHeight, cam.nearClipPlane)); //top left
         Vector3 q = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, cam.nearClipPlane)); //bottom right
-        Debug.Log("CAMERA POS RIGHT MOST:" + q.x + " LEFT MOST " + p.x);
+   //     Debug.Log("CAMERA POS RIGHT MOST:" + q.x + " LEFT MOST " + p.x);
         foreach (GameObject g in bar)
         {
             if (g.transform.position.x < (q.x + 10) && (g.transform.position.x > (p.x - 10)))

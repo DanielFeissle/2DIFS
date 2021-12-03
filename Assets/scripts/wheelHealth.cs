@@ -20,13 +20,42 @@ public class wheelHealth : MonoBehaviour
       //  offset = transform.position - GameObject.Find("planeSkid_front").transform.position;
      //   pos = transform.position;
     }
+    /*
+    private void LateUpdate()
+    {
 
- 
-   
+        try
+        {
+           //12-1-2021 specr3 test
+            //4-7-20 new inner collision detection method!
+            //will actually check if objects are inside of playership
+            GameObject otherColliders = Physics2D.OverlapBox(new Vector3(this.transform.position.x,this.transform.position.y-.01f,0), new Vector2(.001f, .001f), 1).gameObject;
+            //    if (otherColliders.CompareTag("ShipIndest"))
+
+            //   if (!otherColliders.gameObject.CompareTag("station") && !otherColliders.gameObject.CompareTag("Player") && !otherColliders.gameObject.CompareTag("Finish") && !otherColliders.gameObject.CompareTag("ShipLiquidWaste") && !otherColliders.gameObject.CompareTag("Cloud"))
+            if (otherColliders.gameObject.CompareTag("ground"))
+            {
+
+                Debug.Log("$$$$$$$$$$$$$$$$$$$$$$$$" + otherColliders.name);
+                Debug.Log("wheel is stuck");
+                GameObject.Find("Player_plane").transform.position = new Vector3(transform.position.x + .3f, transform.position.y + .3f);
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.Log("Strange problem..." + ex.ToString());
+        }
+
+
+
+    }
+    */
     // Update is called once per frame
     void Update()
     {
         //  transform.position = GameObject.Find("planeSkid_front").transform.position + offset;
+
+
 
 
 
@@ -79,7 +108,7 @@ public class wheelHealth : MonoBehaviour
             {
                 GameObject.Find("Player_plane").GetComponent<mplane_controller>().colSignal = true;
                 GameObject.Find("Player_plane").GetComponent<mplane_controller>().postmortem = 2;
-                this.GetComponent<CapsuleCollider2D>().enabled = false;
+             //   this.GetComponent<CapsuleCollider2D>().enabled = false;
             }
     }
     }
