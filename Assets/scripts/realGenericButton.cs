@@ -14,19 +14,29 @@ public class realGenericButton : MonoBehaviour {
         yourButton = gameObject.GetComponent<Button>();
         yourButton.onClick.AddListener(TaskOnClick);
         nextUsage = Time.time + delay; //it is on display
+         Debug.Log("-------------------------------------------------------");
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void Awake()
+    {
+        yourButton = gameObject.GetComponent<Button>();
+        yourButton.onClick.AddListener(TaskOnClick);
+        nextUsage = Time.time + delay; //it is on display
+        Debug.Log(this.gameObject.name+"-------------------------------------------------------");
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 
     void TaskOnClick()
     {
-
-
-        listner.GetComponent<realGenericButtonListner>().buttonScreeen = buttonVal;
-            Debug.Log("You have clicked the button!");
+       
+        Debug.Log("THIS IS THE LIST " + listner);
+        // listner.GetComponent<realGenericButtonListner>().buttonScreeen = buttonVal;
+        GameObject.Find(listner.name).GetComponent<realGenericButtonListner>().buttonScreeen = buttonVal;
+        Debug.Log("You have clicked "+this.gameObject.name+ " button with a value of "+ buttonVal+"!");
        
        
 

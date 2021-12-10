@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 222747675766410016}
   - component: {fileID: 114058180239747236}
   - component: {fileID: 114565939413684244}
-  - component: {fileID: 6054695161865415998}
+  - component: {fileID: 8075375509796913023}
   m_Layer: 5
   m_Name: btn_Resume
   m_TagString: Untagged
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6054695161865415998
+--- !u!114 &8075375509796913023
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,11 +131,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1227492843573670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dcf7d8446928b6418cc681cd4653f95, type: 3}
+  m_Script: {fileID: 11500000, guid: 92f4a45a1d0b605488eb01d8a6214ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yourButton: {fileID: 114565939413684244}
+  yourButton: {fileID: 0}
   buttonVal: 1
+  listner: {fileID: 393994541771764347, guid: 09f6c9ce29f98944c9af689934fd72f2, type: 3}
 --- !u!1 &1249119356115024
 GameObject:
   m_ObjectHideFlags: 0

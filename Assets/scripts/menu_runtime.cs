@@ -7,17 +7,52 @@ using UnityEngine.SceneManagement;
 public class menu_runtime : MonoBehaviour
 {
     public int btn_pauser = -1;
+    public int specButtonStat = -1;
+    public GameObject ListnerAndRuntimeOBJ;
+    public GameObject playerOBJ;
     int buttonVal = -1;
     // Start is called before the first frame update
     void Start()
     {
         btn_pauser = -1;
+        if (ListnerAndRuntimeOBJ==null)
+        {
+            Debug.Log("NULL VALUE, LOADING");
+            ListnerAndRuntimeOBJ = this.gameObject;
+        }
+
     }
+    //12-8-2021
+    //For this to work there are two gameobjects 
+    //ListnerAndRuntimeOBJ - this can either be set ahead of time or picked up on the spot
+    // This gameobject needs to have menu_runtime and the realGenericButtonListner script attached!
+    //playerOBJ - Connect this to the player prefab
+    //specButtonStat is a custom value- currently designed to be used to tell the player to sodoff and not allow any input or rotation
 
     // Update is called once per frame
     void Update()
     {
-        GameObject curPlay = GameObject.Find("Player_plane");
+
+        //   Debug.Log("VALUE IS " + this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen);
+       int fff= GameObject.Find(ListnerAndRuntimeOBJ.name).GetComponent<realGenericButtonListner>().buttonScreeen;
+    //    Debug.Log("WHAT IS " + fff);
+        if (this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen != 0)
+        {
+
+            if (this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen == 1)
+            {
+                btn_pauser = 2;
+            }
+            else if (this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen == 2)
+            {
+                btn_pauser = 1;
+            }
+            Debug.Log("HI THERE");
+           this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen = 0;
+        }
+
+
+        GameObject curPlay = GameObject.Find(playerOBJ.name);
         Transform lard = curPlay.GetComponent<Transform>();
         mplane_controller FFF = curPlay.GetComponent<mplane_controller>();
 
@@ -28,7 +63,7 @@ public class menu_runtime : MonoBehaviour
         {
             if (GameObject.Find("btn_Resume")) //if it exists
             {
-                buttonVal= GameObject.Find("btn_Resume").GetComponent<GenericButtonController>().buttonVal;
+             //   buttonVal= GameObject.Find("btn_Resume").GetComponent<GenericButtonController>().buttonVal;
              //   buttonVal = GameObject.Find("btn_Quit").GetComponent<GenericButtonController>().buttonVal;
           //      Debug.Log("YOUR BUTTON VALUE IS " + buttonVal);
             }
@@ -36,6 +71,7 @@ public class menu_runtime : MonoBehaviour
                 if ((btn_pauser == 1 || Input.GetButtonUp("Fire2")) && Time.timeScale != 0 && FFF.pdead == false) //StartButton , not paused and not dead
             {
                 btn_pauser = -1;
+                specButtonStat = 1;
                 GameObject getCand = GameObject.Find("Canvas");
                 // GameObject getEvent = GameObject.Find("EventSystem");
 
@@ -72,7 +108,7 @@ public class menu_runtime : MonoBehaviour
             {
                 btn_pauser = -1;
                 DestroyPauseMenuObj();
-
+                specButtonStat = -1;
                 Time.timeScale = 1;
             }
         }

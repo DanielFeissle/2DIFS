@@ -219,7 +219,15 @@ public class mplane_controller : MonoBehaviour
             if (toggleLandGear == false)
             {
                 ani.SetInteger("ani_tire", 2);
-                ani.speed = 0.1f;
+                if (quickTireSet==true)
+                {
+                    ani.speed = 1.01f;
+                }
+                else
+                {
+                    ani.speed = 0.1f;
+                }
+
             }
             else
             {
@@ -341,6 +349,7 @@ public class mplane_controller : MonoBehaviour
     int gib = 0;
     public bool colSignal = false;
     public int postmortem = 0;
+    bool quickTireSet = false;
     //what you did code
     // 0- alive and a ok (not dead)
     // 1-hull breach
@@ -348,7 +357,12 @@ public class mplane_controller : MonoBehaviour
     //3 - 
     private void LateUpdate()
     {
-        if (onground==true)
+
+        if (GameObject.Find("altimeter").gameObject.GetComponent<menu_runtime>().specButtonStat == -1)
+        {
+
+
+            if (onground==true)
         {
             rb.mass = 60;
             rb.drag = .5f;
@@ -374,8 +388,10 @@ public class mplane_controller : MonoBehaviour
                 heavyMass = false;
                 rb.constraints = RigidbodyConstraints2D.None;
                 //colSignal
-
-
+                quickTireSet = true;
+                toggleLandGear = false;
+                tireAni();
+                quickTireSet = false;
                 for (int i = 0; i < 3; i++)
                 {
                     if (i == 0)
@@ -525,6 +541,11 @@ public class mplane_controller : MonoBehaviour
 
             if (onground==false)
             {
+                    if (toggleLandGear==true) //landing gear is gone, so increase the speed
+                    {
+                        rb.AddRelativeForce(Vector3.right * engineSpool * 55 * Time.deltaTime);
+                    }
+
                 if (transform.rotation.eulerAngles.z > 0 && transform.rotation.eulerAngles.z < 45)
                 {
 
@@ -676,7 +697,7 @@ public class mplane_controller : MonoBehaviour
            rotateSpeed = 188;
         }
         }
-
+        }
     }
 
     // Update is called once per frame
@@ -684,7 +705,7 @@ public class mplane_controller : MonoBehaviour
     {
       //  GameObject.Find("HOLDER").GetComponent<Transform>().transform.position = this.transform.position;
      //   GameObject.Find("HOLDER").GetComponent<Transform>().transform.eulerAngles = this.transform.eulerAngles;
-        if (pdead==false)
+        if (pdead==false && GameObject.Find("altimeter").gameObject.GetComponent<menu_runtime>().specButtonStat==-1)
         {
 
        //     DetectGround();
