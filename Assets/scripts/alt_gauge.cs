@@ -29,6 +29,10 @@ public class alt_gauge : MonoBehaviour
                 if (hit.collider.gameObject.tag != "Player")
                 {
                     float pos = this.transform.position.y - hit.collider.bounds.center.y;
+
+                    GameObject txt_xcor = GameObject.Find("txt_xord");
+                    txt_xcor.GetComponent<Text>().text = "XCOR: " + (Math.Round(this.transform.position.x,2));
+
                     //ALTOBJ:
                     GameObject txtAlt = GameObject.Find("txt_alt_OBJ");
                 //    Debug.Log("CUR POSY" + pos);

@@ -29,6 +29,7 @@ public class mplane_controller : MonoBehaviour
     Quaternion SteuAngle;
     Quaternion[] whang = new Quaternion[3];
     Vector3 []  whipos=new Vector3[3];
+    public double maxAlt = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -521,11 +522,18 @@ public class mplane_controller : MonoBehaviour
         GameObject aoa_gauge = GameObject.Find("sld_AOA");
         aoa_gauge.GetComponent<Slider>().value = basense;
 
-
         GameObject txtAlt = GameObject.Find("txt_altitude");
             altitude = Math.Round(transform.position.y, 2);
         txtAlt.GetComponent<Text>().text = "SEA: " + altitude;
 
+                if (altitude>maxAlt)
+                {
+                    maxAlt = altitude;
+                }
+                else if (pdead==true)
+                {
+                    maxAlt = 0;
+                }
         GameObject txtSpd = GameObject.Find("txt_speed");
         txtSpd.GetComponent<Text>().text = "Speed: " + Math.Round(Speed, 2);
             rb.AddRelativeForce(Vector3.right * 20 * 340 * Time.deltaTime);

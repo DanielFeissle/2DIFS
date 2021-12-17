@@ -1,5 +1,8 @@
 #lines that start with # are comments
 #values are seperated by commas (,)
+#objective for scene
+#OBJ,Scene title, GET Height (+or-), Land start, Land End
+OBJ,Welcome test!,40,0,9999
 # Prefab,LayerOrder,StartX,EndX,StartY,EndY
 ground/airport,1,0,1000,0,1
 ground/airport,1,50,150,10,20

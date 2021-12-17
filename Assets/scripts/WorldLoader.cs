@@ -4,15 +4,15 @@ using UnityEngine;
 using System.IO;
 using System.Text;
 using System;
+using UnityEngine.UI;
 
 public class WorldLoader : MonoBehaviour
 {
+
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("HI");
-
-
          ReadString("1x1");
 
      //   TextAsset txt = (TextAsset)Resources.Load("scenes\\readme", typeof(TextAsset));
@@ -28,6 +28,7 @@ public class WorldLoader : MonoBehaviour
     {
         
     }
+ 
 
     //https://support.unity3d.com/hc/en-us/articles/115000341143-How-do-I-read-and-write-data-from-a-text-file-
     static void ReadString(string sceneRead)
@@ -41,6 +42,18 @@ public class WorldLoader : MonoBehaviour
             {
                 Debug.Log("line comment");
              
+            }
+            else if (tta.Substring(0,3)=="OBJ")
+            {
+                string[] sclir = tta.Split(',');
+                GameObject uiAltiText2 = GameObject.Find("txt_OBJ");
+                Text delta21 = uiAltiText2.GetComponent<Text>();
+                delta21.text = "DRF-"+sclir[1]+"\n Reach a height of "+ sclir[2]+" and land in "+ sclir[3]+" to "+ sclir[4];
+                GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_title = sclir[1];
+                GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Height = Convert.ToInt32(sclir[2]);
+                GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Land_s = Convert.ToInt32(sclir[3]);
+                GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Land_e = Convert.ToInt32(sclir[4]);
+
             }
             else
             {
