@@ -30,9 +30,12 @@ public class mplane_controller : MonoBehaviour
     Quaternion[] whang = new Quaternion[3];
     Vector3 []  whipos=new Vector3[3];
     public double maxAlt = 0;
+    float nextUsage;
+    float delay = 0.05f; //only half delay
     // Start is called before the first frame update
     void Start()
     {
+        nextUsage = Time.time + delay; //it is on display
         startLoc = transform.position;
         SteuAngle =  transform.rotation;
         Vector3 pos = transform.position;
@@ -525,7 +528,23 @@ public class mplane_controller : MonoBehaviour
         GameObject txtAlt = GameObject.Find("txt_altitude");
             altitude = Math.Round(transform.position.y, 2);
         txtAlt.GetComponent<Text>().text = "SEA: " + altitude;
+                //contrails show up after this distance (1-11-2022)
+                //also part of the wind system that may be used later...
+                if (Time.time > nextUsage) //continue scrolling
+                {
+                    GameObject Supacont = Instantiate(Resources.Load("player\\contrail")) as GameObject;
+                    Supacont.name = "contrail";
+                    Supacont.transform.position = this.gameObject.transform.position;
+                    Supacont.transform.rotation = this.gameObject.transform.rotation;
+                    Supacont.GetComponent<SpriteRenderer>().enabled = false;
+                    if (altitude > 100)
+                    {
+                        Supacont.GetComponent<SpriteRenderer>().enabled = true;
+                    }
 
+                    nextUsage = Time.time + delay; //it is on display
+                }
+              
                 if (altitude>maxAlt)
                 {
                     maxAlt = altitude;

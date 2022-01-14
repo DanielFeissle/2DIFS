@@ -69,7 +69,10 @@ public class POLF : MonoBehaviour
             delta21.text = "";//.Substring(0, locCnt);
             GameObject uiAltiText22 = GameObject.Find("txt_OBJ");
             uiAltiText22.gameObject.GetComponent<Text>().enabled = true;
-             
+
+            GameObject bluTXT = GameObject.Find("bluLoading");
+            bluTXT.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+
         }
         if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == true && curSceneOver == false)
         {
@@ -114,8 +117,9 @@ public class POLF : MonoBehaviour
     {
         GameObject uiAltiText2 = GameObject.Find("txt_OBJ");
         uiAltiText2.gameObject.GetComponent<Text>().enabled = false;
-
-
+        GameObject bluTXT = GameObject.Find("bluLoading");
+        bluTXT.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        
         this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         timeStart = true;
     }
