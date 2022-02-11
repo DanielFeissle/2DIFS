@@ -197,6 +197,7 @@ MonoBehaviour:
   pdead: 0
   onground: 1
   ani: {fileID: 0}
+  maxAlt: 0
   impact: 0
   OBJaltitude: 0
   altitude: 0
@@ -725,6 +726,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defTag1: Player
   defTag2: game
+  defTag3: detail
+  myTags:
+  - Player
+  - game
+  - detail
 --- !u!1 &6289427525342529801
 GameObject:
   m_ObjectHideFlags: 0

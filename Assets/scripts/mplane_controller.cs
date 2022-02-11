@@ -280,54 +280,56 @@ public class mplane_controller : MonoBehaviour
         //{
         if (collision.gameObject.tag!="Player")
         {
-
-        
-            if (impact > 15)
+            if (collision.gameObject.tag != "detail")
             {
+                Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
 
-                int randoExplod = UnityEngine.Random.Range(2, 5);
-                for (int qt = 0; qt < randoExplod; qt++)
+                if (impact > 15)
                 {
-                    GameObject RepeatGround33 = Instantiate(Resources.Load("Exp2017")) as GameObject;
-                    RepeatGround33.name = "plaxplode(" + qt + ")";
-                    RepeatGround33.transform.position = new Vector2(transform.position.x + UnityEngine.Random.Range(-2, 2), transform.position.y - UnityEngine.Random.Range(-2, 2));
 
-                    rb.velocity = Vector3.zero;
-                    rb.freezeRotation = true;
-                    rb.constraints = RigidbodyConstraints2D.FreezeAll;
-
-
-                    if (pdead == false)
+                    int randoExplod = UnityEngine.Random.Range(2, 5);
+                    for (int qt = 0; qt < randoExplod; qt++)
                     {
+                        GameObject RepeatGround33 = Instantiate(Resources.Load("Exp2017")) as GameObject;
+                        RepeatGround33.name = "plaxplode(" + qt + ")";
+                        RepeatGround33.transform.position = new Vector2(transform.position.x + UnityEngine.Random.Range(-2, 2), transform.position.y - UnityEngine.Random.Range(-2, 2));
 
-                        if (impact > 25)
+                        rb.velocity = Vector3.zero;
+                        rb.freezeRotation = true;
+                        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+
+                        if (pdead == false)
                         {
-                            GameObject pback = Instantiate(Resources.Load("player\\gib\\p_back")) as GameObject;
-                            pback.name = "p_back)";
-                            pback.transform.position = new Vector2(transform.position.x - 0.5f, transform.position.y);
 
-                            GameObject pmid = Instantiate(Resources.Load("player\\gib\\p_mid")) as GameObject;
-                            pmid.name = "p_mid)";
-                            pmid.transform.position = new Vector2(transform.position.x, transform.position.y);
+                            if (impact > 25)
+                            {
+                                GameObject pback = Instantiate(Resources.Load("player\\gib\\p_back")) as GameObject;
+                                pback.name = "p_back)";
+                                pback.transform.position = new Vector2(transform.position.x - 0.5f, transform.position.y);
+
+                                GameObject pmid = Instantiate(Resources.Load("player\\gib\\p_mid")) as GameObject;
+                                pmid.name = "p_mid)";
+                                pmid.transform.position = new Vector2(transform.position.x, transform.position.y);
 
 
-                            GameObject pfront = Instantiate(Resources.Load("player\\gib\\p_front")) as GameObject;
-                            pfront.name = "p_front)";
-                            pfront.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y);
+                                GameObject pfront = Instantiate(Resources.Load("player\\gib\\p_front")) as GameObject;
+                                pfront.name = "p_front)";
+                                pfront.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y);
 
-                            this.GetComponent<SpriteRenderer>().enabled = false;
-                            this.GetComponent<Collider2D>().enabled = false;
+                                this.GetComponent<SpriteRenderer>().enabled = false;
+                                this.GetComponent<Collider2D>().enabled = false;
+                            }
+
+
+
                         }
 
-
-
+                        Debug.Log("HEY YOUR DEAD NOW" + collision.gameObject.tag);
+                        tireDisappear();
+                        pdead = true;
                     }
-
-                Debug.Log("HEY YOUR DEAD NOW"+ collision.gameObject.tag);
-                tireDisappear();
-                    pdead = true;
                 }
-
             }
         }
         // }
@@ -537,11 +539,12 @@ public class mplane_controller : MonoBehaviour
                     Supacont.transform.position = this.gameObject.transform.position;
                     Supacont.transform.rotation = this.gameObject.transform.rotation;
                     Supacont.GetComponent<SpriteRenderer>().enabled = false;
+                    Supacont.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 394 *engineSpool * Time.deltaTime);
                     if (altitude > 100)
                     {
                         Supacont.GetComponent<SpriteRenderer>().enabled = true;
                     }
-
+                    Supacont.GetComponent<SpriteRenderer>().enabled = true;
                     nextUsage = Time.time + delay; //it is on display
                 }
               
@@ -593,6 +596,8 @@ public class mplane_controller : MonoBehaviour
                         transform.rotation = rot;
                     }
 
+                
+
                     if (altitude < 150)
                     {
                         rb.mass = 60;
@@ -643,11 +648,12 @@ public class mplane_controller : MonoBehaviour
                 }
                 else if (transform.rotation.eulerAngles.z > 250 && transform.rotation.eulerAngles.z < 360)
                 {
-                    rb.drag = .88f;
+
+                        rb.drag = .88f;
                 }
 
-
-                if (Speed < 25)
+                   
+                    if (Speed < 25)
                 {
                     rb.AddRelativeForce(Vector3.up * 2500 * Time.deltaTime * 4);
                     if (Speed < 20 && engineSpool < 20)
@@ -660,7 +666,7 @@ public class mplane_controller : MonoBehaviour
                 else
                 {
 
-                    // rb.AddRelativeForce(Vector3.up * 250 * Time.deltaTime * -4);
+                 //    rb.AddRelativeForce(Vector3.up * 250 * Time.deltaTime *  -4);
                 }
 
                 if (Speed > 20)
@@ -681,7 +687,7 @@ public class mplane_controller : MonoBehaviour
                         res = res * -50;
 
 
-                        if (transform.rotation.eulerAngles.z > 290 && transform.rotation.eulerAngles.z < 360)
+                            if (transform.rotation.eulerAngles.z > 290 && transform.rotation.eulerAngles.z < 360)
                         {
                             res = transform.rotation.eulerAngles.z + 74;
                             rot = transform.rotation;
@@ -689,7 +695,9 @@ public class mplane_controller : MonoBehaviour
                             transform.rotation = rot;
                             res = res * 2;
                             rb.AddRelativeForce(Vector3.right * engineSpool * res * Time.deltaTime);
-                        }
+
+                              
+                            }
                         else if (transform.rotation.eulerAngles.z > 184 && transform.rotation.eulerAngles.z < 290)
                         {
                             //  rb.AddRelativeForce(new Vector3(-444, 0,0) * 50 * Time.deltaTime*4);
@@ -699,7 +707,19 @@ public class mplane_controller : MonoBehaviour
                             transform.rotation = rot;
                             res = res * 20;
                             rb.AddRelativeForce(Vector3.right * engineSpool * res * Time.deltaTime);
-                        }
+                                //1-27-2022 this spot controls the weird behavior 
+
+                             
+                              
+                                if (moveVertSense<0) //going up
+                                {
+                              //      rb.AddRelativeForce(Vector3.up * 30700 * Time.deltaTime * -4);
+                                //    rb.AddRelativeForce(Vector3.right * 40700 * Time.deltaTime * -4);
+                                }
+
+ 
+
+                            }
                         else
                         {
                             rb.AddRelativeForce(Vector3.up * -444 * Time.deltaTime * 4);
@@ -712,8 +732,22 @@ public class mplane_controller : MonoBehaviour
                     //      rb.AddRelativeForce(Vector3.right * engineSpool * -res * Time.deltaTime);
                 }
             }
-           
-            StartCoroutine(GetSpeed());
+                //1-27-2022 this spot controls the weird behavior as well aswell
+                if (moveVertSense < 0 && Speed<16 && (transform.rotation.eulerAngles.z > 90 && transform.rotation.eulerAngles.z < 180))
+                {
+                    transform.Rotate(0, 0, -rotateSpeed * (Time.deltaTime * UnityEngine.Random.Range(.65f,.98f)));
+               
+
+                }
+                else if (moveVertSense > 0 && (transform.rotation.eulerAngles.z > 180 && transform.rotation.eulerAngles.z < 300))
+                {
+                    //  transform.Rotate(0, 0, -rotateSpeed * (Time.deltaTime * UnityEngine.Random.Range(.65f, .98f)));
+                     rb.AddRelativeForce(new Vector3(0,1,0) * 9700 * Time.deltaTime * 4);
+                     rb.AddRelativeForce(Vector3.up * 9700 * Time.deltaTime * 4);
+                    Debug.Log("HELPING");
+                }
+
+                StartCoroutine(GetSpeed());
 
         if (Speed > 10) //faster so harder to move
         {
