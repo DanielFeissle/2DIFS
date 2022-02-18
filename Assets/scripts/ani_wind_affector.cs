@@ -7,7 +7,9 @@ public class ani_wind_affector : MonoBehaviour
 
     Vector2 startPos;
     Vector2 startScale;
-
+    float delay = 0.75f; //only half delay
+    float nextUsage;
+    int windCol = 0;
     float opX;
     float opY;
     string stupName="";
@@ -19,7 +21,7 @@ public class ani_wind_affector : MonoBehaviour
 
         transform.localScale = new Vector2(.1f, transform.localScale.y);
         transform.position = startPos;
-
+        nextUsage = Time.time + delay;
 
         stupName = "fpole" + UnityEngine.Random.Range(0,9999);
 
@@ -31,48 +33,176 @@ public class ani_wind_affector : MonoBehaviour
 
 
     }
-
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Rigidbody2D>() != null)
+        {
+            // windCol = 2;
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.GetComponent<Rigidbody2D>()!=null)
         {
-            Debug.Log("HELLO THERE " + collision.name + collision.GetComponent<Rigidbody2D>().velocity);
-            if (collision.GetComponent<Rigidbody2D>().velocity.x>this.transform.localScale.x)
+       //     Debug.Log("HELLO THERE " + collision.name +Mathf.Abs(collision.GetComponent<Rigidbody2D>().velocity.x) + "AND THIS IS MY CURRENT SPEED"+ this.transform.localScale.x);
+            if (Mathf.Abs(collision.GetComponent<Rigidbody2D>().velocity.x) > this.transform.localScale.x)
             {
-                this.transform.localScale = new Vector3(collision.GetComponent<Rigidbody2D>().velocity.x, this.transform.localScale.y, 0);
-                this.transform.localPosition += new Vector3(0, this.transform.localPosition.y,0);
-                opX = (collision.GetComponent<Rigidbody2D>().velocity.x);
-                StartCoroutine(WindGust());
-                transform.position = startPos;
+             //   Debug.Log("WE MADE IT"+ Mathf.Abs(collision.GetComponent<Rigidbody2D>().velocity.x));
+             if (Mathf.Abs(collision.GetComponent<Rigidbody2D>().velocity.x) < 4) //change this value to match scenario
+                {
+                    this.transform.localScale = new Vector3((collision.GetComponent<Rigidbody2D>().velocity.x), this.transform.localScale.y, 0);
+                 //   this.transform.localPosition += new Vector3(0, this.transform.localPosition.y, 0);
+                    opX = ((collision.GetComponent<Rigidbody2D>().velocity.x));
+                    if (windCol==0)
+                    {
+                        firsttouch = true;
+                        windCol = 1;
+                    }
+                    cnttch++;
+                    //   StartCoroutine(WindGust());
+                 //   transform.position = startPos;
+                }
+             else //speed is greater than four or whatever wise guy set it
+                {
+                    if (Camera.main.GetComponent<weather>().AirSpeed>0)
+                    {
+
+                        this.transform.localScale = new Vector3(-4, this.transform.localScale.y, 0);
+                      //  this.transform.localPosition += new Vector3(0, this.transform.localPosition.y, 0);
+                        opX = ((collision.GetComponent<Rigidbody2D>().velocity.x));
+                        if (windCol == 0)
+                        {
+                            firsttouch = true;
+                            windCol = 1;
+                        }
+                        cnttch++;
+                        //  StartCoroutine(WindGust());
+                     //   transform.position = startPos;
+                    }
+                    else
+                    {
+
+                        this.transform.localScale = new Vector3((4), this.transform.localScale.y, 0);
+                     //   this.transform.localPosition += new Vector3(0, this.transform.localPosition.y, 0);
+                        opX = ((collision.GetComponent<Rigidbody2D>().velocity.x));
+                        if (windCol == 0)
+                        {
+                            firsttouch = true;
+                            windCol = 1;
+                        }
+                        cnttch++;
+                        //  StartCoroutine(WindGust());
+                      //  transform.position = startPos;
+
+
+
+                    }
+
+                }
+
             }
 
         }
 
     }
+    int cnttch = 0;
+    bool firsttouch =false;
+    private void LateUpdate()
+    {
+    //    if (windCol == 1)
+     //       cnttch++;
+      //  if (windCol == 2)
+       //     cnttch--;
 
+    //   Debug.Log("CNT" + cnttch);
+        cnttch = cnttch + cnttch;
+        if (Time.time > nextUsage) //continue scrolling
+        {
 
+            if (cnttch==0)
+            {
+                //no longer touching or activly blowing
+                StartCoroutine(WindGust());
+                firsttouch = false;
+            }
+            else if (firsttouch==true)
+            {
+                StartCoroutine(WindGust());
+            }
+
+            /*
+            if (windCol==1)
+            {
+                StartCoroutine(WindGust());
+                windCol = 3;
+            }
+            else if (windCol==2) //nothing touching for a while
+            {
+                windCol = 0;
+            }
+            */
+            cnttch = 0;
+            nextUsage = Time.time + delay; //it is on display
+        }
+         
+        }
 
 
     IEnumerator WindGust()
     {
-
+ 
      //   2-10-22 kind of a cheap wind solution but for what I have/can do this is good for now. Or perhaps forever in here
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y,0);
         while (this.transform.localScale!=new Vector3(0,0,0)) //infinite loop or something
         {
-            var renderer2 = this.GetComponent<Renderer>();
-            //     GameObject.Find("flag_pole(64x64)").transform.position = new Vector3(renderer2.bounds.max.x, GameObject.Find("flag_pole(64x64)").transform.position.y, 0);
-            GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.max.x, GameObject.Find(stupName).transform.position.y, 0);
-            yield return new WaitForSeconds(0.05f);
 
- 
-
-            transform.localScale = new Vector3(transform.localScale.x-.1f, transform.localScale.y, 0);
-
-            if (transform.localScale.x<0)
+            //2-15-2022 this controls the pole movement location, right now for x weather the speed is going left or right
+            if (Camera.main.GetComponent<weather>().AirSpeed > 0)
             {
-            
-                break;
+
+
+
+
+                //       var renderer2 = this.GetComponent<Renderer>();
+                //      GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.max.x, GameObject.Find(stupName).transform.position.y, 0);
+                      var renderer2 = this.GetComponent<Renderer>();
+                  //2-17-2022 Take that 2-10-22 comment, this is no longer the cheap fx, the flag moves. not the pole! (repeated in the else statement just removed  the negation)
+                this.gameObject.transform.position=new Vector3((-renderer2.bounds.extents.x+ GameObject.Find(stupName).GetComponent<Renderer>().bounds.center.x), GameObject.Find(stupName).transform.position.y, 0);
+
+
+
+                yield return new WaitForSeconds(0.15f);
+
+
+
+                transform.localScale = new Vector3(transform.localScale.x + .1f, transform.localScale.y, 0);
+              //  Debug.Log("HIIII " + transform.localScale.x);
+                if (transform.localScale.x > 0)
+                {
+                 transform.localScale = new Vector3(-0.1f, transform.localScale.y, 0);
+                    break;
+                }
+
+            }
+            else
+            {
+                 var renderer2 = this.GetComponent<Renderer>();
+
+                //    GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.min.x, GameObject.Find(stupName).transform.position.y, 0);
+
+                //      yield return new WaitForSeconds(0.55f);
+
+                this.gameObject.transform.position = new Vector3((renderer2.bounds.extents.x + GameObject.Find(stupName).GetComponent<Renderer>().bounds.center.x), GameObject.Find(stupName).transform.position.y, 0);
+
+                yield return new WaitForSeconds(0.15f);
+
+                transform.localScale = new Vector3(transform.localScale.x- .1f, transform.localScale.y, 0);
+
+                if (transform.localScale.x <0)
+                {
+                    transform.localScale = new Vector3(.1f, transform.localScale.y, 0);
+                    break;
+                }
             }
 
         }
@@ -83,6 +213,6 @@ public class ani_wind_affector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

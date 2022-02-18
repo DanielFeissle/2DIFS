@@ -282,7 +282,7 @@ public class mplane_controller : MonoBehaviour
         {
             if (collision.gameObject.tag != "detail")
             {
-                Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+            //    Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
 
                 if (impact > 15)
                 {

@@ -115,12 +115,16 @@ public class POLF : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        GameObject uiAltiText2 = GameObject.Find("txt_OBJ");
-        uiAltiText2.gameObject.GetComponent<Text>().enabled = false;
-        GameObject bluTXT = GameObject.Find("bluLoading");
-        bluTXT.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        
-        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        timeStart = true;
+        if (collision.name=="Player_plane")
+        {
+            GameObject uiAltiText2 = GameObject.Find("txt_OBJ");
+            uiAltiText2.gameObject.GetComponent<Text>().enabled = false;
+            GameObject bluTXT = GameObject.Find("bluLoading");
+            bluTXT.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
+            this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            timeStart = true;
+        }
+
     }
 }
