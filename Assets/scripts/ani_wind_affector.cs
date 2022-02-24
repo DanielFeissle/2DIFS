@@ -40,72 +40,152 @@ public class ani_wind_affector : MonoBehaviour
             // windCol = 2;
         }
     }
+    //2-23-22 final part, adjust speed for when player comes rolling on through the area
+    float AirspeedOverride = 0;
+    float AirspeedOverrideABS = 0;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.GetComponent<Rigidbody2D>()!=null)
         {
-       //     Debug.Log("HELLO THERE " + collision.name +Mathf.Abs(collision.GetComponent<Rigidbody2D>().velocity.x) + "AND THIS IS MY CURRENT SPEED"+ this.transform.localScale.x);
-            if (Mathf.Abs(collision.GetComponent<Rigidbody2D>().velocity.x) > this.transform.localScale.x)
+
+            if (!collision.GetComponent<weather_obj>())
             {
-             //   Debug.Log("WE MADE IT"+ Mathf.Abs(collision.GetComponent<Rigidbody2D>().velocity.x));
-             if (Mathf.Abs(collision.GetComponent<Rigidbody2D>().velocity.x) < 4) //change this value to match scenario
+                //THis is the player contrails
+                // delay = 0.05f;
+                if (AirspeedOverrideABS==0)
                 {
-                    this.transform.localScale = new Vector3((collision.GetComponent<Rigidbody2D>().velocity.x), this.transform.localScale.y, 0);
-                 //   this.transform.localPosition += new Vector3(0, this.transform.localPosition.y, 0);
+                    StartCoroutine(WindGust());
+                    AirspeedOverrideABS = Mathf.Abs(AirspeedOverride);
+                }
+
+                if (Mathf.Abs(Camera.main.GetComponent<weather>().AirSpeed) > AirspeedOverrideABS)
+                {
+                    AirspeedOverrideABS = 0;
+                    AirspeedOverride = 0;
+                }
+                if (AirspeedOverrideABS > 0f)
+                {
+                    AirspeedOverrideABS = AirspeedOverrideABS - 0.1f;
+                    if (AirspeedOverrideABS < .2f)
+                    {
+                        AirspeedOverrideABS = Mathf.Round(AirspeedOverrideABS);
+                        AirspeedOverride = Mathf.Round(AirspeedOverride);
+                    }
+                   
+                }
+                AirspeedOverride = collision.GetComponent<Rigidbody2D>().velocity.x;
+                Debug.Log("SPEEEEEEEEEEEEEEEEEEED"+AirspeedOverride);
+            }
+            else
+            {
+                AirspeedOverride = 0;
+                delay = 0.75f;
+            }
+            //     Debug.Log("HELLO THERE " + collision.name +Mathf.Abs(collision.GetComponent<Rigidbody2D>().velocity.x) + "AND THIS IS MY CURRENT SPEED"+ this.transform.localScale.x);
+            if (AirspeedOverride == 0)
+            {
+                if (Mathf.Abs(collision.GetComponent<Rigidbody2D>().velocity.x) > this.transform.localScale.x)
+                {
+                    //   Debug.Log("WE MADE IT"+ Mathf.Abs(collision.GetComponent<Rigidbody2D>().velocity.x));
+                    if (Mathf.Abs(collision.GetComponent<Rigidbody2D>().velocity.x) < 4) //change this value to match scenario
+                    {
+                        this.transform.localScale = new Vector3((collision.GetComponent<Rigidbody2D>().velocity.x), this.transform.localScale.y, 0);
+                        //   this.transform.localPosition += new Vector3(0, this.transform.localPosition.y, 0);
+                        opX = ((collision.GetComponent<Rigidbody2D>().velocity.x));
+                        if (windCol == 0)
+                        {
+                            firsttouch = true;
+                            windCol = 1;
+                        }
+                        cnttch++;
+                        //   StartCoroutine(WindGust());
+                        //   transform.position = startPos;
+                    }
+                    else //speed is greater than four or whatever wise guy set it
+                    {
+                        if (Camera.main.GetComponent<weather>().AirSpeed > 0)
+                        {
+
+                            this.transform.localScale = new Vector3(-4, this.transform.localScale.y, 0);
+                            //  this.transform.localPosition += new Vector3(0, this.transform.localPosition.y, 0);
+                            opX = ((collision.GetComponent<Rigidbody2D>().velocity.x));
+                            if (windCol == 0)
+                            {
+                                firsttouch = true;
+                                windCol = 1;
+                            }
+                            cnttch++;
+                            //  StartCoroutine(WindGust());
+                            //   transform.position = startPos;
+                        }
+                        else
+                        {
+
+                            this.transform.localScale = new Vector3((4), this.transform.localScale.y, 0);
+                            //   this.transform.localPosition += new Vector3(0, this.transform.localPosition.y, 0);
+                            opX = ((collision.GetComponent<Rigidbody2D>().velocity.x));
+                            if (windCol == 0)
+                            {
+                                firsttouch = true;
+                                windCol = 1;
+                            }
+                            cnttch++;
+                            //  StartCoroutine(WindGust());
+                            //  transform.position = startPos;
+
+
+
+                        }
+
+                    }
+
+                }
+            }
+            else
+            {
+
+
+                if (AirspeedOverride < 0.1)
+                {
+
+                    this.transform.localScale = new Vector3(-4, this.transform.localScale.y, 0);
+                    //  this.transform.localPosition += new Vector3(0, this.transform.localPosition.y, 0);
                     opX = ((collision.GetComponent<Rigidbody2D>().velocity.x));
-                    if (windCol==0)
+                    if (windCol == 0)
                     {
                         firsttouch = true;
                         windCol = 1;
                     }
                     cnttch++;
-                    //   StartCoroutine(WindGust());
-                 //   transform.position = startPos;
+                    //  StartCoroutine(WindGust());
+                    //   transform.position = startPos;
                 }
-             else //speed is greater than four or whatever wise guy set it
+                else
                 {
-                    if (Camera.main.GetComponent<weather>().AirSpeed>0)
+
+                    this.transform.localScale = new Vector3((4), this.transform.localScale.y, 0);
+                    //   this.transform.localPosition += new Vector3(0, this.transform.localPosition.y, 0);
+                    opX = ((collision.GetComponent<Rigidbody2D>().velocity.x));
+                    if (windCol == 0)
                     {
-
-                        this.transform.localScale = new Vector3(-4, this.transform.localScale.y, 0);
-                      //  this.transform.localPosition += new Vector3(0, this.transform.localPosition.y, 0);
-                        opX = ((collision.GetComponent<Rigidbody2D>().velocity.x));
-                        if (windCol == 0)
-                        {
-                            firsttouch = true;
-                            windCol = 1;
-                        }
-                        cnttch++;
-                        //  StartCoroutine(WindGust());
-                     //   transform.position = startPos;
+                        firsttouch = true;
+                        windCol = 1;
                     }
-                    else
-                    {
-
-                        this.transform.localScale = new Vector3((4), this.transform.localScale.y, 0);
-                     //   this.transform.localPosition += new Vector3(0, this.transform.localPosition.y, 0);
-                        opX = ((collision.GetComponent<Rigidbody2D>().velocity.x));
-                        if (windCol == 0)
-                        {
-                            firsttouch = true;
-                            windCol = 1;
-                        }
-                        cnttch++;
-                        //  StartCoroutine(WindGust());
-                      //  transform.position = startPos;
+                    cnttch++;
+                    //  StartCoroutine(WindGust());
+                    //  transform.position = startPos;
 
 
-
-                    }
 
                 }
 
             }
 
+
         }
 
     }
-    int cnttch = 0;
+   public int cnttch = 0;
     bool firsttouch =false;
     private void LateUpdate()
     {
@@ -141,6 +221,7 @@ public class ani_wind_affector : MonoBehaviour
                 windCol = 0;
             }
             */
+            delay = 0.75f;
             cnttch = 0;
             nextUsage = Time.time + delay; //it is on display
         }
@@ -156,54 +237,111 @@ public class ani_wind_affector : MonoBehaviour
         while (this.transform.localScale!=new Vector3(0,0,0)) //infinite loop or something
         {
 
-            //2-15-2022 this controls the pole movement location, right now for x weather the speed is going left or right
-            if (Camera.main.GetComponent<weather>().AirSpeed > 0)
+            if (AirspeedOverride==0)
             {
-
-
-
-
-                //       var renderer2 = this.GetComponent<Renderer>();
-                //      GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.max.x, GameObject.Find(stupName).transform.position.y, 0);
-                      var renderer2 = this.GetComponent<Renderer>();
-                  //2-17-2022 Take that 2-10-22 comment, this is no longer the cheap fx, the flag moves. not the pole! (repeated in the else statement just removed  the negation)
-                this.gameObject.transform.position=new Vector3((-renderer2.bounds.extents.x+ GameObject.Find(stupName).GetComponent<Renderer>().bounds.center.x), GameObject.Find(stupName).transform.position.y, 0);
-
-
-
-                yield return new WaitForSeconds(0.15f);
-
-
-
-                transform.localScale = new Vector3(transform.localScale.x + .1f, transform.localScale.y, 0);
-              //  Debug.Log("HIIII " + transform.localScale.x);
-                if (transform.localScale.x > 0)
+                //2-15-2022 this controls the pole movement location, right now for x weather the speed is going left or right
+                if (Camera.main.GetComponent<weather>().AirSpeed > 0)
                 {
-                 transform.localScale = new Vector3(-0.1f, transform.localScale.y, 0);
-                    break;
-                }
 
+
+                    Debug.Log("MY OBJECT IS " + stupName);
+
+                    //       var renderer2 = this.GetComponent<Renderer>();
+                    //      GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.max.x, GameObject.Find(stupName).transform.position.y, 0);
+                    var renderer2 = this.GetComponent<Renderer>();
+                    //2-17-2022 Take that 2-10-22 comment, this is no longer the cheap fx, the flag moves. not the pole! (repeated in the else statement just removed  the negation)
+                    this.gameObject.transform.position = new Vector3((-renderer2.bounds.extents.x + GameObject.Find(stupName).GetComponent<Renderer>().bounds.center.x), GameObject.Find(stupName).transform.position.y, 0);
+
+
+
+                    yield return new WaitForSeconds(0.35f);
+
+
+
+                    transform.localScale = new Vector3(transform.localScale.x + .1f, transform.localScale.y, 0);
+                    //  Debug.Log("HIIII " + transform.localScale.x);
+                    if (transform.localScale.x > 0)
+                    {
+                        transform.localScale = new Vector3(-0.1f, transform.localScale.y, 0);
+                        break;
+                    }
+
+                }
+                else
+                {
+                    var renderer2 = this.GetComponent<Renderer>();
+
+                    //    GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.min.x, GameObject.Find(stupName).transform.position.y, 0);
+
+                    //      yield return new WaitForSeconds(0.55f);
+
+                    this.gameObject.transform.position = new Vector3((renderer2.bounds.extents.x + GameObject.Find(stupName).GetComponent<Renderer>().bounds.center.x), GameObject.Find(stupName).transform.position.y, 0);
+
+                    yield return new WaitForSeconds(0.35f);
+
+                    transform.localScale = new Vector3(transform.localScale.x - .1f, transform.localScale.y, 0);
+
+                    if (transform.localScale.x < 0)
+                    {
+                        transform.localScale = new Vector3(.1f, transform.localScale.y, 0);
+                        break;
+                    }
+                }
             }
             else
             {
-                 var renderer2 = this.GetComponent<Renderer>();
 
-                //    GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.min.x, GameObject.Find(stupName).transform.position.y, 0);
-
-                //      yield return new WaitForSeconds(0.55f);
-
-                this.gameObject.transform.position = new Vector3((renderer2.bounds.extents.x + GameObject.Find(stupName).GetComponent<Renderer>().bounds.center.x), GameObject.Find(stupName).transform.position.y, 0);
-
-                yield return new WaitForSeconds(0.15f);
-
-                transform.localScale = new Vector3(transform.localScale.x- .1f, transform.localScale.y, 0);
-
-                if (transform.localScale.x <0)
+                if (AirspeedOverride < 0)
                 {
-                    transform.localScale = new Vector3(.1f, transform.localScale.y, 0);
-                    break;
+
+
+
+
+                    //       var renderer2 = this.GetComponent<Renderer>();
+                    //      GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.max.x, GameObject.Find(stupName).transform.position.y, 0);
+                    var renderer2 = this.GetComponent<Renderer>();
+                    //2-17-2022 Take that 2-10-22 comment, this is no longer the cheap fx, the flag moves. not the pole! (repeated in the else statement just removed  the negation)
+                    this.gameObject.transform.position = new Vector3((-renderer2.bounds.extents.x + GameObject.Find(stupName).GetComponent<Renderer>().bounds.center.x), GameObject.Find(stupName).transform.position.y, 0);
+
+
+
+                    yield return new WaitForSeconds(0.35f);
+
+
+
+                    transform.localScale = new Vector3(transform.localScale.x + .1f, transform.localScale.y, 0);
+                    //  Debug.Log("HIIII " + transform.localScale.x);
+                    if (transform.localScale.x > 0)
+                    {
+                        transform.localScale = new Vector3(-0.1f, transform.localScale.y, 0);
+                        break;
+                    }
+
                 }
+                else
+                {
+                    var renderer2 = this.GetComponent<Renderer>();
+
+                    //    GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.min.x, GameObject.Find(stupName).transform.position.y, 0);
+
+                    //      yield return new WaitForSeconds(0.55f);
+
+                    this.gameObject.transform.position = new Vector3((renderer2.bounds.extents.x + GameObject.Find(stupName).GetComponent<Renderer>().bounds.center.x), GameObject.Find(stupName).transform.position.y, 0);
+
+                    yield return new WaitForSeconds(0.35f);
+
+                    transform.localScale = new Vector3(transform.localScale.x - .1f, transform.localScale.y, 0);
+
+                    if (transform.localScale.x < 0)
+                    {
+                        transform.localScale = new Vector3(.1f, transform.localScale.y, 0);
+                        break;
+                    }
+                }
+
+
             }
+
 
         }
 
