@@ -244,7 +244,7 @@ public class ani_wind_affector : MonoBehaviour
                 {
 
 
-                    Debug.Log("MY OBJECT IS " + stupName);
+           //         Debug.Log("MY OBJECT IS " + stupName);
 
                     //       var renderer2 = this.GetComponent<Renderer>();
                     //      GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.max.x, GameObject.Find(stupName).transform.position.y, 0);

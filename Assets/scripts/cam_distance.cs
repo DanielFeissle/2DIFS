@@ -10,6 +10,7 @@ public class cam_distance : MonoBehaviour
     Renderer objRenderer;
     GameObject[] gamy;
     GameObject[] bamy;
+    GameObject[] damy;
     private Camera cam;
 
     float delay = 0.1f; //only half delay
@@ -50,13 +51,14 @@ public class cam_distance : MonoBehaviour
                 
                 gamy = GameObject.FindGameObjectsWithTag("ground");
                 bamy = GameObject.FindGameObjectsWithTag("background");
+                damy = GameObject.FindGameObjectsWithTag("detail");
                 sceneLoad = true;
             }
            
 
             rendThis(gamy);
             rendThis(bamy);
-
+            rendThis(damy);
 
             nextUsage = Time.time + delay;
         }
@@ -72,21 +74,28 @@ public class cam_distance : MonoBehaviour
    //     Debug.Log("CAMERA POS RIGHT MOST:" + q.x + " LEFT MOST " + p.x);
         foreach (GameObject g in bar)
         {
-            if (g.transform.position.x < (q.x + 10) && (g.transform.position.x > (p.x - 10)))
+            //2-28-22 setactive saves a lot of processing power- scenes should now be able to be very large without issues!
+            if (g.gameObject.GetComponent<Renderer>())
             {
-                g.GetComponent<Renderer>().enabled = true;
-                //      Debug.Log("THE FOLLOWING IS" + g.name);
+                if (g.transform.position.x < (q.x + 10) && (g.transform.position.x > (p.x - 10)))
+                {
+                  //   g.GetComponent<Renderer>().enabled = true;
+                    //      Debug.Log("THE FOLLOWING IS" + g.name);
+                     g.SetActive(true);
+                }
+                else if (g.transform.position.x < (p.x - 10))
+                {
+                     //   g.GetComponent<Renderer>().enabled = false;
+                    g.SetActive(false);
 
+                }
+                else
+                {
+                  //  g.GetComponent<Renderer>().enabled = false;
+                    g.SetActive(false);
+                }
             }
-            else if (g.transform.position.x < (p.x - 10))
-            {
-                g.GetComponent<Renderer>().enabled = false;
-               
-            }
-            else
-            {
-                g.GetComponent<Renderer>().enabled = false;
-            }
+          
 
         }
     }

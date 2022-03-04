@@ -5,11 +5,14 @@ using UnityEngine;
 public class weather : MonoBehaviour
 {
     public int AirSpeed = 444;
+    public int cloudy = 0; //more clouds is more chance for thunder/rain
+    
     float delay = 0.25f; //only half delay
     float nextUsage;
     private Camera cam;
     Renderer m_Renderer;
     int priorSpeed = 1;
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +20,7 @@ public class weather : MonoBehaviour
         m_Renderer = GetComponent<Renderer>();
         delay = 0.25f; //only half delay
         nextUsage = 0;
+      
 
     }
 
@@ -26,6 +30,30 @@ public class weather : MonoBehaviour
 
         if (Time.time > nextUsage || AirSpeed!=priorSpeed) //continue scrolling
         {
+            Vector3 p = cam.ScreenToWorldPoint(new Vector3(0, cam.pixelHeight, cam.nearClipPlane)); //top left
+            Vector3 q = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, cam.nearClipPlane)); //bottom right
+            if (Random.Range(0,100)<cloudy)
+            {
+                if (this.transform.position.y>-50)
+                {
+                   
+                    for (int i = 0; i < cloudy; i++)
+                    {
+                        GameObject picky = Instantiate(Resources.Load("weather/cloud/cloud1")) as GameObject;
+                        picky.name = "starmon";
+                        picky.transform.position = new Vector2(UnityEngine.Random.Range(p.x + 75, q.x + 75), UnityEngine.Random.Range(q.y - 25, p.y + 25));
+                        //        picky.transform.localScale = new Vector2(UnityEngine.Random.Range(p.x , q.x ), UnityEngine.Random.Range(q.y , p.y ));
+                        picky.transform.localScale = new Vector2(UnityEngine.Random.Range(4, 8), UnityEngine.Random.Range(4, 8));
+                        if (Random.Range(0, 100) > cloudy)
+                        {
+                            break;
+                        }
+                    }
+                }
+              
+            }
+
+
             //2-16-2022 only do this if a zero number gets put in by accident!
             if (AirSpeed==0)
             {
@@ -42,8 +70,7 @@ public class weather : MonoBehaviour
             }
 
             cam = Camera.main;
-            Vector3 p = cam.ScreenToWorldPoint(new Vector3(0, cam.pixelHeight, cam.nearClipPlane)); //top left
-            Vector3 q = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, cam.nearClipPlane)); //bottom right
+            
 
 
             if (AirSpeed>0)
