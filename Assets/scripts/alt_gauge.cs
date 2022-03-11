@@ -30,7 +30,9 @@ public class alt_gauge : MonoBehaviour
                 {
                     if (hit.collider.gameObject.tag != "detail")
                     {
-                        float pos = this.transform.position.y - hit.collider.bounds.center.y;
+                        if (hit.collider.gameObject.tag != "cloud")
+                        {
+                            float pos = this.transform.position.y - hit.collider.bounds.center.y;
 
                         GameObject txt_xcor = GameObject.Find("txt_xord");
                         txt_xcor.GetComponent<Text>().text = "XCOR: " + (Math.Round(this.transform.position.x, 2));
@@ -50,17 +52,17 @@ public class alt_gauge : MonoBehaviour
 
                         }
 
-                        if (pos < .30f)
-                        {
-                            GameObject aoa_gauge = GameObject.Find("sld_AOA");
-
-                            if (aoa_gauge.GetComponent<Slider>().value > 165)
+                            if (pos < .30f)
                             {
-                                GameObject.Find("Player_plane").GetComponent<Transform>().transform.position = new Vector2(GameObject.Find("Player_plane").GetComponent<Transform>().position.x, hit.collider.bounds.center.y + dips);
+                                GameObject aoa_gauge = GameObject.Find("sld_AOA");
+
+                                if (aoa_gauge.GetComponent<Slider>().value > 165)
+                                {
+                                    GameObject.Find("Player_plane").GetComponent<Transform>().transform.position = new Vector2(GameObject.Find("Player_plane").GetComponent<Transform>().position.x, hit.collider.bounds.center.y + dips);
+
+                                }
 
                             }
-
-
                         }
                     }
                 }

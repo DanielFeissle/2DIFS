@@ -7,12 +7,13 @@ public class ani_wind_affector : MonoBehaviour
 
     Vector2 startPos;
     Vector2 startScale;
-    float delay = 0.75f; //only half delay
+    float delay = 1.45f; //only half delay
     float nextUsage;
     int windCol = 0;
     float opX;
     float opY;
     string stupName="";
+    GameObject ffoundpole;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +29,7 @@ public class ani_wind_affector : MonoBehaviour
         GameObject fud2 = Instantiate(Resources.Load("fpole")) as GameObject;
         fud2.name = stupName;
         fud2.transform.position = this.transform.position;
-     
+        ffoundpole = fud2;
      //   this.transform.parent = fud2.transform; //how do I put a parent with a child prefab, this is how!
 
 
@@ -74,12 +75,12 @@ public class ani_wind_affector : MonoBehaviour
                    
                 }
                 AirspeedOverride = collision.GetComponent<Rigidbody2D>().velocity.x;
-                Debug.Log("SPEEEEEEEEEEEEEEEEEEED"+AirspeedOverride);
+             //   Debug.Log("SPEEEEEEEEEEEEEEEEEEED"+AirspeedOverride);
             }
             else
             {
                 AirspeedOverride = 0;
-                delay = 0.75f;
+                delay = 1.45f;
             }
             //     Debug.Log("HELLO THERE " + collision.name +Mathf.Abs(collision.GetComponent<Rigidbody2D>().velocity.x) + "AND THIS IS MY CURRENT SPEED"+ this.transform.localScale.x);
             if (AirspeedOverride == 0)
@@ -199,39 +200,56 @@ public class ani_wind_affector : MonoBehaviour
         if (Time.time > nextUsage) //continue scrolling
         {
 
-            if (cnttch==0)
-            {
+                if (cnttch == 0)
+                {
+                coCount++;
                 //no longer touching or activly blowing
                 StartCoroutine(WindGust());
+               // coCount = 0;
                 firsttouch = false;
-            }
-            else if (firsttouch==true)
-            {
+                }
+                else if (firsttouch == true)
+                {
+                coCount++;
                 StartCoroutine(WindGust());
+              ///  coCount = 0;
             }
 
-            /*
-            if (windCol==1)
-            {
-                StartCoroutine(WindGust());
-                windCol = 3;
-            }
-            else if (windCol==2) //nothing touching for a while
-            {
-                windCol = 0;
-            }
-            */
-            delay = 0.75f;
-            cnttch = 0;
-            nextUsage = Time.time + delay; //it is on display
+                /*
+                if (windCol==1)
+                {
+                    StartCoroutine(WindGust());
+                    windCol = 3;
+                }
+                else if (windCol==2) //nothing touching for a while
+                {
+                    windCol = 0;
+                }
+                */
+                delay = 1.45f;
+                cnttch = 0;
+                nextUsage = Time.time + delay; //it is on display
+
+
         }
          
         }
-
-
+    int coCount = 0;
+    //mar10 2022- this should help fix the really crazy wind affector
+    float resizeThis = 0;
+ 
     IEnumerator WindGust()
     {
- 
+        resizeThis = 0;
+        if (coCount>1)
+        {
+            resizeThis = 0.1f;
+          
+            //3-9-2022 should try to reduce the redudant values
+            coCount = 0;
+            //  yield return 0;
+            yield break;
+        }
      //   2-10-22 kind of a cheap wind solution but for what I have/can do this is good for now. Or perhaps forever in here
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y,0);
         while (this.transform.localScale!=new Vector3(0,0,0)) //infinite loop or something
@@ -244,100 +262,130 @@ public class ani_wind_affector : MonoBehaviour
                 {
 
 
-           //         Debug.Log("MY OBJECT IS " + stupName);
+                        //         Debug.Log("MY OBJECT IS " + stupName);
 
-                    //       var renderer2 = this.GetComponent<Renderer>();
-                    //      GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.max.x, GameObject.Find(stupName).transform.position.y, 0);
-                    var renderer2 = this.GetComponent<Renderer>();
-                    //2-17-2022 Take that 2-10-22 comment, this is no longer the cheap fx, the flag moves. not the pole! (repeated in the else statement just removed  the negation)
-                    this.gameObject.transform.position = new Vector3((-renderer2.bounds.extents.x + GameObject.Find(stupName).GetComponent<Renderer>().bounds.center.x), GameObject.Find(stupName).transform.position.y, 0);
-
-
-
-                    yield return new WaitForSeconds(0.35f);
+                        //       var renderer2 = this.GetComponent<Renderer>();
+                        //      GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.max.x, GameObject.Find(stupName).transform.position.y, 0);
+                        var renderer2 = this.GetComponent<Renderer>();
+                        //2-17-2022 Take that 2-10-22 comment, this is no longer the cheap fx, the flag moves. not the pole! (repeated in the else statement just removed  the negation)
+                        this.gameObject.transform.position = new Vector3((-renderer2.bounds.extents.x + GameObject.Find(stupName).GetComponent<Renderer>().bounds.center.x), GameObject.Find(stupName).transform.position.y, 0);
 
 
 
-                    transform.localScale = new Vector3(transform.localScale.x + .1f, transform.localScale.y, 0);
-                    //  Debug.Log("HIIII " + transform.localScale.x);
-                    if (transform.localScale.x > 0)
-                    {
-                        transform.localScale = new Vector3(-0.1f, transform.localScale.y, 0);
-                        break;
-                    }
+                        yield return new WaitForSeconds(0.75f);
 
+
+                        if (transform.localScale.x < transform.localScale.x + (resizeThis + resizeThis))
+                        {
+                            transform.localScale = new Vector3(transform.localScale.x + resizeThis, transform.localScale.y, 0);
+                        }
+
+                        //  Debug.Log("HIIII " + transform.localScale.x);
+                        if (transform.localScale.x > 0)
+                        {
+                            transform.localScale = new Vector3(-0.1f, transform.localScale.y, 0);
+                            break;
+                        }
+                    
                 }
                 else
                 {
-                    var renderer2 = this.GetComponent<Renderer>();
 
-                    //    GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.min.x, GameObject.Find(stupName).transform.position.y, 0);
 
-                    //      yield return new WaitForSeconds(0.55f);
+                        var renderer2 = this.GetComponent<Renderer>();
 
-                    this.gameObject.transform.position = new Vector3((renderer2.bounds.extents.x + GameObject.Find(stupName).GetComponent<Renderer>().bounds.center.x), GameObject.Find(stupName).transform.position.y, 0);
+                        //    GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.min.x, GameObject.Find(stupName).transform.position.y, 0);
 
-                    yield return new WaitForSeconds(0.35f);
+                        //      yield return new WaitForSeconds(0.55f);
 
-                    transform.localScale = new Vector3(transform.localScale.x - .1f, transform.localScale.y, 0);
+                        this.gameObject.transform.position = new Vector3((renderer2.bounds.extents.x + GameObject.Find(stupName).GetComponent<Renderer>().bounds.center.x), GameObject.Find(stupName).transform.position.y, 0);
 
-                    if (transform.localScale.x < 0)
-                    {
-                        transform.localScale = new Vector3(.1f, transform.localScale.y, 0);
-                        break;
-                    }
+                        yield return new WaitForSeconds(0.75f);
+                        if (transform.localScale.x > transform.localScale.x - (resizeThis - resizeThis))
+                        {
+                            transform.localScale = new Vector3(transform.localScale.x - resizeThis, transform.localScale.y, 0);
+                        }
+
+
+                        if (transform.localScale.x < 0)
+                        {
+                            transform.localScale = new Vector3(.1f, transform.localScale.y, 0);
+                            break;
+                        }
+                    
                 }
             }
             else
             {
-
-                if (AirspeedOverride < 0)
+            //  if (transform.localScale.x >-0.2f && transform.localScale.x <0.2f)
                 {
-
-
-
-
-                    //       var renderer2 = this.GetComponent<Renderer>();
-                    //      GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.max.x, GameObject.Find(stupName).transform.position.y, 0);
-                    var renderer2 = this.GetComponent<Renderer>();
-                    //2-17-2022 Take that 2-10-22 comment, this is no longer the cheap fx, the flag moves. not the pole! (repeated in the else statement just removed  the negation)
-                    this.gameObject.transform.position = new Vector3((-renderer2.bounds.extents.x + GameObject.Find(stupName).GetComponent<Renderer>().bounds.center.x), GameObject.Find(stupName).transform.position.y, 0);
-
-
-
-                    yield return new WaitForSeconds(0.35f);
-
-
-
-                    transform.localScale = new Vector3(transform.localScale.x + .1f, transform.localScale.y, 0);
-                    //  Debug.Log("HIIII " + transform.localScale.x);
-                    if (transform.localScale.x > 0)
+                    if (AirspeedOverride < 0)
                     {
-                        transform.localScale = new Vector3(-0.1f, transform.localScale.y, 0);
-                        break;
+
+
+
+
+
+                        //       var renderer2 = this.GetComponent<Renderer>();
+                        //      GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.max.x, GameObject.Find(stupName).transform.position.y, 0);
+                        var renderer2 = this.GetComponent<Renderer>();
+                        //2-17-2022 Take that 2-10-22 comment, this is no longer the cheap fx, the flag moves. not the pole! (repeated in the else statement just removed  the negation)
+                        this.gameObject.transform.position = new Vector3((-renderer2.bounds.extents.x + GameObject.Find(stupName).GetComponent<Renderer>().bounds.center.x), GameObject.Find(stupName).transform.position.y, 0);
+
+
+
+                        yield return new WaitForSeconds(0.75f);
+
+
+                        if (transform.localScale.x < transform.localScale.x + (resizeThis + resizeThis))
+                        {
+                            transform.localScale = new Vector3(transform.localScale.x + resizeThis, transform.localScale.y, 0);
+                        }
+                            
+                        //  Debug.Log("HIIII " + transform.localScale.x);
+                        if (transform.localScale.x > 0)
+                        {
+                            transform.localScale = new Vector3(-0.1f, transform.localScale.y, 0);
+                            break;
+                        }
+                        
+
+                    }
+                    else
+                    {
+
+   
+
+                            var renderer2 = this.GetComponent<Renderer>();
+
+                            //    GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.min.x, GameObject.Find(stupName).transform.position.y, 0);
+
+                            //      yield return new WaitForSeconds(0.55f);
+
+                            this.gameObject.transform.position = new Vector3((renderer2.bounds.extents.x + GameObject.Find(stupName).GetComponent<Renderer>().bounds.center.x), GameObject.Find(stupName).transform.position.y, 0);
+
+                            yield return new WaitForSeconds(0.75f);
+                            if (transform.localScale.x > transform.localScale.x - (resizeThis - resizeThis))
+                            {
+                                transform.localScale = new Vector3(transform.localScale.x - resizeThis, transform.localScale.y, 0);
+                            }
+
+
+                            if (transform.localScale.x < 0)
+                            {
+                                transform.localScale = new Vector3(.1f, transform.localScale.y, 0);
+                                break;
+                            }
+                        
                     }
 
                 }
-                else
-                {
-                    var renderer2 = this.GetComponent<Renderer>();
 
-                    //    GameObject.Find(stupName).transform.position = new Vector3(renderer2.bounds.min.x, GameObject.Find(stupName).transform.position.y, 0);
 
-                    //      yield return new WaitForSeconds(0.55f);
 
-                    this.gameObject.transform.position = new Vector3((renderer2.bounds.extents.x + GameObject.Find(stupName).GetComponent<Renderer>().bounds.center.x), GameObject.Find(stupName).transform.position.y, 0);
 
-                    yield return new WaitForSeconds(0.35f);
 
-                    transform.localScale = new Vector3(transform.localScale.x - .1f, transform.localScale.y, 0);
 
-                    if (transform.localScale.x < 0)
-                    {
-                        transform.localScale = new Vector3(.1f, transform.localScale.y, 0);
-                        break;
-                    }
-                }
 
 
             }

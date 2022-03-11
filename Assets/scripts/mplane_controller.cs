@@ -282,52 +282,55 @@ public class mplane_controller : MonoBehaviour
         {
             if (collision.gameObject.tag != "detail")
             {
-            //    Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
-
-                if (impact > 15)
+                if (collision.gameObject.tag != "cloud")
                 {
+                    //    Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
 
-                    int randoExplod = UnityEngine.Random.Range(2, 5);
-                    for (int qt = 0; qt < randoExplod; qt++)
+                    if (impact > 15)
                     {
-                        GameObject RepeatGround33 = Instantiate(Resources.Load("Exp2017")) as GameObject;
-                        RepeatGround33.name = "plaxplode(" + qt + ")";
-                        RepeatGround33.transform.position = new Vector2(transform.position.x + UnityEngine.Random.Range(-2, 2), transform.position.y - UnityEngine.Random.Range(-2, 2));
 
-                        rb.velocity = Vector3.zero;
-                        rb.freezeRotation = true;
-                        rb.constraints = RigidbodyConstraints2D.FreezeAll;
-
-
-                        if (pdead == false)
+                        int randoExplod = UnityEngine.Random.Range(2, 5);
+                        for (int qt = 0; qt < randoExplod; qt++)
                         {
+                            GameObject RepeatGround33 = Instantiate(Resources.Load("Exp2017")) as GameObject;
+                            RepeatGround33.name = "plaxplode(" + qt + ")";
+                            RepeatGround33.transform.position = new Vector2(transform.position.x + UnityEngine.Random.Range(-2, 2), transform.position.y - UnityEngine.Random.Range(-2, 2));
 
-                            if (impact > 25)
+                            rb.velocity = Vector3.zero;
+                            rb.freezeRotation = true;
+                            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+
+                            if (pdead == false)
                             {
-                                GameObject pback = Instantiate(Resources.Load("player\\gib\\p_back")) as GameObject;
-                                pback.name = "p_back)";
-                                pback.transform.position = new Vector2(transform.position.x - 0.5f, transform.position.y);
 
-                                GameObject pmid = Instantiate(Resources.Load("player\\gib\\p_mid")) as GameObject;
-                                pmid.name = "p_mid)";
-                                pmid.transform.position = new Vector2(transform.position.x, transform.position.y);
+                                if (impact > 25)
+                                {
+                                    GameObject pback = Instantiate(Resources.Load("player\\gib\\p_back")) as GameObject;
+                                    pback.name = "p_back)";
+                                    pback.transform.position = new Vector2(transform.position.x - 0.5f, transform.position.y);
+
+                                    GameObject pmid = Instantiate(Resources.Load("player\\gib\\p_mid")) as GameObject;
+                                    pmid.name = "p_mid)";
+                                    pmid.transform.position = new Vector2(transform.position.x, transform.position.y);
 
 
-                                GameObject pfront = Instantiate(Resources.Load("player\\gib\\p_front")) as GameObject;
-                                pfront.name = "p_front)";
-                                pfront.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y);
+                                    GameObject pfront = Instantiate(Resources.Load("player\\gib\\p_front")) as GameObject;
+                                    pfront.name = "p_front)";
+                                    pfront.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y);
 
-                                this.GetComponent<SpriteRenderer>().enabled = false;
-                                this.GetComponent<Collider2D>().enabled = false;
+                                    this.GetComponent<SpriteRenderer>().enabled = false;
+                                    this.GetComponent<Collider2D>().enabled = false;
+                                }
+
+
+
                             }
 
-
-
+                            Debug.Log("HEY YOUR DEAD NOW" + collision.gameObject.tag);
+                            tireDisappear();
+                            pdead = true;
                         }
-
-                        Debug.Log("HEY YOUR DEAD NOW" + collision.gameObject.tag);
-                        tireDisappear();
-                        pdead = true;
                     }
                 }
             }

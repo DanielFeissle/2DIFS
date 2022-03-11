@@ -133,13 +133,13 @@ public class wheelHealth : MonoBehaviour
             {
                 if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed > 18)
                 {
-                    Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" + impulse);
+                 //   Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" + impulse);
                     lastDamage = (Convert.ToInt32(impulse) / 2);
                     wheelHP = wheelHP - lastDamage;
                 }
                 else
                 {
-                    Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" + impulse);
+                  //  Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" + impulse);
                     lastDamage = (Convert.ToInt32(impulse) / 4);
                     wheelHP = wheelHP - lastDamage;
                 }
@@ -147,7 +147,7 @@ public class wheelHealth : MonoBehaviour
             }
             else
             {
-                Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" + impulse);
+              //  Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" + impulse);
                 lastDamage = (Convert.ToInt32(impulse) / 4);
                 wheelHP = wheelHP - lastDamage;
             }

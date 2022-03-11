@@ -23,7 +23,8 @@ public class weather_gc : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.AddForce(Vector3.right * -555 * Time.deltaTime);
+        //3-7-2022 now clouds go in the direction of generation
+        rb.AddForce(Vector3.right * Camera.main.GetComponent<weather>().AirSpeed*-5 * Time.deltaTime);
         float dist = Vector3.Distance(Camera.main.transform.position, transform.position);
 
         if (GetComponent<Renderer>().isVisible)

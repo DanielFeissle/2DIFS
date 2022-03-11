@@ -18,7 +18,7 @@ public class weather : MonoBehaviour
     {
         cam = Camera.main;
         m_Renderer = GetComponent<Renderer>();
-        delay = 0.25f; //only half delay
+        delay = 0.15f; //only half delay
         nextUsage = 0;
       
 
@@ -82,7 +82,7 @@ public class weather : MonoBehaviour
                 Supacont.transform.localScale = new Vector3(5, 40, 1);
                 Supacont.AddComponent<weather_obj>();
                 Supacont.GetComponent<SpriteRenderer>().enabled = true;
-                Supacont.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 394 * AirSpeed * Time.deltaTime);
+                Supacont.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 594 * AirSpeed * Time.deltaTime);
             }
             else
             {
@@ -93,7 +93,7 @@ public class weather : MonoBehaviour
                 Supacont.transform.localScale = new Vector3(5, 40, 1);
                 Supacont.AddComponent<weather_obj>();
                 Supacont.GetComponent<SpriteRenderer>().enabled = true;
-                Supacont.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 394 * AirSpeed * Time.deltaTime);
+                Supacont.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 594 * AirSpeed * Time.deltaTime);
             }
 
 
