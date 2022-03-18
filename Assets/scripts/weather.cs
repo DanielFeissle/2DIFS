@@ -39,9 +39,19 @@ public class weather : MonoBehaviour
                    
                     for (int i = 0; i < cloudy; i++)
                     {
-                        GameObject picky = Instantiate(Resources.Load("weather/cloud/cloud1")) as GameObject;
+                        int randoCloudo = Random.Range(1, 5);
+                        GameObject picky = Instantiate(Resources.Load("weather/cloud/cloud"+ randoCloudo)) as GameObject;
                         picky.name = "starmon";
-                        picky.transform.position = new Vector2(UnityEngine.Random.Range(p.x + 75, q.x + 75), UnityEngine.Random.Range(q.y - 25, p.y + 25));
+                        //3-15-2022 now the weather objects will spawn in the right direction based on the current air speed direction
+                        if (Camera.main.GetComponent<weather>().AirSpeed>0)
+                        {
+                            picky.transform.position = new Vector2(UnityEngine.Random.Range(p.x + 75, q.x + 75), UnityEngine.Random.Range(q.y - 25, p.y + 25));
+                        }
+                        else if (Camera.main.GetComponent<weather>().AirSpeed<0)
+                        {
+                            picky.transform.position = new Vector2(UnityEngine.Random.Range(p.x - 75, q.x - 75), UnityEngine.Random.Range(q.y - 25, p.y + 25));
+                        }
+                     
                         //        picky.transform.localScale = new Vector2(UnityEngine.Random.Range(p.x , q.x ), UnityEngine.Random.Range(q.y , p.y ));
                         picky.transform.localScale = new Vector2(UnityEngine.Random.Range(4, 8), UnityEngine.Random.Range(4, 8));
                         if (Random.Range(0, 100) > cloudy)

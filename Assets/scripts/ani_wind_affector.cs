@@ -55,7 +55,7 @@ public class ani_wind_affector : MonoBehaviour
                 // delay = 0.05f;
                 if (AirspeedOverrideABS==0)
                 {
-                    StartCoroutine(WindGust());
+                  //  StartCoroutine(WindGust());
                     AirspeedOverrideABS = Mathf.Abs(AirspeedOverride);
                 }
 

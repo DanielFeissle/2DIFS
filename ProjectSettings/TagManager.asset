@@ -9,6 +9,8 @@ TagManager:
   - background
   - detail
   - cloud
+  - lighting
+  - rain
   layers:
   - Default
   - TransparentFX
