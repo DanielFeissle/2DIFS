@@ -20,6 +20,7 @@ public class mplane_controller : MonoBehaviour
     Vector3 pos;
     Vector3 velocity;
    public bool pdead = false;
+    public bool peject = false;
     bool toggleLandGear = false;
    public bool onground = true;
     bool heavyMass = false;
@@ -178,7 +179,16 @@ public class mplane_controller : MonoBehaviour
         }
 
         //   Debug.Log("Your Value for Trigger is " + TriggerRight);
+        if (Input.GetButtonDown("EJECT") &&peject==false)
+        {
+            peject = true;
 
+            GameObject indeje = Instantiate(Resources.Load("player\\ind")) as GameObject;
+            indeje.name = "ind_pi";
+            indeje.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y+0.35f);
+            indeje.GetComponent<Rigidbody2D>().AddForce(Vector2.up *4* 5500);
+
+        }
 
             if (Input.GetButtonDown("Jump") )
           {
@@ -379,8 +389,12 @@ public class mplane_controller : MonoBehaviour
         }
         if (Input.GetButtonDown("Fire3"))
         {
-            if (pdead == true)
+            if (pdead == true || peject==true)
             {
+                    if (peject==true)
+                    {
+                        GameObject.Destroy(GameObject.Find("ind_pi"));
+                    }
                 GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
                 GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
                 GameObject.Find("planeSkid_back").GetComponent<wheelHealth>().wheelHP = 100;
@@ -388,7 +402,8 @@ public class mplane_controller : MonoBehaviour
 
                 this.GetComponent<SpriteRenderer>().enabled = true;
                 this.GetComponent<Collider2D>().enabled = true;
-                pdead = false;
+                    peject = false;
+                    pdead = false;
                 colSignal = false;
                 postmortem = 0;
                 engineSpool = 0;
@@ -735,6 +750,18 @@ public class mplane_controller : MonoBehaviour
                     //      rb.AddRelativeForce(Vector3.right * engineSpool * -res * Time.deltaTime);
                 }
             }
+            if (peject==true && Speed>10)
+                {
+                    Quaternion rot = transform.rotation;
+                    //3-24-2022 downward spiral without pi
+                    res = transform.rotation.eulerAngles.z - 74;
+                    rot = transform.rotation;
+                    rot.eulerAngles = rot.eulerAngles - new Vector3(0, 0, .1f);
+                    transform.rotation = rot;
+                    res = res * 20;
+                    rb.AddRelativeForce(Vector3.right * engineSpool * res * Time.deltaTime);
+
+                }
                 //1-27-2022 this spot controls the weird behavior as well aswell
                 if (moveVertSense < 0 && Speed<16 && (transform.rotation.eulerAngles.z > 90 && transform.rotation.eulerAngles.z < 180))
                 {
@@ -769,15 +796,18 @@ public class mplane_controller : MonoBehaviour
     {
       //  GameObject.Find("HOLDER").GetComponent<Transform>().transform.position = this.transform.position;
      //   GameObject.Find("HOLDER").GetComponent<Transform>().transform.eulerAngles = this.transform.eulerAngles;
-        if (pdead==false && GameObject.Find("altimeter").gameObject.GetComponent<menu_runtime>().specButtonStat==-1)
+        if (pdead==false && peject == false && GameObject.Find("altimeter").gameObject.GetComponent<menu_runtime>().specButtonStat==-1)
         {
 
        //     DetectGround();
+       if (peject==false) //eject feature now added 3-22-2022
+            {
+                moveVertSense = Input.GetAxis("Vertical");
+                moveVertSense2 = Input.GetAxis("Vertical");
 
-            moveVertSense = Input.GetAxis("Vertical");
-            moveVertSense2 = Input.GetAxis("Vertical");
-         
                 moveHorSense = Input.GetAxis("Horizontal");
+            }
+
  
 
 
@@ -850,7 +880,10 @@ public class mplane_controller : MonoBehaviour
              //   else
             //    {
                     transform.Rotate(0, 0, -rotateSpeed * (Time.deltaTime*(engineSpool/100)));
-
+                    if (peject==true)
+                    {
+                        transform.Rotate(0, 0, -rotateSpeed * (Time.deltaTime * (engineSpool / 100)));
+                    }
           //      }
 
                 //rb.velocity = Vector3.zero;
@@ -858,7 +891,11 @@ public class mplane_controller : MonoBehaviour
             }
             else if (moveVertSense < 0)
             {
-                transform.Rotate(0, 0, rotateSpeed * (Time.deltaTime * (engineSpool / 100)));
+                    if (peject==false)
+                    {
+                        transform.Rotate(0, 0, rotateSpeed * (Time.deltaTime * (engineSpool / 100)));
+                    }
+                
                     if (onground == true && Speed>17)
                     {
                         rb.AddRelativeForce(Vector3.up * 5444 * Time.deltaTime * 4);
