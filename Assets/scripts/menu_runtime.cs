@@ -46,6 +46,9 @@ public class menu_runtime : MonoBehaviour
             else if (this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen == 2)
             {
                 btn_pauser = 1;
+                //3-31-2022 This will exit or return to the main menu
+                //TODO- add check to see if there is a stage in the flow or not. If not then exit the game
+                EndGame();
             }
             Debug.Log("HI THERE");
            this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen = 0;
@@ -114,7 +117,14 @@ public class menu_runtime : MonoBehaviour
         }
     }
 
-
+    public void EndGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+         Application.Quit();
+#endif
+    }
 
     void DestroyPauseMenuObj()
     {

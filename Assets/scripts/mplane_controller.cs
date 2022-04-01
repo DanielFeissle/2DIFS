@@ -16,20 +16,20 @@ public class mplane_controller : MonoBehaviour
     bool bypass2 = false; //hor
     public float engineSpool = 0;
     public bool moveHortButt;
-    public float rotateSpeed=188;
+    public float rotateSpeed = 188;
     Vector3 pos;
     Vector3 velocity;
-   public bool pdead = false;
+    public bool pdead = false;
     public bool peject = false;
     bool toggleLandGear = false;
-   public bool onground = true;
+    public bool onground = true;
     bool heavyMass = false;
     System.Random blarg = new System.Random();
     public Animator ani;
     Vector3 startLoc;
     Quaternion SteuAngle;
     Quaternion[] whang = new Quaternion[3];
-    Vector3 []  whipos=new Vector3[3];
+    Vector3[] whipos = new Vector3[3];
     public double maxAlt = 0;
     float nextUsage;
     float delay = 0.05f; //only half delay
@@ -38,7 +38,7 @@ public class mplane_controller : MonoBehaviour
     {
         nextUsage = Time.time + delay; //it is on display
         startLoc = transform.position;
-        SteuAngle =  transform.rotation;
+        SteuAngle = transform.rotation;
         Vector3 pos = transform.position;
         rb = GetComponent<Rigidbody2D>();
         //   ani =GameObject.Find("plane_wheel").GetComponent<Animator>();
@@ -77,11 +77,11 @@ public class mplane_controller : MonoBehaviour
     private int Xbox_One_Controller = 0;
     private int PS4_Controller = 0;
     bool controlerUsed = false;
-    bool movechk=false;
+    bool movechk = false;
     bool moveHorchk = false;
     private void controllerCheck()
     {
-      //  Debug.Log(Input.GetJoystickNames().ToString());
+        //  Debug.Log(Input.GetJoystickNames().ToString());
 
         //https://answers.unity.com/questions/131899/how-do-i-check-what-input-device-is-currently-beei.html
 
@@ -136,13 +136,13 @@ public class mplane_controller : MonoBehaviour
             controlerUsed = false;
         }
         moveVertButt = Input.GetButton("Vertical");
-        movechk=Input.GetButtonUp("Vertical");
+        movechk = Input.GetButtonUp("Vertical");
         moveHortButt = Input.GetButton("Horizontal");
         moveHorchk = Input.GetButtonUp("Horizontal");
-        if (controlerUsed==true)
+        if (controlerUsed == true)
         {
             //player may have a controller connected, but not using it(axis check will say if they are keyboard users)
-            if (movechk==true)
+            if (movechk == true)
             {
                 moveVertSense = 0;
                 controlerUsed = false;
@@ -155,15 +155,15 @@ public class mplane_controller : MonoBehaviour
                 bypass2 = true;
             }
 
-            if (moveVertButt == true )
+            if (moveVertButt == true)
             {
-             //   moveVertSense = 0;
+                //   moveVertSense = 0;
                 controlerUsed = false;
                 bypass = false;
             }
             if (moveHortButt == true)
             {
-             //   moveHorSense = 0;
+                //   moveHorSense = 0;
                 controlerUsed = false;
                 bypass2 = false;
             }
@@ -173,30 +173,30 @@ public class mplane_controller : MonoBehaviour
 
 
         float TriggerRight = Input.GetAxis("Cont_Trigger");
-        if (TriggerRight!=0)
+        if (TriggerRight != 0)
         {
             moveHorSense = TriggerRight;
         }
 
         //   Debug.Log("Your Value for Trigger is " + TriggerRight);
-        if (Input.GetButtonDown("EJECT") &&peject==false)
+        if (Input.GetButtonDown("EJECT") && peject == false)
         {
             peject = true;
 
             GameObject indeje = Instantiate(Resources.Load("player\\ind")) as GameObject;
             indeje.name = "ind_pi";
-            indeje.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y+0.35f);
-            indeje.GetComponent<Rigidbody2D>().AddForce(Vector2.up *4* 5500);
+            indeje.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y + 0.35f);
+            indeje.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 4 * 5500);
 
         }
 
-            if (Input.GetButtonDown("Jump") )
-          {
+        if (Input.GetButtonDown("Jump"))
+        {
             //Landing Gear
 
 
 
-            if (onground==false)
+            if (onground == false)
             {
                 if (toggleLandGear == false)
                 {
@@ -226,14 +226,14 @@ public class mplane_controller : MonoBehaviour
 
     void tireAni()
     {
-        for (int i=0; i<3;i++)
+        for (int i = 0; i < 3; i++)
         {
             ani = GameObject.Find("plane_wheel_" + i).GetComponent<Animator>();
 
             if (toggleLandGear == false)
             {
                 ani.SetInteger("ani_tire", 2);
-                if (quickTireSet==true)
+                if (quickTireSet == true)
                 {
                     ani.speed = 1.01f;
                 }
@@ -257,8 +257,8 @@ public class mplane_controller : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-         GameObject.Find("plane_wheel_" + i).GetComponent<SpriteRenderer>().enabled=false;
-           
+            GameObject.Find("plane_wheel_" + i).GetComponent<SpriteRenderer>().enabled = false;
+
 
 
         }
@@ -270,25 +270,25 @@ public class mplane_controller : MonoBehaviour
     public float impact;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-         impact = Vector3.Magnitude(rb.velocity);
+        impact = Vector3.Magnitude(rb.velocity);
         //   Debug.Log(collision.gameObject.name+"  "+impact);
 
-     //   var direction = transform.InverseTransformPoint(collision.transform.position); //this helps us find which direction the object collided from
+        //   var direction = transform.InverseTransformPoint(collision.transform.position); //this helps us find which direction the object collided from
 
-   //     if (direction.y < -0.1f)
-   //     {
-    //        Debug.Log("The object collided with the right side of the ball!");
-    //    }
-     //   Debug.Log(direction.y);
-     //   Debug.Log(collision.name);
+        //     if (direction.y < -0.1f)
+        //     {
+        //        Debug.Log("The object collided with the right side of the ball!");
+        //    }
+        //   Debug.Log(direction.y);
+        //   Debug.Log(collision.name);
         // if (collision.transform.position.x < transform.position.x)
-      //  if (collision.gameObject.tag == "ground" && direction.y > 0f)
-     //   {
+        //  if (collision.gameObject.tag == "ground" && direction.y > 0f)
+        //   {
 
-     //   }
-      //  else
+        //   }
+        //  else
         //{
-        if (collision.gameObject.tag!="Player")
+        if (collision.gameObject.tag != "Player")
         {
             if (collision.gameObject.tag != "detail")
             {
@@ -336,7 +336,10 @@ public class mplane_controller : MonoBehaviour
 
 
                             }
-
+                            if (peject==false)
+                            {
+                                deadAniHint();
+                            }
                             Debug.Log("HEY YOUR DEAD NOW" + collision.gameObject.tag);
                             tireDisappear();
                             pdead = true;
@@ -347,6 +350,91 @@ public class mplane_controller : MonoBehaviour
         }
         // }
     }
+    public player_end_routine per;
+    private void deadAniHint()
+    {
+        //3-29-2022 we only want to run this once (send the signal once!)
+        if (!GameObject.Find("ind_pi"))
+        {
+
+            //3-31-2022 usefull for methods but not for corots
+            //   per.MyMethod();
+            // instantiate a copy of the script class and call the non-static method
+            //  per = new player_end_routine();
+            //  per.MyMethod();
+
+            if (!gameObject.GetComponent<player_end_routine>())             //ensure we only have one script at a time!
+            {
+                gameObject.AddComponent<player_end_routine>();
+            }
+            
+
+            /*
+            Debug.Log("PRESS EJECT PLEASE");
+            StartCoroutine(EjectHint());
+            */
+        }
+
+    }
+
+    /*
+    bool eject_cr = false;
+    private IEnumerator EjectHint()
+    {
+        eject_cr = true;
+        Camera cam;
+        cam = Camera.main;
+        Vector3 p = cam.ScreenToWorldPoint(new Vector3(0, cam.pixelHeight, cam.nearClipPlane)); //top left
+        Vector3 q = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, cam.nearClipPlane)); //bottom right
+
+        GameObject indeje = Instantiate(Resources.Load("player\\ind")) as GameObject;
+        indeje.name = "ind_pi";
+        indeje.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y + 0.35f);
+        indeje.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+
+        ani = indeje.GetComponent<Animator>();
+        ani.SetBool("IS_NOTED", true);
+
+
+        Transform camPos = indeje.GetComponent<Transform>();
+        float xrun = 1.8f;
+        while (camPos.GetComponent<Transform>().localScale.x < 30.77f)
+        {
+            if (eject_cr == false)
+            {
+             
+                break;
+            }
+            if (camPos)
+            {
+                yield return new WaitForSeconds(0.05f);
+                camPos.transform.localScale += new Vector3(.40f, .40f, 0);
+                camPos.transform.position += new Vector3(xrun, 0, 0);
+                if (camPos.GetComponent<SpriteRenderer>().bounds.max.x > q.x)
+                {
+                    xrun = -1.8f;
+                    camPos.transform.eulerAngles = new Vector3(0, -180, 0);
+                }
+                else if (camPos.GetComponent<SpriteRenderer>().bounds.min.x < p.x)
+                {
+                    xrun = 1.8f;
+                    camPos.transform.eulerAngles = new Vector3(0, 0, 0);
+                }
+                // GameObject.Find("PlayerShip").GetComponent<Transform>().position -= new Vector3(.1f, 0, 0);
+                // Debug.Log("00000000000000000000000000000000000000000000000000");
+            }
+
+        }
+        // GameObject.Find("transportShip").GetComponent<masterShipEnter>().introScene = false;
+        Debug.Log("ALL DONE WITH THIS PLEASE");
+        ani.speed = 0;
+        camPos.transform.eulerAngles = new Vector3(0, 0, 0);
+        indeje.transform.position = new Vector3(q.x, indeje.transform.position.y, 0);
+        eject_cr = false;
+        GameObject.Find("img_discussion").GetComponent<text_chucker>().textCall = "ui_death_noeject";
+        GameObject.Find("img_discussion").GetComponent<text_chucker>().readMode = 0;
+    }
+    */
     private void OnCollisionStay2D(Collision2D collision)
     {
     //    onground = true;
@@ -387,20 +475,35 @@ public class mplane_controller : MonoBehaviour
             rb.drag = .5f;
             heavyMass = false;
         }
+            //NOTE TO SELF, This is the magic reset button for restarting the stage- thanks df 3-30-2022!
         if (Input.GetButtonDown("Fire3"))
         {
             if (pdead == true || peject==true)
             {
-                    if (peject==true)
+                    if (GameObject.Find("ind_pi") )
                     {
-                        GameObject.Destroy(GameObject.Find("ind_pi"));
+
+                        //if (eject_cr == false)
+                        // {
+                        //      StopCoroutine(EjectHint());
+                        Destroy(GetComponent<player_end_routine>());
+                        StopAllCoroutines();
+                            GameObject.Destroy(GameObject.Find("ind_pi"));
+                        //}
+                  //      else
+                    //    {
+                     //       eject_cr = false; //send the stop signal
+                      //  }
+                      
                     }
                 GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
                 GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
                 GameObject.Find("planeSkid_back").GetComponent<wheelHealth>().wheelHP = 100;
                 GameObject.Find("planeSkid_front").GetComponent<wheelHealth>().wheelHP = 100;
-
-                this.GetComponent<SpriteRenderer>().enabled = true;
+                    GameObject.Find("img_discussion").GetComponent<Image>().enabled = false;
+                    GameObject.Find("img_discussion").GetComponent<text_chucker>().readMode = -1;
+                    GameObject.Find("img_discussion").GetComponent<text_chucker>().textCall = "";
+                    this.GetComponent<SpriteRenderer>().enabled = true;
                 this.GetComponent<Collider2D>().enabled = true;
                     peject = false;
                     pdead = false;
