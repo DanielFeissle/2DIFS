@@ -17,6 +17,8 @@ public class player_end_routine : MonoBehaviour
 
     public Animator ani;
     bool eject_cr = false;
+    AudioClip _audio7;
+    public int audioWaitRation = 4;
     private IEnumerator EjectHint()
     {
         eject_cr = true;
@@ -36,6 +38,8 @@ public class player_end_routine : MonoBehaviour
 
         Transform camPos = indeje.GetComponent<Transform>();
         float xrun = 1.8f;
+        int cntAudioWait = 0;
+        int curAudioWait = audioWaitRation;
         while (camPos.GetComponent<Transform>().localScale.x < 30.77f)
         {
             if (eject_cr == false)
@@ -58,6 +62,22 @@ public class player_end_routine : MonoBehaviour
                     xrun = 1.8f;
                     camPos.transform.eulerAngles = new Vector3(0, 0, 0);
                 }
+
+                cntAudioWait++;
+                if (cntAudioWait>curAudioWait)
+                {
+                    curAudioWait = curAudioWait + audioWaitRation;
+                    _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\Ground\\Rock1");
+                    AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+                    AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+                    AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+                    AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+                    AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+                    AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+                }
+            
+
+
                 // GameObject.Find("PlayerShip").GetComponent<Transform>().position -= new Vector3(.1f, 0, 0);
                 // Debug.Log("00000000000000000000000000000000000000000000000000");
             }

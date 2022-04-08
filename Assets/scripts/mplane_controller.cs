@@ -33,6 +33,7 @@ public class mplane_controller : MonoBehaviour
     public double maxAlt = 0;
     float nextUsage;
     float delay = 0.05f; //only half delay
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +46,7 @@ public class mplane_controller : MonoBehaviour
         //  ani.runtimeAnimatorController = Resources.Load("assets/sprites/plane_tire(64x64)_0") as RuntimeAnimatorController;
         //   ani = this.GetComponent<Animator>();
 
-
+       
         for (int i = 0; i < 3; i++)
         {
             if (i == 0)
@@ -187,6 +188,9 @@ public class mplane_controller : MonoBehaviour
             indeje.name = "ind_pi";
             indeje.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y + 0.35f);
             indeje.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 4 * 5500);
+            Camera.main.GetComponent<CameraController>().player = indeje; //4-4-22 now the pi gets followed
+            GameObject.Find("altimeter").GetComponent<CameraController>().player = indeje;
+
 
         }
 
@@ -377,64 +381,6 @@ public class mplane_controller : MonoBehaviour
 
     }
 
-    /*
-    bool eject_cr = false;
-    private IEnumerator EjectHint()
-    {
-        eject_cr = true;
-        Camera cam;
-        cam = Camera.main;
-        Vector3 p = cam.ScreenToWorldPoint(new Vector3(0, cam.pixelHeight, cam.nearClipPlane)); //top left
-        Vector3 q = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, cam.nearClipPlane)); //bottom right
-
-        GameObject indeje = Instantiate(Resources.Load("player\\ind")) as GameObject;
-        indeje.name = "ind_pi";
-        indeje.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y + 0.35f);
-        indeje.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-
-        ani = indeje.GetComponent<Animator>();
-        ani.SetBool("IS_NOTED", true);
-
-
-        Transform camPos = indeje.GetComponent<Transform>();
-        float xrun = 1.8f;
-        while (camPos.GetComponent<Transform>().localScale.x < 30.77f)
-        {
-            if (eject_cr == false)
-            {
-             
-                break;
-            }
-            if (camPos)
-            {
-                yield return new WaitForSeconds(0.05f);
-                camPos.transform.localScale += new Vector3(.40f, .40f, 0);
-                camPos.transform.position += new Vector3(xrun, 0, 0);
-                if (camPos.GetComponent<SpriteRenderer>().bounds.max.x > q.x)
-                {
-                    xrun = -1.8f;
-                    camPos.transform.eulerAngles = new Vector3(0, -180, 0);
-                }
-                else if (camPos.GetComponent<SpriteRenderer>().bounds.min.x < p.x)
-                {
-                    xrun = 1.8f;
-                    camPos.transform.eulerAngles = new Vector3(0, 0, 0);
-                }
-                // GameObject.Find("PlayerShip").GetComponent<Transform>().position -= new Vector3(.1f, 0, 0);
-                // Debug.Log("00000000000000000000000000000000000000000000000000");
-            }
-
-        }
-        // GameObject.Find("transportShip").GetComponent<masterShipEnter>().introScene = false;
-        Debug.Log("ALL DONE WITH THIS PLEASE");
-        ani.speed = 0;
-        camPos.transform.eulerAngles = new Vector3(0, 0, 0);
-        indeje.transform.position = new Vector3(q.x, indeje.transform.position.y, 0);
-        eject_cr = false;
-        GameObject.Find("img_discussion").GetComponent<text_chucker>().textCall = "ui_death_noeject";
-        GameObject.Find("img_discussion").GetComponent<text_chucker>().readMode = 0;
-    }
-    */
     private void OnCollisionStay2D(Collision2D collision)
     {
     //    onground = true;
@@ -457,6 +403,7 @@ public class mplane_controller : MonoBehaviour
     public bool colSignal = false;
     public int postmortem = 0;
     bool quickTireSet = false;
+    public bool qreset = false;
     //what you did code
     // 0- alive and a ok (not dead)
     // 1-hull breach
@@ -478,11 +425,13 @@ public class mplane_controller : MonoBehaviour
             //NOTE TO SELF, This is the magic reset button for restarting the stage- thanks df 3-30-2022!
         if (Input.GetButtonDown("Fire3"))
         {
+           
             if (pdead == true || peject==true)
             {
                     if (GameObject.Find("ind_pi") )
                     {
-
+                        Camera.main.GetComponent<CameraController>().player = this.gameObject; //4-4-2022 reset the pi back to the plane
+                        GameObject.Find("altimeter").GetComponent<CameraController>().player = this.gameObject;
                         //if (eject_cr == false)
                         // {
                         //      StopCoroutine(EjectHint());
@@ -504,10 +453,12 @@ public class mplane_controller : MonoBehaviour
                     GameObject.Find("img_discussion").GetComponent<text_chucker>().readMode = -1;
                     GameObject.Find("img_discussion").GetComponent<text_chucker>().textCall = "";
                     this.GetComponent<SpriteRenderer>().enabled = true;
-                this.GetComponent<Collider2D>().enabled = true;
+                    rb.velocity = Vector3.zero;
+                    this.GetComponent<Collider2D>().enabled = true;
                     peject = false;
                     pdead = false;
-                colSignal = false;
+                    qreset = true; //really only for use in the POLF script for restarting the stage
+                    colSignal = false;
                 postmortem = 0;
                 engineSpool = 0;
                 rb.mass = 60;

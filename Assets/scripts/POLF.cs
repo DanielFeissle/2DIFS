@@ -106,7 +106,28 @@ public class POLF : MonoBehaviour
             curTime = curTime + 0.1;
             nextUsage = Time.time + delay; //it is on display
         }
+        if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().qreset ==true) //if the player ejects early and restarts the stage early, bring everything back in
+        {
+            GameObject.Find("Player_plane").GetComponent<mplane_controller>().qreset = false;
+            GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt = 0;
+            this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            timeStart = false;
+            curTime = 0;
+            MaxSpeed = 0;
+            impactDev = 0;
+            MaxAlt = 0;
+            bailed = true;
+            curSceneOver = false;
+            GameObject uiAltiText2 = GameObject.Find("txt_stats");
+            Text delta21 = uiAltiText2.GetComponent<Text>();
+            delta21.text = "";//.Substring(0, locCnt);
+            GameObject uiAltiText22 = GameObject.Find("txt_OBJ");
+            uiAltiText22.gameObject.GetComponent<Text>().enabled = true;
 
+            GameObject bluTXT = GameObject.Find("bluLoading");
+            bluTXT.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+
+        }
 
 
 
