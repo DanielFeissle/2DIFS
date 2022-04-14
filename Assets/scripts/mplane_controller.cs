@@ -229,7 +229,7 @@ public class mplane_controller : MonoBehaviour
     }
 
     void tireAni()
-    {
+    {       
         for (int i = 0; i < 3; i++)
         {
             ani = GameObject.Find("plane_wheel_" + i).GetComponent<Animator>();
@@ -459,7 +459,10 @@ public class mplane_controller : MonoBehaviour
                     pdead = false;
                     qreset = true; //really only for use in the POLF script for restarting the stage
                     colSignal = false;
-                postmortem = 0;
+                    ani = this.GetComponent<Animator>();
+                    ani.SetBool("IS_AIR_ROLL", false);
+                    countStrain = 0;
+                    postmortem = 0;
                 engineSpool = 0;
                 rb.mass = 60;
                 rb.drag = .5f;
@@ -577,8 +580,11 @@ public class mplane_controller : MonoBehaviour
                 }
             }
             pdead = true;
-
-        }
+                //4-14-2022 good spot for reseting ondemand animations and stuff to prevent them from spilling post
+                ani = this.GetComponent<Animator>();
+                ani.SetBool("IS_AIR_ROLL", false);
+                countStrain = 0;
+            }
 
         if (pdead==false)
         {
@@ -844,12 +850,17 @@ public class mplane_controller : MonoBehaviour
         }
         }
     }
-
+    float delay1 = 0.10f; //only half delay
+    float nextUsage1;
+    int countStrain = 0;
+    public int strainLimitLO_CNT = 5;
     // Update is called once per frame
     void Update()
     {
-      //  GameObject.Find("HOLDER").GetComponent<Transform>().transform.position = this.transform.position;
-     //   GameObject.Find("HOLDER").GetComponent<Transform>().transform.eulerAngles = this.transform.eulerAngles;
+        ani = this.GetComponent<Animator>();
+
+        //  GameObject.Find("HOLDER").GetComponent<Transform>().transform.position = this.transform.position;
+        //   GameObject.Find("HOLDER").GetComponent<Transform>().transform.eulerAngles = this.transform.eulerAngles;
         if (pdead==false && peject == false && GameObject.Find("altimeter").gameObject.GetComponent<menu_runtime>().specButtonStat==-1)
         {
 
@@ -860,12 +871,41 @@ public class mplane_controller : MonoBehaviour
                 moveVertSense2 = Input.GetAxis("Vertical");
 
                 moveHorSense = Input.GetAxis("Horizontal");
+                
+
             }
 
- 
+            //4-14-2022 potential idea, if stress levels exceed then wings pop off mind flight 
+            if (Time.time > nextUsage1)
+            {
+                if (Speed > 7)
+                {
+                    if (moveVertSense != 0 || moveVertSense2 != 0)
+                    {
+                        countStrain++;
+                    }
+                    else
+                    {
+                        countStrain = 0;
+                    }
+
+                    if (countStrain > strainLimitLO_CNT)
+                    {
+                        ani.SetBool("IS_AIR_ROLL", true);
+                    }
+                    else
+                    {
+
+                        ani.SetBool("IS_AIR_ROLL", false);
+                    }
+                    Debug.Log("THE CURRENT STRESS IS" + countStrain + " OUT OF " + strainLimitLO_CNT);
+                    nextUsage1 = Time.time + delay1; //it is on display
+                }
+
+            }
 
 
-        if (moveVertSense == 0 )
+            if (moveVertSense == 0 )
         {
             bypass = false;
         }
@@ -971,7 +1011,7 @@ public class mplane_controller : MonoBehaviour
             {
                 if (engineSpool < 99)
                 {
-                    engineSpool = engineSpool + 0.1f;
+                    engineSpool = engineSpool + 0.5f;
                 }
 
             }
@@ -979,7 +1019,7 @@ public class mplane_controller : MonoBehaviour
             {
                 if (engineSpool > -19)
                 {
-                    engineSpool = engineSpool - 0.1f;
+                    engineSpool = engineSpool - 0.5f;
                 }
 
             }

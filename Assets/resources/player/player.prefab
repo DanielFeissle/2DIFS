@@ -196,14 +196,17 @@ MonoBehaviour:
   moveHortButt: 0
   rotateSpeed: 188
   pdead: 0
+  peject: 0
   onground: 1
   ani: {fileID: 0}
   maxAlt: 0
   impact: 0
+  per: {fileID: 0}
   OBJaltitude: 0
   altitude: 0
   colSignal: 0
   postmortem: 0
+  qreset: 0
   floatHeight: 0
   liftForce: 20
   damping: 0
@@ -462,6 +465,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelHP: 100
+  ani_back: {fileID: 0}
+  ani_front: {fileID: 0}
 --- !u!1 &6289427524648207174
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,6 +620,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelHP: 100
+  ani_back: {fileID: 0}
+  ani_front: {fileID: 0}
 --- !u!1 &6289427525178069883
 GameObject:
   m_ObjectHideFlags: 0

@@ -67,7 +67,10 @@ public class player_end_routine : MonoBehaviour
                 if (cntAudioWait>curAudioWait)
                 {
                     curAudioWait = curAudioWait + audioWaitRation;
-                    _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\Ground\\Rock1");
+                    string randAudio = "";
+                    int randoAudioCnt = Random.Range(1, 6);
+                    randAudio = "_FX\\SFX\\Ground\\Rock"+ randoAudioCnt.ToString();
+                    _audio7 = Resources.Load<AudioClip>(randAudio);
                     AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
                     AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
                     AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);

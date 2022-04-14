@@ -17,8 +17,10 @@ public class wheelHealth : MonoBehaviour
     void Start()
     {
         nextUsage = Time.time + delay; //it is on display
-      //  offset = transform.position - GameObject.Find("planeSkid_front").transform.position;
-     //   pos = transform.position;
+        ani_front = GameObject.Find("plane_wheel_0").GetComponent<Animator>(); //zero is front tire
+        ani_back = GameObject.Find("plane_wheel_1").GetComponent<Animator>(); //one and two is back tire -does not matter pick one
+        //  offset = transform.position - GameObject.Find("planeSkid_front").transform.position;
+        //   pos = transform.position;
     }
     /*
     private void LateUpdate()
@@ -56,8 +58,16 @@ public class wheelHealth : MonoBehaviour
         //  transform.position = GameObject.Find("planeSkid_front").transform.position + offset;
 
 
-
-
+        if (ani_back.GetCurrentAnimatorStateInfo(0).IsName("tire_bounce") &&
+   ani_back.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            ani_back.SetBool("IS_BOUNCE", false);
+        }
+        if (ani_front.GetCurrentAnimatorStateInfo(0).IsName("tire_bounce") &&
+ani_front.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            ani_front.SetBool("IS_BOUNCE", false);
+        }
 
 
         if (Time.time > nextUsage) //continue scrolling
@@ -117,8 +127,8 @@ public class wheelHealth : MonoBehaviour
 
 
 
-
-
+    public Animator ani_back;
+    public Animator ani_front;
     void OnCollisionEnter2D(Collision2D c)
     {
         float impulse = 0f;
@@ -139,10 +149,21 @@ public class wheelHealth : MonoBehaviour
                 }
                 else
                 {
-                  //  Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" + impulse);
+                    //  Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" + impulse);
                     lastDamage = (Convert.ToInt32(impulse) / 4);
                     wheelHP = wheelHP - lastDamage;
                 }
+                //winner of the centur section here, hardcoded to the xtreeeme. blame past self 4/--/2022
+                if (this.gameObject.name== "planeSkid_front")
+                {
+                    ani_front.SetBool("IS_BOUNCE", true);
+                }
+                else if (this.gameObject.name == "planeSkid_back")
+                {
+                    ani_back.SetBool("IS_BOUNCE", true);
+                }
+                
+                
 
             }
             else
