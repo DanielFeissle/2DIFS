@@ -292,6 +292,15 @@ public class mplane_controller : MonoBehaviour
         //   }
         //  else
         //{
+        if (collision.gameObject.tag== "Player" && collision.gameObject.name== "windy")
+        {
+            if (Speed>5)
+            {
+                ani.SetBool("IS_GUST", true);
+            }
+          
+
+        }
         if (collision.gameObject.tag != "Player")
         {
             if (collision.gameObject.tag != "detail")
@@ -411,7 +420,11 @@ public class mplane_controller : MonoBehaviour
     //3 - 
     private void LateUpdate()
     {
-
+        if (ani.GetCurrentAnimatorStateInfo(0).IsName("plane_gust") &&
+ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            ani.SetBool("IS_GUST", false);
+        }
         if (GameObject.Find("altimeter").gameObject.GetComponent<menu_runtime>().specButtonStat == -1)
         {
 
@@ -461,6 +474,7 @@ public class mplane_controller : MonoBehaviour
                     colSignal = false;
                     ani = this.GetComponent<Animator>();
                     ani.SetBool("IS_AIR_ROLL", false);
+                    ani.SetBool("IS_GUST", false);
                     countStrain = 0;
                     postmortem = 0;
                 engineSpool = 0;

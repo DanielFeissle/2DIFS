@@ -162,8 +162,11 @@ ani_front.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 {
                     ani_back.SetBool("IS_BOUNCE", true);
                 }
-                
-                
+
+                //4-20-2022-adding the dust function of the tire
+                GameObject ExpDust = Instantiate(Resources.Load("player\\plane_dust")) as GameObject;
+                ExpDust.name = "FallingAst";
+                ExpDust.transform.position = this.transform.position;
 
             }
             else
