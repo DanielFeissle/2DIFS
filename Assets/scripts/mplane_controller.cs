@@ -476,9 +476,31 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     ani.SetBool("IS_AIR_ROLL", false);
                     ani.SetBool("IS_GUST", false);
                     countStrain = 0;
+                    gib = 0;
+                    //4-27-2022 selective cleanup, finall added
+                    string GIBS = "p_back,p_mid,p_mid_NO_WING,p_wing_bot,p_wing_top,p_front,jump_seat,box_a";
+                    Debug.Log("START TIME:" + Time.time);
+                    foreach(string blarg in GIBS.Split(','))
+                    {
+
+                        GameObject[] GameObjects = (FindObjectsOfType<GameObject>() as GameObject[]);
+
+                        for (int i = 0; i < GameObjects.Length; i++)
+                        {
+                            if (GameObjects[i].name.Contains(blarg))
+                            {
+                                Destroy(GameObjects[i]);
+                            }
+                            
+                        }
+
+
+                    }
+                    Debug.Log("END TIME:" + Time.time);
                     postmortem = 0;
                 engineSpool = 0;
-                rb.mass = 60;
+                    WingHP = 100;
+                    rb.mass = 60;
                 rb.drag = .5f;
                 heavyMass = false;
                 rb.constraints = RigidbodyConstraints2D.None;
@@ -548,16 +570,16 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 if (gib < 5)
                 {
                     GameObject pback = Instantiate(Resources.Load("player\\gib\\p_back")) as GameObject;
-                    pback.name = "p_back)";
+                    pback.name = "p_back";
                     pback.transform.position = new Vector2(transform.position.x - 0.5f, transform.position.y);
 
                     GameObject pmid = Instantiate(Resources.Load("player\\gib\\p_mid")) as GameObject;
-                    pmid.name = "p_mid)";
+                    pmid.name = "p_mid";
                     pmid.transform.position = new Vector2(transform.position.x, transform.position.y);
 
 
                     GameObject pfront = Instantiate(Resources.Load("player\\gib\\p_front")) as GameObject;
-                    pfront.name = "p_front)";
+                    pfront.name = "p_front";
                     pfront.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y);
 
                     this.GetComponent<SpriteRenderer>().enabled = false;
@@ -593,7 +615,59 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 
                 }
             }
-            pdead = true;
+            else if (postmortem==3) //hull integ is maxed out, wings get removed
+                {
+                    if (gib<1)
+                    {
+                        GameObject pback = Instantiate(Resources.Load("player\\gib\\p_back")) as GameObject;
+                        pback.name = "p_back";
+                        pback.transform.position = new Vector2(transform.position.x - 0.5f, transform.position.y);
+
+                        GameObject pmid = Instantiate(Resources.Load("player\\gib\\p_mid_NO_WING")) as GameObject;
+                        pmid.name = "p_mid_NO_WING";
+                        pmid.transform.position = new Vector2(transform.position.x, transform.position.y+0.25f);
+
+                        GameObject pmid_wing_bot = Instantiate(Resources.Load("player\\gib\\p_wing_bot")) as GameObject;
+                        pmid_wing_bot.name = "p_wing_bot";
+                        pmid_wing_bot.transform.position = new Vector2(transform.position.x, transform.position.y - 0.5f);
+
+
+                        GameObject p_wing_top = Instantiate(Resources.Load("player\\gib\\p_wing_top")) as GameObject;
+                        p_wing_top.name = "p_wing_top";
+                        p_wing_top.transform.position = new Vector2(transform.position.x, transform.position.y + 0.5f);
+
+
+                        GameObject pfront = Instantiate(Resources.Load("player\\gib\\p_front")) as GameObject;
+                        pfront.name = "p_front";
+                        pfront.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y);
+
+                        this.GetComponent<SpriteRenderer>().enabled = false;
+                        this.GetComponent<Collider2D>().enabled = false;
+                       
+                        for (int iq=0;iq<22;iq++)
+                        {
+                            string name_of_object = "box_a";
+                            float randOBJ_val = UnityEngine.Random.Range(0, 100);
+                            if (randOBJ_val > 50)
+                            {
+                                name_of_object = "box_a";
+                            }
+                            else if (randOBJ_val<51)
+                            {
+                                name_of_object = "jump_seat";
+                            }
+                            GameObject p_rand_obj = Instantiate(Resources.Load("player\\gib\\"+ name_of_object)) as GameObject;
+                            p_rand_obj.name = name_of_object;
+                            p_rand_obj.transform.position = new Vector2(transform.position.x + UnityEngine.Random.Range(-1,3), transform.position.y+UnityEngine.Random.Range(-2, 2));
+                        }
+                        pdead = true;
+                        gib = 10;
+                    }
+                   
+
+                }
+              
+                pdead = true;
                 //4-14-2022 good spot for reseting ondemand animations and stuff to prevent them from spilling post
                 ani = this.GetComponent<Animator>();
                 ani.SetBool("IS_AIR_ROLL", false);
@@ -868,6 +942,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
     float nextUsage1;
     int countStrain = 0;
     public int strainLimitLO_CNT = 5;
+    public int WingHP = 100;
     // Update is called once per frame
     void Update()
     {
@@ -896,11 +971,21 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 {
                     if (moveVertSense != 0 || moveVertSense2 != 0)
                     {
-                        countStrain++;
+                       
+                        WingHP = WingHP - countStrain/4;
                     }
                     else
                     {
                         countStrain = 0;
+                        if (WingHP<100)
+                        {
+                            WingHP = WingHP + 5;
+                        }
+                        else
+                        {
+                            WingHP = 100;
+                        }
+                      
                     }
 
                     if (countStrain > strainLimitLO_CNT)
@@ -912,12 +997,31 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 
                         ani.SetBool("IS_AIR_ROLL", false);
                     }
-                    Debug.Log("THE CURRENT STRESS IS" + countStrain + " OUT OF " + strainLimitLO_CNT);
+                    Debug.Log("THE BOD HEALTH IS " + WingHP + "/100");
+               //     Debug.Log("THE CURRENT STRESS IS" + countStrain + " OUT OF " + strainLimitLO_CNT);
                     nextUsage1 = Time.time + delay1; //it is on display
+                }
+                countStrain++;
+                GameObject.Find("sld_hull_stress").GetComponent<Slider>().value = WingHP;
+                if (WingHP>66)
+                {
+                    GameObject.Find("Handle_hull_stress_COLOR").GetComponent<Image>().color = Color.blue;
+                }
+                else if (WingHP>33)
+                {
+                    GameObject.Find("Handle_hull_stress_COLOR").GetComponent<Image>().color = Color.cyan;
+                }
+                else
+                {
+                    GameObject.Find("Handle_hull_stress_COLOR").GetComponent<Image>().color = Color.magenta;
                 }
 
             }
-
+            if (WingHP<0 && colSignal==false)
+            {
+                colSignal = true;
+                postmortem = 3;
+            }
 
             if (moveVertSense == 0 )
         {
