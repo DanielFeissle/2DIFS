@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 637343188126240443}
   - component: {fileID: 470338752344407344}
   - component: {fileID: -4992684503810126779}
+  - component: {fileID: -891952786863682725}
   m_Layer: 0
   m_Name: p_wing_top
   m_TagString: Untagged
@@ -140,3 +141,15 @@ PolygonCollider2D:
       - {x: 0.35, y: -0.38}
       - {x: 0.35, y: -0.28}
       - {x: 0.24, y: 0.13}
+--- !u!114 &-891952786863682725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6394680826719596712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fe81a1506c5cd448e60857b31ce20c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

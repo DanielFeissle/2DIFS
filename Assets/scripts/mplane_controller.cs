@@ -33,10 +33,11 @@ public class mplane_controller : MonoBehaviour
     public double maxAlt = 0;
     float nextUsage;
     float delay = 0.05f; //only half delay
-  
+    float cameraDef;
     // Start is called before the first frame update
     void Start()
     {
+        cameraDef = Camera.main.orthographicSize;
         nextUsage = Time.time + delay; //it is on display
         startLoc = transform.position;
         SteuAngle = transform.rotation;
@@ -458,6 +459,8 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                       //  }
                       
                     }
+                    Camera.main.GetComponent<CameraController>().player = this.gameObject;
+                    Camera.main.orthographicSize = cameraDef;
                 GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
                 GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
                 GameObject.Find("planeSkid_back").GetComponent<wheelHealth>().wheelHP = 100;

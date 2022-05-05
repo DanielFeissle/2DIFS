@@ -56,39 +56,42 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\scripts\general_child_remover.cs" />
-    <Compile Include="Assets\scripts\menu_runtime.cs" />
-    <Compile Include="Assets\scripts\WorldLoader.cs" />
     <Compile Include="Assets\scripts\wind_player_affector.cs" />
-    <Compile Include="Assets\scripts\player_ground_control.cs" />
-    <Compile Include="Assets\scripts\weather_obj.cs" />
     <Compile Include="Assets\scripts\weather_gc.cs" />
     <Compile Include="Assets\scripts\ani_wind_affector.cs" />
     <Compile Include="Assets\scripts\CameraController.cs" />
-    <Compile Include="Assets\scripts\contrail.cs" />
-    <Compile Include="Assets\scripts\realDeleteAfterPlainAniScript.cs" />
     <Compile Include="Assets\scripts\realGenericButtonListner.cs" />
     <Compile Include="Assets\scripts\POLF.cs" />
     <Compile Include="Assets\scripts\weather.cs" />
-    <Compile Include="Assets\scripts\mplane_controller.cs" />
-    <Compile Include="Assets\scripts\DeleteEverything.cs" />
+    <Compile Include="Assets\scripts\vfx_impact.cs" />
     <Compile Include="Assets\scripts\Exp2017.cs" />
-    <Compile Include="Assets\scripts\DestroyAfterStartTime.cs" />
-    <Compile Include="Assets\scripts\text_chucker.cs" />
-    <Compile Include="Assets\scripts\realGenericButton.cs" />
     <Compile Include="Assets\scripts\DestroyAfterDistance.cs" />
     <Compile Include="Assets\scripts\weather_rain.cs" />
-    <Compile Include="Assets\scripts\wogen1.cs" />
-    <Compile Include="Assets\scripts\TouchAndDie.cs" />
+    <Compile Include="Assets\scripts\camera_wireframe.cs" />
     <Compile Include="Assets\scripts\pIntegrity.cs" />
     <Compile Include="Assets\scripts\wheelHealth.cs" />
     <Compile Include="Assets\scripts\UPUPaway.cs" />
     <Compile Include="Assets\scripts\cam_distance.cs" />
-    <Compile Include="Assets\scripts\GEN_UI_Ani_Rand_Delay.cs" />
     <Compile Include="Assets\scripts\VertMinusCameraFOV.cs" />
-    <Compile Include="Assets\scripts\alt_gauge.cs" />
-    <Compile Include="Assets\scripts\player_end_routine.cs" />
+    <Compile Include="Assets\scripts\general_child_remover.cs" />
+    <Compile Include="Assets\scripts\menu_runtime.cs" />
+    <Compile Include="Assets\scripts\WorldLoader.cs" />
+    <Compile Include="Assets\scripts\player_ground_control.cs" />
+    <Compile Include="Assets\scripts\weather_obj.cs" />
+    <Compile Include="Assets\scripts\contrail.cs" />
+    <Compile Include="Assets\scripts\realDeleteAfterPlainAniScript.cs" />
     <Compile Include="Assets\scripts\showFPS.cs" />
+    <Compile Include="Assets\scripts\mplane_controller.cs" />
+    <Compile Include="Assets\scripts\DeleteEverything.cs" />
+    <Compile Include="Assets\scripts\DestroyAfterStartTime.cs" />
+    <Compile Include="Assets\scripts\text_chucker.cs" />
+    <Compile Include="Assets\scripts\realGenericButton.cs" />
+    <Compile Include="Assets\scripts\wogen1.cs" />
+    <Compile Include="Assets\scripts\TouchAndDie.cs" />
+    <Compile Include="Assets\scripts\player_end_routine.cs" />
+    <Compile Include="Assets\scripts\GEN_UI_Ani_Rand_Delay.cs" />
+    <Compile Include="Assets\scripts\alt_gauge.cs" />
+    <Compile Include="Assets\scripts\edit_obj_show_runtime.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />
@@ -679,11 +682,17 @@
     <Reference Include="Unity.2D.PixelPerfect">
       <HintPath>Library\ScriptAssemblies\Unity.2D.PixelPerfect.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
+    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="PsdPlugin">
       <HintPath>Library\ScriptAssemblies\PsdPlugin.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
@@ -700,6 +709,9 @@
     <Reference Include="Unity.TextMeshPro">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Searcher.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.2D.IK.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Editor.dll</HintPath>
     </Reference>
@@ -712,8 +724,8 @@
     <Reference Include="Unity.2D.Path.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Path.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.InternalAPIEditorBridge.001">
-      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
@@ -724,14 +736,26 @@
     <Reference Include="Unity.Rider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.InternalAPIEditorBridge.001">
+      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics">
       <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.IK.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ShaderGraph.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Animation.Triangle.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Triangle.Runtime.dll</HintPath>
@@ -745,8 +769,14 @@
     <Reference Include="Unity.Toolchain.Win-x86_64-Linux-x86_64">
       <HintPath>Library\ScriptAssemblies\Unity.Toolchain.Win-x86_64-Linux-x86_64.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
@@ -759,6 +789,9 @@
     </Reference>
     <Reference Include="Unity.2D.Common.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.SpriteShape.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.SpriteShape.Runtime.dll</HintPath>
