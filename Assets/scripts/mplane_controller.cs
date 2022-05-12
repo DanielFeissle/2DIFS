@@ -34,6 +34,7 @@ public class mplane_controller : MonoBehaviour
     float nextUsage;
     float delay = 0.05f; //only half delay
     float cameraDef;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -459,6 +460,13 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                       //  }
                       
                     }
+               //     GameObject.Find("minimap").gameObject.SetActive(true);
+                    GameObject fff = GameObject.Find("minimap");
+                    if (fff)
+                    {
+                        fff.GetComponent<MeshRenderer>().enabled = true;
+                        fff.GetComponent<minimap_player_control>().enabled = true;
+                    }
                     Camera.main.GetComponent<CameraController>().player = this.gameObject;
                     Camera.main.orthographicSize = cameraDef;
                 GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
@@ -669,7 +677,15 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                    
 
                 }
-              
+                GameObject fff = GameObject.Find("minimap");
+                if (fff)
+                {
+                    //fff.SetActive(false);
+                    fff.GetComponent<MeshRenderer>().enabled = false;
+                    fff.GetComponent<minimap_player_control>().enabled = false;
+                }    
+                
+                
                 pdead = true;
                 //4-14-2022 good spot for reseting ondemand animations and stuff to prevent them from spilling post
                 ani = this.GetComponent<Animator>();
