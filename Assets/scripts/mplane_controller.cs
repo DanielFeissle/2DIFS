@@ -192,7 +192,7 @@ public class mplane_controller : MonoBehaviour
             indeje.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 4 * 5500);
             Camera.main.GetComponent<CameraController>().player = indeje; //4-4-22 now the pi gets followed
             GameObject.Find("altimeter").GetComponent<CameraController>().player = indeje;
-
+                  StartCoroutine(EjectControledPowerOff());
 
         }
 
@@ -489,7 +489,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     countStrain = 0;
                     gib = 0;
                     //4-27-2022 selective cleanup, finall added
-                    string GIBS = "p_back,p_mid,p_mid_NO_WING,p_wing_bot,p_wing_top,p_front,jump_seat,box_a";
+                    string GIBS = "p_back,p_mid,p_mid_NO_WING,p_wing_bot,p_wing_top,p_front,jump_seat,box_a,par_drop";
                     Debug.Log("START TIME:" + Time.time);
                     foreach(string blarg in GIBS.Split(','))
                     {
@@ -1226,6 +1226,29 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 
             lastPosition = transform.position;
             lastTimestamp = Time.time;
+        }
+
+    }
+
+
+
+    private IEnumerator EjectControledPowerOff()
+    {
+
+        //   velocity = (transform.position - pos) / Time.deltaTime;
+        //   pos = transform.position;
+
+        YieldInstruction timedWait = new WaitForSeconds(0.5f);
+        Vector3 lastPosition = transform.position;
+        float lastTimestamp = Time.time;
+
+        while (engineSpool>0)
+        {
+            yield return timedWait;
+            engineSpool = engineSpool - 15;
+            rb.AddForce(Vector2.down * 1000*5);
+            Debug.Log("ENGINE SPOOL IS " + engineSpool);
+        
         }
 
     }
