@@ -34,7 +34,8 @@ public class mplane_controller : MonoBehaviour
     float nextUsage;
     float delay = 0.05f; //only half delay
     float cameraDef;
-
+    Vector3 CamOffSetStd;
+    public bool plane_recovered;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,8 +48,8 @@ public class mplane_controller : MonoBehaviour
         //   ani =GameObject.Find("plane_wheel").GetComponent<Animator>();
         //  ani.runtimeAnimatorController = Resources.Load("assets/sprites/plane_tire(64x64)_0") as RuntimeAnimatorController;
         //   ani = this.GetComponent<Animator>();
+        CamOffSetStd = new Vector3(3.97f, 0, -10);// Camera.main.GetComponent<CameraController>().offset;
 
-       
         for (int i = 0; i < 3; i++)
         {
             if (i == 0)
@@ -188,11 +189,12 @@ public class mplane_controller : MonoBehaviour
 
             GameObject indeje = Instantiate(Resources.Load("player\\ind")) as GameObject;
             indeje.name = "ind_pi";
-            indeje.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y + 0.35f);
-            indeje.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 4 * 5500);
+            indeje.transform.position = new Vector2(transform.position.x - 1.5f, transform.position.y + 0.55f);
+            indeje.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 4 * 1000);
+           
             Camera.main.GetComponent<CameraController>().player = indeje; //4-4-22 now the pi gets followed
-            GameObject.Find("altimeter").GetComponent<CameraController>().player = indeje;
-                  StartCoroutine(EjectControledPowerOff());
+              GameObject.Find("altimeter").GetComponent<CameraController>().player = indeje;
+            StartCoroutine(EjectControledPowerOff());
 
         }
 
@@ -438,9 +440,9 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             heavyMass = false;
         }
             //NOTE TO SELF, This is the magic reset button for restarting the stage- thanks df 3-30-2022!
-        if (Input.GetButtonDown("Fire3"))
+        if (Input.GetButtonDown("Fire3") || plane_recovered==true)
         {
-           
+              
             if (pdead == true || peject==true)
             {
                     if (GameObject.Find("ind_pi") )
@@ -467,6 +469,8 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                         fff.GetComponent<MeshRenderer>().enabled = true;
                         fff.GetComponent<minimap_player_control>().enabled = true;
                     }
+                    plane_recovered = false;
+                    Camera.main.GetComponent<CameraController>().offset = CamOffSetStd;
                     Camera.main.GetComponent<CameraController>().player = this.gameObject;
                     Camera.main.orthographicSize = cameraDef;
                 GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
@@ -486,6 +490,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     ani = this.GetComponent<Animator>();
                     ani.SetBool("IS_AIR_ROLL", false);
                     ani.SetBool("IS_GUST", false);
+                    
                     countStrain = 0;
                     gib = 0;
                     //4-27-2022 selective cleanup, finall added
@@ -1245,10 +1250,16 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         while (engineSpool>0)
         {
             yield return timedWait;
-            engineSpool = engineSpool - 15;
-            rb.AddForce(Vector2.down * 1000*5);
-            Debug.Log("ENGINE SPOOL IS " + engineSpool);
+            engineSpool = engineSpool - 25;
         
+            Debug.Log("ENGINE SPOOL IS " + engineSpool);
+            if (GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt > 2)
+            {
+                rb.AddForce(Vector2.down * 1000 * 5);
+                transform.Rotate(0, 0, -rotateSpeed * (Time.deltaTime * UnityEngine.Random.Range(55.9f, 90.98f)));
+                //  FORCE A CRASH SOONER 6-9-2022
+            }
+
         }
 
     }

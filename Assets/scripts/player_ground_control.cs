@@ -144,10 +144,17 @@ public class player_ground_control : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag=="ground")
+        if (collision.gameObject.tag == "Player")
+        {
+            GameObject.Find("Player_plane").GetComponent<mplane_controller>().plane_recovered = true;
+            Debug.Log("RECOVERED!");
+        }
+
+            if (collision.gameObject.tag=="ground")
         {
             if (ani.GetCurrentAnimatorStateInfo(0).IsName("Eject_Phase2_stable"))
                 {
+                rb.gravityScale = 1;//0.14f;
                 ani.SetBool("IS_PAR_GROUNDED", true);
                 GameObject pardrop = Instantiate(Resources.Load("player\\par_drop")) as GameObject;
                 pardrop.name = "par_drop";
@@ -332,12 +339,18 @@ public class player_ground_control : MonoBehaviour
         {
             if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject==true)
             {
-                Camera.main.GetComponent<CameraController>().enabled = false;
-                Camera.main.transform.position = this.transform.position;
-                Camera.main.GetComponent<CameraController>().enabled = true;
-                StartCoroutine(ZoomIn());
+                if (ZoomTriggered==false)
+                {
+                    ZoomTriggered = true;
+                    Camera.main.GetComponent<CameraController>().enabled = false;
+                    Camera.main.transform.position = this.transform.position;
+                    Camera.main.GetComponent<CameraController>().enabled = true;
+                    Camera.main.GetComponent<CameraController>().player = null;
+                    StartCoroutine(ZoomIn());
+                }
              
-              
+
+
             }
 
         }
@@ -350,17 +363,21 @@ public class player_ground_control : MonoBehaviour
         spriteRenderer.flipY = Physics2D.gravity.y > 0;
       
     }
+
+    bool ZoomTriggered = false;
+
     IEnumerator ZoomIn()
     {
-     
-        GameObject CameFind = GameObject.Find("Main Camera");
+       GameObject.Find("Player_plane").GetComponent<mplane_controller>().plane_recovered = false;
+           GameObject CameFind = GameObject.Find("Main Camera");
         // CameraController CamControl2 = CameFind2.GetComponent<CameraController>();
         Camera.main.GetComponent<CameraController>().player = this.gameObject;
         CameraController CamControl = CameFind.GetComponent<CameraController>();
         while (CameFind.GetComponent<Camera>().orthographicSize >= 2.75f)
         {
-            yield return new WaitForSeconds(0.01f);
-            Camera.main.orthographicSize -= 0.001f;
+            yield return new WaitForSeconds(0.001f);
+            Camera.main.GetComponent<CameraController>().offset = Camera.main.GetComponent<CameraController>().offset-new Vector3(0.014f,0,0);
+            Camera.main.orthographicSize -= 0.01f;
             Camera.main.transform.position = this.transform.position;
             //  Debug.Log("11111111111111111111111111111111111111111111111");
         }
