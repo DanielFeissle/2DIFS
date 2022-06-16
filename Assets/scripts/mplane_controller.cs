@@ -440,7 +440,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             heavyMass = false;
         }
             //NOTE TO SELF, This is the magic reset button for restarting the stage- thanks df 3-30-2022!
-        if (Input.GetButtonDown("Fire3") || plane_recovered==true)
+        if (Input.GetButtonDown("Fire3") || (plane_recovered==true && peject ==true))
         {
               
             if (pdead == true || peject==true)
@@ -1250,14 +1250,15 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         while (engineSpool>0)
         {
             yield return timedWait;
-            engineSpool = engineSpool - 25;
+            engineSpool = engineSpool - 7;
         
             Debug.Log("ENGINE SPOOL IS " + engineSpool);
             if (GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt > 2)
             {
-                rb.AddForce(Vector2.down * 1000 * 5);
-                transform.Rotate(0, 0, -rotateSpeed * (Time.deltaTime * UnityEngine.Random.Range(55.9f, 90.98f)));
+             //   rb.AddForce(Vector2.down * 1000 * 5);
+             //   transform.Rotate(0, 0, -rotateSpeed * (Time.deltaTime * UnityEngine.Random.Range(55.9f, 90.98f)));
                 //  FORCE A CRASH SOONER 6-9-2022
+                //6-15-2022:NO - not needed now- script checks for plane distance and cam distance
             }
 
         }

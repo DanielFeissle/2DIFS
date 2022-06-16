@@ -77,23 +77,53 @@ public class cam_distance : MonoBehaviour
             //2-28-22 setactive saves a lot of processing power- scenes should now be able to be very large without issues!
             if (g.gameObject.GetComponent<Renderer>())
             {
-                if (g.transform.position.x < (q.x + 10) && (g.transform.position.x > (p.x - 10)))
+                GameObject pl=GameObject.Find("Player_plane");
+                //6-15-2022- splitting this up to save resources until after char ejects
+                if (pl.GetComponent<mplane_controller>().peject==true)
                 {
-                  //   g.GetComponent<Renderer>().enabled = true;
-                    //      Debug.Log("THE FOLLOWING IS" + g.name);
-                     g.SetActive(true);
-                }
-                else if (g.transform.position.x < (p.x - 10))
-                {
-                     //   g.GetComponent<Renderer>().enabled = false;
-                    g.SetActive(false);
+                    if (g.transform.position.x < (q.x + 15) && (g.transform.position.x > (p.x - 15)) || (g.transform.position.x < (pl.transform.position.x + 15) && (g.transform.position.x > (pl.transform.position.x - 15))))
+                    {
+                        //   g.GetComponent<Renderer>().enabled = true;
+                        //      Debug.Log("THE FOLLOWING IS" + g.name);
+                        g.SetActive(true);
+                    }
+                    else if (g.transform.position.x < (p.x - 15) || g.transform.position.x < (pl.transform.position.x - 15))
+                    {
+                        //   g.GetComponent<Renderer>().enabled = false;
+                        g.SetActive(false);
 
+                    }
+                    else
+                    {
+                        //  g.GetComponent<Renderer>().enabled = false;
+                        g.SetActive(false);
+                    }
                 }
                 else
                 {
-                  //  g.GetComponent<Renderer>().enabled = false;
-                    g.SetActive(false);
+                    if (g.transform.position.x < (q.x + 15) && (g.transform.position.x > (p.x - 15)))
+                    {
+                        //   g.GetComponent<Renderer>().enabled = true;
+                        //      Debug.Log("THE FOLLOWING IS" + g.name);
+                        g.SetActive(true);
+                    }
+                    else if (g.transform.position.x < (p.x - 15))
+                    {
+                        //   g.GetComponent<Renderer>().enabled = false;
+                        g.SetActive(false);
+
+                    }
+                    else
+                    {
+                        //  g.GetComponent<Renderer>().enabled = false;
+                        g.SetActive(false);
+                    }
                 }
+
+             
+
+             
+
             }
           
 

@@ -91,7 +91,7 @@ public class weather : MonoBehaviour
                 Supacont.transform.rotation = this.gameObject.transform.rotation;
                 Supacont.transform.localScale = new Vector3(5, 40, 1);
                 Supacont.AddComponent<weather_obj>();
-                Supacont.GetComponent<SpriteRenderer>().enabled = true;
+                Supacont.GetComponent<SpriteRenderer>().enabled = false;
                 Supacont.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 594 * AirSpeed * Time.deltaTime);
             }
             else
@@ -102,7 +102,7 @@ public class weather : MonoBehaviour
                 Supacont.transform.rotation = this.gameObject.transform.rotation;
                 Supacont.transform.localScale = new Vector3(5, 40, 1);
                 Supacont.AddComponent<weather_obj>();
-                Supacont.GetComponent<SpriteRenderer>().enabled = true;
+                Supacont.GetComponent<SpriteRenderer>().enabled = false;
                 Supacont.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 594 * AirSpeed * Time.deltaTime);
             }
 
