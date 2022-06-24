@@ -442,7 +442,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             //NOTE TO SELF, This is the magic reset button for restarting the stage- thanks df 3-30-2022!
         if (Input.GetButtonDown("Fire3") || (plane_recovered==true && peject ==true))
         {
-              
+                Vector3 plSp=Vector3.zero;
             if (pdead == true || peject==true)
             {
                     if (GameObject.Find("ind_pi") )
@@ -454,6 +454,8 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                         //      StopCoroutine(EjectHint());
                         Destroy(GetComponent<player_end_routine>());
                         StopAllCoroutines();
+                        //6-23-2022 plaer spot. Get the last spot and put plane there if recovered
+                        plSp = GameObject.Find("ind_pi").transform.position;
                             GameObject.Destroy(GameObject.Find("ind_pi"));
                         //}
                   //      else
@@ -469,7 +471,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                         fff.GetComponent<MeshRenderer>().enabled = true;
                         fff.GetComponent<minimap_player_control>().enabled = true;
                     }
-                    plane_recovered = false;
+                    
                     Camera.main.GetComponent<CameraController>().offset = CamOffSetStd;
                     Camera.main.GetComponent<CameraController>().player = this.gameObject;
                     Camera.main.orthographicSize = cameraDef;
@@ -549,9 +551,18 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     }
 
                 }
-
-                transform.position = startLoc;
-                transform.rotation = SteuAngle;
+                if (plane_recovered==true)
+                    {
+                        transform.position = plSp;
+                        GameObject.Find("checkerBoard(256x256)").transform.position = plSp + new Vector3(5, 0, 0);
+                    }
+                else
+                    {
+                        GameObject.Find("checkerBoard(256x256)").transform.position = new Vector3(7.74f, -1.3905f, 0); //6-23-2022hardcoded might fix....
+                        transform.position = startLoc;
+                    }
+                    plane_recovered = false;
+                    transform.rotation = SteuAngle;
                 rb.mass = 60;
                 rb.drag = .5f;
                 heavyMass = false;

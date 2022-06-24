@@ -28,6 +28,8 @@ public class player_ground_control : MonoBehaviour
     public bool onground = true;
     public float moveVertSense2;
     public Animator ani;
+    float delay = .5f; //only half delay
+    float nextUsage;
     private void controllerCheck()
     {
         //  Debug.Log(Input.GetJoystickNames().ToString());
@@ -142,13 +144,30 @@ public class player_ground_control : MonoBehaviour
         }
 
     }
+
+    int recTime = 0;//RecoverTime
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+
+        
+        if (Time.time > nextUsage) //continue scrolling
         {
-            GameObject.Find("Player_plane").GetComponent<mplane_controller>().plane_recovered = true;
-            Debug.Log("RECOVERED!");
+            Debug.Log("RECOVEING "+recTime);
+            recTime++;
+            if (recTime>5)
+            {
+                if (collision.gameObject.tag == "Player")
+                {
+                    GameObject.Find("Player_plane").GetComponent<mplane_controller>().plane_recovered = true;
+                    Debug.Log("RECOVERED!");
+                    recTime = 0;
+                }
+            }
+
+            nextUsage = Time.time + delay; //it is on display
         }
+
+
 
             if (collision.gameObject.tag=="ground")
         {
@@ -312,8 +331,12 @@ public class player_ground_control : MonoBehaviour
             }
             else
             {
-                dirRest = false;
-                ani.SetBool("IS_BREATHER", true);
+                if ((GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead==false) || (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject == true))
+                {
+                    dirRest = false;
+                    ani.SetBool("IS_BREATHER", true);
+                }
+
             }
            
             if (Input.GetButton("Jump"))
