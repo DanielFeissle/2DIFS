@@ -73,6 +73,7 @@
     <Compile Include="Assets\scripts\wheelHealth.cs" />
     <Compile Include="Assets\scripts\UPUPaway.cs" />
     <Compile Include="Assets\scripts\cam_distance.cs" />
+    <Compile Include="Assets\scripts\LevelHistory.cs" />
     <Compile Include="Assets\scripts\VertMinusCameraFOV.cs" />
     <Compile Include="Assets\scripts\general_child_remover.cs" />
     <Compile Include="Assets\scripts\menu_runtime.cs" />
@@ -89,11 +90,13 @@
     <Compile Include="Assets\scripts\realGenericButton.cs" />
     <Compile Include="Assets\scripts\wogen1.cs" />
     <Compile Include="Assets\scripts\TouchAndDie.cs" />
+    <Compile Include="Assets\scripts\real_dest_after_touch.cs" />
     <Compile Include="Assets\scripts\minimap_player_control.cs" />
+    <Compile Include="Assets\scripts\btn_title_start.cs" />
     <Compile Include="Assets\scripts\player_end_routine.cs" />
     <Compile Include="Assets\scripts\GEN_UI_Ani_Rand_Delay.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
-    <Compile Include="Assets\scripts\real_dest_after_touch.cs" />
+    <Compile Include="Assets\scripts\fx_pdead.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />

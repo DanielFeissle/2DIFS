@@ -424,6 +424,10 @@ public class mplane_controller : MonoBehaviour
     //3 - 
     private void LateUpdate()
     {
+        if (pdead==true && this.GetComponent<fx_pdead>().enabled==false)
+        {
+            this.GetComponent<fx_pdead>().enabled = true;
+        }
         if (ani.GetCurrentAnimatorStateInfo(0).IsName("plane_gust") &&
 ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         {
@@ -471,7 +475,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                         fff.GetComponent<MeshRenderer>().enabled = true;
                         fff.GetComponent<minimap_player_control>().enabled = true;
                     }
-                    
+                    this.GetComponent<fx_pdead>().enabled = false;
                     Camera.main.GetComponent<CameraController>().offset = CamOffSetStd;
                     Camera.main.GetComponent<CameraController>().player = this.gameObject;
                     Camera.main.orthographicSize = cameraDef;
