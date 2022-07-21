@@ -10,6 +10,8 @@ public class player_ground_control : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         ani = this.GetComponent<Animator>();
         spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
+        nextUsage = Time.time + delay; //it is on display
+    //    GameObject.Find("Player_plane").tag = "PlaDebris";
     }
     [SerializeField] SpriteRenderer spriteRenderer;
     private int Xbox_One_Controller = 0;
@@ -30,6 +32,10 @@ public class player_ground_control : MonoBehaviour
     public Animator ani;
     float delay = .5f; //only half delay
     float nextUsage;
+    float delay2 = .5f; //only half delay
+    float nextUsage2;
+    bool plaGround = false;
+    int indIdle = 0;
     private void controllerCheck()
     {
         //  Debug.Log(Input.GetJoystickNames().ToString());
@@ -86,106 +92,175 @@ public class player_ground_control : MonoBehaviour
             // assumption of mouse and keyboard
             controlerUsed = false;
         }
-        moveVertButt = Input.GetButton("Vertical");
-        movechk = Input.GetButtonUp("Vertical");
-        moveHortButt = Input.GetButton("Horizontal");
-        moveHorchk = Input.GetButtonUp("Horizontal");
-        if (controlerUsed == true)
+        if (plaGround == true)
         {
-            //player may have a controller connected, but not using it(axis check will say if they are keyboard users)
-            if (movechk == true)
+            moveVertButt = Input.GetButton("Vertical");
+            movechk = Input.GetButtonUp("Vertical");
+            moveHortButt = Input.GetButton("Horizontal");
+            moveHorchk = Input.GetButtonUp("Horizontal");
+            if (controlerUsed == true)
             {
-                moveVertSense = 0;
-                controlerUsed = false;
-                bypass = true;
-            }
-            if (moveHorchk == true)
-            {
-                moveHorSense = 0;
-                controlerUsed = false;
-                bypass2 = true;
+                //player may have a controller connected, but not using it(axis check will say if they are keyboard users)
+                if (movechk == true)
+                {
+                    moveVertSense = 0;
+                    controlerUsed = false;
+                    bypass = true;
+                }
+                if (moveHorchk == true)
+                {
+                    moveHorSense = 0;
+                    controlerUsed = false;
+                    bypass2 = true;
+                }
+
+                if (moveVertButt == true)
+                {
+                    //   moveVertSense = 0;
+                    controlerUsed = false;
+                    bypass = false;
+                }
+                if (moveHortButt == true)
+                {
+                    //   moveHorSense = 0;
+                    controlerUsed = false;
+                    bypass2 = false;
+                }
+
             }
 
-            if (moveVertButt == true)
+
+
+            float TriggerRight = Input.GetAxis("Cont_Trigger");
+            if (TriggerRight != 0)
             {
-                //   moveVertSense = 0;
-                controlerUsed = false;
-                bypass = false;
-            }
-            if (moveHortButt == true)
-            {
-                //   moveHorSense = 0;
-                controlerUsed = false;
-                bypass2 = false;
+                moveHorSense = TriggerRight;
             }
 
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                //Landing Gear
+
+            }
         }
 
-
-
-        float TriggerRight = Input.GetAxis("Cont_Trigger");
-        if (TriggerRight != 0)
-        {
-            moveHorSense = TriggerRight;
-        }
-
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            //Landing Gear
-
-
-
-           
-
-
-
-
-        }
+      
 
     }
 
-    int recTime = 0;//RecoverTime
-    private void OnCollisionEnter2D(Collision2D collision)
+    int recTime = -1;//RecoverTime
+    //7-19-2022 FIXED the waiting tool 
+    private void OnCollisionStay2D(Collision2D collision)
     {
-
-        
         if (Time.time > nextUsage) //continue scrolling
         {
-            Debug.Log("RECOVEING "+recTime);
-            recTime++;
-            if (recTime>5)
+            nextUsage = Time.time + delay; //it is on display
+            if (collision.gameObject.tag == "Player")
+            {
+                Debug.Log("RECOVEING " + recTime);
+                recTime++;
+            } else
+            {
+                recTime = -1;
+            }
+
+            if (recTime > 5)
             {
                 if (collision.gameObject.tag == "Player")
                 {
                     GameObject.Find("Player_plane").GetComponent<mplane_controller>().plane_recovered = true;
                     Debug.Log("RECOVERED!");
-                    recTime = 0;
+                    recTime = -1;
+                    GameObject.Find("Player_plane").tag = "Player";
                 }
             }
 
-            nextUsage = Time.time + delay; //it is on display
+          
         }
-
-
-
-            if (collision.gameObject.tag=="ground")
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "ground" || collision.gameObject.tag == "PlaDebris")
         {
-            if (ani.GetCurrentAnimatorStateInfo(0).IsName("Eject_Phase2_stable"))
-                {
-                rb.gravityScale = 1;//0.14f;
-                ani.SetBool("IS_PAR_GROUNDED", true);
-                GameObject pardrop = Instantiate(Resources.Load("player\\par_drop")) as GameObject;
-                pardrop.name = "par_drop";
-                pardrop.transform.position = new Vector2(transform.position.x + 0.0f, transform.position.y - 0.0f);
-            }
 
+                if (ani.GetCurrentAnimatorStateInfo(0).IsName("Eject_Phase2_stable"))
+                {
+
+                    rb.gravityScale = 1;//0.14f;
+                    ani.SetBool("IS_PAR_GROUNDED", true);
+                    GameObject pardrop = Instantiate(Resources.Load("player\\par_drop")) as GameObject;
+                    pardrop.name = "par_drop";
+                    pardrop.transform.position = new Vector2(transform.position.x + 0.0f, transform.position.y - 0.0f);
+                }
+                ani.SetBool("IS_JUMP", false);
+                plaGround = true;
         }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        
+
+
+
+
+
     }
     // Update is called once per frame
     void Update()
     {
-        moveVertSense = Input.GetAxis("Vertical");
+        if (recTime==0)
+        {
+            if (!GameObject.Find("REC_BAR_OBJ") && GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject==true)
+            {
+                GameObject REC_BAR = Instantiate(Resources.Load("menu\\green_prog_bar")) as GameObject;
+                REC_BAR.name = "REC_BAR_OBJ";
+
+                REC_BAR.transform.position = GameObject.Find("ind_pi").transform.position + new Vector3(0, 1, 0);
+                REC_BAR.transform.parent = this.transform;
+
+            }
+
+        } else if (recTime==-1)
+        {
+            if (GameObject.Find("REC_BAR_OBJ"))
+                {
+                Destroy(GameObject.Find("REC_BAR_OBJ"));
+            }
+       
+        }
+        if (Time.time > nextUsage2) //continue scrolling
+        {
+            if (ani.GetCurrentAnimatorStateInfo(0).IsName("ind_co_run 0"))
+            {
+              
+                if (indIdle>4)
+                {
+                    ani.SetBool("IS_BREATH_LONG", true);
+                } else
+                {
+                    indIdle++;
+                }
+            }
+            else
+            {
+                
+                indIdle = 0;
+            }
+                
+            nextUsage2 = Time.time + delay2; //it is on display
+        }
+
+
+        if (ani.GetCurrentAnimatorStateInfo(0).IsName("Jump") &&
+        ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f) //animation is finished
+        {
+
+            ani.SetBool("IS_JUMP", false);
+        }
+
+            moveVertSense = Input.GetAxis("Vertical");
         moveVertSense2 = Input.GetAxis("Vertical");
 
         moveHorSense = Input.GetAxis("Horizontal");
@@ -299,6 +374,7 @@ public class player_ground_control : MonoBehaviour
                 {
                     engineSpool = engineSpool + 0.5f;
                     rb.AddForce(Vector3.right * 5444 * Time.deltaTime * 4);
+
                 }
 
             }
@@ -310,6 +386,13 @@ public class player_ground_control : MonoBehaviour
                     rb.AddForce(Vector3.left * 5444 * Time.deltaTime * 4);
                 }
 
+            }
+            if (moveHorSense!=0)
+            {
+                if (ani.GetCurrentAnimatorStateInfo(0).IsName("sat"))
+                {
+                    ani.SetBool("IS_BREATH_LONG", false);
+                }
             }
             if (moveHorSense > 0.5f || moveHorSense<-0.5f)
             {
@@ -339,9 +422,13 @@ public class player_ground_control : MonoBehaviour
 
             }
            
-            if (Input.GetButton("Jump"))
+            if (Input.GetButton("Jump") && plaGround==true)
             {
-                rb.AddForce(Vector3.up * 5444 * Time.deltaTime * 8);
+
+                plaGround = false;
+                //   ani.SetBool("IS_BREATH_LONG", true);
+                ani.SetBool("IS_JUMP", true);
+                rb.AddRelativeForce(Vector3.up * 777 *2  * 8);
             }
         }
 

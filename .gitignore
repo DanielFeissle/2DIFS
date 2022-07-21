@@ -51,3 +51,5 @@ Logs/shadercompiler-UnityShaderCompiler.exe6.log
 Logs/shadercompiler-UnityShaderCompiler.exe7.log
 Logs/shadercompiler-UnityShaderCompiler.exe8.log
 Logs/shadercompiler-UnityShaderCompiler.exe9.log
+*.log
+*.log

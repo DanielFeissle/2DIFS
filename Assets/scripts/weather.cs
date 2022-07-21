@@ -6,7 +6,7 @@ public class weather : MonoBehaviour
 {
     public int AirSpeed = 444;
     public int cloudy = 0; //more clouds is more chance for thunder/rain
-    
+    public int cloudHeight = 80; // control when clouds start to pop in, no more fog! 7-21-2022
     float delay = 0.25f; //only half delay
     float nextUsage;
     private Camera cam;
@@ -34,7 +34,7 @@ public class weather : MonoBehaviour
             Vector3 q = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, cam.nearClipPlane)); //bottom right
             if (Random.Range(0,100)<cloudy)
             {
-                if (this.transform.position.y>-50)
+            //    if (this.transform.position.y> cloudHeight)
                 {
                    
                     for (int i = 0; i < cloudy; i++)
@@ -51,7 +51,11 @@ public class weather : MonoBehaviour
                         {
                             picky.transform.position = new Vector2(UnityEngine.Random.Range(p.x - 75, q.x - 75), UnityEngine.Random.Range(q.y - 25, p.y + 25));
                         }
-                     
+                        if (this.transform.position.y < cloudHeight)
+                        {
+                            picky.transform.position = picky.transform.position + new Vector3(0, cloudHeight, 0);
+                        }
+                          
                         //        picky.transform.localScale = new Vector2(UnityEngine.Random.Range(p.x , q.x ), UnityEngine.Random.Range(q.y , p.y ));
                         picky.transform.localScale = new Vector2(UnityEngine.Random.Range(4, 8), UnityEngine.Random.Range(4, 8));
                         if (Random.Range(0, 100) > cloudy)

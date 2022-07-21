@@ -12,6 +12,8 @@ TagManager:
   - lighting
   - rain
   - vfx_impact
+  - PlaInd
+  - PlaDebris
   layers:
   - Default
   - TransparentFX

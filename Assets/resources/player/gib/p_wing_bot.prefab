@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -3157374121780449468}
   m_Layer: 0
   m_Name: p_wing_bot
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,3 +151,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fe81a1506c5cd448e60857b31ce20c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObjCheckName: Player_plane

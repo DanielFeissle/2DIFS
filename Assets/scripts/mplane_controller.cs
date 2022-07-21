@@ -475,6 +475,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                         fff.GetComponent<MeshRenderer>().enabled = true;
                         fff.GetComponent<minimap_player_control>().enabled = true;
                     }
+                 //   GameObject.Find("Player_plane").tag = "Player";
                     this.GetComponent<fx_pdead>().enabled = false;
                     Camera.main.GetComponent<CameraController>().offset = CamOffSetStd;
                     Camera.main.GetComponent<CameraController>().player = this.gameObject;

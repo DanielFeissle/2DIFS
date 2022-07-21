@@ -23,7 +23,7 @@ public class weather_rain : MonoBehaviour
     void Update()
     {
         rb.AddForce(Vector3.right * Camera.main.GetComponent<weather>().AirSpeed * -5 * Time.deltaTime);
-
+        rb.AddForce(Vector3.down * Camera.main.GetComponent<weather>().AirSpeed * 2 * Time.deltaTime);
 
         float dist = Vector3.Distance(Camera.main.transform.position, transform.position);
 
