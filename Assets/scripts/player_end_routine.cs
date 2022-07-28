@@ -89,7 +89,7 @@ public class player_end_routine : MonoBehaviour
         // GameObject.Find("transportShip").GetComponent<masterShipEnter>().introScene = false;
         Debug.Log("ALL DONE WITH THIS PLEASE");
       //  ani.speed = 0;
-      ani.SetBool("IS_BREATHER", true);
+      ani.SetBool("IS_END_TRIGGER", true);
         camPos.transform.eulerAngles = new Vector3(0, 0, 0);
         indeje.transform.position = new Vector3(q.x, indeje.transform.position.y, 0);
         eject_cr = false;

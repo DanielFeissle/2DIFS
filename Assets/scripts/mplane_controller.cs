@@ -36,6 +36,7 @@ public class mplane_controller : MonoBehaviour
     float cameraDef;
     Vector3 CamOffSetStd;
     public bool plane_recovered;
+    AudioSource [] generalAS= new AudioSource[9];
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +74,17 @@ public class mplane_controller : MonoBehaviour
 
         }
 
+        //this:
+        //    generalAS = GetComponent<AudioSource>();
+        //or this for multiple audio sources:
+        int tempArr = 0;
+        foreach (AudioSource aSource in GameObject.Find("PSFX_AMB").GetComponents<AudioSource>())
+        { 
+            generalAS[tempArr] = aSource;
+       //     Debug.Log(generalAS[tempArr].clip.name);
+
+            tempArr++;
+        }
 
     }
 
@@ -424,9 +436,13 @@ public class mplane_controller : MonoBehaviour
     //3 - 
     private void LateUpdate()
     {
+       
+      //  this.GetComponent<mplane_audio>().afx();
+
         if (pdead==true && this.GetComponent<fx_pdead>().enabled==false)
         {
             this.GetComponent<fx_pdead>().enabled = true;
+            GameObject.Find("PSFX_AMB").GetComponent<AudioSource>().enabled = false;
         }
         if (ani.GetCurrentAnimatorStateInfo(0).IsName("plane_gust") &&
 ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
@@ -435,7 +451,6 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         }
         if (GameObject.Find("altimeter").gameObject.GetComponent<menu_runtime>().specButtonStat == -1)
         {
-
 
             if (onground==true)
         {
@@ -485,12 +500,28 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 GameObject.Find("planeSkid_back").GetComponent<wheelHealth>().wheelHP = 100;
                 GameObject.Find("planeSkid_front").GetComponent<wheelHealth>().wheelHP = 100;
                     GameObject.Find("img_discussion").GetComponent<Image>().enabled = false;
+                    GameObject.Find("PSFX_AMB").GetComponent<AudioSource>().enabled = true;
+                    /* 7-26-2022 not a good audio idea
+                    foreach (AudioSource aSource in generalAS)
+                    {
+                        if (aSource==null)
+                        {
+                            break;
+                        }
+                        if (aSource.clip.name=="amb1")
+                        {
+                            aSource.enabled = true;
+                        }
+                    }
+                       */
+                  //  GameObject.Find("PSFX_AMB").GetComponent<AudioSource>().clip.
                     GameObject.Find("img_discussion").GetComponent<text_chucker>().readMode = -1;
                     GameObject.Find("img_discussion").GetComponent<text_chucker>().textCall = "";
                     this.GetComponent<SpriteRenderer>().enabled = true;
                     rb.velocity = Vector3.zero;
                     this.GetComponent<Collider2D>().enabled = true;
                     peject = false;
+                    this.GetComponent<mplane_audio>().afx();
                     pdead = false;
                     qreset = true; //really only for use in the POLF script for restarting the stage
                     colSignal = false;
@@ -1169,7 +1200,8 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             {
                 if (engineSpool < 99)
                 {
-                    engineSpool = engineSpool + 0.5f;
+                        this.GetComponent<mplane_audio>().afxPitchUp();
+                        engineSpool = engineSpool + 0.5f;
                 }
 
             }
@@ -1177,7 +1209,9 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             {
                 if (engineSpool > -19)
                 {
-                    engineSpool = engineSpool - 0.5f;
+                        this.GetComponent<mplane_audio>().afxPitchDown();
+                      
+                        engineSpool = engineSpool - 0.5f;
                 }
 
             }

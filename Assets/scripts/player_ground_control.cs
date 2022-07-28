@@ -11,6 +11,10 @@ public class player_ground_control : MonoBehaviour
         ani = this.GetComponent<Animator>();
         spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
         nextUsage = Time.time + delay; //it is on display
+      if  (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject == true)
+        {
+            ani.SetBool("IS_ALIVE", true);
+        }
     //    GameObject.Find("Player_plane").tag = "PlaDebris";
     }
     [SerializeField] SpriteRenderer spriteRenderer;
@@ -183,7 +187,8 @@ public class player_ground_control : MonoBehaviour
     {
         if (collision.gameObject.tag == "ground" || collision.gameObject.tag == "PlaDebris")
         {
-
+            if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject==true) //7-27-2022, hopeful this fixes the rare bug
+            {
                 if (ani.GetCurrentAnimatorStateInfo(0).IsName("Eject_Phase2_stable"))
                 {
 
@@ -195,6 +200,8 @@ public class player_ground_control : MonoBehaviour
                 }
                 ani.SetBool("IS_JUMP", false);
                 plaGround = true;
+            }
+
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -205,6 +212,14 @@ public class player_ground_control : MonoBehaviour
 
 
 
+
+    }
+    private void LateUpdate()
+    {
+      //  if ((GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == true) && (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject == false))
+      //  {
+       //     this.GetComponent<player_ground_control>().enabled = false;
+       // }
 
     }
     // Update is called once per frame

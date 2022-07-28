@@ -13,6 +13,9 @@ public class wheelHealth : MonoBehaviour
     float delay = 1.0f; //only half delay
     float nextUsage;
     Color curCol = Color.red;
+
+    AudioClip _audioTire;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -139,6 +142,15 @@ ani_front.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
        
         if (impulse>50)
         {
+            int randTire = UnityEngine.Random.Range(1, 9);
+            _audioTire = Resources.Load<AudioClip>("_FX\\SFX\\flight\\TireLand"+ randTire);
+            AudioSource.PlayClipAtPoint(_audioTire, this.transform.position, 100);
+            AudioSource.PlayClipAtPoint(_audioTire, this.transform.position, 100);
+            AudioSource.PlayClipAtPoint(_audioTire, this.transform.position, 100);
+            AudioSource.PlayClipAtPoint(_audioTire, this.transform.position, 100);
+            AudioSource.PlayClipAtPoint(_audioTire, this.transform.position, 100);
+            AudioSource.PlayClipAtPoint(_audioTire, this.transform.position, 100);
+
             if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().engineSpool>55)
             {
                 if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed > 18)
