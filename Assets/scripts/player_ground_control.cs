@@ -185,6 +185,24 @@ public class player_ground_control : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.name== "Player_plane")
+        {
+            if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject == true) //7-27-2022, hopeful this fixes the rare bug
+            {
+                if (ani.GetCurrentAnimatorStateInfo(0).IsName("Eject_Phase2_stable"))
+                {
+
+                    rb.gravityScale = 1;//0.14f;
+                    ani.SetBool("IS_PAR_GROUNDED", true);
+                    GameObject pardrop = Instantiate(Resources.Load("player\\par_drop")) as GameObject;
+                    pardrop.name = "par_drop";
+                    pardrop.transform.position = new Vector2(transform.position.x + 0.0f, transform.position.y - 0.0f);
+                }
+                ani.SetBool("IS_JUMP", false);
+                plaGround = true;
+            }
+        }
+
         if (collision.gameObject.tag == "ground" || collision.gameObject.tag == "PlaDebris")
         {
             if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject==true) //7-27-2022, hopeful this fixes the rare bug

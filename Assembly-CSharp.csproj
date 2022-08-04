@@ -60,6 +60,7 @@
     <Compile Include="Assets\scripts\weather_gc.cs" />
     <Compile Include="Assets\scripts\ani_wind_affector.cs" />
     <Compile Include="Assets\scripts\CameraController.cs" />
+    <Compile Include="Assets\scripts\mplane_audio.cs" />
     <Compile Include="Assets\scripts\fx_pdead.cs" />
     <Compile Include="Assets\scripts\realGenericButtonListner.cs" />
     <Compile Include="Assets\scripts\POLF.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Assets\scripts\mplane_controller.cs" />
     <Compile Include="Assets\scripts\DeleteEverything.cs" />
     <Compile Include="Assets\scripts\DestroyAfterStartTime.cs" />
+    <Compile Include="Assets\scripts\CollisionOverDetector.cs" />
     <Compile Include="Assets\scripts\text_chucker.cs" />
     <Compile Include="Assets\scripts\realGenericButton.cs" />
     <Compile Include="Assets\scripts\wogen1.cs" />
@@ -97,7 +99,7 @@
     <Compile Include="Assets\scripts\player_end_routine.cs" />
     <Compile Include="Assets\scripts\GEN_UI_Ani_Rand_Delay.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
-    <Compile Include="Assets\scripts\mplane_audio.cs" />
+    <Compile Include="Assets\scripts\general_riser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />

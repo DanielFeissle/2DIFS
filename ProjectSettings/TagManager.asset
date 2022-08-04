@@ -14,6 +14,7 @@ TagManager:
   - vfx_impact
   - PlaInd
   - PlaDebris
+  - FakeGround
   layers:
   - Default
   - TransparentFX

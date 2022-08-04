@@ -140,7 +140,7 @@ ani_front.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             impulse += cp.normalImpulse;
         }
        
-        if (impulse>50)
+        if (impulse>14)
         {
             int randTire = UnityEngine.Random.Range(1, 9);
             _audioTire = Resources.Load<AudioClip>("_FX\\SFX\\flight\\TireLand"+ randTire);
@@ -156,13 +156,13 @@ ani_front.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed > 18)
                 {
                  //   Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" + impulse);
-                    lastDamage = (Convert.ToInt32(impulse) / 2);
+                    lastDamage = (Convert.ToInt32(impulse) );
                     wheelHP = wheelHP - lastDamage;
                 }
                 else
                 {
                     //  Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" + impulse);
-                    lastDamage = (Convert.ToInt32(impulse) / 4);
+                    lastDamage = (Convert.ToInt32(impulse) / 2);
                     wheelHP = wheelHP - lastDamage;
                 }
                 //winner of the centur section here, hardcoded to the xtreeeme. blame past self 4/--/2022
@@ -184,7 +184,7 @@ ani_front.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             else
             {
               //  Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" + impulse);
-                lastDamage = (Convert.ToInt32(impulse) / 4);
+                lastDamage = (Convert.ToInt32(impulse) / 2);
                 wheelHP = wheelHP - lastDamage;
             }
 

@@ -198,7 +198,15 @@ public class mplane_controller : MonoBehaviour
         if (Input.GetButtonDown("EJECT") && peject == false)
         {
             peject = true;
-
+            //8-4-2022 we want to keep the object moving at fast speeds, not so much at slow speeds
+            if (engineSpool>65)
+            {
+                rb.AddForce(Vector2.right * 50 * 1015);
+            }
+           
+            // rb.AddForce(Vector2.right * 10150);
+            //   rb.AddForce(Vector2.right * 500 * 5340 * Time.deltaTime);
+            //   rb.AddRelativeForce(Vector3.right * 50 * 5340 * Time.deltaTime);
             GameObject indeje = Instantiate(Resources.Load("player\\ind")) as GameObject;
             indeje.name = "ind_pi";
             indeje.transform.position = new Vector2(transform.position.x - 1.5f, transform.position.y + 0.55f);
@@ -323,55 +331,58 @@ public class mplane_controller : MonoBehaviour
             {
                 if (collision.gameObject.tag != "cloud")
                 {
-                    //    Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
-
-                    if (impact > 15)
+                    if (collision.gameObject.tag != "FakeGround")
                     {
+                        //    Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
 
-                        int randoExplod = UnityEngine.Random.Range(2, 5);
-                        for (int qt = 0; qt < randoExplod; qt++)
+                        if (impact > 15)
                         {
-                            GameObject RepeatGround33 = Instantiate(Resources.Load("Exp2017")) as GameObject;
-                            RepeatGround33.name = "plaxplode(" + qt + ")";
-                            RepeatGround33.transform.position = new Vector2(transform.position.x + UnityEngine.Random.Range(-2, 2), transform.position.y - UnityEngine.Random.Range(-2, 2));
 
-                            rb.velocity = Vector3.zero;
-                            rb.freezeRotation = true;
-                            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-
-
-                            if (pdead == false)
+                            int randoExplod = UnityEngine.Random.Range(2, 5);
+                            for (int qt = 0; qt < randoExplod; qt++)
                             {
+                                GameObject RepeatGround33 = Instantiate(Resources.Load("Exp2017")) as GameObject;
+                                RepeatGround33.name = "plaxplode(" + qt + ")";
+                                RepeatGround33.transform.position = new Vector2(transform.position.x + UnityEngine.Random.Range(-2, 2), transform.position.y - UnityEngine.Random.Range(-2, 2));
 
-                                if (impact > 25)
+                                rb.velocity = Vector3.zero;
+                                rb.freezeRotation = true;
+                                rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+
+                                if (pdead == false)
                                 {
-                                    GameObject pback = Instantiate(Resources.Load("player\\gib\\p_back")) as GameObject;
-                                    pback.name = "p_back)";
-                                    pback.transform.position = new Vector2(transform.position.x - 0.5f, transform.position.y);
 
-                                    GameObject pmid = Instantiate(Resources.Load("player\\gib\\p_mid")) as GameObject;
-                                    pmid.name = "p_mid)";
-                                    pmid.transform.position = new Vector2(transform.position.x, transform.position.y);
+                                    if (impact > 25)
+                                    {
+                                        GameObject pback = Instantiate(Resources.Load("player\\gib\\p_back")) as GameObject;
+                                        pback.name = "p_back)";
+                                        pback.transform.position = new Vector2(transform.position.x - 0.5f, transform.position.y);
+
+                                        GameObject pmid = Instantiate(Resources.Load("player\\gib\\p_mid")) as GameObject;
+                                        pmid.name = "p_mid)";
+                                        pmid.transform.position = new Vector2(transform.position.x, transform.position.y);
 
 
-                                    GameObject pfront = Instantiate(Resources.Load("player\\gib\\p_front")) as GameObject;
-                                    pfront.name = "p_front)";
-                                    pfront.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y);
+                                        GameObject pfront = Instantiate(Resources.Load("player\\gib\\p_front")) as GameObject;
+                                        pfront.name = "p_front)";
+                                        pfront.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y);
 
-                                    this.GetComponent<SpriteRenderer>().enabled = false;
-                                    this.GetComponent<Collider2D>().enabled = false;
+                                        this.GetComponent<SpriteRenderer>().enabled = false;
+                                        this.GetComponent<Collider2D>().enabled = false;
+                                    }
+
+
+
                                 }
-
-
-
+                                if (peject == false)
+                                {
+                                    deadAniHint();
+                                }
+                                Debug.Log("HEY YOUR DEAD NOW" + collision.gameObject.tag);
+                                tireDisappear();
+                                pdead = true;
                             }
-                            if (peject==false)
-                            {
-                                deadAniHint();
-                            }
-                            Debug.Log("HEY YOUR DEAD NOW" + collision.gameObject.tag);
-                            tireDisappear();
-                            pdead = true;
                         }
                     }
                 }
@@ -416,7 +427,11 @@ public class mplane_controller : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-    
+    if (collision.gameObject.tag=="PlaInd")
+        {
+            //   rb.bodyType=RigidbodyType2D.Static;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
 
     }
     public double OBJaltitude;
@@ -490,7 +505,9 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                         fff.GetComponent<MeshRenderer>().enabled = true;
                         fff.GetComponent<minimap_player_control>().enabled = true;
                     }
-                 //   GameObject.Find("Player_plane").tag = "Player";
+                 //   rb.bodyType = RigidbodyType2D.Dynamic;
+                    rb.constraints = RigidbodyConstraints2D.None;
+                    //   GameObject.Find("Player_plane").tag = "Player";
                     this.GetComponent<fx_pdead>().enabled = false;
                     Camera.main.GetComponent<CameraController>().offset = CamOffSetStd;
                     Camera.main.GetComponent<CameraController>().player = this.gameObject;
@@ -589,6 +606,8 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 }
                 if (plane_recovered==true)
                     {
+                        StartCoroutine(SlowBounceOnRecover());
+                        //asdf
                         transform.position = plSp;
                         GameObject.Find("checkerBoard(256x256)").transform.position = plSp + new Vector3(5, 0, 0);
                     }
@@ -626,7 +645,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 
         }
 
-        if (colSignal==true)
+        if (colSignal==true && invincible==false)
         {
             if (postmortem==1)
             {
@@ -806,7 +825,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             rb.AddRelativeForce(Vector3.right * engineSpool * 200 * Time.deltaTime);
         }
 
-            if (onground==false)
+            if (onground==false &&  peject == false)
             {
                     if (toggleLandGear==true) //landing gear is gone, so increase the speed
                     {
@@ -981,20 +1000,24 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     rb.AddRelativeForce(Vector3.right * engineSpool * res * Time.deltaTime);
 
                 }
-                //1-27-2022 this spot controls the weird behavior as well aswell
-                if (moveVertSense < 0 && Speed<16 && (transform.rotation.eulerAngles.z > 90 && transform.rotation.eulerAngles.z < 180))
+            if (peject==false)
                 {
-                    transform.Rotate(0, 0, -rotateSpeed * (Time.deltaTime * UnityEngine.Random.Range(.65f,.98f)));
-               
+                    //1-27-2022 this spot controls the weird behavior as well aswell
+                    if (moveVertSense < 0 && Speed < 16 && (transform.rotation.eulerAngles.z > 90 && transform.rotation.eulerAngles.z < 180))
+                    {
+                        transform.Rotate(0, 0, -rotateSpeed * (Time.deltaTime * UnityEngine.Random.Range(.65f, .98f)));
 
+
+                    }
+                    else if (moveVertSense > 0 && (transform.rotation.eulerAngles.z > 180 && transform.rotation.eulerAngles.z < 300))
+                    {
+                        //  transform.Rotate(0, 0, -rotateSpeed * (Time.deltaTime * UnityEngine.Random.Range(.65f, .98f)));
+                        rb.AddRelativeForce(new Vector3(0, 1, 0) * 9700 * Time.deltaTime * 4);
+                        rb.AddRelativeForce(Vector3.up * 9700 * Time.deltaTime * 4);
+                        Debug.Log("HELPING");
+                    }
                 }
-                else if (moveVertSense > 0 && (transform.rotation.eulerAngles.z > 180 && transform.rotation.eulerAngles.z < 300))
-                {
-                    //  transform.Rotate(0, 0, -rotateSpeed * (Time.deltaTime * UnityEngine.Random.Range(.65f, .98f)));
-                     rb.AddRelativeForce(new Vector3(0,1,0) * 9700 * Time.deltaTime * 4);
-                     rb.AddRelativeForce(Vector3.up * 9700 * Time.deltaTime * 4);
-                    Debug.Log("HELPING");
-                }
+
 
                 StartCoroutine(GetSpeed());
 
@@ -1007,6 +1030,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
            rotateSpeed = 188;
         }
         }
+
         }
     }
     float delay1 = 0.10f; //only half delay
@@ -1156,17 +1180,21 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         {
             if (moveVertSense > 0)
             {
-              //  if (transform.rotation.eulerAngles.z > 68 && transform.rotation.eulerAngles.z < 120)
-            //    {
-                 //   transform.Rotate(0, 0, -40 * Time.deltaTime);
-             //   }
-             //   else
-            //    {
-                    transform.Rotate(0, 0, -rotateSpeed * (Time.deltaTime*(engineSpool/100)));
-                    if (peject==true)
+                    //  if (transform.rotation.eulerAngles.z > 68 && transform.rotation.eulerAngles.z < 120)
+                    //    {
+                    //   transform.Rotate(0, 0, -40 * Time.deltaTime);
+                    //   }
+                    //   else
+                    //    {
+                    if (peject == false)
                     {
                         transform.Rotate(0, 0, -rotateSpeed * (Time.deltaTime * (engineSpool / 100)));
+                        if (peject == true)
+                        {
+                            transform.Rotate(0, 0, -rotateSpeed * (Time.deltaTime * (engineSpool / 100)));
+                        }
                     }
+
           //      }
 
                 //rb.velocity = Vector3.zero;
@@ -1284,8 +1312,27 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         }
 
     }
+    public bool invincible = false;
+    private IEnumerator SlowBounceOnRecover()
+    {
 
+       
 
+        YieldInstruction timedWait = new WaitForSeconds(0.5f);
+        Vector3 lastPosition = transform.position;
+        float lastTimestamp = Time.time;
+        invincible = true;
+        while (engineSpool <10)
+        {
+            yield return timedWait;
+            GameObject.Find("planeSkid_back").GetComponent<wheelHealth>().wheelHP = 100;
+            GameObject.Find("planeSkid_front").GetComponent<wheelHealth>().wheelHP = 100;
+
+        }
+        invincible = false;
+        colSignal = false;
+      postmortem =0;
+    }
 
     private IEnumerator EjectControledPowerOff()
     {
