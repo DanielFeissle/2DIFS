@@ -13,10 +13,17 @@ public class mplane_audio : MonoBehaviour
     {
         fx = GameObject.Find("PSFX_AMB");
     }
+    public void afx_q()
+    {
+       
+        StartCoroutine(AudioDown());
+    }
    public void afx()
     {
+        fx.GetComponent<AudioSource>().enabled = true;
         lpitch = 1;
         fx.GetComponent<AudioSource>().pitch = lpitch;
+        StartCoroutine(AudioUp());
     }
     public void afxPitchDown()
     {
@@ -43,5 +50,34 @@ public class mplane_audio : MonoBehaviour
     void Update()
     {
         
+    }
+
+
+
+    IEnumerator AudioDown()
+    {
+
+        while (fx.GetComponent<AudioSource>().volume>.1f)
+        {
+            yield return new WaitForSeconds(0.01f);
+            fx.GetComponent<AudioSource>().volume = fx.GetComponent<AudioSource>().volume - .01f;
+        }
+        if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead==true)
+        {
+            fx.GetComponent<AudioSource>().enabled = false;
+        }
+
+
+    }
+
+    IEnumerator AudioUp()
+    {
+
+        while (fx.GetComponent<AudioSource>().volume <1)
+        {
+            yield return new WaitForSeconds(0.01f);
+            fx.GetComponent<AudioSource>().volume = fx.GetComponent<AudioSource>().volume + .01f;
+        }
+
     }
 }

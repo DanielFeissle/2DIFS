@@ -37,9 +37,17 @@ public class mplane_controller : MonoBehaviour
     Vector3 CamOffSetStd;
     public bool plane_recovered;
     AudioSource [] generalAS= new AudioSource[9];
+    bool zzengineOnOff = false;
+    bool zzShutDownFin = true;
+    Coroutine ff;
+    float delay23 = 0.1f; //only half delay
+    float nextUsage23;
     // Start is called before the first frame update
     void Start()
     {
+        metime = Time.time;
+        _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\flight\\spooling2_start");
+        nextUsage23 = Time.time + delay23; //it is on display
         cameraDef = Camera.main.orthographicSize;
         nextUsage = Time.time + delay; //it is on display
         startLoc = transform.position;
@@ -87,7 +95,7 @@ public class mplane_controller : MonoBehaviour
         }
 
     }
-
+    AudioClip _audio7;
     //8-5-2021
     //controller controls improved- now you can play with the controller connected, but it will go to where you are inputing from (keyboard or controller)
     private int Xbox_One_Controller = 0;
@@ -95,6 +103,7 @@ public class mplane_controller : MonoBehaviour
     bool controlerUsed = false;
     bool movechk = false;
     bool moveHorchk = false;
+    double metime = 0;
     private void controllerCheck()
     {
         //  Debug.Log(Input.GetJoystickNames().ToString());
@@ -193,9 +202,61 @@ public class mplane_controller : MonoBehaviour
         {
             moveHorSense = TriggerRight;
         }
+        double someTime = 0;
+        if (Time.time > nextUsage23)
+        {
+        //    metime = _audio7.length;
+            nextUsage23 = Time.time + delay23; //it is on display
+           
+        }
+            //8-8-2022 now we can turn on or off all
+            if (Input.GetButtonDown("TogglePower") && peject == false && pdead == false)
+        {
+          
+            //   someTime=Math.Abs(_audio7.length - Time.time);
+            someTime = Time.time - _audio7.length;
+            if (zzShutDownFin==true && someTime> metime)
+            {
+                metime2 = Time.time + _audio7.length;
+              //  someTime2 = Time.time - _audio7.length*2;
+                metime = Time.time;
 
-        //   Debug.Log("Your Value for Trigger is " + TriggerRight);
-        if (Input.GetButtonDown("EJECT") && peject == false)
+                if (zzengineOnOff == true)
+                {
+                    _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\flight\\spooling2_start");
+                    this.GetComponent<mplane_audio>().afx();
+                     //  StopCoroutine(ff);
+                    ff = null;
+                    zzengineOnOff = false;
+                    zzShutDownFin = true;
+                    nextUsage23 = Time.time + delay23; //it is on display
+                }
+                else
+                {
+                    _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\flight\\spooling2");
+                    this.GetComponent<mplane_audio>().afx_q();
+                    if (engineSpool<1)
+                    {
+                        engineSpool = 5;
+                    }
+                   
+                    ff = StartCoroutine(EjectControledPowerOff());
+                    zzengineOnOff = true;
+                    zzShutDownFin = false;
+                    nextUsage23 = Time.time + delay23; //it is on display
+                }
+
+                AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+                AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+                AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+                AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+                AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+                AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+            }
+           
+        }
+            //   Debug.Log("Your Value for Trigger is " + TriggerRight);
+            if (Input.GetButtonDown("EJECT") && peject == false)
         {
             peject = true;
             //8-4-2022 we want to keep the object moving at fast speeds, not so much at slow speeds
@@ -512,7 +573,9 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     Camera.main.GetComponent<CameraController>().offset = CamOffSetStd;
                     Camera.main.GetComponent<CameraController>().player = this.gameObject;
                     Camera.main.orthographicSize = cameraDef;
-                GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
+                    zzengineOnOff = false;
+                    zzShutDownFin = true;
+                    GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
                 GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
                 GameObject.Find("planeSkid_back").GetComponent<wheelHealth>().wheelHP = 100;
                 GameObject.Find("planeSkid_front").GetComponent<wheelHealth>().wheelHP = 100;
@@ -1020,14 +1083,21 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 
 
                 StartCoroutine(GetSpeed());
-
-        if (Speed > 10) //faster so harder to move
+                 if (Speed > 8 && Speed<17)
+                {
+                    rotateSpeed = 50;
+                }
+           else     if (Speed > 17 && Speed<21) 
         {
-            rotateSpeed = 100;
+            rotateSpeed = 90;
         }
-        else
+                else if (Speed > 21)
+                {
+                    rotateSpeed = 150;
+                }
+                else 
         {
-           rotateSpeed = 188;
+           rotateSpeed = 30;
         }
         }
 
@@ -1062,9 +1132,9 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             //4-14-2022 potential idea, if stress levels exceed then wings pop off mind flight 
             if (Time.time > nextUsage1)
             {
-                if (Speed > 7)
+               // if ( onground==false)
                 {
-                    if (moveVertSense != 0 || moveVertSense2 != 0)
+                    if ((moveVertSense != 0 || moveVertSense2 != 0)&& onground == false)
                     {
                        
                         WingHP = WingHP - countStrain/4;
@@ -1222,9 +1292,13 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 
         }
 
-        if (bypass2==false)
+            Debug.Log("SOMETIME2 " + someTime2 + "METIME2 " + metime2);
+              
+
+                if (bypass2==false && zzengineOnOff==false && Time.time > metime2)
         {
-            if (moveHorSense > 0)
+                
+                if (moveHorSense > 0)
             {
                 if (engineSpool < 99)
                 {
@@ -1247,7 +1321,8 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         }
 
     }
-
+    float metime2=0;
+    float someTime2=1;
     public float floatHeight;     // Desired floating height.
     public float liftForce;       // Force to apply when lifting the rigidbody.
     public float damping;         // Force reduction proportional to speed (reduces bouncing).
@@ -1339,11 +1414,11 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 
         //   velocity = (transform.position - pos) / Time.deltaTime;
         //   pos = transform.position;
-
+        
         YieldInstruction timedWait = new WaitForSeconds(0.5f);
         Vector3 lastPosition = transform.position;
         float lastTimestamp = Time.time;
-
+      
         while (engineSpool>0)
         {
             yield return timedWait;
@@ -1359,7 +1434,8 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             }
 
         }
-
+        zzShutDownFin = true;
+       // ff = null;
     }
 
 

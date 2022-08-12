@@ -10358,6 +10358,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6289427524533285521, guid: 6b0de54a28665614eba5c7373e362eb3, type: 3}
+      propertyPath: engineOnOff
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6289427524533285521, guid: 6b0de54a28665614eba5c7373e362eb3, type: 3}
       propertyPath: strainLimitLO_CNT
       value: 4
       objectReference: {fileID: 0}
