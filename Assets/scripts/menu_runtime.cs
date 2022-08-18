@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class menu_runtime : MonoBehaviour
 {
@@ -96,6 +97,52 @@ public class menu_runtime : MonoBehaviour
                 txt_Pause.transform.SetParent(getCand.transform, false);
                 txt_Pause.transform.localPosition = new Vector2(50, 75.0f); ////this sets the prefab to the canvas (this is for menu objects), which will control the location
 
+                //debug zone 8-18-2022
+                //FPS
+                GameObject sld_FPSS = Instantiate(Resources.Load("menu\\pause\\debug\\sld_fpss")) as GameObject;
+                sld_FPSS.name = "sld_FPSS";
+                RectTransform fpsDu =  GameObject.Find("Slider_FPSS").GetComponent<RectTransform>();
+                GameObject.Find("Slider_FPSS").GetComponent<Slider>().value = Camera.main.GetComponent<frame_rate>().fpss;
+                sld_FPSS.transform.SetParent(getCand.transform, true);
+
+                
+                sld_FPSS.transform.localPosition = new Vector2(-300, -400.0f);
+                fpsDu.anchorMin = new Vector2(8.0f, 0.7f);
+                fpsDu.anchorMax = new Vector2(1.0f, 0.8f);
+                fpsDu.pivot = new Vector2(0.5f, 0.5f);
+
+
+                //weather
+                GameObject sld_weather = Instantiate(Resources.Load("menu\\pause\\debug\\sld_weather")) as GameObject;
+                sld_weather.name = "sld_weather";
+                RectTransform weatherDu = GameObject.Find("Slider_weather").GetComponent<RectTransform>();
+                GameObject.Find("Slider_weather").GetComponent<Slider>().value = Camera.main.GetComponent<weather>().cloudy;
+                sld_weather.transform.SetParent(getCand.transform, true);
+
+
+                sld_weather.transform.localPosition = new Vector2(-300, -300.0f);
+                weatherDu.anchorMin = new Vector2(8.0f, 0.7f);
+                weatherDu.anchorMax = new Vector2(1.0f, 0.8f);
+                weatherDu.pivot = new Vector2(0.5f, 0.5f);
+
+
+
+
+                // wind
+
+                GameObject sld_wind = Instantiate(Resources.Load("menu\\pause\\debug\\sld_wind")) as GameObject;
+                sld_wind.name = "sld_wind";
+                RectTransform windDu = GameObject.Find("Slider_wind").GetComponent<RectTransform>();
+                GameObject.Find("Slider_wind").GetComponent<Slider>().value = Camera.main.GetComponent<weather>().AirSpeed;
+                sld_wind.transform.SetParent(getCand.transform, true);
+
+
+                sld_wind.transform.localPosition = new Vector2(-300, -200.0f);
+                windDu.anchorMin = new Vector2(8.0f, 0.7f);
+                windDu.anchorMax = new Vector2(1.0f, 0.8f);
+                windDu.pivot = new Vector2(0.5f, 0.5f);
+
+                //end of debug zone
                 GameObject ddd = GameObject.Find("shipBlast");
                 /*  AudioSource.PlayClipAtPoint(beep, new Vector3(0.0f, 0.0f, 0.0f));
                   AudioSource.PlayClipAtPoint(beep, new Vector3(0.0f, 0.0f, 0.0f));
@@ -103,8 +150,10 @@ public class menu_runtime : MonoBehaviour
                   AudioSource.PlayClipAtPoint(beep, new Vector3(0.0f, 0.0f, 0.0f));
                   AudioSource.PlayClipAtPoint(beep, new Vector3(0.0f, 0.0f, 0.0f));
                   AudioSource.PlayClipAtPoint(beep, new Vector3(0.0f, 0.0f, 0.0f)); */
-             //   AudioSource blaster = ddd.GetComponent<AudioSource>();
-            //    blaster.volume = 0.0f;
+                //   AudioSource blaster = ddd.GetComponent<AudioSource>();
+                //    blaster.volume = 0.0f;
+                GameObject debug_container = Instantiate(Resources.Load("menu\\pause\\debug\\debug_container")) as GameObject;
+                debug_container.name = "debug_container";
                 Time.timeScale = 0;
             }
             else if ((btn_pauser == 2 || Input.GetButtonUp("Fire2")) && Time.timeScale != 1 && FFF.pdead ==false) //StartButton ,  paused and not dead
@@ -128,6 +177,7 @@ public class menu_runtime : MonoBehaviour
 
     void DestroyPauseMenuObj()
     {
+        GameObject.Find("debug_container").GetComponent<debug_menu_ui>().exitMenu();
         //create a destroy method
         GameObject btn_quit = GameObject.Find("btn_Quit");
         Destroy(btn_quit);
@@ -135,5 +185,14 @@ public class menu_runtime : MonoBehaviour
         Destroy(btn_Resume);
         GameObject txt_Pause = GameObject.Find("txt_Pause");
         Destroy(txt_Pause);
+        GameObject sld_FPSS = GameObject.Find("sld_FPSS");
+        Destroy(sld_FPSS);
+        GameObject sld_weather = GameObject.Find("sld_weather");
+        Destroy(sld_weather);
+        GameObject sld_wind = GameObject.Find("sld_wind");
+        Destroy(sld_wind);
+
+        GameObject debug_container = GameObject.Find("debug_container");
+        Destroy(debug_container);
     }
 }
