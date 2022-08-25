@@ -55,6 +55,21 @@ public class WorldLoader : MonoBehaviour
                 GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Land_e = Convert.ToInt32(sclir[4]);
 
             }
+            else if (tta.Substring(0, 3) == "CLD")
+            {
+                string[] sclir = tta.Split(',');
+                Camera.main.GetComponent<weather>().cloudHeight = int.Parse(sclir[1]);
+            }
+            else if (tta.Substring(0, 3) == "WTH")
+            {
+                string[] sclir = tta.Split(',');
+                Camera.main.GetComponent<weather>().cloudy = int.Parse(sclir[1]);
+            }
+            else if (tta.Substring(0, 3) == "WND")
+            {
+                string[] sclir = tta.Split(',');
+                Camera.main.GetComponent<weather>().AirSpeed = int.Parse(sclir[1]);
+            }
             else
             {
                 string[] sclir = tta.Split(',');

@@ -126,7 +126,18 @@ public class menu_runtime : MonoBehaviour
                 weatherDu.pivot = new Vector2(0.5f, 0.5f);
 
 
+                //cloud height
+                GameObject sld_cloud_height = Instantiate(Resources.Load("menu\\pause\\debug\\sld_cloud_level")) as GameObject;
+                 sld_cloud_height.name = "sld_cloud_height";
+                RectTransform CloudHeightDu = GameObject.Find("Slider_cloudLevel").GetComponent<RectTransform>();
+                GameObject.Find("Slider_cloudLevel").GetComponent<Slider>().value = Camera.main.GetComponent<weather>().cloudHeight;
+                sld_cloud_height.transform.SetParent(getCand.transform, true);
 
+
+                sld_cloud_height.transform.localPosition = new Vector2(-300, -100.0f);
+                CloudHeightDu.anchorMin = new Vector2(8.0f, 0.7f);
+                CloudHeightDu.anchorMax = new Vector2(1.0f, 0.8f);
+                CloudHeightDu.pivot = new Vector2(0.5f, 0.5f);
 
                 // wind
 
@@ -154,16 +165,29 @@ public class menu_runtime : MonoBehaviour
                 //    blaster.volume = 0.0f;
                 GameObject debug_container = Instantiate(Resources.Load("menu\\pause\\debug\\debug_container")) as GameObject;
                 debug_container.name = "debug_container";
+                muteSound();
                 Time.timeScale = 0;
             }
             else if ((btn_pauser == 2 || Input.GetButtonUp("Fire2")) && Time.timeScale != 1 && FFF.pdead ==false) //StartButton ,  paused and not dead
             {
+                UnmutemuteSound();
                 btn_pauser = -1;
                 DestroyPauseMenuObj();
                 specButtonStat = -1;
                 Time.timeScale = 1;
             }
         }
+    }
+
+    //sound or music that should be stopped when the pause button is pressed should go here
+    void muteSound()
+    {
+        GameObject.Find("PSFX_AMB").GetComponent<AudioSource>().enabled = false;
+    }
+
+    void UnmutemuteSound()
+    {
+        GameObject.Find("PSFX_AMB").GetComponent<AudioSource>().enabled = true;
     }
 
     public void EndGame()
@@ -191,6 +215,8 @@ public class menu_runtime : MonoBehaviour
         Destroy(sld_weather);
         GameObject sld_wind = GameObject.Find("sld_wind");
         Destroy(sld_wind);
+        GameObject sld_cloud_height = GameObject.Find("sld_cloud_height");
+        Destroy(sld_cloud_height);
 
         GameObject debug_container = GameObject.Find("debug_container");
         Destroy(debug_container);

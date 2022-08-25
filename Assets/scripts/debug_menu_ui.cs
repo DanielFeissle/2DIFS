@@ -18,6 +18,10 @@ public class debug_menu_ui : MonoBehaviour
     }
     public void exitMenu()
     {
+        if (GameObject.Find("Slider_cloudLevel"))
+        {
+            Camera.main.GetComponent<weather>().cloudHeight = (int)GameObject.Find("Slider_cloudLevel").GetComponent<Slider>().value;
+        }
         if (GameObject.Find("Slider_FPSS"))
         {
             Camera.main.GetComponent<frame_rate>().fpss = (int)GameObject.Find("Slider_FPSS").GetComponent<Slider>().value;

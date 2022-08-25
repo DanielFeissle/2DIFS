@@ -3,6 +3,12 @@
 #objective for scene
 #OBJ,Scene title, GET Height (+or-), Land start, Land End
 OBJ,Welcome test!,40,0,9999
+#CLD,Cloud Height
+CLD,80
+#WTH, Weather 0-99 higher number more clouds/rain
+WTH,40
+#WND, Wind level -4000 to 4000
+WND,444
 # Prefab,LayerOrder,StartX,EndX,StartY,EndY
 ground/airport,1,0,1000,0,1
 ground/airport,1,50,150,10,20

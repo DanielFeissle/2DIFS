@@ -2160,7 +2160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.33}
-  m_AnchoredPosition: {x: -2.0689087, y: -3.9385376}
+  m_AnchoredPosition: {x: -2.0689697, y: -3.9384766}
   m_SizeDelta: {x: -459.88794, y: -110.59747}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &517207397
@@ -9412,6 +9412,7 @@ GameObject:
   - component: {fileID: 2092902888}
   - component: {fileID: 2092902887}
   - component: {fileID: 2092902886}
+  - component: {fileID: 2092902889}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -9467,6 +9468,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 38
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2092902889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092902885}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit_controller
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
 --- !u!1001 &2096068868
 PrefabInstance:
   m_ObjectHideFlags: 0
