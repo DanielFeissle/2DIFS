@@ -98,6 +98,33 @@ public class menu_runtime : MonoBehaviour
                 txt_Pause.transform.localPosition = new Vector2(50, 75.0f); ////this sets the prefab to the canvas (this is for menu objects), which will control the location
 
                 //debug zone 8-18-2022
+
+                //Background Lighting
+                GameObject sld_BR = Instantiate(Resources.Load("menu\\pause\\debug\\sld_radiosit_back")) as GameObject;
+                sld_BR.name = "sld_BR";
+                RectTransform BRdu = GameObject.Find("Slider_radiosit_back").GetComponent<RectTransform>();
+                GameObject.Find("Slider_radiosit_back").GetComponent<Slider>().value = Camera.main.GetComponent<weather>().background_radiosity;
+                sld_BR.transform.SetParent(getCand.transform, true);
+
+
+                sld_BR.transform.localPosition = new Vector2(-300, -500.0f);
+                BRdu.anchorMin = new Vector2(8.0f, 0.7f);
+                BRdu.anchorMax = new Vector2(1.0f, 0.8f);
+                BRdu.pivot = new Vector2(0.5f, 0.5f);
+
+                //Object Lighting
+                GameObject sld_RAD = Instantiate(Resources.Load("menu\\pause\\debug\\sld_radiosit")) as GameObject;
+                sld_RAD.name = "sld_RAD";
+                RectTransform RADdu = GameObject.Find("Slider_radiosit").GetComponent<RectTransform>();
+                GameObject.Find("Slider_radiosit").GetComponent<Slider>().value = Camera.main.GetComponent<weather>().radiosity;
+                sld_RAD.transform.SetParent(getCand.transform, true);
+
+
+                sld_RAD.transform.localPosition = new Vector2(-300, -600.0f);
+                RADdu.anchorMin = new Vector2(8.0f, 0.7f);
+                RADdu.anchorMax = new Vector2(1.0f, 0.8f);
+                RADdu.pivot = new Vector2(0.5f, 0.5f);
+
                 //FPS
                 GameObject sld_FPSS = Instantiate(Resources.Load("menu\\pause\\debug\\sld_fpss")) as GameObject;
                 sld_FPSS.name = "sld_FPSS";
@@ -217,6 +244,10 @@ public class menu_runtime : MonoBehaviour
         Destroy(sld_wind);
         GameObject sld_cloud_height = GameObject.Find("sld_cloud_height");
         Destroy(sld_cloud_height);
+        GameObject sld_BR = GameObject.Find("sld_BR");
+        Destroy(sld_BR);
+        GameObject sld_RAD = GameObject.Find("sld_RAD");
+        Destroy(sld_RAD);
 
         GameObject debug_container = GameObject.Find("debug_container");
         Destroy(debug_container);

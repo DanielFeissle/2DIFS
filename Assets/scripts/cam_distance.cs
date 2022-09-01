@@ -6,7 +6,7 @@ public class cam_distance : MonoBehaviour
 {
 
 
- 
+ //cull gameobjects that are not close enough to show. Added this comment to help locate it!
     Renderer objRenderer;
     GameObject[] gamy;
     GameObject[] bamy;
@@ -86,6 +86,7 @@ public class cam_distance : MonoBehaviour
                         //   g.GetComponent<Renderer>().enabled = true;
                         //      Debug.Log("THE FOLLOWING IS" + g.name);
                         g.SetActive(true);
+                        this.gameObject.GetComponent<lighting_tool>().LightThisUp(g);
                     }
                     else if (g.transform.position.x < (p.x - 15) || g.transform.position.x < (pl.transform.position.x - 15))
                     {
@@ -106,6 +107,7 @@ public class cam_distance : MonoBehaviour
                         //   g.GetComponent<Renderer>().enabled = true;
                         //      Debug.Log("THE FOLLOWING IS" + g.name);
                         g.SetActive(true);
+                        this.gameObject.GetComponent<lighting_tool>().LightThisUp(g);
                     }
                     else if (g.transform.position.x < (p.x - 15))
                     {

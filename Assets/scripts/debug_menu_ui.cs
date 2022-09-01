@@ -18,6 +18,14 @@ public class debug_menu_ui : MonoBehaviour
     }
     public void exitMenu()
     {
+        if (GameObject.Find("Slider_radiosit"))
+        {
+            Camera.main.GetComponent<weather>().radiosity = GameObject.Find("Slider_radiosit").GetComponent<Slider>().value;
+        }
+        if (GameObject.Find("Slider_radiosit_back"))
+        {
+            Camera.main.GetComponent<weather>().background_radiosity = GameObject.Find("Slider_radiosit_back").GetComponent<Slider>().value;
+        }
         if (GameObject.Find("Slider_cloudLevel"))
         {
             Camera.main.GetComponent<weather>().cloudHeight = (int)GameObject.Find("Slider_cloudLevel").GetComponent<Slider>().value;

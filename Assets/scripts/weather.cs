@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class weather : MonoBehaviour
 {
+    public float background_radiosity = 1; // 0- pitch black 1 sprite showing all color 
+    public float radiosity = 1; // 0- pitch black 1 sprite showing all color 
     public int AirSpeed = 444;
     public int cloudy = 0; //more clouds is more chance for thunder/rain
     public int cloudHeight = 80; // control when clouds start to pop in, no more fog! 7-21-2022

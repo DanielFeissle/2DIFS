@@ -70,9 +70,20 @@ public class WorldLoader : MonoBehaviour
                 string[] sclir = tta.Split(',');
                 Camera.main.GetComponent<weather>().AirSpeed = int.Parse(sclir[1]);
             }
+            else if (tta.Substring(0, 3) == "RAD")
+            {
+                string[] sclir = tta.Split(',');
+                Camera.main.GetComponent<weather>().radiosity = int.Parse(sclir[1]);
+            }
+            else if (tta.Substring(0, 3) == "RAB")
+            {
+                string[] sclir = tta.Split(',');
+                Camera.main.GetComponent<weather>().background_radiosity = int.Parse(sclir[1]);
+            }
             else
             {
                 string[] sclir = tta.Split(',');
+               // Debug.Log(Resources.Load(sclir[0].ToString()));
                 GameObject picky = Instantiate(Resources.Load(sclir[0])) as GameObject;
                 if (sclir[1]=="1")
                 {

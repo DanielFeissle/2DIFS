@@ -9,6 +9,10 @@ CLD,80
 WTH,40
 #WND, Wind level -4000 to 4000
 WND,444
+#RAD, RADIOSIT level 0 to 1
+RAD,1
+#RAB, Background Radiosit leve 0 to 1
+RAB,1
 # Prefab,LayerOrder,StartX,EndX,StartY,EndY
 ground/airport,1,0,1000,0,1
 ground/airport,1,50,150,10,20

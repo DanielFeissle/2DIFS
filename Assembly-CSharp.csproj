@@ -87,6 +87,7 @@
     <Compile Include="Assets\scripts\realDeleteAfterPlainAniScript.cs" />
     <Compile Include="Assets\scripts\showFPS.cs" />
     <Compile Include="Assets\scripts\mplane_controller.cs" />
+    <Compile Include="Assets\scripts\ui_getValue_disp.cs" />
     <Compile Include="Assets\scripts\DeleteEverything.cs" />
     <Compile Include="Assets\scripts\DestroyAfterStartTime.cs" />
     <Compile Include="Assets\scripts\CollisionOverDetector.cs" />
@@ -102,7 +103,7 @@
     <Compile Include="Assets\scripts\player_end_routine.cs" />
     <Compile Include="Assets\scripts\GEN_UI_Ani_Rand_Delay.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
-    <Compile Include="Assets\scripts\ui_getValue_disp.cs" />
+    <Compile Include="Assets\scripts\lighting_tool.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />
