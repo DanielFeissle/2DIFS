@@ -6,7 +6,8 @@ Logs/
 Temp/
 Obj/
 UnityGenerated/
-Library/
+*build.bc
+*payload.tar.7z
 Assets/AssetStoreTools*
 
 # ===================================== #
