@@ -158,7 +158,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7043481692634571688}
+  - component: {fileID: 3726364791426537800}
   m_Layer: 0
   m_Name: sld_weather
   m_TagString: Untagged
@@ -166,8 +166,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7043481692634571688
-Transform:
+--- !u!224 &3726364791426537800
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -181,6 +181,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5302226403500122239
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,7 +422,7 @@ RectTransform:
   - {fileID: 1766584080536185234}
   - {fileID: 2245196977120620912}
   - {fileID: 2838767701192729867}
-  m_Father: {fileID: 7043481692634571688}
+  m_Father: {fileID: 3726364791426537800}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

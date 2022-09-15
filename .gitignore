@@ -54,3 +54,7 @@ Logs/shadercompiler-UnityShaderCompiler.exe8.log
 Logs/shadercompiler-UnityShaderCompiler.exe9.log
 *.log
 *.log
+./.git/objects/pack/pack-a302ef7ecc40077115c66f877c73e163dc58014f.pack
+./Library/Il2cppBuildCache/WebGL/Native/build.bc
+./Library/il2cpp_cache/linkresult_8D329E5D0E573E97EB2876F75A8C0D80/build.bc
+./Library/PackageCache/com.unity.toolchain.win-x86_64-linux-x86_64@1.0.0/data~/payload.tar.7z

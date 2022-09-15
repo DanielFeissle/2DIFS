@@ -102,83 +102,94 @@ public class menu_runtime : MonoBehaviour
                 //Background Lighting
                 GameObject sld_BR = Instantiate(Resources.Load("menu\\pause\\debug\\sld_radiosit_back")) as GameObject;
                 sld_BR.name = "sld_BR";
+                sld_BR.GetComponent<RectTransform>().anchorMin = new Vector2(.85f, 0.53f);
+                sld_BR.GetComponent<RectTransform>().anchorMax = new Vector2(.85f, 0.53f);
+                sld_BR.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+                // GameObject.Find("pic_green_debug_menu").gameObject.transform.parent = sld_BR.gameObject.transform;
                 RectTransform BRdu = GameObject.Find("Slider_radiosit_back").GetComponent<RectTransform>();
                 GameObject.Find("Slider_radiosit_back").GetComponent<Slider>().value = Camera.main.GetComponent<weather>().background_radiosity;
-                sld_BR.transform.SetParent(getCand.transform, true);
+                // sld_BR.transform.SetParent(getCand.transform, false);
+                sld_BR.transform.SetParent(getCand.transform, false);
+                sld_BR.transform.localPosition = new Vector2(-40, -375);
+                EventSystem.current.firstSelectedGameObject = sld_BR;
+                //sld_BR.transform.localPosition = new Vector2(-300, -500.0f);
 
-
-                sld_BR.transform.localPosition = new Vector2(-300, -500.0f);
-                BRdu.anchorMin = new Vector2(8.0f, 0.7f);
-                BRdu.anchorMax = new Vector2(1.0f, 0.8f);
-                BRdu.pivot = new Vector2(0.5f, 0.5f);
 
                 //Object Lighting
                 GameObject sld_RAD = Instantiate(Resources.Load("menu\\pause\\debug\\sld_radiosit")) as GameObject;
                 sld_RAD.name = "sld_RAD";
+                sld_RAD.GetComponent<RectTransform>().anchorMin = new Vector2(.85f, 0.49f);
+                sld_RAD.GetComponent<RectTransform>().anchorMax = new Vector2(.85f, 0.49f);
+                sld_RAD.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
                 RectTransform RADdu = GameObject.Find("Slider_radiosit").GetComponent<RectTransform>();
                 GameObject.Find("Slider_radiosit").GetComponent<Slider>().value = Camera.main.GetComponent<weather>().radiosity;
-                sld_RAD.transform.SetParent(getCand.transform, true);
+                //  sld_RAD.transform.SetParent(getCand.transform, true);
 
+                sld_RAD.transform.SetParent(getCand.transform, false);
+                sld_RAD.transform.localPosition = new Vector2(-40, -415);
 
-                sld_RAD.transform.localPosition = new Vector2(-300, -600.0f);
-                RADdu.anchorMin = new Vector2(8.0f, 0.7f);
-                RADdu.anchorMax = new Vector2(1.0f, 0.8f);
-                RADdu.pivot = new Vector2(0.5f, 0.5f);
+                //  sld_RAD.transform.localPosition = new Vector2(-300, -600.0f);
+
 
                 //FPS
                 GameObject sld_FPSS = Instantiate(Resources.Load("menu\\pause\\debug\\sld_fpss")) as GameObject;
                 sld_FPSS.name = "sld_FPSS";
+                sld_FPSS.GetComponent<RectTransform>().anchorMin = new Vector2(.85f, 0.56f);
+                sld_FPSS.GetComponent<RectTransform>().anchorMax = new Vector2(.85f, 0.56f);
+                sld_FPSS.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
                 RectTransform fpsDu =  GameObject.Find("Slider_FPSS").GetComponent<RectTransform>();
                 GameObject.Find("Slider_FPSS").GetComponent<Slider>().value = Camera.main.GetComponent<frame_rate>().fpss;
-                sld_FPSS.transform.SetParent(getCand.transform, true);
 
-                
-                sld_FPSS.transform.localPosition = new Vector2(-300, -400.0f);
-                fpsDu.anchorMin = new Vector2(8.0f, 0.7f);
-                fpsDu.anchorMax = new Vector2(1.0f, 0.8f);
-                fpsDu.pivot = new Vector2(0.5f, 0.5f);
+                // sld_FPSS.transform.localPosition = new Vector2(-300, -400.0f);
+                sld_FPSS.transform.SetParent(getCand.transform, false);
+                sld_FPSS.transform.localPosition = new Vector2(-40, -335);
 
 
                 //weather
                 GameObject sld_weather = Instantiate(Resources.Load("menu\\pause\\debug\\sld_weather")) as GameObject;
                 sld_weather.name = "sld_weather";
+                sld_weather.GetComponent<RectTransform>().anchorMin = new Vector2(.85f, 0.59f);
+                sld_weather.GetComponent<RectTransform>().anchorMax = new Vector2(.85f, 0.59f);
+                sld_weather.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
                 RectTransform weatherDu = GameObject.Find("Slider_weather").GetComponent<RectTransform>();
                 GameObject.Find("Slider_weather").GetComponent<Slider>().value = Camera.main.GetComponent<weather>().cloudy;
-                sld_weather.transform.SetParent(getCand.transform, true);
 
 
-                sld_weather.transform.localPosition = new Vector2(-300, -300.0f);
-                weatherDu.anchorMin = new Vector2(8.0f, 0.7f);
-                weatherDu.anchorMax = new Vector2(1.0f, 0.8f);
-                weatherDu.pivot = new Vector2(0.5f, 0.5f);
+                //  sld_weather.transform.localPosition = new Vector2(-300, -300.0f);
+                sld_weather.transform.SetParent(getCand.transform, false);
+                sld_weather.transform.localPosition = new Vector2(-40, -295);
 
 
                 //cloud height
                 GameObject sld_cloud_height = Instantiate(Resources.Load("menu\\pause\\debug\\sld_cloud_level")) as GameObject;
                  sld_cloud_height.name = "sld_cloud_height";
+                sld_cloud_height.GetComponent<RectTransform>().anchorMin = new Vector2(.85f, 0.63f);
+                sld_cloud_height.GetComponent<RectTransform>().anchorMax = new Vector2(.85f, 0.63f);
+                sld_cloud_height.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
                 RectTransform CloudHeightDu = GameObject.Find("Slider_cloudLevel").GetComponent<RectTransform>();
                 GameObject.Find("Slider_cloudLevel").GetComponent<Slider>().value = Camera.main.GetComponent<weather>().cloudHeight;
-                sld_cloud_height.transform.SetParent(getCand.transform, true);
 
 
-                sld_cloud_height.transform.localPosition = new Vector2(-300, -100.0f);
-                CloudHeightDu.anchorMin = new Vector2(8.0f, 0.7f);
-                CloudHeightDu.anchorMax = new Vector2(1.0f, 0.8f);
-                CloudHeightDu.pivot = new Vector2(0.5f, 0.5f);
+                //  sld_cloud_height.transform.localPosition = new Vector2(-300, -100.0f);
+                sld_cloud_height.transform.SetParent(getCand.transform, false);
+                sld_cloud_height.transform.localPosition = new Vector2(-40, -255);
 
                 // wind
 
                 GameObject sld_wind = Instantiate(Resources.Load("menu\\pause\\debug\\sld_wind")) as GameObject;
                 sld_wind.name = "sld_wind";
+                sld_wind.GetComponent<RectTransform>().anchorMin = new Vector2(.85f, 0.67f);
+                sld_wind.GetComponent<RectTransform>().anchorMax = new Vector2(.85f, 0.67f);
+                sld_wind.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
                 RectTransform windDu = GameObject.Find("Slider_wind").GetComponent<RectTransform>();
                 GameObject.Find("Slider_wind").GetComponent<Slider>().value = Camera.main.GetComponent<weather>().AirSpeed;
-                sld_wind.transform.SetParent(getCand.transform, true);
 
 
-                sld_wind.transform.localPosition = new Vector2(-300, -200.0f);
-                windDu.anchorMin = new Vector2(8.0f, 0.7f);
-                windDu.anchorMax = new Vector2(1.0f, 0.8f);
-                windDu.pivot = new Vector2(0.5f, 0.5f);
+                //  sld_wind.transform.localPosition = new Vector2(-300, -200.0f);
+                sld_wind.transform.SetParent(getCand.transform, false);
+                sld_wind.transform.localPosition = new Vector2(-40, -215);
+
+                GameObject.Find("pic_green_debug_menu").GetComponent<Image>().enabled = true;
 
                 //end of debug zone
                 GameObject ddd = GameObject.Find("shipBlast");
@@ -248,7 +259,7 @@ public class menu_runtime : MonoBehaviour
         Destroy(sld_BR);
         GameObject sld_RAD = GameObject.Find("sld_RAD");
         Destroy(sld_RAD);
-
+        GameObject.Find("pic_green_debug_menu").GetComponent<Image>().enabled = false;
         GameObject debug_container = GameObject.Find("debug_container");
         Destroy(debug_container);
     }
