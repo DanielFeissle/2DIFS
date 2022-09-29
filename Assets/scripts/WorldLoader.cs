@@ -13,7 +13,7 @@ public class WorldLoader : MonoBehaviour
     void Start()
     {
         Debug.Log("HI");
-         ReadString("1x1");
+     //    ReadString("1x1");
 
      //   TextAsset txt = (TextAsset)Resources.Load("scenes\\readme", typeof(TextAsset));
       //  string content = txt.text;
@@ -29,7 +29,26 @@ public class WorldLoader : MonoBehaviour
         
     }
  
+    public void phonehome(string level)
+    {
+        GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().resetStage = true;
 
+
+        //clean up stage before loading objects
+        general_invent_kill[] myItems = FindObjectsOfType(typeof(general_invent_kill)) as general_invent_kill[];
+        Debug.Log("Found " + myItems.Length + " instances with this script attached");
+        foreach (general_invent_kill item in myItems)
+        {
+            Debug.Log("THIS IS THE ITEM"+item.gameObject.name);
+         
+           // Destroy(item.gameObject);
+        }
+
+
+        GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().resetStage = false;
+
+        ReadString(level);
+    }
     //https://support.unity3d.com/hc/en-us/articles/115000341143-How-do-I-read-and-write-data-from-a-text-file-
     static void ReadString(string sceneRead)
     {
@@ -43,16 +62,34 @@ public class WorldLoader : MonoBehaviour
                 Debug.Log("line comment");
              
             }
+            else if (tta.Substring(0, 3) == "GTO")
+            {
+                //template will have most up to date content
+                //(0-Height/distance obj, 1-Land on gameobject name, 2-Pass checkpoints, 3-Grab object and get to designated end point)
+                string[] sclir = tta.Split(',');
+                GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().GameObjective = Convert.ToInt32(sclir[1]);
+
+            }
             else if (tta.Substring(0,3)=="OBJ")
             {
+                
                 string[] sclir = tta.Split(',');
                 GameObject uiAltiText2 = GameObject.Find("txt_OBJ");
                 Text delta21 = uiAltiText2.GetComponent<Text>();
-                delta21.text = "DRF-"+sclir[1]+"\n Reach a height of "+ sclir[2]+" and land in "+ sclir[3]+" to "+ sclir[4];
-                GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_title = sclir[1];
-                GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Height = Convert.ToInt32(sclir[2]);
-                GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Land_s = Convert.ToInt32(sclir[3]);
-                GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Land_e = Convert.ToInt32(sclir[4]);
+
+                if (GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().GameObjective==0)
+                {
+                    delta21.text = "DRF-" + sclir[1] + "\n Reach a height of " + sclir[2] + " and land in " + sclir[3] + " to " + sclir[4];
+                    GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_title = sclir[1];
+                    GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Height = Convert.ToInt32(sclir[2]);
+                    GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Land_s = Convert.ToInt32(sclir[3]);
+                    GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Land_e = Convert.ToInt32(sclir[4]);
+                }
+                else if (GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().GameObjective == 1)
+                {
+
+                }
+
 
             }
             else if (tta.Substring(0, 3) == "CLD")
@@ -108,6 +145,14 @@ public class WorldLoader : MonoBehaviour
                         Debug.Log("BUILDING"+sclir[0] + ":" + x + "," + y);
                         picky2.name = sclir[0]+":"+x+","+y;
                         picky2.transform.position = new Vector2(x, y);
+                        //9-29-2022 pulled below from specr2, and probab somewhere else
+                        //attach script during runtime
+                        //We have a string holding a script name
+                        string ScriptName = "general_invent_kill";
+                        //We need to fetch the Type
+                        System.Type MyScriptType = System.Type.GetType(ScriptName + ",Assembly-CSharp");
+                        //Now that we have the Type we can use it to Add Component
+                        picky2.AddComponent(MyScriptType);
                     }
                 }
 

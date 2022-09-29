@@ -1,6 +1,8 @@
 #lines that start with # are comments
 #values are seperated by commas (,)
 #objective for scene
+#GTO game type objective (0-Height/distance obj, 1-Land on gameobject name, 2-Pass checkpoints, 3-Grab object and get to designated end point)
+GTO,0
 #OBJ,Scene title, GET Height (+or-), Land start, Land End
 OBJ,Welcome test!,40,0,9999
 #CLD,Cloud Height
@@ -9,7 +11,7 @@ CLD,80
 WTH,40
 #WND, Wind level -4000 to 4000
 WND,444
-#RAD, RADIOSIT level 0 to 1
+#RAD, RADIOSITy level 0 to 1
 RAD,1
 #RAB, Background Radiosit leve 0 to 1
 RAB,1

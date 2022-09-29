@@ -26,6 +26,8 @@ public class POLF : MonoBehaviour
     public int OBJ_Land_s=9999;
     public int OBJ_Land_e=99999;
 
+    public int GameObjective = 0;
+
     void Start()
     {
         
@@ -34,100 +36,110 @@ public class POLF : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //went over objective, can't really turn around.,,.
-        if (GameObject.Find("Player_plane").transform.position.x>OBJ_Land_e)
+
+        if (GameObjective==0)
         {
-            GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead = true;
-        }
-        if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == false)
-        {
-            if (GameObject.Find("Player_plane").transform.position.x > OBJ_Land_s && GameObject.Find("Player_plane").transform.position.x < OBJ_Land_e && GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt > OBJ_Height && GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed < 5 && GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground == true)
+            //went over objective, can't really turn around.,,.
+            if (GameObject.Find("Player_plane").transform.position.x > OBJ_Land_e)
             {
-                GameObject uiCongrats = GameObject.Find("txt_OBJ");
-                uiCongrats.gameObject.GetComponent<Text>().text = "                                     You win!";
-                uiCongrats.gameObject.GetComponent<Text>().enabled = true;
                 GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead = true;
-
             }
-        }
-
-
-        if (curSceneOver==true && GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == false)
-        {
-            GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt = 0;
-            //12-1-2021 this means that the player restarted the scene again
-            this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-            timeStart = false;
-             curTime = 0;
-             MaxSpeed = 0;
-             impactDev = 0;
-             MaxAlt = 0;
-             bailed = true;
-            curSceneOver = false;
-            GameObject uiAltiText2 = GameObject.Find("txt_stats");
-            Text delta21 = uiAltiText2.GetComponent<Text>();
-            delta21.text = "";//.Substring(0, locCnt);
-            GameObject uiAltiText22 = GameObject.Find("txt_OBJ");
-            uiAltiText22.gameObject.GetComponent<Text>().enabled = true;
-
-            GameObject bluTXT = GameObject.Find("bluLoading");
-            bluTXT.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-
-        }
-        if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == true && curSceneOver == false)
-        {
-            curSceneOver = true;
-            stats_msg = "Flight facts: \n" + "Max Speed: " + MaxSpeed + "\n Impact: " + impactDev + "\n Max Altitude: " + MaxAlt + "\n Total Elapsed time: " + curTime + "Bailed: " + GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject;
-
-            //the case is gone, retry stage-
-            GameObject uiAltiText2 = GameObject.Find("txt_stats");
-            Text delta21 = uiAltiText2.GetComponent<Text>();
-            delta21.text = stats_msg;//.Substring(0, locCnt);
-            GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt = 0;
-
-
-        } else if (Time.time > nextUsage && timeStart == true) //continue scrolling
-        {
-
-            if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed>MaxSpeed)
+            if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == false)
             {
-                MaxSpeed = GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed;
-            }
-            if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed>impactDev)
-            {
-                impactDev = GameObject.Find("Player_plane").GetComponent<mplane_controller>().impact;
-            }
-            if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().altitude>MaxAlt)
-            {
-                MaxAlt = GameObject.Find("Player_plane").GetComponent<mplane_controller>().altitude;
-            }
-            
+                if (GameObject.Find("Player_plane").transform.position.x > OBJ_Land_s && GameObject.Find("Player_plane").transform.position.x < OBJ_Land_e && GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt > OBJ_Height && GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed < 5 && GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground == true)
+                {
+                    GameObject uiCongrats = GameObject.Find("txt_OBJ");
+                    uiCongrats.gameObject.GetComponent<Text>().text = "                                     You win!";
+                    uiCongrats.gameObject.GetComponent<Text>().enabled = true;
+                    GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead = true;
 
-            curTime = curTime + 0.1;
-            nextUsage = Time.time + delay; //it is on display
+                }
+            }
+
+
+            if (curSceneOver == true && GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == false)
+            {
+                GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt = 0;
+                //12-1-2021 this means that the player restarted the scene again
+                this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+                timeStart = false;
+                curTime = 0;
+                MaxSpeed = 0;
+                impactDev = 0;
+                MaxAlt = 0;
+                bailed = true;
+                curSceneOver = false;
+                GameObject uiAltiText2 = GameObject.Find("txt_stats");
+                Text delta21 = uiAltiText2.GetComponent<Text>();
+                delta21.text = "";//.Substring(0, locCnt);
+                GameObject uiAltiText22 = GameObject.Find("txt_OBJ");
+                uiAltiText22.gameObject.GetComponent<Text>().enabled = true;
+
+                GameObject bluTXT = GameObject.Find("bluLoading");
+                bluTXT.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+
+            }
+            if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == true && curSceneOver == false)
+            {
+                curSceneOver = true;
+                stats_msg = "Flight facts: \n" + "Max Speed: " + MaxSpeed + "\n Impact: " + impactDev + "\n Max Altitude: " + MaxAlt + "\n Total Elapsed time: " + curTime + "Bailed: " + GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject;
+
+                //the case is gone, retry stage-
+                GameObject uiAltiText2 = GameObject.Find("txt_stats");
+                Text delta21 = uiAltiText2.GetComponent<Text>();
+                delta21.text = stats_msg;//.Substring(0, locCnt);
+                GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt = 0;
+
+
+            }
+            else if (Time.time > nextUsage && timeStart == true) //continue scrolling
+            {
+
+                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed > MaxSpeed)
+                {
+                    MaxSpeed = GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed;
+                }
+                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed > impactDev)
+                {
+                    impactDev = GameObject.Find("Player_plane").GetComponent<mplane_controller>().impact;
+                }
+                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().altitude > MaxAlt)
+                {
+                    MaxAlt = GameObject.Find("Player_plane").GetComponent<mplane_controller>().altitude;
+                }
+
+
+                curTime = curTime + 0.1;
+                nextUsage = Time.time + delay; //it is on display
+            }
+            if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().qreset == true) //if the player ejects early and restarts the stage early, bring everything back in
+            {
+                GameObject.Find("Player_plane").GetComponent<mplane_controller>().qreset = false;
+                GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt = 0;
+                this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+                timeStart = false;
+                curTime = 0;
+                MaxSpeed = 0;
+                impactDev = 0;
+                MaxAlt = 0;
+                bailed = true;
+                curSceneOver = false;
+                GameObject uiAltiText2 = GameObject.Find("txt_stats");
+                Text delta21 = uiAltiText2.GetComponent<Text>();
+                delta21.text = "";//.Substring(0, locCnt);
+                GameObject uiAltiText22 = GameObject.Find("txt_OBJ");
+                uiAltiText22.gameObject.GetComponent<Text>().enabled = true;
+
+                GameObject bluTXT = GameObject.Find("bluLoading");
+                bluTXT.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+
+            }
         }
-        if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().qreset ==true) //if the player ejects early and restarts the stage early, bring everything back in
+        else if ( GameObjective==1)
         {
-            GameObject.Find("Player_plane").GetComponent<mplane_controller>().qreset = false;
-            GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt = 0;
-            this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-            timeStart = false;
-            curTime = 0;
-            MaxSpeed = 0;
-            impactDev = 0;
-            MaxAlt = 0;
-            bailed = true;
-            curSceneOver = false;
-            GameObject uiAltiText2 = GameObject.Find("txt_stats");
-            Text delta21 = uiAltiText2.GetComponent<Text>();
-            delta21.text = "";//.Substring(0, locCnt);
-            GameObject uiAltiText22 = GameObject.Find("txt_OBJ");
-            uiAltiText22.gameObject.GetComponent<Text>().enabled = true;
-
-            GameObject bluTXT = GameObject.Find("bluLoading");
-            bluTXT.gameObject.GetComponent<SpriteRenderer>().enabled = true;
 
         }
+      
 
 
 

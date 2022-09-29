@@ -37,7 +37,7 @@ public class mplane_controller : MonoBehaviour
     Vector3 CamOffSetStd;
     public bool plane_recovered;
     AudioSource [] generalAS= new AudioSource[9];
-    bool zzengineOnOff = false;
+    public bool zzengineOnOff = false;
     bool zzShutDownFin = true;
     Coroutine ff;
     float delay23 = 0.1f; //only half delay
@@ -534,9 +534,19 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             rb.drag = .5f;
             heavyMass = false;
         }
+            if (Input.GetButtonDown("Debug Reset"))
+            {
+                Debug.Log("THE STAGE HAS BEEN CALLED UPON");
+                this.gameObject.GetComponent<WorldFlowTrack>().TrackStage();
+            }
             //NOTE TO SELF, This is the magic reset button for restarting the stage- thanks df 3-30-2022!
         if (Input.GetButtonDown("Fire3") || (plane_recovered==true && peject ==true))
         {
+                if (GameObject.Find("txt_OBJ").gameObject.GetComponent<Text>().text.Contains("win"))
+                {
+                    //call this when a stage complete
+                    this.gameObject.GetComponent<WorldFlowTrack>().SendStage();
+                }
                 Vector3 plSp=Vector3.zero;
             if (pdead == true || peject==true)
             {
@@ -575,6 +585,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     Camera.main.orthographicSize = cameraDef;
                     zzengineOnOff = false;
                     zzShutDownFin = true;
+                    Speed = 0;
                     GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
                 GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
                 GameObject.Find("planeSkid_back").GetComponent<wheelHealth>().wheelHP = 100;
@@ -608,8 +619,27 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     ani = this.GetComponent<Animator>();
                     ani.SetBool("IS_AIR_ROLL", false);
                     ani.SetBool("IS_GUST", false);
-                    
-                    countStrain = 0;
+                    invincible = true;
+                    _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\flight\\spooling2");
+                    this.GetComponent<mplane_audio>().afx_q();
+                    if (engineSpool < 1)
+                    {
+                        engineSpool = 5;
+                    }
+                    //9-28-2022- when respawn turn off engine
+                    ff = StartCoroutine(EjectControledPowerOff());
+                    zzengineOnOff = true;
+                    zzShutDownFin = false;
+                    nextUsage23 = Time.time + delay23; //it is on display
+                
+
+                AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+                AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+                AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+                AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+                AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+                AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
+                countStrain = 0;
                     gib = 0;
                     //4-27-2022 selective cleanup, finall added
                     string GIBS = "p_back,p_mid,p_mid_NO_WING,p_wing_bot,p_wing_top,p_front,jump_seat,box_a,par_drop";
@@ -669,6 +699,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 }
                 if (plane_recovered==true)
                     {
+                        engineSpool = 0;
                         StartCoroutine(SlowBounceOnRecover());
                         //asdf
                         transform.position = plSp;
@@ -684,9 +715,10 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 rb.mass = 60;
                 rb.drag = .5f;
                 heavyMass = false;
+                    Speed = 0;
+                }
+                Speed = 0;
             }
-
-        }
         RaycastHit2D hit = Physics2D.Raycast(new Vector3(transform.position.x, transform.position.y - 0.1f, 0), -Vector2.up);
       //  Debug.Log(hit.collider.name);
 
@@ -832,6 +864,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 
 
         GameObject throttle = GameObject.Find("sld_throttleGauge");
+
         throttle.GetComponent<Slider>().value = engineSpool;
 
         //lets do this the -- way- only one sensor
@@ -1162,7 +1195,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 
                         ani.SetBool("IS_AIR_ROLL", false);
                     }
-                    Debug.Log("THE BOD HEALTH IS " + WingHP + "/100");
+                //    Debug.Log("THE BOD HEALTH IS " + WingHP + "/100");
                //     Debug.Log("THE CURRENT STRESS IS" + countStrain + " OUT OF " + strainLimitLO_CNT);
                     nextUsage1 = Time.time + delay1; //it is on display
                 }
@@ -1292,9 +1325,34 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 
         }
 
-            Debug.Log("SOMETIME2 " + someTime2 + "METIME2 " + metime2);
-              
+       //     Debug.Log("SOMETIME2 " + someTime2 + "METIME2 " + metime2);
+            //key word- FPS, FPS control scheme
+            //9-26-2022
+            float tfps = 1;
+            float num;
+            string value = GameObject.Find("dbg_fps").GetComponent<Text>().text;
+            if (!float.TryParse(value, out num))
+            {
+              //  throw new InvalidOperationException("Value is not a number.");
+            }
+            else
+            {
+                tfps = (float)Convert.ToDouble(GameObject.Find("dbg_fps").GetComponent<Text>().text);
+            }
+               
 
+
+         
+        
+            int baselinefps = 120;
+            float deltatf = baselinefps - tfps;
+            float add_fps = 0;
+            if (deltatf>0) // we are in less than optimal territory
+            {
+                add_fps =Mathf.Abs(deltatf)/45;
+            //    Debug.Log("zzzzzzzzzzzzzzzzzzzzzzzzzTHE FPS ADD VALUE ISA " + add_fps);
+            }
+            //end of 9-26-2022 FPS control scheme
                 if (bypass2==false && zzengineOnOff==false && Time.time > metime2)
         {
                 
@@ -1303,7 +1361,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 if (engineSpool < 99)
                 {
                         this.GetComponent<mplane_audio>().afxPitchUp();
-                        engineSpool = engineSpool + 0.5f;
+                        engineSpool = engineSpool + 0.5f+ add_fps;
                 }
 
             }
@@ -1313,7 +1371,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 {
                         this.GetComponent<mplane_audio>().afxPitchDown();
                       
-                        engineSpool = engineSpool - 0.5f;
+                        engineSpool = engineSpool - 0.5f- add_fps;
                 }
 
             }

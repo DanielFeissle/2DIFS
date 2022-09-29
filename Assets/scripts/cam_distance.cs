@@ -54,11 +54,20 @@ public class cam_distance : MonoBehaviour
                 damy = GameObject.FindGameObjectsWithTag("detail");
                 sceneLoad = true;
             }
-           
 
-            rendThis(gamy);
-            rendThis(bamy);
-            rendThis(damy);
+            if (GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().resetStage == false)
+            {
+                rendThis(gamy);
+                rendThis(bamy);
+                rendThis(damy);
+            }
+            else
+            {
+           //     ShowAll(gamy);
+            //    ShowAll(bamy);
+           //     ShowAll(damy);
+            }
+
 
             nextUsage = Time.time + delay;
         }
@@ -132,5 +141,75 @@ public class cam_distance : MonoBehaviour
         }
     }
 
+
+
+
+
+    private void ShowAll(GameObject[] bar)
+    {
+
+        cam = Camera.main;
+        Vector3 p = cam.ScreenToWorldPoint(new Vector3(0, cam.pixelHeight, cam.nearClipPlane)); //top left
+        Vector3 q = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, cam.nearClipPlane)); //bottom right
+                                                                                               //     Debug.Log("CAMERA POS RIGHT MOST:" + q.x + " LEFT MOST " + p.x);
+        foreach (GameObject g in bar)
+        {
+            //2-28-22 setactive saves a lot of processing power- scenes should now be able to be very large without issues!
+            if (g.gameObject.GetComponent<Renderer>())
+            {
+                GameObject pl = GameObject.Find("Player_plane");
+                //6-15-2022- splitting this up to save resources until after char ejects
+                if (pl.GetComponent<mplane_controller>().peject == true)
+                {
+                    if (g.transform.position.x < (q.x + 99999) && (g.transform.position.x > (p.x - 99999)) || (g.transform.position.x < (pl.transform.position.x + 99999) && (g.transform.position.x > (pl.transform.position.x - 99999))))
+                    {
+                        //   g.GetComponent<Renderer>().enabled = true;
+                        //      Debug.Log("THE FOLLOWING IS" + g.name);
+                        g.SetActive(true);
+                        this.gameObject.GetComponent<lighting_tool>().LightThisUp(g);
+                    }
+                    else if (g.transform.position.x < (p.x - 99999) || g.transform.position.x < (pl.transform.position.x - 99999))
+                    {
+                        //   g.GetComponent<Renderer>().enabled = false;
+                        g.SetActive(false);
+
+                    }
+                    else
+                    {
+                        //  g.GetComponent<Renderer>().enabled = false;
+                        g.SetActive(false);
+                    }
+                }
+                else
+                {
+                    if (g.transform.position.x < (q.x + 99999) && (g.transform.position.x > (p.x - 99999)))
+                    {
+                        //   g.GetComponent<Renderer>().enabled = true;
+                        //      Debug.Log("THE FOLLOWING IS" + g.name);
+                        g.SetActive(true);
+                        this.gameObject.GetComponent<lighting_tool>().LightThisUp(g);
+                    }
+                    else if (g.transform.position.x < (p.x - 99999))
+                    {
+                        //   g.GetComponent<Renderer>().enabled = false;
+                        g.SetActive(false);
+
+                    }
+                    else
+                    {
+                        //  g.GetComponent<Renderer>().enabled = false;
+                        g.SetActive(false);
+                    }
+                }
+
+
+
+
+
+            }
+
+
+        }
+    }
 
 }
