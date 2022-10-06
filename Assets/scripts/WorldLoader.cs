@@ -45,9 +45,11 @@ public class WorldLoader : MonoBehaviour
         }
 
 
-        GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().resetStage = false;
+       // GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().resetStage = false;
 
+        Debug.Log("----------------------------------WE ARE LIVE");
         ReadString(level);
+     
     }
     //https://support.unity3d.com/hc/en-us/articles/115000341143-How-do-I-read-and-write-data-from-a-text-file-
     static void ReadString(string sceneRead)
@@ -143,7 +145,7 @@ public class WorldLoader : MonoBehaviour
                     {
                         GameObject picky2 = Instantiate(Resources.Load(sclir[0])) as GameObject;
                         Debug.Log("BUILDING"+sclir[0] + ":" + x + "," + y);
-                        picky2.name = sclir[0]+":"+x+","+y;
+                        picky2.name = sceneRead + sclir[0]+":"+x+","+y;
                         picky2.transform.position = new Vector2(x, y);
                         //9-29-2022 pulled below from specr2, and probab somewhere else
                         //attach script during runtime
@@ -164,6 +166,7 @@ public class WorldLoader : MonoBehaviour
 
         }
         Debug.Log("DONE");
+        Camera.main.GetComponent<cam_distance>().sceneLoad = false;
     }
 
 }

@@ -6,7 +6,9 @@ public class cam_distance : MonoBehaviour
 {
 
 
- //cull gameobjects that are not close enough to show. Added this comment to help locate it!
+    //cull gameobjects that are not close enough to show. Added this comment to help locate it!
+   
+
     Renderer objRenderer;
     GameObject[] gamy;
     GameObject[] bamy;
@@ -15,7 +17,7 @@ public class cam_distance : MonoBehaviour
 
     float delay = 0.1f; //only half delay
     float nextUsage;
-    bool sceneLoad = false;
+   public bool sceneLoad = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,24 +50,41 @@ public class cam_distance : MonoBehaviour
 
             if (sceneLoad==false)
             {
-                
+                if (gamy!=null)
+                {
+                    GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().resetStage = false;
+                    foreach (var obj in gamy)
+                        Destroy(obj);
+                    foreach (var obj in bamy)
+                        Destroy(obj);
+                    foreach (var obj in damy)
+                        Destroy(obj);
+                    sceneLoad = false;
+                }
                 gamy = GameObject.FindGameObjectsWithTag("ground");
                 bamy = GameObject.FindGameObjectsWithTag("background");
                 damy = GameObject.FindGameObjectsWithTag("detail");
+               
                 sceneLoad = true;
-            }
-
-            if (GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().resetStage == false)
-            {
-                rendThis(gamy);
-                rendThis(bamy);
-                rendThis(damy);
             }
             else
             {
-           //     ShowAll(gamy);
-            //    ShowAll(bamy);
-           //     ShowAll(damy);
+                {
+                    rendThis(gamy);
+                    rendThis(bamy);
+                    rendThis(damy);
+                }
+            }
+        //    if (GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().resetStage == false)
+        if (sceneLoad== true)
+            {
+             //   rendThis(gamy);
+             //   rendThis(bamy);
+             //   rendThis(damy);
+            }
+            else
+            {
+             
             }
 
 
@@ -83,6 +102,10 @@ public class cam_distance : MonoBehaviour
    //     Debug.Log("CAMERA POS RIGHT MOST:" + q.x + " LEFT MOST " + p.x);
         foreach (GameObject g in bar)
         {
+            if (g!=null)
+            {
+
+           
             //2-28-22 setactive saves a lot of processing power- scenes should now be able to be very large without issues!
             if (g.gameObject.GetComponent<Renderer>())
             {
@@ -136,7 +159,7 @@ public class cam_distance : MonoBehaviour
              
 
             }
-          
+            }
 
         }
     }

@@ -139,7 +139,10 @@ ani_front.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         {
             impulse += cp.normalImpulse;
         }
-       
+       if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().invincible == false)
+        {
+
+        
         if (impulse>14)
         {
             int randTire = UnityEngine.Random.Range(1, 9);
@@ -188,6 +191,7 @@ ani_front.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 wheelHP = wheelHP - lastDamage;
             }
 
+        }
         }
     }
 

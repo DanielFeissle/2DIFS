@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 48705584}
   - component: {fileID: 48705585}
   - component: {fileID: 48705586}
+  - component: {fileID: 48705587}
   m_Layer: 0
   m_Name: checkerBoard(256x256)
   m_TagString: game
@@ -460,6 +461,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OBJ: Player
+--- !u!114 &48705587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48705580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23cc4f55f94ae24a8a2b3a7ba03583e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 1660043027}
+  goa: y
+  ovr: 0
 --- !u!1001 &54577610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2353,6 +2369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb74e5a52d2dece4fb3968677c2993ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneLoad: 0
 --- !u!114 &519420035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6293,6 +6310,7 @@ GameObject:
   - component: {fileID: 1285547037}
   - component: {fileID: 1285547036}
   - component: {fileID: 1285547039}
+  - component: {fileID: 1285547040}
   m_Layer: 0
   m_Name: bluLoading
   m_TagString: Untagged
@@ -6400,6 +6418,21 @@ MonoBehaviour:
   masterAniName: bluLoad
   randMin: 2
   randMax: 3
+--- !u!114 &1285547040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285547035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23cc4f55f94ae24a8a2b3a7ba03583e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 48705580}
+  goa: y
+  ovr: 2.9
 --- !u!1 &1291876481
 GameObject:
   m_ObjectHideFlags: 0
@@ -9590,6 +9623,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2130177559, guid: 6b0de54a28665614eba5c7373e362eb3, type: 3}
+      propertyPath: m_Volume
+      value: 0.089
+      objectReference: {fileID: 0}
     - target: {fileID: 2183500943744788296, guid: 6b0de54a28665614eba5c7373e362eb3, type: 3}
       propertyPath: m_Name
       value: Player_plane
@@ -9637,6 +9674,10 @@ PrefabInstance:
     - target: {fileID: 3883845640533052081, guid: 6b0de54a28665614eba5c7373e362eb3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6289427524533285521, guid: 6b0de54a28665614eba5c7373e362eb3, type: 3}
+      propertyPath: invincible
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b0de54a28665614eba5c7373e362eb3, type: 3}
