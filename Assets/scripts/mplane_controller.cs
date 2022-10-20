@@ -321,6 +321,32 @@ public class mplane_controller : MonoBehaviour
 
             if (toggleLandGear == false)
             {
+                //10-18-2022 fixed the collision when no wheels are present
+                foreach (CapsuleCollider2D cap in GameObject.Find("minorWheels").GetComponents<CapsuleCollider2D>())
+                {
+                    cap.enabled = true;
+                }
+                foreach (CapsuleCollider2D cap in GameObject.Find("planeSkid_front").GetComponents<CapsuleCollider2D>())
+                {
+                    cap.enabled = true;
+                }
+                foreach (CapsuleCollider2D cap in GameObject.Find("planeSkid_back").GetComponents<CapsuleCollider2D>())
+                {
+                    cap.enabled = true;
+                }
+
+                foreach (PolygonCollider2D pol in this.gameObject.GetComponents<PolygonCollider2D>())
+                {
+                    if (pol.isTrigger == false)
+                    {
+                        pol.enabled = true;
+                    }
+                }
+                GameObject.Find("FLATGROUND").GetComponent<EdgeCollider2D>().enabled = true;
+                //     GameObject.Find("planeSkid_front").SetActive(true);
+                //     GameObject.Find("planeSkid_back").SetActive(true);
+                //  GameObject.Find("minorWheels").SetActive(true);
+
                 ani.SetInteger("ani_tire", 2);
                 if (quickTireSet == true)
                 {
@@ -334,6 +360,35 @@ public class mplane_controller : MonoBehaviour
             }
             else
             {
+
+                foreach (PolygonCollider2D pol in this.gameObject.GetComponents<PolygonCollider2D>())
+                {
+                 if (pol.isTrigger==false)
+                    {
+                        pol.enabled = false;
+                    }
+                }
+
+                foreach (CapsuleCollider2D cap in GameObject.Find("minorWheels").GetComponents<CapsuleCollider2D>())
+                {
+                    cap.enabled = false;
+                }
+                foreach (CapsuleCollider2D cap in GameObject.Find("planeSkid_front").GetComponents<CapsuleCollider2D>())
+                {
+                    cap.enabled = false;
+                }
+                foreach (CapsuleCollider2D cap in GameObject.Find("planeSkid_back").GetComponents<CapsuleCollider2D>())
+                {
+                    cap.enabled = false;
+                }
+                GameObject.Find("FLATGROUND").GetComponent<EdgeCollider2D>().enabled = false;
+                if (GameObject.Find("minorWheels"))
+                {
+              //      GameObject.Find("planeSkid_front").SetActive(false);
+               //     GameObject.Find("planeSkid_back").SetActive(false);
+                 //   GameObject.Find("minorWheels").SetActive(false);
+                }
+
                 ani.speed = 0.1f;
                 ani.SetInteger("ani_tire", 1);
             }
