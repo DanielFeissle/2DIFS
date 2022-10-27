@@ -258,6 +258,26 @@ public class mplane_controller : MonoBehaviour
             //   Debug.Log("Your Value for Trigger is " + TriggerRight);
             if (Input.GetButtonDown("EJECT") && peject == false)
         {
+            //10-24-2022 should fix plane not crashing issue
+            GameObject.Find("FLATGROUND").GetComponent<EdgeCollider2D>().enabled = false;
+            alt_gauge txt_ground_dist_alt = GameObject.Find("altimeter").GetComponent<alt_gauge>();
+           
+            if (txt_ground_dist_alt.act_alt > 10 && Speed>10)
+            {
+                GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
+                GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
+                toggleLandGear = true;
+                tireAni();
+            }
+
+            Debug.Log("NO LANDING GEAR");
+            /*   foreach (PolygonCollider2D pol in this.gameObject.GetComponents<PolygonCollider2D>())
+               {
+                   if (pol.isTrigger == false)
+                   {
+                       pol.enabled = false;
+                   }
+               } */
             peject = true;
             //8-4-2022 we want to keep the object moving at fast speeds, not so much at slow speeds
             if (engineSpool>65)
@@ -933,8 +953,9 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         }
         GameObject aoa_gauge = GameObject.Find("sld_AOA");
         aoa_gauge.GetComponent<Slider>().value = basense;
-
-        GameObject txtAlt = GameObject.Find("txt_altitude");
+              
+               
+                GameObject txtAlt = GameObject.Find("txt_altitude");
             altitude = Math.Round(transform.position.y, 2);
         txtAlt.GetComponent<Text>().text = "SEA: " + altitude;
                 //contrails show up after this distance (1-11-2022)
