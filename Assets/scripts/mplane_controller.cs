@@ -195,7 +195,32 @@ public class mplane_controller : MonoBehaviour
 
         }
 
+        if (GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt < 15 && toggleLandGear==true)
+        {
+            Camera.main.GetComponent<HUD_buttons>().WheelLandAlrt("");
+        }
+        else
+        {
+            Camera.main.GetComponent<HUD_buttons>().WheelLandAlrt("!");
+        }
 
+        if (Speed>25)
+        {
+            Camera.main.GetComponent<HUD_buttons>().SpeedWarn("");
+        }
+        else
+        {
+            Camera.main.GetComponent<HUD_buttons>().SpeedWarn("!");
+        }
+        Debug.Log("COUNT IS " + countStrain + "WHEEL HEALTH" + GameObject.Find("planeSkid_back").GetComponent<wheelHealth>().wheelHP);
+        if (WingHP<50 || GameObject.Find("planeSkid_back").GetComponent<wheelHealth>().wheelHP!= 100 || GameObject.Find("planeSkid_front").GetComponent<wheelHealth>().wheelHP!=100)
+        {
+            Camera.main.GetComponent<HUD_buttons>().GeneralWarn("");
+        }
+         else
+        {
+            Camera.main.GetComponent<HUD_buttons>().GeneralWarn("!");
+        }
 
         float TriggerRight = Input.GetAxis("Cont_Trigger");
         if (TriggerRight != 0)
@@ -223,6 +248,7 @@ public class mplane_controller : MonoBehaviour
 
                 if (zzengineOnOff == true)
                 {
+                    Camera.main.GetComponent<HUD_buttons>().powerSwitch("on");
                     _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\flight\\spooling2_start");
                     this.GetComponent<mplane_audio>().afx();
                      //  StopCoroutine(ff);
@@ -233,6 +259,7 @@ public class mplane_controller : MonoBehaviour
                 }
                 else
                 {
+                    Camera.main.GetComponent<HUD_buttons>().powerSwitch("off");
                     _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\flight\\spooling2");
                     this.GetComponent<mplane_audio>().afx_q();
                     if (engineSpool<1)
@@ -311,6 +338,7 @@ public class mplane_controller : MonoBehaviour
                 {
                     GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = false;
                     GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = false;
+                    Camera.main.GetComponent<HUD_buttons>().wheelUpDown("down");
                     toggleLandGear = true;
                     tireAni();
                     Debug.Log("LANDING GEAR");
@@ -321,6 +349,7 @@ public class mplane_controller : MonoBehaviour
                     GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
                     GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
                     toggleLandGear = false;
+                    Camera.main.GetComponent<HUD_buttons>().wheelUpDown("up");
                     tireAni();
                     Debug.Log("NO LANDING GEAR");
                 }
@@ -1217,11 +1246,78 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
     int countStrain = 0;
     public int strainLimitLO_CNT = 5;
     public int WingHP = 100;
+
+    void HullStress()
+    {
+        //4-14-2022 potential idea, if stress levels exceed then wings pop off mind flight 
+        if (Time.time > nextUsage1)
+        {
+            // if ( onground==false)
+            {
+                if (Speed > 27)
+                {
+                    WingHP = WingHP - 6;
+                    countStrain++;
+                }
+                if ((moveVertSense != 0 || moveVertSense2 != 0) && onground == false)
+                {
+
+                    WingHP = WingHP - countStrain / 4;
+                }
+                else
+                {
+                    countStrain = 0;
+                    if (WingHP < 100)
+                    {
+                        WingHP = WingHP + 5;
+                    }
+                    else
+                    {
+                        WingHP = 100;
+                    }
+
+                }
+
+                if (countStrain > strainLimitLO_CNT)
+                {
+                    ani.SetBool("IS_AIR_ROLL", true);
+                }
+                else
+                {
+
+                    ani.SetBool("IS_AIR_ROLL", false);
+                }
+                //    Debug.Log("THE BOD HEALTH IS " + WingHP + "/100");
+                //     Debug.Log("THE CURRENT STRESS IS" + countStrain + " OUT OF " + strainLimitLO_CNT);
+                nextUsage1 = Time.time + delay1; //it is on display
+            }
+            countStrain++;
+            GameObject.Find("sld_hull_stress").GetComponent<Slider>().value = WingHP;
+            if (WingHP > 66)
+            {
+                GameObject.Find("Handle_hull_stress_COLOR").GetComponent<Image>().color = Color.blue;
+            }
+            else if (WingHP > 33)
+            {
+                GameObject.Find("Handle_hull_stress_COLOR").GetComponent<Image>().color = Color.cyan;
+            }
+            else
+            {
+                GameObject.Find("Handle_hull_stress_COLOR").GetComponent<Image>().color = Color.magenta;
+            }
+
+        }
+        if (WingHP < 0 && colSignal == false)
+        {
+            colSignal = true;
+            postmortem = 3;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
         ani = this.GetComponent<Animator>();
-
+        HullStress();
         //  GameObject.Find("HOLDER").GetComponent<Transform>().transform.position = this.transform.position;
         //   GameObject.Find("HOLDER").GetComponent<Transform>().transform.eulerAngles = this.transform.eulerAngles;
         if (pdead==false && peject == false && GameObject.Find("altimeter").gameObject.GetComponent<menu_runtime>().specButtonStat==-1)
@@ -1238,64 +1334,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 
             }
 
-            //4-14-2022 potential idea, if stress levels exceed then wings pop off mind flight 
-            if (Time.time > nextUsage1)
-            {
-               // if ( onground==false)
-                {
-                    if ((moveVertSense != 0 || moveVertSense2 != 0)&& onground == false)
-                    {
-                       
-                        WingHP = WingHP - countStrain/4;
-                    }
-                    else
-                    {
-                        countStrain = 0;
-                        if (WingHP<100)
-                        {
-                            WingHP = WingHP + 5;
-                        }
-                        else
-                        {
-                            WingHP = 100;
-                        }
-                      
-                    }
-
-                    if (countStrain > strainLimitLO_CNT)
-                    {
-                        ani.SetBool("IS_AIR_ROLL", true);
-                    }
-                    else
-                    {
-
-                        ani.SetBool("IS_AIR_ROLL", false);
-                    }
-                //    Debug.Log("THE BOD HEALTH IS " + WingHP + "/100");
-               //     Debug.Log("THE CURRENT STRESS IS" + countStrain + " OUT OF " + strainLimitLO_CNT);
-                    nextUsage1 = Time.time + delay1; //it is on display
-                }
-                countStrain++;
-                GameObject.Find("sld_hull_stress").GetComponent<Slider>().value = WingHP;
-                if (WingHP>66)
-                {
-                    GameObject.Find("Handle_hull_stress_COLOR").GetComponent<Image>().color = Color.blue;
-                }
-                else if (WingHP>33)
-                {
-                    GameObject.Find("Handle_hull_stress_COLOR").GetComponent<Image>().color = Color.cyan;
-                }
-                else
-                {
-                    GameObject.Find("Handle_hull_stress_COLOR").GetComponent<Image>().color = Color.magenta;
-                }
-
-            }
-            if (WingHP<0 && colSignal==false)
-            {
-                colSignal = true;
-                postmortem = 3;
-            }
+         //  HullStress();
 
             if (moveVertSense == 0 )
         {

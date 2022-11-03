@@ -106,9 +106,10 @@
     <Compile Include="Assets\scripts\minimap_player_control.cs" />
     <Compile Include="Assets\scripts\btn_title_start.cs" />
     <Compile Include="Assets\scripts\player_end_routine.cs" />
+    <Compile Include="Assets\scripts\scene_grav_change.cs" />
     <Compile Include="Assets\scripts\GEN_UI_Ani_Rand_Delay.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
-    <Compile Include="Assets\scripts\scene_grav_change.cs" />
+    <Compile Include="Assets\scripts\HUD_buttons.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />
