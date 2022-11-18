@@ -83,7 +83,11 @@ public class POLF : MonoBehaviour
             {
                 curSceneOver = true;
                 stats_msg = "Flight facts: \n" + "Max Speed: " + MaxSpeed + "\n Impact: " + impactDev + "\n Max Altitude: " + MaxAlt + "\n Total Elapsed time: " + curTime + "Bailed: " + GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject;
-
+                Camera.main.GetComponent<HUD_buttons>().powerSwitch("off");
+                Camera.main.GetComponent<HUD_buttons>().wheelUpDown("down");
+                Camera.main.GetComponent<HUD_buttons>().WheelLandAlrt("!");
+                Camera.main.GetComponent<HUD_buttons>().SpeedWarn("!");
+                Camera.main.GetComponent<HUD_buttons>().GeneralWarn("!");
                 //the case is gone, retry stage-
                 GameObject uiAltiText2 = GameObject.Find("txt_stats");
                 Text delta21 = uiAltiText2.GetComponent<Text>();

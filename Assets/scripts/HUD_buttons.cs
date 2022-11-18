@@ -32,10 +32,12 @@ public class HUD_buttons : MonoBehaviour
         if (off_on=="off")
         {
             GameObject.Find("pic_power_toggle").GetComponent<Image>().enabled = false;
+            GameObject.Find("pic_power_toggle").GetComponent<AudioSource>().Play();
         }
         else
         {
             GameObject.Find("pic_power_toggle").GetComponent<Image>().enabled = true;
+            GameObject.Find("pic_power_toggle").GetComponent<AudioSource>().Play();
         }
     }
 
@@ -44,10 +46,12 @@ public class HUD_buttons : MonoBehaviour
         if (Up_down == "down")
         {
             GameObject.Find("pic_wheel_toggle").GetComponent<Image>().enabled = false;
+            GameObject.Find("pic_wheel_toggle").GetComponent<AudioSource>().Play();
         }
         else
         {
             GameObject.Find("pic_wheel_toggle").GetComponent<Image>().enabled = true;
+            GameObject.Find("pic_wheel_toggle").GetComponent<AudioSource>().Play();
         }
     }
 
@@ -56,10 +60,12 @@ public class HUD_buttons : MonoBehaviour
         if (WheelNotDown == "!")
         {
             GameObject.Find("pic_wheel_not_land_toggle").GetComponent<Image>().enabled = false;
+            GameObject.Find("pic_wheel_not_land_toggle").GetComponent<AudioSource>().enabled = false;
         }
         else
         {
             GameObject.Find("pic_wheel_not_land_toggle").GetComponent<Image>().enabled = true;
+            GameObject.Find("pic_wheel_not_land_toggle").GetComponent<AudioSource>().enabled = true;
         }
     }
 
@@ -68,10 +74,12 @@ public class HUD_buttons : MonoBehaviour
         if (Speed == "!")
         {
             GameObject.Find("pic_speed_toggle").GetComponent<Image>().enabled = false;
+            GameObject.Find("pic_speed_toggle").GetComponent<AudioSource>().enabled = false;
         }
         else
         {
             GameObject.Find("pic_speed_toggle").GetComponent<Image>().enabled = true;
+            GameObject.Find("pic_speed_toggle").GetComponent<AudioSource>().enabled = true;
         }
     }
 
@@ -80,10 +88,12 @@ public class HUD_buttons : MonoBehaviour
         if (Uh == "!")
         {
             GameObject.Find("pic_warning_toggle").GetComponent<Image>().enabled = false;
+            GameObject.Find("pic_warning_toggle").GetComponent<AudioSource>().enabled = false;
         }
         else
         {
             GameObject.Find("pic_warning_toggle").GetComponent<Image>().enabled = true;
+            GameObject.Find("pic_warning_toggle").GetComponent<AudioSource>().enabled = true;
         }
     }
 }

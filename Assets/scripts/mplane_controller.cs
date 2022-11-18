@@ -212,7 +212,7 @@ public class mplane_controller : MonoBehaviour
         {
             Camera.main.GetComponent<HUD_buttons>().SpeedWarn("!");
         }
-        Debug.Log("COUNT IS " + countStrain + "WHEEL HEALTH" + GameObject.Find("planeSkid_back").GetComponent<wheelHealth>().wheelHP);
+     //   Debug.Log("COUNT IS " + countStrain + "WHEEL HEALTH" + GameObject.Find("planeSkid_back").GetComponent<wheelHealth>().wheelHP);
         if (WingHP<50 || GameObject.Find("planeSkid_back").GetComponent<wheelHealth>().wheelHP!= 100 || GameObject.Find("planeSkid_front").GetComponent<wheelHealth>().wheelHP!=100)
         {
             Camera.main.GetComponent<HUD_buttons>().GeneralWarn("");
@@ -649,6 +649,8 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 if (GameObject.Find("txt_OBJ").gameObject.GetComponent<Text>().text.Contains("win"))
                 {
                     //call this when a stage complete
+                    Debug.Log("-==jjjjjj=====================================LOADING");
+                    this.gameObject.GetComponent<WorldFlowTrack>().scene++;
                     this.gameObject.GetComponent<WorldFlowTrack>().SendStage();
                 }
                 Vector3 plSp=Vector3.zero;
@@ -673,6 +675,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                       //  }
                       
                     }
+
                //     GameObject.Find("minimap").gameObject.SetActive(true);
                     GameObject fff = GameObject.Find("minimap");
                     if (fff)
@@ -743,7 +746,8 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
                 AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
                 AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
-                countStrain = 0;
+                    Camera.main.GetComponent<HUD_buttons>().wheelUpDown("up");
+                    countStrain = 0;
                     gib = 0;
                     //4-27-2022 selective cleanup, finall added
                     string GIBS = "p_back,p_mid,p_mid_NO_WING,p_wing_bot,p_wing_top,p_front,jump_seat,box_a,par_drop";

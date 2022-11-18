@@ -15,7 +15,7 @@ public class btn_title_start : MonoBehaviour
 
     void TaskOnClick()
     {
-        GameObject.Find("player").GetComponent<LevelHistory>().LoadScene("SampleScene");
+        GameObject.Find("sela").GetComponent<LevelHistory>().LoadScene("SampleScene");
         try
         {
             //string debugText = GameObject.Find("txt_debugCommand").GetComponent<InputField>().text;
