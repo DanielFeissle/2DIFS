@@ -8,7 +8,7 @@ public class first_time_start : MonoBehaviour
     void Start()
     {
         //11-17-2022 this script gets called once per game load
-        GameObject pback = Instantiate(Resources.Load("player\\sela")) as GameObject;
+        GameObject pback = Instantiate(Resources.Load("player\\sel_a")) as GameObject;
         pback.name = "sela";
         pback.transform.position = new Vector2(0, 0);
         DontDestroyOnLoad(pback.gameObject);

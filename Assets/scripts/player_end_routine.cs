@@ -14,7 +14,8 @@ public class player_end_routine : MonoBehaviour
         Debug.Log("PRESS EJECT PLEASE");
         StartCoroutine(EjectHint());
     }
-
+   // int vc = LayerMask.NameToLayer("vc");
+  //   int DefaultLayer = LayerMask.NameToLayer("Default");
     public Animator ani;
     bool eject_cr = false;
     AudioClip _audio7;
@@ -35,13 +36,22 @@ public class player_end_routine : MonoBehaviour
         ani = indeje.GetComponent<Animator>();
         ani.SetBool("IS_NOTED", true);
 
-
-        Transform camPos = indeje.GetComponent<Transform>();
+         indeje.GetComponent<BoxCollider2D>().enabled = false;
+            Transform camPos = indeje.GetComponent<Transform>();
         float xrun = 1.8f;
         int cntAudioWait = 0;
         int curAudioWait = audioWaitRation;
+       // indeje.GetComponent<BoxCollider2D>().offset = new Vector2(20, 0);
+       //  indeje.gameObject.layer = vc;
         while (camPos.GetComponent<Transform>().localScale.x < 30.77f)
         {
+
+             p = cam.ScreenToWorldPoint(new Vector3(0, cam.pixelHeight, cam.nearClipPlane)); //top left
+             q = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, cam.nearClipPlane)); //bottom right
+
+            //indeje.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y + 0.35f);
+          //  indeje.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+
             if (eject_cr == false)
             {
 
@@ -52,6 +62,9 @@ public class player_end_routine : MonoBehaviour
                 yield return new WaitForSeconds(0.05f);
                 camPos.transform.localScale += new Vector3(.40f, .40f, 0);
                 camPos.transform.position += new Vector3(xrun, 0, 0);
+                Debug.Log("+++++++++++++++The XRUN value is " + xrun);
+                Debug.Log("The Current position is" + camPos.transform.position);
+                Debug.Log(camPos.GetComponent<SpriteRenderer>().bounds.max.x);
                 if (camPos.GetComponent<SpriteRenderer>().bounds.max.x > q.x)
                 {
                     xrun = -1.8f;
@@ -62,7 +75,7 @@ public class player_end_routine : MonoBehaviour
                     xrun = 1.8f;
                     camPos.transform.eulerAngles = new Vector3(0, 0, 0);
                 }
-
+                camPos.transform.position = new Vector2(camPos.transform.position.x, transform.position.y);
                 cntAudioWait++;
                 if (cntAudioWait>curAudioWait)
                 {
@@ -86,6 +99,7 @@ public class player_end_routine : MonoBehaviour
             }
 
         }
+       indeje.GetComponent<BoxCollider2D>().enabled = true;
         // GameObject.Find("transportShip").GetComponent<masterShipEnter>().introScene = false;
         Debug.Log("ALL DONE WITH THIS PLEASE");
       //  ani.speed = 0;

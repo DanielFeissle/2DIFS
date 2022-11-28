@@ -512,7 +512,7 @@ public class mplane_controller : MonoBehaviour
 
                                 rb.velocity = Vector3.zero;
                                 rb.freezeRotation = true;
-                                rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                           //     rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
 
                                 if (pdead == false)
@@ -533,7 +533,8 @@ public class mplane_controller : MonoBehaviour
                                         pfront.name = "p_front)";
                                         pfront.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y);
 
-                                        this.GetComponent<SpriteRenderer>().enabled = false;
+                                        this.GetComponent<SpriteRenderer>().enabled = true;
+                                        ani.SetBool("IS_DEAD", true);
                                         this.GetComponent<Collider2D>().enabled = false;
                                     }
 
@@ -595,7 +596,7 @@ public class mplane_controller : MonoBehaviour
     if (collision.gameObject.tag=="PlaInd")
         {
             //   rb.bodyType=RigidbodyType2D.Static;
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+          //  rb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
 
     }
@@ -716,7 +717,8 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     GameObject.Find("img_discussion").GetComponent<text_chucker>().readMode = -1;
                     GameObject.Find("img_discussion").GetComponent<text_chucker>().textCall = "";
                     this.GetComponent<SpriteRenderer>().enabled = true;
-                    rb.velocity = Vector3.zero;
+                    ani.SetBool("IS_DEAD", false);
+                   // rb.velocity = Vector3.zero;
                     this.GetComponent<Collider2D>().enabled = true;
                     peject = false;
                     this.GetComponent<mplane_audio>().afx();
@@ -775,7 +777,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     rb.mass = 60;
                 rb.drag = .5f;
                 heavyMass = false;
-                rb.constraints = RigidbodyConstraints2D.None;
+           //     rb.constraints = RigidbodyConstraints2D.None;
                 //colSignal
                 quickTireSet = true;
                 toggleLandGear = false;
@@ -867,8 +869,9 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     pfront.name = "p_front";
                     pfront.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y);
 
-                    this.GetComponent<SpriteRenderer>().enabled = false;
-                    this.GetComponent<Collider2D>().enabled = false;
+                    this.GetComponent<SpriteRenderer>().enabled = true;
+                        ani.SetBool("IS_DEAD", true);
+                        this.GetComponent<Collider2D>().enabled = false;
                     pdead = true;
                     gib++;
                 }
@@ -926,7 +929,8 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                         pfront.name = "p_front";
                         pfront.transform.position = new Vector2(transform.position.x + 0.5f, transform.position.y);
 
-                        this.GetComponent<SpriteRenderer>().enabled = false;
+                        this.GetComponent<SpriteRenderer>().enabled = true;
+                        ani.SetBool("IS_DEAD", true);
                         this.GetComponent<Collider2D>().enabled = false;
                        
                         for (int iq=0;iq<22;iq++)
