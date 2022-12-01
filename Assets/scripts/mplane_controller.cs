@@ -104,6 +104,7 @@ public class mplane_controller : MonoBehaviour
     bool movechk = false;
     bool moveHorchk = false;
     double metime = 0;
+    double tempAlt = -1;
     private void controllerCheck()
     {
         //  Debug.Log(Input.GetJoystickNames().ToString());
@@ -535,6 +536,9 @@ public class mplane_controller : MonoBehaviour
 
                                         this.GetComponent<SpriteRenderer>().enabled = true;
                                         ani.SetBool("IS_DEAD", true);
+                                        quickTireSet = true;
+                                        toggleLandGear = false;
+                                        tireAni();
                                         this.GetComponent<Collider2D>().enabled = false;
                                     }
 
@@ -871,6 +875,9 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 
                     this.GetComponent<SpriteRenderer>().enabled = true;
                         ani.SetBool("IS_DEAD", true);
+                        quickTireSet = true;
+                        toggleLandGear = false;
+                        tireAni();
                         this.GetComponent<Collider2D>().enabled = false;
                     pdead = true;
                     gib++;
@@ -931,6 +938,9 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 
                         this.GetComponent<SpriteRenderer>().enabled = true;
                         ani.SetBool("IS_DEAD", true);
+                        quickTireSet = true;
+                        toggleLandGear = false;
+                        tireAni();
                         this.GetComponent<Collider2D>().enabled = false;
                        
                         for (int iq=0;iq<22;iq++)
@@ -1012,10 +1022,10 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     Supacont.GetComponent<SpriteRenderer>().enabled = true;
                     nextUsage = Time.time + delay; //it is on display
                 }
-              
-                if (altitude>maxAlt)
+                 tempAlt = GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt;
+                if (tempAlt > maxAlt)
                 {
-                    maxAlt = altitude;
+                    maxAlt = tempAlt;
                 }
                 else if (pdead==true)
                 {

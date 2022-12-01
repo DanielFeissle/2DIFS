@@ -112,6 +112,7 @@
     <Compile Include="Assets\scripts\scene_grav_change.cs" />
     <Compile Include="Assets\scripts\GEN_UI_Ani_Rand_Delay.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
+    <Compile Include="Assets\scripts\fx_general_shrink_delete.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />

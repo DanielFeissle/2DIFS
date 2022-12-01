@@ -107,9 +107,9 @@ public class POLF : MonoBehaviour
                 {
                     impactDev = GameObject.Find("Player_plane").GetComponent<mplane_controller>().impact;
                 }
-                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().altitude > MaxAlt)
+                if (GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt > MaxAlt)
                 {
-                    MaxAlt = GameObject.Find("Player_plane").GetComponent<mplane_controller>().altitude;
+                    MaxAlt = GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt;
                 }
 
 
