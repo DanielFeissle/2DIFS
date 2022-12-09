@@ -55,8 +55,13 @@ public class WorldLoader : MonoBehaviour
     static void ReadString(string sceneRead)
     {
         int xpos = 0;
-
+        //12-8-2022
+        //perhaps a better method to catch if a file does not exist
         TextAsset txt = (TextAsset)Resources.Load("scenes\\"+sceneRead, typeof(TextAsset));
+        if (txt==null)
+        {
+            txt = (TextAsset)Resources.Load("scenes\\1x1", typeof(TextAsset));
+        }
        foreach (string tta in txt.text.Split('\n') )
                 {
             if (tta.Substring(0,1)=="#")
@@ -121,6 +126,7 @@ public class WorldLoader : MonoBehaviour
             }
             else
             {
+                
                 string[] sclir = tta.Split(',');
                // Debug.Log(Resources.Load(sclir[0].ToString()));
                 GameObject picky = Instantiate(Resources.Load(sclir[0])) as GameObject;
@@ -132,6 +138,7 @@ public class WorldLoader : MonoBehaviour
                     picky.tag = "game";
                 }
                 var renderer = picky.GetComponent<Renderer>();
+                GameObject.Destroy(picky);
                 float width = renderer.bounds.size.x;
                 float height = renderer.bounds.size.y;
                 int startX = Convert.ToInt32(sclir[2]);
@@ -165,7 +172,7 @@ public class WorldLoader : MonoBehaviour
             }
 
         }
-        Debug.Log("DONE");
+        Debug.Log("--------------------------------------DONE");
         Camera.main.GetComponent<cam_distance>().sceneLoad = false;
     }
 

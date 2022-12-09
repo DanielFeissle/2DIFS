@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class WorldFlowTrack : MonoBehaviour
     public int world = 0;
     public int scene = 0;
     public string flow = "flow";
+    int loadedWorld = 0;
+    int loadedScene = 0;
     public bool resetStage = false;
     TextAsset txt;
     // Start is called before the first frame update
@@ -23,7 +26,21 @@ public class WorldFlowTrack : MonoBehaviour
     }
     public void SendStage()
     {
+
+        if (GameObject.Find("sela").GetComponent<LevelHistory>().NameOfLevel != "Start")
+        {
+            string[] splitter = GameObject.Find("sela").GetComponent<LevelHistory>().NameOfLevel.Split('x');
+            loadedWorld = Convert.ToInt32(splitter[0]);
+             loadedScene = Convert.ToInt32(splitter[1]);
+
+            scene = loadedScene-1;
+             world = loadedWorld-1;
+
+
+            GameObject.Find("sela").GetComponent<LevelHistory>().NameOfLevel = "Start";
+        }
        
+
         string[] blar = txt.text.Split('\n');
         Debug.Log("-----------WORLD LEVELS-------------------" + blar.Length);
         string[] bkg = blar[world].Split(';'); //0 is background 1 is the world content flow

@@ -42,6 +42,7 @@ public class mplane_controller : MonoBehaviour
     Coroutine ff;
     float delay23 = 0.1f; //only half delay
     float nextUsage23;
+    bool FX_EXP_ACTIVE = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -536,6 +537,14 @@ public class mplane_controller : MonoBehaviour
 
                                         this.GetComponent<SpriteRenderer>().enabled = true;
                                         ani.SetBool("IS_DEAD", true);
+                                        if (FX_EXP_ACTIVE==false)
+                                        {
+                                            FX_EXP_ACTIVE = true;
+                                            GameObject TurdBall2 = Instantiate(Resources.Load("shrap_fx")) as GameObject;
+                                            TurdBall2.name = "FX_EXP";
+                                            TurdBall2.transform.position = transform.position;
+                                        }
+
                                         quickTireSet = true;
                                         toggleLandGear = false;
                                         tireAni();
@@ -696,6 +705,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     Camera.main.GetComponent<CameraController>().player = this.gameObject;
                     Camera.main.orthographicSize = cameraDef;
                     zzengineOnOff = false;
+                    FX_EXP_ACTIVE = false;
                     zzShutDownFin = true;
                     Speed = 0;
                     GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
@@ -875,6 +885,13 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 
                     this.GetComponent<SpriteRenderer>().enabled = true;
                         ani.SetBool("IS_DEAD", true);
+                        if (FX_EXP_ACTIVE == false)
+                        {
+                            GameObject TurdBall2 = Instantiate(Resources.Load("shrap_fx")) as GameObject;
+                            TurdBall2.name = "FX_EXP";
+                            TurdBall2.transform.position = transform.position;
+                            FX_EXP_ACTIVE = true;
+                        }
                         quickTireSet = true;
                         toggleLandGear = false;
                         tireAni();
@@ -938,6 +955,13 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 
                         this.GetComponent<SpriteRenderer>().enabled = true;
                         ani.SetBool("IS_DEAD", true);
+                        if (FX_EXP_ACTIVE == false)
+                        {
+                            FX_EXP_ACTIVE = true;
+                            GameObject TurdBall2 = Instantiate(Resources.Load("shrap_fx")) as GameObject;
+                            TurdBall2.name = "FX_EXP";
+                            TurdBall2.transform.position = transform.position;
+                        }
                         quickTireSet = true;
                         toggleLandGear = false;
                         tireAni();

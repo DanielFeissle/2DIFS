@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
     //attach to the player and call these functions
 public class LevelHistory : MonoBehaviour {
     private List<string> sceneHistory = new List<string>();  //running history of scenes
-                                                             // Use this for initialization
+    public string NameOfLevel = null;                                                 // Use this for initialization
     void Start () {
         sceneHistory.Add(SceneManager.GetActiveScene().name);
     }
@@ -20,8 +20,9 @@ public class LevelHistory : MonoBehaviour {
 
     //Call this whenever you want to load a new scene
     //It will add the new scene to the sceneHistory list
-    public void LoadScene(string newScene)
+    public void LoadScene(string newScene, string specLevel)
     {
+        NameOfLevel = specLevel;
         sceneHistory.Add(newScene);
         SceneManager.LoadScene(newScene);
     }
