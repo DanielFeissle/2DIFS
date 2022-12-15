@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 693698891130511645}
   - component: {fileID: 693698891130511644}
   - component: {fileID: 693698891130511647}
-  - component: {fileID: 5457097396932213621}
+  - component: {fileID: -3294982898731337459}
   m_Layer: 5
   m_Name: scene_button
   m_TagString: Untagged
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5457097396932213621
+--- !u!114 &-3294982898731337459
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4029950424187709388}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f26fff690d8374782a8fdf69888fa6, type: 3}
+  m_Script: {fileID: 11500000, guid: 07288c27fd5297445b7d51f41c2434db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yourButton: {fileID: 693698891130511647}
+  yourButton: {fileID: 0}
