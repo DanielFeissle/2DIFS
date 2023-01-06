@@ -51,6 +51,14 @@ public class menu_runtime : MonoBehaviour
                 //TODO- add check to see if there is a stage in the flow or not. If not then exit the game
                 EndGame();
             }
+            else if (this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen == 3)
+            {
+                //1-4-2023 -return to title screen, btn_pauser is important to set back to two otherwise it will be frozen
+                btn_pauser = 2;
+              //  Destroy(GameObject.Find("sela"));
+                SceneManager.LoadScene("title_scene");
+            }
+
             Debug.Log("HI THERE");
            this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen = 0;
         }
@@ -83,8 +91,15 @@ public class menu_runtime : MonoBehaviour
                 // btn_quiter.transform.parent = getCand.transform; //this sets the prefab to the canvas, which will control the location
                 btn_quiter.name = "btn_Quit";
                 btn_quiter.transform.SetParent(getCand.transform, false);
-                btn_quiter.transform.localPosition = new Vector2(50, -75.0f); ////this sets the prefab to the canvas (this is for menu objects), which will control the location
+                btn_quiter.transform.localPosition = new Vector2(50, -150.0f); ////this sets the prefab to the canvas (this is for menu objects), which will control the location
                 EventSystem.current.firstSelectedGameObject = btn_quiter;
+
+                GameObject btn_returner = Instantiate(Resources.Load("menu\\pause\\btn_return")) as GameObject;
+                // btn_quiter.transform.parent = getCand.transform; //this sets the prefab to the canvas, which will control the location
+                btn_returner.name = "btn_return";
+                btn_returner.transform.SetParent(getCand.transform, false);
+                btn_returner.transform.localPosition = new Vector2(50, -75.0f); ////this sets the prefab to the canvas (this is for menu objects), which will control the location
+                EventSystem.current.firstSelectedGameObject = btn_returner;
 
                 GameObject btn_Resume = Instantiate(Resources.Load("menu\\pause\\btn_Resume")) as GameObject;
                 btn_Resume.name = "btn_Resume";
@@ -243,6 +258,8 @@ public class menu_runtime : MonoBehaviour
         //create a destroy method
         GameObject btn_quit = GameObject.Find("btn_Quit");
         Destroy(btn_quit);
+        GameObject btn_return = GameObject.Find("btn_return");
+        Destroy(btn_return);
         GameObject btn_Resume = GameObject.Find("btn_Resume");
         Destroy(btn_Resume);
         GameObject txt_Pause = GameObject.Find("txt_Pause");

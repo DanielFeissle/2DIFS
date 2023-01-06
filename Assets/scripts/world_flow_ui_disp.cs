@@ -18,7 +18,7 @@ public class world_flow_ui_disp : MonoBehaviour
         GameObject STD_BUTT = Instantiate(Resources.Load("scene_select_ui\\scene_button")) as GameObject;
         STD_BUTT.transform.parent = GameObject.Find("Canvas").transform;
         STD_BUTT.name = "STD_BUTT";
-        STD_BUTT.transform.position = new Vector3(250.0f, 1000.0f);
+        STD_BUTT.transform.position = new Vector3(25000.0f, 10000.0f);
         Debug.Log("WH");
         LoadButtons();
     }
@@ -105,7 +105,6 @@ public class world_flow_ui_disp : MonoBehaviour
     void deleteAll()
     {
 
-
         txt = (TextAsset)Resources.Load("scenes\\" + flow, typeof(TextAsset));
 
         string[] blar = txt.text.Split('\n');
@@ -114,11 +113,11 @@ public class world_flow_ui_disp : MonoBehaviour
         string[] scf = bkg[1].Split(',');
 
 
-        for (int w = 0; w < blar.Length; w++)
+        for (int w = 0; w < blar.Length+1; w++)
         {
-            for (int l = 0; l < scf.Length; l++)
+            for (int l = 0; l < scf.Length+1; l++)
             {
-                Destroy(GameObject.Find(w + "," + l));
+                Destroy(GameObject.Find(w + "x" + l));
           
             }
            
