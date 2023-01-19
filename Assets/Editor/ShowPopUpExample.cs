@@ -58,7 +58,6 @@ RAD,1
 #RAB, Background Radiosit leve 0 to 1
 RAB,1
 # Prefab,LayerOrder,StartX,EndX,StartY,EndY
-ground/airport,1,0,1000,0,1
 ";
                 GameObject[] Objects;
                 Objects = GameObject.FindGameObjectsWithTag("ground");
@@ -83,7 +82,12 @@ ground/airport,1,0,1000,0,1
                 string[] bla = blarg.Split('\n');
                 foreach (string ff in bla)
                     {
-                    writer.Write(ff);
+                    if (ff != "")
+                    {
+                        writer.Write(ff);
+                        Debug.Log("THIS IS " + ff);
+                    }
+                    
                 }
                 
                 writer.Close();

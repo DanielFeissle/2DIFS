@@ -51,6 +51,7 @@ public class world_scene_editor : MonoBehaviour
     //https://support.unity3d.com/hc/en-us/articles/115000341143-How-do-I-read-and-write-data-from-a-text-file-
     public void ReadString(string sceneRead)
     {
+        int count = 0;
         int xpos = 0;
         //12-8-2022
         //perhaps a better method to catch if a file does not exist
@@ -61,6 +62,11 @@ public class world_scene_editor : MonoBehaviour
         }
         foreach (string tta in txt.text.Split('\n'))
         {
+            count++;
+            if (count>=txt.text.Split('\n').Length)
+            {
+                break;
+            }
             if (tta.Substring(0, 1) == "#")
             {
                 Debug.Log("line comment");
@@ -137,13 +143,18 @@ public class world_scene_editor : MonoBehaviour
                     picky.tag = "game";
                 }
                 var renderer = picky.GetComponent<Renderer>();
-                GameObject.Destroy(picky);
+#if UNITY_EDITOR
+                //    DestroyImmediate(picky);
+#else
+                       
+#endif
+             //   GameObject.Destroy(picky);
                 float width = renderer.bounds.size.x;
                 float height = renderer.bounds.size.y;
-                int startX = Convert.ToInt32(sclir[2]);
-                int endX = Convert.ToInt32(sclir[3]);
-                int startY = Convert.ToInt32(sclir[4]);
-                int endY = Convert.ToInt32(sclir[5]);
+                float startX = Convert.ToSingle(sclir[2]); //single is float alias
+                float endX = Convert.ToSingle(sclir[3]);
+                float startY = Convert.ToSingle(sclir[4]);
+                float endY = Convert.ToSingle(sclir[5]);
 
                 for (float x = startX; x < endX; x = x + width)
                 {
