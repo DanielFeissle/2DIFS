@@ -5,6 +5,31 @@ using UnityEditor.SceneManagement;
 using System.IO;
 public class ShowPopupExample : EditorWindow
 {
+    /*
+    [MenuItem("Tools/Scene Settings")]
+    static void Settings()
+    {
+        // var STL = EditorInputSettings.Show("HI","Thh","b");
+        //   Debug.Log(STL);
+        EditorWindow window = GetWindow(typeof(EditorInputSettings));
+      //  var STL= window.Show();
+        if (SceneManager.GetActiveScene().name == "scene_edit_template")
+        {
+         //   if (!string.IsNullOrEmpty(STL))
+            {
+                //   Camera.main.
+              //  Camera.main.GetComponent<world_scene_editor>().ReadString(STL);
+
+            }
+        }
+        else
+        {
+        //    ShowPopupExample window = ScriptableObject.CreateInstance<ShowPopupExample>();
+            window.position = new Rect(Screen.width / 2, Screen.height / 2, 250, 150);
+            window.ShowPopup();
+        }
+    }
+    */
 
     //https://docs.unity3d.com/ScriptReference/EditorWindow.ShowPopup.html
     [MenuItem("Tools/Scene Load")]
@@ -18,6 +43,7 @@ public class ShowPopupExample : EditorWindow
             {
                 //   Camera.main.
                 Camera.main.GetComponent<world_scene_editor>().ReadString(STL);
+            
             }
         }
         else
@@ -28,19 +54,99 @@ public class ShowPopupExample : EditorWindow
         }
     }
 
+
+
+
+
     [MenuItem("Tools/Scene Save")]
     static void InitSave()
     {
         var STL = EditorInputDialog.Show("Question", "Type name of scene to be saved in resources/scenes/XXX", "");
+        StreamReader reader = new StreamReader("Assets/Resources/scenes/_scene_data_holder.txt");
 
+        ////////////////////////////////////
+        //1-26-2023 Final piece of overhead data modification plan
+        int Wind = 1;
+        int CloudLevel = 1;
+        int Weather = 1;
+        int FPS = 1;
+        float RADBCK = 1;
+        float RAD = 1;
+        int count = 0;
+        //12-8-2022
+        //perhaps a better method to catch if a file does not exist
+        string txt = reader.ReadToEnd();
+        foreach (string tta in txt.Split('\n'))
+        {
+            count++;
+            if (count >= txt.Split('\n').Length)
+            {
+                break;
+            }
+            if (tta.Substring(0, 1) == "#")
+            {
+                Debug.Log("line comment");
+
+            }
+            else if (tta.Substring(0, 3) == "GTO")
+            {
+                //template will have most up to date content
+                //(0-Height/distance obj, 1-Land on gameobject name, 2-Pass checkpoints, 3-Grab object and get to designated end point)
+                string[] sclir = tta.Split(',');
+                //  GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().GameObjective = Convert.ToInt32(sclir[1]);
+
+            }
+            else if (tta.Substring(0, 3) == "OBJ")
+            {
+
+                string[] sclir = tta.Split(',');
+                //  Wind = int.Parse(sclir[1]);
+
+            }
+            else if (tta.Substring(0, 3) == "CLD")
+            {
+                string[] sclir = tta.Split(',');
+                CloudLevel = int.Parse(sclir[1]);
+                //Camera.main.GetComponent<weather>().cloudHeight = int.Parse(sclir[1]);
+            }
+            else if (tta.Substring(0, 3) == "WTH")
+            {
+                string[] sclir = tta.Split(',');
+                Weather = int.Parse(sclir[1]);
+                // Camera.main.GetComponent<weather>().cloudy = int.Parse(sclir[1]);
+            }
+            else if (tta.Substring(0, 3) == "WND")
+            {
+                string[] sclir = tta.Split(',');
+                Wind = int.Parse(sclir[1]);
+                //Camera.main.GetComponent<weather>().AirSpeed = int.Parse(sclir[1]);
+            }
+            else if (tta.Substring(0, 3) == "RAD")
+            {
+                string[] sclir = tta.Split(',');
+                RADBCK = int.Parse(sclir[1]);
+                //  Camera.main.GetComponent<weather>().radiosity = int.Parse(sclir[1]);
+            }
+            else if (tta.Substring(0, 3) == "RAB")
+            {
+                string[] sclir = tta.Split(',');
+                RAD = int.Parse(sclir[1]);
+                //  Camera.main.GetComponent<weather>().background_radiosity = int.Parse(sclir[1]);
+            }
+        }
+        Debug.Log("--------------------------------------DONE");
+
+        ///////////////////////////////////
+        reader.Close();
         if (SceneManager.GetActiveScene().name == "scene_edit_template")
         {
             if (!string.IsNullOrEmpty(STL))
             {
+             //   Camera.main.GetComponent<editor_world_storage>().Wind=5;
                 //   Camera.main.
                 //   Camera.main.GetComponent<world_scene_editor>().ReadString(STL);
 
-                string blarg = @"#lines that start with # are comments 
+                string blarg = $@"#lines that start with # are comments 
 #values are seperated by commas (,)
 #objective for scene
 #GTO game type objective (0-Height/distance obj, 1-Land on gameobject name, 2-Pass checkpoints, 3-Grab object and get to designated end point)
@@ -48,15 +154,15 @@ GTO,0
 #OBJ,Scene title, GET Height (+or-), Land start, Land End
 OBJ,Welcome test!,40,0,9999
 #CLD,Cloud Height
-CLD,80
+CLD,{CloudLevel}
 #WTH, Weather 0-99 higher number more clouds/rain
-WTH,40
+WTH,{Weather}
 #WND, Wind level -4000 to 4000
-WND,444
+WND,{Wind}
 #RAD, RADIOSITy level 0 to 1
-RAD,1
+RAD,{RAD}
 #RAB, Background Radiosit leve 0 to 1
-RAB,1
+RAB,{RADBCK}
 # Prefab,LayerOrder,StartX,EndX,StartY,EndY
 ";
                 GameObject[] Objects;
@@ -68,11 +174,16 @@ RAB,1
                     //  var xPos = objPos.x - 100;
 
                     //   obj.transform.position = new Vector3(xPos, objPos.y, objPos.z);
-                    blarg = blarg + "ground/" +obj.name+","+obj.layer+","+obj.GetComponent<Renderer>().bounds.min.x+","+ obj.GetComponent<Renderer>().bounds.max.x +","+ obj.GetComponent<Renderer>().bounds.min.y +","+ obj.GetComponent<Renderer>().bounds.max.y+@"
+                    //1-24-2023 fix issue with spaces in the name
+                    //PrefabUtility.GetPrefabParent(obj)
+                    //1-24-2023 this is a duplicate of below, the other options- Found best method is to combine parts
+                    //                    blarg = blarg + "ground/" + PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name + ","+obj.layer+","+obj.GetComponent<Renderer>().bounds.min.x+","+ obj.GetComponent<Renderer>().bounds.max.x +","+ obj.GetComponent<Renderer>().bounds.min.y +","+ obj.GetComponent<Renderer>().bounds.max.y+@"
+                    //       blarg = blarg + "ground/" + PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name + ","+obj.layer+","+obj.transform.position.x+","+ obj.transform.position.x +","+ obj.transform.position.y +","+ obj.transform.position.y+@"
+                    blarg = blarg + "ground/" + PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + @"
 ";
                 }
 
-
+               
                 string path = "Assets/Resources/scenes/"+STL+".txt_temp";
                 string ACTpath = "Assets/Resources/scenes/" + STL + ".txt";
                 //Write some text to the test.txt file

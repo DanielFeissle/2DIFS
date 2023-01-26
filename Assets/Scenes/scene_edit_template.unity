@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 1636953224}
   - component: {fileID: 1636953223}
   - component: {fileID: 1636953222}
+  - component: {fileID: 1636953229}
   m_Layer: 0
   m_Name: checkerBoard(256x256)
   m_TagString: game
@@ -472,6 +473,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1636953229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636953221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b12d4ed42fabefe4ea3b0d5f089201dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Wind: 1
 --- !u!1 &1902624917
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,6 +500,7 @@ GameObject:
   - component: {fileID: 1902624921}
   - component: {fileID: 1902624924}
   - component: {fileID: 1902624922}
+  - component: {fileID: 1902624923}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -603,6 +618,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76d6c38cadef92941b51f1b1c0d7e367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1902624923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902624917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce733fb67719c27439e355658fa1a68e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _exampleString: 'hello test
+
+    this is it'
+  AnotherExampleString: all done
 --- !u!114 &1902624924
 MonoBehaviour:
   m_ObjectHideFlags: 0

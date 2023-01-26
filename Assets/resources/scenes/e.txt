@@ -1,0 +1,25 @@
+#lines that start with # are comments 
+#values are seperated by commas (,)
+#objective for scene
+#GTO game type objective (0-Height/distance obj, 1-Land on gameobject name, 2-Pass checkpoints, 3-Grab object and get to designated end point)
+GTO,0
+#OBJ,Scene title, GET Height (+or-), Land start, Land End
+OBJ,Welcome test!,40,0,9999
+#CLD,Cloud Height
+CLD,80
+#WTH, Weather 0-99 higher number more clouds/rain
+WTH,40
+#WND, Wind level -4000 to 4000
+WND,444
+#RAD, RADIOSITy level 0 to 1
+RAD,1
+#RAB, Background Radiosit leve 0 to 1
+RAB,1
+# Prefab,LayerOrder,StartX,EndX,StartY,EndY
+ground/airport,1,0,1000,0,1
+ground/building1,0,3.456263,6.016263,12.76558,15.32558
+ground/building1,0,8.548977,11.10898,12.76558,15.32558
+ground/building1,0,13.6,16.16,12.76558,15.32558
+ground/building1,0,13.6,16.16,12.76558,15.32558
+ground/building1,0,13.6,16.16,12.76558,15.32558
+ground/building1,0,13.6,16.16,12.76558,15.32558
