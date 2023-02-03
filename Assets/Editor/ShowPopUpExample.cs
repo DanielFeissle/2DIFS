@@ -3,6 +3,8 @@ using UnityEditor;
 using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 using System.IO;
+using System;
+
 public class ShowPopupExample : EditorWindow
 {
     /*
@@ -69,7 +71,7 @@ public class ShowPopupExample : EditorWindow
         int Wind = 1;
         int CloudLevel = 1;
         int Weather = 1;
-        int FPS = 1;
+        int FPS = 60;
         float RADBCK = 1;
         float RAD = 1;
         int count = 0;
@@ -115,6 +117,12 @@ public class ShowPopupExample : EditorWindow
                 Weather = int.Parse(sclir[1]);
                 // Camera.main.GetComponent<weather>().cloudy = int.Parse(sclir[1]);
             }
+            else if (tta.Substring(0, 3) == "FPS")
+            {
+                string[] sclir = tta.Split(',');
+                FPS = int.Parse(sclir[1]);
+                // Camera.main.GetComponent<weather>().cloudy = int.Parse(sclir[1]);
+            }
             else if (tta.Substring(0, 3) == "WND")
             {
                 string[] sclir = tta.Split(',');
@@ -124,13 +132,13 @@ public class ShowPopupExample : EditorWindow
             else if (tta.Substring(0, 3) == "RAD")
             {
                 string[] sclir = tta.Split(',');
-                RADBCK = int.Parse(sclir[1]);
+                RADBCK = Single.Parse(sclir[1]);
                 //  Camera.main.GetComponent<weather>().radiosity = int.Parse(sclir[1]);
             }
             else if (tta.Substring(0, 3) == "RAB")
             {
                 string[] sclir = tta.Split(',');
-                RAD = int.Parse(sclir[1]);
+                RAD = Single.Parse(sclir[1]);
                 //  Camera.main.GetComponent<weather>().background_radiosity = int.Parse(sclir[1]);
             }
         }
@@ -179,8 +187,17 @@ RAB,{RADBCK}
                     //1-24-2023 this is a duplicate of below, the other options- Found best method is to combine parts
                     //                    blarg = blarg + "ground/" + PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name + ","+obj.layer+","+obj.GetComponent<Renderer>().bounds.min.x+","+ obj.GetComponent<Renderer>().bounds.max.x +","+ obj.GetComponent<Renderer>().bounds.min.y +","+ obj.GetComponent<Renderer>().bounds.max.y+@"
                     //       blarg = blarg + "ground/" + PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name + ","+obj.layer+","+obj.transform.position.x+","+ obj.transform.position.x +","+ obj.transform.position.y +","+ obj.transform.position.y+@"
-                    blarg = blarg + "ground/" + PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + @"
+                    try
+                    {
+                        blarg = blarg + "ground/" + PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + @"
 ";
+                    }
+                    catch (Exception ex)
+                    {
+                        blarg = blarg + "ground/" + obj.name.Split('-')[1].Split('/')[1] + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + @"
+";
+                    }
+                 
                 }
 
                

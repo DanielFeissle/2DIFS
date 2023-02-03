@@ -128,19 +128,25 @@
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />
     <None Include="Assets\resources\scenes\_scene_data_holder-bak.txt" />
+    <None Include="Assets\resources\scenes\fe.txt" />
     <None Include="Assets\resources\scenes\1x2.txt" />
     <None Include="Assets\resources\text\ui_death_noeject.txt" />
     <None Include="Assets\resources\scenes\flow.txt" />
+    <None Include="Assets\resources\scenes\qwq.txt" />
     <None Include="Assets\resources\test.txt" />
     <None Include="Assets\resources\scenes\q.txt" />
     <None Include="Assets\resources\scenes\e.txt" />
     <None Include="Assets\resources\scenes\_scene_data_holder.txt" />
+    <None Include="Assets\resources\scenes\er.txt" />
+    <None Include="Assets\resources\scenes\fee.txt" />
     <None Include="Assets\resources\scenes\readme.txt" />
     <None Include="Assets\resources\scenes\s.txt" />
+    <None Include="Assets\resources\scenes\r.txt" />
     <None Include="Assets\resources\scenes\1x1.txt" />
     <None Include="Assets\resources\scenes\fff.txt" />
     <None Include="Assets\resources\scenes\1x3.txt" />
     <None Include="Assets\resources\scenes\DF.txt" />
+    <None Include="Assets\resources\scenes\t43.txt" />
     <None Include="Assets\resources\scenes\rtdfh.txt" />
   </ItemGroup>
   <ItemGroup>

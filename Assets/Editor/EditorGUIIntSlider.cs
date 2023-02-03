@@ -11,7 +11,7 @@ public class EditorGUIIntSlider : EditorWindow
     int cloneTimesZ = 1;
     int spacing = 2;
 
-    [MenuItem("Examples/Editor GUI int slider usage")]
+ //   [MenuItem("Examples/Editor GUI int slider usage")]
     static void Init()
     {
         UnityEditor.EditorWindow window = GetWindow(typeof(EditorGUIIntSlider));

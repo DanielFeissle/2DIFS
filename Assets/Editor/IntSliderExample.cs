@@ -9,9 +9,6 @@ public class IntSliderExample : EditorWindow
 {
 
 
-    int cloneTimesX = 1;
-    int cloneTimesY = 1;
-    int cloneTimesZ = 1;
     //-4000 to 4000
     int Wind = 1;
     int CloudLevel = 1;
@@ -132,9 +129,7 @@ public class IntSliderExample : EditorWindow
     void OnGUI()
     {
       
-          cloneTimesX = EditorGUILayout.IntSlider(cloneTimesX, 1, 10);
-           cloneTimesY = EditorGUILayout.IntSlider(cloneTimesY, 1, 10);
-           cloneTimesZ = EditorGUILayout.IntSlider(cloneTimesZ, 1, 10);
+
 
         Wind = EditorGUILayout.IntSlider("Wind Level", Wind, -4000, 4000);
          CloudLevel = EditorGUILayout.IntSlider("Cloud Level", CloudLevel, -4000, 4000);
@@ -142,7 +137,7 @@ public class IntSliderExample : EditorWindow
          FPS = EditorGUILayout.IntSlider("Scene Target FPS",FPS, 30, 300);
          RADBCK = EditorGUILayout.Slider("RadBCK",RADBCK, 0, 1);
          RAD = EditorGUILayout.Slider("Rad",RAD, 0, 1);
-            CloudLevel = EditorGUILayout.IntSlider(CloudLevel, 1, 10);
+        //    CloudLevel = EditorGUILayout.IntSlider(CloudLevel, 1, 10);
         if (GUILayout.Button("Stage Changes"))
             stageChanges();
     }
@@ -159,23 +154,11 @@ public class IntSliderExample : EditorWindow
         writer.WriteLine("WND," + Wind);
         writer.WriteLine("RAD," + RAD);
         writer.WriteLine("RAB," + RADBCK);
-
+        writer.WriteLine("FPS," + FPS);
 
 
         writer.Close();
     }
 
-    void CloneSelected()
-    {
-        if (!Selection.activeGameObject)
-        {
-            Debug.LogError("Select a GameObject first");
-            return;
-        }
 
-        for (int i = 0; i < cloneTimesX; i++)
-            for (int j = 0; j < cloneTimesY; j++)
-                for (int k = 0; k < cloneTimesZ; k++)
-                    Instantiate(Selection.activeGameObject, new Vector3(i, j, k) * spacing, Selection.activeGameObject.transform.rotation);
-    }
 }

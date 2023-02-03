@@ -170,7 +170,7 @@ public class world_scene_editor : MonoBehaviour
                     {
                         GameObject picky2 = Instantiate(Resources.Load(sclir[0])) as GameObject;
                         Debug.Log("BUILDING" + sclir[0] + ":" + x + "," + y);
-                        picky2.name = sceneRead +"-"+ sclir[0] + ":" + x + "," + y;
+                        picky2.name = sceneRead +"-"+ sclir[0] + "-" + x + "," + y;
                         picky2.transform.position = new Vector2(x, y);
                         //9-29-2022 pulled below from specr2, and probab somewhere else
                         //attach script during runtime

@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-[CustomEditor(typeof(f))]
+//[CustomEditor(typeof(f))]
 public class f : Editor
 {
     private SerializedProperty canWalkProperty;

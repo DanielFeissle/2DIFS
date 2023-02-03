@@ -8,7 +8,7 @@ public class ExampleWindow : EditorWindow
     private string exampleString;
     private Vector2 scroll;
 
-    [MenuItem("Example/Show ExampleWindow")]
+ //   [MenuItem("Example/Show ExampleWindow")]
     private static void Initialize()
     {
         var window = GetWindow<ExampleWindow>();
