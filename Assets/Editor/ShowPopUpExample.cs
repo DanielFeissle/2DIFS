@@ -75,6 +75,10 @@ public class ShowPopupExample : EditorWindow
         float RADBCK = 1;
         float RAD = 1;
         int count = 0;
+        string objTXT = "Welcome!";
+        int getHeight = 0; //height to obtain
+        int lstart = 0; //land start
+        int lend = 1; //land end
         //12-8-2022
         //perhaps a better method to catch if a file does not exist
         string txt = reader.ReadToEnd();
@@ -141,6 +145,15 @@ public class ShowPopupExample : EditorWindow
                 RAD = Single.Parse(sclir[1]);
                 //  Camera.main.GetComponent<weather>().background_radiosity = int.Parse(sclir[1]);
             }
+            else if (tta.Substring(0, 3) == "OBJ")
+            {
+                string[] sclir = tta.Split(',');
+                objTXT = sclir[1];
+                getHeight = int.Parse(sclir[2]);
+                lstart = int.Parse(sclir[3]);
+                lend = int.Parse(sclir[4]);
+                //  Camera.main.GetComponent<weather>().background_radiosity = int.Parse(sclir[1]);
+            }
         }
         Debug.Log("--------------------------------------DONE");
 
@@ -160,7 +173,7 @@ public class ShowPopupExample : EditorWindow
 #GTO game type objective (0-Height/distance obj, 1-Land on gameobject name, 2-Pass checkpoints, 3-Grab object and get to designated end point)
 GTO,0
 #OBJ,Scene title, GET Height (+or-), Land start, Land End
-OBJ,Welcome test!,40,0,9999
+OBJ,{objTXT},{getHeight},{lstart},{lend}
 #CLD,Cloud Height
 CLD,{CloudLevel}
 #WTH, Weather 0-99 higher number more clouds/rain
