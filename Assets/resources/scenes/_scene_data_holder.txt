@@ -1,9 +1,9 @@
-CLD,-2686
-WTH,30
-WND,-4000
-RAD,0.8
-RAB,0.57
-FPS,148
-GRX,100
+CLD,80
+WTH,40
+WND,444
+RAD,1
+RAB,1
+FPS,30
+GRX,0
 GRY,-9.81
-OBJ,dsrfhfndgh,3345,52,253235
+OBJ,This is the 2nd stage- testing narrow spaces and other stuff ,40,0,9999

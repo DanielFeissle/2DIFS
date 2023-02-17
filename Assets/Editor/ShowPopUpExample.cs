@@ -79,6 +79,8 @@ public class ShowPopupExample : EditorWindow
         int getHeight = 0; //height to obtain
         int lstart = 0; //land start
         int lend = 1; //land end
+        float gravx = 0;
+        float gravy = -9.81f;
         //12-8-2022
         //perhaps a better method to catch if a file does not exist
         string txt = reader.ReadToEnd();
@@ -102,13 +104,6 @@ public class ShowPopupExample : EditorWindow
                 //  GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().GameObjective = Convert.ToInt32(sclir[1]);
 
             }
-            else if (tta.Substring(0, 3) == "OBJ")
-            {
-
-                string[] sclir = tta.Split(',');
-                //  Wind = int.Parse(sclir[1]);
-
-            }
             else if (tta.Substring(0, 3) == "CLD")
             {
                 string[] sclir = tta.Split(',');
@@ -126,6 +121,18 @@ public class ShowPopupExample : EditorWindow
                 string[] sclir = tta.Split(',');
                 FPS = int.Parse(sclir[1]);
                 // Camera.main.GetComponent<weather>().cloudy = int.Parse(sclir[1]);
+            }
+            else if (tta.Substring(0, 3) == "GRX")
+            {
+                string[] sclir = tta.Split(',');
+                gravx = Single.Parse(sclir[1]);
+                //  Camera.main.GetComponent<weather>().radiosity = int.Parse(sclir[1]);
+            }
+            else if (tta.Substring(0, 3) == "GRY")
+            {
+                string[] sclir = tta.Split(',');
+                gravy = Single.Parse(sclir[1]);
+                //  Camera.main.GetComponent<weather>().radiosity = int.Parse(sclir[1]);
             }
             else if (tta.Substring(0, 3) == "WND")
             {
@@ -184,6 +191,12 @@ WND,{Wind}
 RAD,{RAD}
 #RAB, Background Radiosit leve 0 to 1
 RAB,{RADBCK}
+#FPS, target fps for the scene
+FPS,{FPS}
+#GRX, gravity scale x
+GRX,{gravx}
+#GRY, gravity scale y
+GRY,{gravy}
 # Prefab,LayerOrder,StartX,EndX,StartY,EndY
 ";
                 GameObject[] Objects;

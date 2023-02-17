@@ -57,6 +57,7 @@ public class WorldLoader : MonoBehaviour
         int xpos = 0;
         //12-8-2022
         //perhaps a better method to catch if a file does not exist
+        sceneRead = sceneRead.TrimEnd('\r', '\n');
         TextAsset txt = (TextAsset)Resources.Load("scenes\\"+sceneRead, typeof(TextAsset));
         if (txt==null)
         {
@@ -64,7 +65,13 @@ public class WorldLoader : MonoBehaviour
         }
        foreach (string tta in txt.text.Split('\n') )
                 {
-            if (tta.Substring(0,1)=="#")
+
+            if (tta == "")
+            {
+                Debug.Log("No line");
+
+            }
+            else if (tta.Substring(0,1)=="#")
             {
                 Debug.Log("line comment");
              
@@ -117,12 +124,27 @@ public class WorldLoader : MonoBehaviour
             else if (tta.Substring(0, 3) == "RAD")
             {
                 string[] sclir = tta.Split(',');
-                Camera.main.GetComponent<weather>().radiosity = int.Parse(sclir[1]);
+                Camera.main.GetComponent<weather>().radiosity = Single.Parse(sclir[1]);
             }
             else if (tta.Substring(0, 3) == "RAB")
             {
                 string[] sclir = tta.Split(',');
-                Camera.main.GetComponent<weather>().background_radiosity = int.Parse(sclir[1]);
+                Camera.main.GetComponent<weather>().background_radiosity = Single.Parse(sclir[1]);
+            }
+            else if (tta.Substring(0, 3) == "FPS")
+            {
+                string[] sclir = tta.Split(',');
+                Camera.main.GetComponent<frame_rate>().fpss = int.Parse(sclir[1]);
+            }
+            else if (tta.Substring(0, 3) == "GRX")
+            {
+                string[] sclir = tta.Split(',');
+                Camera.main.GetComponent<scene_grav_change>().changeGravi(Single.Parse(sclir[1]), Physics2D.gravity.y);
+            }
+            else if (tta.Substring(0, 3) == "GRY")
+            {
+                string[] sclir = tta.Split(',');
+                Camera.main.GetComponent<scene_grav_change>().changeGravi(Physics2D.gravity.x, Single.Parse(sclir[1]));
             }
             else
             {
@@ -139,12 +161,13 @@ public class WorldLoader : MonoBehaviour
                 }
                 var renderer = picky.GetComponent<Renderer>();
                 GameObject.Destroy(picky);
+                //   GameObject.Destroy(picky);
                 float width = renderer.bounds.size.x;
                 float height = renderer.bounds.size.y;
-                int startX = Convert.ToInt32(sclir[2]);
-                int endX = Convert.ToInt32(sclir[3]);
-                int startY = Convert.ToInt32(sclir[4]);
-                int endY = Convert.ToInt32(sclir[5]);
+                float startX = Convert.ToSingle(sclir[2]); //single is float alias
+                float endX = Convert.ToSingle(sclir[3]);
+                float startY = Convert.ToSingle(sclir[4]);
+                float endY = Convert.ToSingle(sclir[5]);
 
                 for (float x=startX;x<endX;x=x+ width)
                 {

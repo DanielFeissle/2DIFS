@@ -132,11 +132,13 @@
     <None Include="Assets\resources\text\ui_death_noeject.txt" />
     <None Include="Assets\resources\scenes\flow.txt" />
     <None Include="Assets\resources\scenes\ggg.txt" />
+    <None Include="Assets\resources\scenes\1x1 - Copy.txt" />
     <None Include="Assets\resources\test.txt" />
     <None Include="Assets\resources\scenes\q.txt" />
     <None Include="Assets\resources\scenes\e.txt" />
     <None Include="Assets\resources\scenes\ffff.txt" />
     <None Include="Assets\resources\scenes\_scene_data_holder.txt" />
+    <None Include="Assets\resources\scenes\1x4.txt" />
     <None Include="Assets\resources\scenes\readme.txt" />
     <None Include="Assets\resources\scenes\s.txt" />
     <None Include="Assets\resources\scenes\1x1.txt" />

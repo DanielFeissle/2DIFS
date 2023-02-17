@@ -7,6 +7,22 @@ using UnityEngine.UI;
 
 public class world_scene_editor : MonoBehaviour
 {
+
+    // 2-16-2023 do not copy this into any other world loading scripts
+    int Wind = 1;
+    int CloudLevel = 1;
+    int Weather = 1;
+    int FPS = 30;
+    float RADBCK = 1;
+    float RAD = 1;
+    int spacing = 2;
+    string objTXT = "Welcome!";
+    int getHeight = 0; //height to obtain
+    int lstart = 0; //land start
+    int lend = 1; //land end
+    float gravx = 0;
+    float gravy = -9.81f;
+    //end of 2-16-2023 do not copy
     // Start is called before the first frame update
     void Start()
     {
@@ -52,16 +68,17 @@ public class world_scene_editor : MonoBehaviour
     //https://support.unity3d.com/hc/en-us/articles/115000341143-How-do-I-read-and-write-data-from-a-text-file-
     public void ReadString(string sceneRead)
     {
-        int Wind = 1;
-        int CloudLevel = 1;
-        int Weather = 1;
-        int FPS = 1;
-        float RADBCK = 1;
-        float RAD = 1;
-        int count = 0;
-        int xpos = 0;
+   //     int Wind = 1;
+      //  int CloudLevel = 1;
+      //  int Weather = 1;
+      //  int FPS = 1;
+      //  float RADBCK = 1;
+      //  float RAD = 1;
+         int count = 0;
+     //   int xpos = 0;
         //12-8-2022
         //perhaps a better method to catch if a file does not exist
+        sceneRead = sceneRead.TrimEnd('\r', '\n');
         TextAsset txt = (TextAsset)Resources.Load("scenes\\" + sceneRead, typeof(TextAsset));
         if (txt == null)
         {
@@ -74,7 +91,12 @@ public class world_scene_editor : MonoBehaviour
             {
                 break;
             }
-            if (tta.Substring(0, 1) == "#")
+            if (tta == "")
+            {
+                Debug.Log("No line");
+
+            }
+            else if (tta.Substring(0, 1) == "#")
             {
                 Debug.Log("line comment");
 
@@ -101,6 +123,10 @@ public class world_scene_editor : MonoBehaviour
                     GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Height = Convert.ToInt32(sclir[2]);
                     GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Land_s = Convert.ToInt32(sclir[3]);
                     GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Land_e = Convert.ToInt32(sclir[4]);
+                     getHeight = Convert.ToInt32(sclir[2]); //height to obtain
+                     lstart = Convert.ToInt32(sclir[3]); //land start
+                     lend = Convert.ToInt32(sclir[4]); //land end
+                    objTXT = sclir[1];
                 }
                 else if (GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().GameObjective == 1)
                 {
@@ -139,7 +165,24 @@ public class world_scene_editor : MonoBehaviour
                 RADBCK= Single.Parse(sclir[1]);
                 //  Camera.main.GetComponent<weather>().background_radiosity = int.Parse(sclir[1]);
             }
-             
+            else if (tta.Substring(0, 3) == "FPS")
+            {
+                string[] sclir = tta.Split(',');
+                FPS = int.Parse(sclir[1]);
+                // Camera.main.GetComponent<frame_rate>().fpss = int.Parse(sclir[1]);
+            }
+            else if (tta.Substring(0, 3) == "GRX")
+            {
+                string[] sclir = tta.Split(',');
+                gravx = Single.Parse(sclir[1]);
+                //    Camera.main.GetComponent<scene_grav_change>().changeGravi(Single.Parse(sclir[1]), Physics2D.gravity.y);
+            }
+            else if (tta.Substring(0, 3) == "GRY")
+            {
+                string[] sclir = tta.Split(',');
+                gravy = Single.Parse(sclir[1]);
+                //  Camera.main.GetComponent<scene_grav_change>().changeGravi(Physics2D.gravity.x, Single.Parse(sclir[1]));
+            }
             else
             {
 
@@ -215,7 +258,30 @@ public class world_scene_editor : MonoBehaviour
             }
 
         }
+        stageChanges();
         Debug.Log("--------------------------------------DONE");
       //  Camera.main.GetComponent<cam_distance>().sceneLoad = false;
     }
+
+    void stageChanges()
+    {
+
+        //Write some text to the test.txt file
+        StreamWriter writer = new StreamWriter("Assets/Resources/scenes/_scene_data_holder.txt", false);
+        writer.NewLine = "\r\n";
+
+        writer.WriteLine("CLD," + CloudLevel);
+        writer.WriteLine("WTH," + Weather);
+        writer.WriteLine("WND," + Wind);
+        writer.WriteLine("RAD," + RAD);
+        writer.WriteLine("RAB," + RADBCK);
+        writer.WriteLine("FPS," + FPS);
+        writer.WriteLine("GRX," + gravx);
+        writer.WriteLine("GRY," + gravy);
+        writer.WriteLine("OBJ," + objTXT + "," + getHeight + "," + lstart + "," + lend);
+
+        writer.Close();
+    }
+
+
 }
