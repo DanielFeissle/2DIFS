@@ -1301,6 +1301,15 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     WingHP = WingHP - 6;
                     countStrain++;
                 }
+               //  Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFF"+transform.rotation.eulerAngles.z);
+            //    Debug.Log("WWWWWWWWWWWWWWWWWWWWWWW" + rb.velocity.x);
+                //2-23-2023 modification to add more stress if lack of speed/aoa to high
+                //subject to change!
+                if (transform.rotation.eulerAngles.z>25 && rb.velocity.x < 19)
+                {
+                    WingHP = WingHP - 3;
+                    countStrain++;
+                }
                 if ((moveVertSense != 0 || moveVertSense2 != 0) && onground == false)
                 {
 
@@ -1596,7 +1605,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 
             Speed = deltaPosition / deltaTime;
 
-
+           
             lastPosition = transform.position;
             lastTimestamp = Time.time;
         }

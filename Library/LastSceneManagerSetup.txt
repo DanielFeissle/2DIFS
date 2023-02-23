@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/scene_edit_template.unity
+- path: Assets/Scenes/title_scene.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

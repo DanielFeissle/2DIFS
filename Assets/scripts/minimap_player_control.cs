@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class minimap_player_control : MonoBehaviour
 {
+    Vector3 locpos;
+    Vector3 locsca;
     // Start is called before the first frame update
     void Start()
     {
-      
+        locpos = this.transform.localPosition;
+        locsca = this.transform.localScale;
     }
     private void OnEnable()
     {
@@ -33,13 +36,17 @@ public class minimap_player_control : MonoBehaviour
                 else if (mapsize == 2)
                 {
                     this.GetComponent<MeshRenderer>().enabled = true;
-                    this.transform.localPosition = new Vector3(6.911f, -3.768f, 2);
-                    this.transform.localScale = new Vector3(4, 2.5f);
+                    //  this.transform.localPosition = new Vector3(6.911f, -3.768f, 2);
+                    //this.transform.localScale = new Vector3(4, 2.5f);
+                    this.transform.localPosition = locpos;
+                    this.transform.localScale = locsca;
                 }
                 else
                 {
-                    this.transform.localPosition = new Vector3(5.54f, -2.93f, 2);
-                    this.transform.localScale = new Vector3(7, 4.5f);
+                     this.transform.localPosition = new Vector3(5.54f, -2.93f, 2);
+                    //   this.transform.localScale = new Vector3(7, 4.5f);
+                  //  this.transform.localPosition = locpos*2;
+                    this.transform.localScale = locsca*2;
 
                 }
                 if (mapsize > 2)
