@@ -21,8 +21,33 @@ public class world_flow_ui_disp : MonoBehaviour
         STD_BUTT.transform.position = new Vector3(25000.0f, 10000.0f);
         Debug.Log("WH");
         LoadButtons();
+        rt = GameObject.Find("Canvas").GetComponent<RectTransform>();
+        DisplayWorldCorners();
+    }
+    RectTransform rt;
+    void DisplayWorldCorners()
+    {
+        Vector3[] v = new Vector3[4];
+        rt.GetWorldCorners(v);
+        Vector3[] corners1 = new Vector3[4];
+        rt.GetWorldCorners(corners1);
+        Debug.Log("World Corners");
+        for (var i = 0; i < 4; i++)
+        {
+            //  Debug.Log("World Corner " + i + " : " + v[i]+"PLAYING AROUND:"+ rt.transform.);
+            Debug.Log(rt.InverseTransformPoint(transform.position));
+        }
+
+
+
+
+
+
     }
 
+    public Canvas CanvasUIElement;//Set in editor
+ private float CanvasWidth;
+ private float CanvasHeight;
     void LoadButtons()
     {
         GameObject mainCanvas = GameObject.Find("Canvas");
@@ -31,9 +56,21 @@ public class world_flow_ui_disp : MonoBehaviour
         float z = mainCanvas.GetComponent<RectTransform>().position.z;
         Debug.Log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"+mainCanvas.GetComponent<RectTransform>().rect.xMax);
         Debug.Log("MINX" + maxX + " MAX2:" + maxY);
+        //    Vector3 screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
+        Vector3 screenPos = Camera.main.ViewportToWorldPoint(this.transform.position);
 
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
+        //  Camera camera = GetComponent<Camera>();
+     //   Vector3 pe = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.nearClipPlane));
+        Camera camera = GetComponent<Camera>();
+        Vector3 pe = camera.ViewportToScreenPoint(new Vector3(1, 1, camera.nearClipPlane));
+        Debug.Log("TTTTTTTTTTTTTTTTTTT" + pe.x + "," + pe.y );
+        // CanvasWidth = CanvasUIElement.GetComponent<RectTransform>().rect.width;
+        //  CanvasHeight = CanvasUIElement.GetComponent<RectTransform>().rect.height;
+        // var renderer2 = STD_BUTT.GetComponent<CanvasRenderer>()
+       // var renderer2 = STD_BUTT.GetComponent<CanvasRenderer>();
       
+        CanvasHeight = CanvasUIElement.GetComponent<RectTransform>().transform.position.y;
+        Debug.LogFormat("Canvas width:{0} canvas height:{1} ", CanvasWidth, CanvasHeight);
         Vector2 screenPos2D_RIGHT_TOP = new Vector2(screenPos.x, screenPos.y);
         Vector2 screenPos2D_LEFT_TOP = new Vector2(-screenPos.x, screenPos.y);
         Vector2 screenPos2D_LEFT_BOT = new Vector2(-screenPos.x, -screenPos.y);
@@ -45,12 +82,11 @@ public class world_flow_ui_disp : MonoBehaviour
         txt = (TextAsset)Resources.Load("scenes\\" + flow, typeof(TextAsset));
 
 
-        //   Rect rect = STD_BUTT.GetComponent<Rect>();
 
         // var renderer2 = STD_BUTT.GetComponent<CanvasRenderer>();
         // float width2 = renderer2.bounds.size.x;
         //     float hegth2 = renderer2.bounds.size.y;
-
+       
         string[] blar = txt.text.Split('\n');
         Debug.Log("-----------WORLD LEVELS-------------------" + blar.Length);
         string[] bkg = blar[world].Split(';'); //0 is background 1 is the world content flow
@@ -63,11 +99,14 @@ public class world_flow_ui_disp : MonoBehaviour
         float sx = (q.x - p.x);
         float sy = (p.y - q.y);
         Debug.Log("FFFFFFFFFFFFFFFFFFFFF" + sx + "SSSSSSSSSSSSSSSSSSSS" + sy);
-        float diff1 = 150;
-        float diff2 = 75;
+        float diff1 = -50;
+        float diff2 = -50;
         //the pointers
-        float poin1 = screenPos2D_LEFT_TOP.x+50;
-        float poin2 = screenPos2D_LEFT_TOP.y-180;
+        float poin1 = 0; // screenPos2D_LEFT_TOP.x+0   //+1800
+        float poin2 = 0; // screenPos2D_LEFT_TOP.y-0//-1200
+
+        float anc1 =.20f; //x
+        float anc2 = .92f; //y
         //deposit buttons on screen
         //sdf
         for (int w = 0; w < blar.Length; w++)
@@ -79,14 +118,50 @@ public class world_flow_ui_disp : MonoBehaviour
                 UI_Button_OBJ.name = (w+1) + "x" + (l+1);
                 UI_Button_OBJ.GetComponentInChildren<Text>().text = (w+1) + "x" + (l+1);
                 UI_Button_OBJ.transform.localPosition = new Vector3(poin1, poin2);
-               // UI_Button_OBJ.transform.localScale=
+                //  UI_Button_OBJ.GetComponent<RectTransform>().anchoredPosition = UI_Button_OBJ.transform.localPosition;
+                UI_Button_OBJ.GetComponent<RectTransform>().anchorMax = new Vector2(anc1, anc2);
+                UI_Button_OBJ.GetComponent<RectTransform>().anchorMin = new Vector2(anc1, anc2);
+                UI_Button_OBJ.transform.SetAsFirstSibling();  // Element is displayed last.
+
+                // UI_Button_OBJ.transform.localScale=
                 poin1 = poin1 + diff1;
+                anc1 = anc1 + .20f;
             }
             poin2 = poin2 - diff2;
-            poin1 = screenPos2D_LEFT_TOP.x+50;
+            poin1 = 0;// screenPos2D_LEFT_TOP.x+0; //+1800
+            anc1 = .20f;
+            anc2 = anc2 - .12f;
         }
-
+    Rect blarg=    RectTransformToScreenSpace(GameObject.Find("Canvas").GetComponent<RectTransform>(), Camera.main);
+        Debug.Log("f" + blarg);
     }
+
+
+    public static Rect RectTransformToScreenSpace(RectTransform transform, Camera cam, bool cutDecimals = false)
+    {
+        var worldCorners = new Vector3[4];
+        var screenCorners = new Vector3[4];
+
+        transform.GetWorldCorners(worldCorners);
+
+        for (int i = 0; i < 4; i++)
+        {
+            screenCorners[i] = cam.WorldToScreenPoint(worldCorners[i]);
+            if (cutDecimals)
+            {
+                screenCorners[i].x = (int)screenCorners[i].x;
+                screenCorners[i].y = (int)screenCorners[i].y;
+            }
+        }
+        Debug.Log("FFFFFFFFFFFFFFFFFFFFFF"+screenCorners[2].x +","+ screenCorners[2].y);
+                      //  screenCorners[2].x - screenCorners[0].x,
+                       // screenCorners[2].y - screenCorners[0].y));
+        return new Rect(screenCorners[0].x,
+                        screenCorners[0].y,
+                        screenCorners[2].x - screenCorners[0].x,
+                        screenCorners[2].y - screenCorners[0].y);
+    }
+
 
     int lastScreenWidth = 0;
     int lastScreenHeight = 0;
@@ -97,9 +172,9 @@ public class world_flow_ui_disp : MonoBehaviour
         {
             lastScreenWidth = Screen.width;
             lastScreenHeight = Screen.height;
-            deleteAll(); //<--- create this function
+        //    deleteAll(); //<--- create this function
         }
-
+ 
     }
 
     void deleteAll()
