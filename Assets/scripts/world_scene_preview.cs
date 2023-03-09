@@ -6,23 +6,86 @@ using UnityEngine.UI;
 
 public class world_scene_preview : MonoBehaviour
 {
+    public float rollSpeed = 30f;
+    Vector3 cameraStart;
+    bool reachedEndofPreview = false;
     // Start is called before the first frame update
     void Start()
     {
-        
+        cameraStart = Camera.main.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (reachedEndofPreview==true)
+        {
+            reachedEndofPreview = false;
+            scenePreview = true;
+        }
+        if (Time.time > nextUsage &&scenePreview==true ) //continue scrolling
+        {
+      
+            nextUsage = Time.time + delay; //it is on display
+            cntdelay++;
+        }
+        if (scenePreview==true && cntdelay>2)
+        {
+          
+          //   StartCoroutine(GetSpeed());
+          if (Camera.main.transform.position.x<furthestXPos-5)
+            {
+                StartCoroutine(LerpFromTo(Camera.main.transform.position, new Vector3(furthestXPos, Camera.main.transform.position.y, Camera.main.transform.position.z), rollSpeed));
+            }
+          else
+            {
+                StartCoroutine(LerpFromTo(Camera.main.transform.position, new Vector3(cameraStart.x, Camera.main.transform.position.y, Camera.main.transform.position.z), rollSpeed));
+            }
+           
+            scenePreview = false;
+            cntdelay = 0;
+        }
         
     }
+
+    IEnumerator LerpFromTo(Vector3 pos1, Vector3 pos2, float duration)
+    {
+        for (float t = 0f; t < duration; t += Time.deltaTime)
+        {
+            transform.position = Vector3.Lerp(pos1, pos2, t / duration);
+            yield return 0;
+        }
+        transform.position = pos2;
+        reachedEndofPreview = true;
+    }
+
+    private IEnumerator GetSpeed()
+    {
+
+
+        YieldInstruction timedWait = new WaitForSeconds(1);
+        Vector3 lastPosition = transform.position;
+        float lastTimestamp = Time.time;
+
+        while (Camera.main.transform.position.x<furthestXPos)
+        {
+            yield return timedWait;
+            Camera.main.transform.position = Camera.main.transform.position + new Vector3(5,Camera.main.transform.position.y,Camera.main.transform.position.z);
+        }
+
+     
+    }
+
     Renderer objRenderer;
     GameObject[] gamy;
     GameObject[] bamy;
     GameObject[] damy;
     private Camera cam;
-
+    float furthestXPos = 0;
+    float delay = 1.45f; //only half delay
+    float nextUsage;
+    bool scenePreview = false;
+    int cntdelay = 0;
     public void clearPreview()
     {
         //12-14-2022
@@ -31,8 +94,6 @@ public class world_scene_preview : MonoBehaviour
         gamy = GameObject.FindGameObjectsWithTag("ground");
         bamy = GameObject.FindGameObjectsWithTag("background");
         damy = GameObject.FindGameObjectsWithTag("detail");
-
-
         if (gamy != null)
         {
             GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().resetStage = false;
@@ -49,6 +110,11 @@ public class world_scene_preview : MonoBehaviour
     //https://support.unity3d.com/hc/en-us/articles/115000341143-How-do-I-read-and-write-data-from-a-text-file-
     public void ReadString(string sceneRead)
     {
+        furthestXPos = 0;
+        nextUsage = Time.time + delay;
+        scenePreview = true;
+        StopAllCoroutines();
+           Camera.main.transform.position = cameraStart;
         int xpos = 0;
         //12-8-2022
         //perhaps a better method to catch if a file does not exist
@@ -181,6 +247,10 @@ public class world_scene_preview : MonoBehaviour
                         System.Type MyScriptType = System.Type.GetType(ScriptName + ",Assembly-CSharp");
                         //Now that we have the Type we can use it to Add Component
                         picky2.AddComponent(MyScriptType);
+                        if (picky2.transform.position.x> furthestXPos)
+                        {
+                            furthestXPos = picky2.transform.position.x;
+                        }
                     }
                 }
 

@@ -15,6 +15,7 @@ TagManager:
   - PlaInd
   - PlaDebris
   - FakeGround
+  - paddle
   layers:
   - Default
   - TransparentFX

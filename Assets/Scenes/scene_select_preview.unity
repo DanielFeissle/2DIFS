@@ -447,12 +447,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 593988208}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 127.12, y: 0.20709488, z: -2.9994926}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 57.65, y: 0.20709488, z: 7.0005074}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1902624920}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &857106463
 PrefabInstance:
@@ -1066,7 +1066,7 @@ Transform:
   m_LocalScale: {x: 0.6048, y: 4.1751986, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1732025070
 GameObject:
@@ -1379,6 +1379,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1216717122}
+  - {fileID: 593988213}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1456,6 +1457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5a8e7b67958354f8f28afb7c95f2c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rollSpeed: 30
 --- !u!114 &1902624925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1648,5 +1650,5 @@ Transform:
   m_LocalScale: {x: 8.5288, y: 4.9814997, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
