@@ -7,6 +7,7 @@ public class first_time_start : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         //11-17-2022 this script gets called once per game load
         if (!GameObject.Find("sela"))
         {

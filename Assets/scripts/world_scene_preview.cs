@@ -185,12 +185,13 @@ public class world_scene_preview : MonoBehaviour
             else if (tta.Substring(0, 3) == "RAD")
             {
                 string[] sclir = tta.Split(',');
-              //  Camera.main.GetComponent<weather>().radiosity = int.Parse(sclir[1]);
+                Debug.Log("FFFF" + sclir[1]);
+                 Camera.main.GetComponent<weather>().radiosity = Single.Parse(sclir[1]);
             }
             else if (tta.Substring(0, 3) == "RAB")
             {
                 string[] sclir = tta.Split(',');
-              //  Camera.main.GetComponent<weather>().background_radiosity = int.Parse(sclir[1]);
+                Camera.main.GetComponent<weather>().background_radiosity = Single.Parse(sclir[1]);
             }
             else if (tta.Substring(0, 3) == "FPS")
             {

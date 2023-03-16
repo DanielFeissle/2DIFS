@@ -70,8 +70,11 @@
     <Compile Include="Assets\scripts\weather.cs" />
     <Compile Include="Assets\scripts\btn_stage_selection.cs" />
     <Compile Include="Assets\scripts\vfx_impact.cs" />
+    <Compile Include="Assets\scripts\screenWrapper.cs" />
     <Compile Include="Assets\scripts\edit_obj_show_runtime.cs" />
+    <Compile Include="Assets\scripts\ball_paddle.cs" />
     <Compile Include="Assets\scripts\btn_title_stage_select.cs" />
+    <Compile Include="Assets\scripts\cam_distance_PREVIEW_READONLY.cs" />
     <Compile Include="Assets\scripts\Exp2017.cs" />
     <Compile Include="Assets\scripts\DestroyAfterDistance.cs" />
     <Compile Include="Assets\scripts\weather_rain.cs" />
@@ -115,6 +118,7 @@
     <Compile Include="Assets\scripts\WorldFlowTrack.cs" />
     <Compile Include="Assets\scripts\realGenericButton.cs" />
     <Compile Include="Assets\scripts\wogen1.cs" />
+    <Compile Include="Assets\scripts\Blit.cs" />
     <Compile Include="Assets\scripts\TouchAndDie.cs" />
     <Compile Include="Assets\scripts\real_dest_after_touch.cs" />
     <Compile Include="Assets\scripts\frame_rate.cs" />
@@ -125,8 +129,7 @@
     <Compile Include="Assets\scripts\scene_grav_change.cs" />
     <Compile Include="Assets\scripts\GEN_UI_Ani_Rand_Delay.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
-    <Compile Include="Assets\scripts\ball_paddle.cs" />
-    <Compile Include="Assets\scripts\screenWrapper.cs" />
+    <Compile Include="Assets\scripts\general_ui_obj_move.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />
