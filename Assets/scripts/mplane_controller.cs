@@ -660,6 +660,9 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             //NOTE TO SELF, This is the magic reset button for restarting the stage- thanks df 3-30-2022!
         if (Input.GetButtonDown("Fire3") || (plane_recovered==true && peject ==true))
         {
+                maxAlt = 0;
+                tempAlt = 0;
+                GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt=0;
                 if (GameObject.Find("txt_OBJ").gameObject.GetComponent<Text>().text.Contains("win"))
                 {
                     //call this when a stage complete
@@ -704,6 +707,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     Camera.main.GetComponent<CameraController>().offset = CamOffSetStd;
                     Camera.main.GetComponent<CameraController>().player = this.gameObject;
                     Camera.main.orthographicSize = cameraDef;
+
                     zzengineOnOff = false;
                     FX_EXP_ACTIVE = false;
                     zzShutDownFin = true;

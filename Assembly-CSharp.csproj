@@ -70,6 +70,7 @@
     <Compile Include="Assets\scripts\weather.cs" />
     <Compile Include="Assets\scripts\btn_stage_selection.cs" />
     <Compile Include="Assets\scripts\vfx_impact.cs" />
+    <Compile Include="Assets\scripts\general_ui_obj_move.cs" />
     <Compile Include="Assets\scripts\screenWrapper.cs" />
     <Compile Include="Assets\scripts\edit_obj_show_runtime.cs" />
     <Compile Include="Assets\scripts\ball_paddle.cs" />
@@ -129,7 +130,6 @@
     <Compile Include="Assets\scripts\scene_grav_change.cs" />
     <Compile Include="Assets\scripts\GEN_UI_Ani_Rand_Delay.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
-    <Compile Include="Assets\scripts\general_ui_obj_move.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />
@@ -151,6 +151,7 @@
     <None Include="Assets\resources\scenes\fff.txt" />
     <None Include="Assets\resources\scenes\1x3.txt" />
     <None Include="Assets\resources\scenes\rtdfh.txt" />
+    <None Include="Assets\resources\scenes\1x1 - Copy (2).txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

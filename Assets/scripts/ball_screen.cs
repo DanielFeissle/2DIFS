@@ -134,7 +134,12 @@ public class ball_screen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("FFFFFFFFFFF" + bouneTillNextScene);
+
+        if (Input.GetButton("Fire2"))
+        { 
+            SceneManager.LoadScene("title_scene");
+    }
+            Debug.Log("FFFFFFFFFFF" + bouneTillNextScene);
         if (bouneTillNextScene> randoStopo)
         {
             SceneManager.LoadScene("title_scene");

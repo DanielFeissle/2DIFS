@@ -46,7 +46,7 @@ public class POLF : MonoBehaviour
             }
             if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == false)
             {
-                if (GameObject.Find("Player_plane").transform.position.x > OBJ_Land_s && GameObject.Find("Player_plane").transform.position.x < OBJ_Land_e && GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt > OBJ_Height && GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed < 5 && GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground == true)
+                if (GameObject.Find("Player_plane").transform.position.x > OBJ_Land_s && GameObject.Find("Player_plane").transform.position.x < OBJ_Land_e && GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt > OBJ_Height && GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed < 5 && GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground == true && timeStart==true)
                 {
                     GameObject uiCongrats = GameObject.Find("txt_OBJ");
                     uiCongrats.gameObject.GetComponent<Text>().text = "                                     You win!";
