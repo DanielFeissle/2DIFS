@@ -130,6 +130,7 @@
     <Compile Include="Assets\scripts\scene_grav_change.cs" />
     <Compile Include="Assets\scripts\GEN_UI_Ani_Rand_Delay.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
+    <Compile Include="Assets\scripts\marker_standalone.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />
@@ -143,9 +144,12 @@
     <None Include="Assets\resources\scenes\q.txt" />
     <None Include="Assets\resources\scenes\e.txt" />
     <None Include="Assets\resources\scenes\ffff.txt" />
+    <None Include="Assets\resources\scenes\2x2.txt" />
+    <None Include="Assets\resources\scenes\2x1.txt" />
     <None Include="Assets\resources\scenes\_scene_data_holder.txt" />
     <None Include="Assets\resources\scenes\1x4.txt" />
     <None Include="Assets\resources\scenes\readme.txt" />
+    <None Include="Assets\resources\scenes\_scene_loader_chunk.txt" />
     <None Include="Assets\resources\scenes\s.txt" />
     <None Include="Assets\resources\scenes\1x1.txt" />
     <None Include="Assets\resources\scenes\fff.txt" />

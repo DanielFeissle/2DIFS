@@ -65,6 +65,17 @@ public class ShowPopupExample : EditorWindow
     {
         var STL = EditorInputDialog.Show("Question", "Type name of scene to be saved in resources/scenes/XXX", "");
         StreamReader reader = new StreamReader("Assets/Resources/scenes/_scene_data_holder.txt");
+        string txt_chunk="";
+        TextAsset txt_act_chunk=null;
+        //3-30-2023
+        //Chunk data zone
+        if (System.IO.File.Exists("Assets/Resources/scenes/_scene_loader_chunk.txt"))
+        {
+            StreamReader reader_chunk = new StreamReader("Assets/Resources/scenes/_scene_loader_chunk.txt");
+            txt_chunk = reader_chunk.ReadToEnd();
+            txt_act_chunk = (TextAsset)Resources.Load("Assets/Resources/scenes/_scene_loader_chunk.txt", typeof(TextAsset));
+        }
+
 
         ////////////////////////////////////
         //1-26-2023 Final piece of overhead data modification plan
@@ -213,20 +224,49 @@ GRY,{gravy}
                     //1-24-2023 this is a duplicate of below, the other options- Found best method is to combine parts
                     //                    blarg = blarg + "ground/" + PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name + ","+obj.layer+","+obj.GetComponent<Renderer>().bounds.min.x+","+ obj.GetComponent<Renderer>().bounds.max.x +","+ obj.GetComponent<Renderer>().bounds.min.y +","+ obj.GetComponent<Renderer>().bounds.max.y+@"
                     //       blarg = blarg + "ground/" + PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name + ","+obj.layer+","+obj.transform.position.x+","+ obj.transform.position.x +","+ obj.transform.position.y +","+ obj.transform.position.y+@"
-                    try
+
+                    if (obj.GetComponent("marker_standalone")) //add this in the normal regard
                     {
-                        blarg = blarg + "ground/" + PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + @"
+                        try
+                        {
+                            blarg = blarg + "ground/" + PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + @"
 ";
-                    }
-                    catch (Exception ex)
-                    {
-                        blarg = blarg + "ground/" + obj.name.Split('-')[1].Split('/')[1] + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + @"
+                        }
+                        catch (Exception ex)
+                        {
+                            blarg = blarg + "ground/" + obj.name.Split('-')[1].Split('/')[1] + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + @"
 ";
+                        }
                     }
+
+                 
                  
                 }
 
-               
+                if (txt_chunk != "")
+                {
+                    string[] totChunk = txt_chunk.Split('\r');
+                    int totCount = totChunk.Length;
+                    int arrCount = 0;
+                    foreach (string st in totChunk)
+                    {
+                      //  blarg = blarg + st + Environment.NewLine;// @"
+                                                                 //";
+                        if (arrCount>= totCount-1)
+                        {
+                            //at the end
+                            blarg = blarg + st;
+                        }
+                        else
+                        {
+                            blarg = blarg + st + Environment.NewLine;
+                        }
+                        arrCount++;
+                    }
+                   blarg= blarg.Replace("\r\n\r\n", "\r\n");
+                    
+                }
+
                 string path = "Assets/Resources/scenes/"+STL+".txt_temp";
                 string ACTpath = "Assets/Resources/scenes/" + STL + ".txt";
                 //Write some text to the test.txt file

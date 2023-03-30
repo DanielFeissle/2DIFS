@@ -12,7 +12,8 @@ public class Build : MonoBehaviour
         //https://docs.unity3d.com/Manual/BuildPlayerPipeline.html
         // Place all your scenes here
         //   string[] scenes = { "Assets/scenes/SampleScene.unity" };
-        string[] scenes = {"Assets/scenes/title_scene.unity",
+        string[] scenes = {"Assets/scenes/ba_in_sc.unity",
+                            "Assets/scenes/title_scene.unity",
                             "Assets/scenes/SampleScene.unity",
                             "Assets/scenes/scene_select_preview.unity" };
                            /* "Assets/scenes/S_1.unity",

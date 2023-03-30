@@ -107,20 +107,21 @@ public class cam_distance : MonoBehaviour
 
            
             //2-28-22 setactive saves a lot of processing power- scenes should now be able to be very large without issues!
+            //3-29-2023 now includes the Y axis of what to render or not
             if (g.gameObject.GetComponent<Renderer>())
             {
                 GameObject pl=GameObject.Find("Player_plane");
                 //6-15-2022- splitting this up to save resources until after char ejects
                 if (pl.GetComponent<mplane_controller>().peject==true)
                 {
-                    if (g.transform.position.x < (q.x + 15) && (g.transform.position.x > (p.x - 15)) || (g.transform.position.x < (pl.transform.position.x + 15) && (g.transform.position.x > (pl.transform.position.x - 15))))
+                    if ((g.transform.position.x < (q.x + 15) && (g.transform.position.x > (p.x - 15)) && (g.transform.position.y < (p.y + 15) && (g.transform.position.y > (q.y - 15)))) || (g.transform.position.x < (pl.transform.position.x + 15) && (g.transform.position.x > (pl.transform.position.x - 15))) && (g.transform.position.y < (pl.transform.position.y + 15) && (g.transform.position.y > (pl.transform.position.y - 15))))
                     {
                         //   g.GetComponent<Renderer>().enabled = true;
                         //      Debug.Log("THE FOLLOWING IS" + g.name);
                         g.SetActive(true);
                         this.gameObject.GetComponent<lighting_tool>().LightThisUp(g);
                     }
-                    else if (g.transform.position.x < (p.x - 15) || g.transform.position.x < (pl.transform.position.x - 15))
+                    else if (g.transform.position.x < (p.x - 15) || g.transform.position.x < (pl.transform.position.x - 15) || g.transform.position.y < (p.y + 15) || g.transform.position.y < (pl.transform.position.y - 15))
                     {
                         //   g.GetComponent<Renderer>().enabled = false;
                         g.SetActive(false);
@@ -132,33 +133,33 @@ public class cam_distance : MonoBehaviour
                         g.SetActive(false);
                     }
                 }
-                else
-                {
-                    if (g.transform.position.x < (q.x + 15) && (g.transform.position.x > (p.x - 15)))
-                    {
-                        //   g.GetComponent<Renderer>().enabled = true;
-                        //      Debug.Log("THE FOLLOWING IS" + g.name);
-                        g.SetActive(true);
-                        this.gameObject.GetComponent<lighting_tool>().LightThisUp(g);
-                    }
-                    else if (g.transform.position.x < (p.x - 15))
-                    {
-                        //   g.GetComponent<Renderer>().enabled = false;
-                        g.SetActive(false);
-
-                    }
                     else
                     {
-                        //  g.GetComponent<Renderer>().enabled = false;
-                        g.SetActive(false);
+                        if ((g.transform.position.x < (q.x + 15) && (g.transform.position.x > (p.x - 15))) && (g.transform.position.y < (p.y + 15) && (g.transform.position.y > (q.y - 15))))
+                        {
+                            //   g.GetComponent<Renderer>().enabled = true;
+                            //      Debug.Log("THE FOLLOWING IS" + g.name);
+                            g.SetActive(true);
+                            this.gameObject.GetComponent<lighting_tool>().LightThisUp(g);
+                        }
+                        else if (g.transform.position.x < (p.x - 15) || g.transform.position.y < (p.y + 15))
+                        {
+                            //   g.GetComponent<Renderer>().enabled = false;
+                            g.SetActive(false);
+
+                        }
+                        else
+                        {
+                            //  g.GetComponent<Renderer>().enabled = false;
+                            g.SetActive(false);
+                        }
                     }
+
+
+
+
+
                 }
-
-             
-
-             
-
-            }
             }
 
         }

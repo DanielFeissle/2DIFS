@@ -68,13 +68,16 @@ public class world_scene_editor : MonoBehaviour
     //https://support.unity3d.com/hc/en-us/articles/115000341143-How-do-I-read-and-write-data-from-a-text-file-
     public void ReadString(string sceneRead)
     {
-   //     int Wind = 1;
-      //  int CloudLevel = 1;
-      //  int Weather = 1;
-      //  int FPS = 1;
-      //  float RADBCK = 1;
-      //  float RAD = 1;
-         int count = 0;
+        //3-30-2023
+        //capture chunks of data that are chunk based and not exact matches (makes sense hopefully!)
+        StreamWriter writer_chunk = new StreamWriter("Assets/Resources/scenes/_scene_loader_chunk.txt",false);
+        //     int Wind = 1;
+        //  int CloudLevel = 1;
+        //  int Weather = 1;
+        //  int FPS = 1;
+        //  float RADBCK = 1;
+        //  float RAD = 1;
+        int count = 0;
      //   int xpos = 0;
         //12-8-2022
         //perhaps a better method to catch if a file does not exist
@@ -185,7 +188,8 @@ public class world_scene_editor : MonoBehaviour
             }
             else
             {
-
+                int chunkx = 0;
+                int chunky = 0;
                 string[] sclir = tta.Split(',');
                 // Debug.Log(Resources.Load(sclir[0].ToString()));
                 GameObject picky = Instantiate(Resources.Load(sclir[0])) as GameObject;
@@ -223,14 +227,30 @@ public class world_scene_editor : MonoBehaviour
                         System.Type MyScriptType = System.Type.GetType(ScriptName + ",Assembly-CSharp");
                         //Now that we have the Type we can use it to Add Component
                         picky2.AddComponent(MyScriptType);
+                        chunkx++;
+                        if (chunkx > 1 || chunky > 1)
+                        {
+                           
+                        }
+                        else
+                        {
+                            string ScriptName2 = "marker_standalone";
+                           
+                            System.Type MyScriptType2 = System.Type.GetType(ScriptName2 + ",Assembly-CSharp");
+                            picky2.AddComponent(MyScriptType);
+                        }
                     }
+                    chunky++;
                 }
 
 
-                
+                if (chunkx > 1 || chunky > 1)
+                {
+                    writer_chunk.WriteLine(tta);
+                }
 
-                    //Write some text to the test.txt file
-                    StreamWriter writer = new StreamWriter("Assets/Resources/scenes/_scene_data_holder.txt", false);
+                //Write some text to the test.txt file
+                StreamWriter writer = new StreamWriter("Assets/Resources/scenes/_scene_data_holder.txt", false);
                     writer.NewLine = "\r\n";
 
                     writer.WriteLine("CLD," + CloudLevel);
@@ -259,6 +279,7 @@ public class world_scene_editor : MonoBehaviour
 
         }
         stageChanges();
+        writer_chunk.Close();
         Debug.Log("--------------------------------------DONE");
       //  Camera.main.GetComponent<cam_distance>().sceneLoad = false;
     }

@@ -1,0 +1,5 @@
+ground/airport,0,0,555,0,2.56
+ground/gbrick,0,-25,0,0,200
+ground/gbrick,0,555,590,0,200
+ground/gbrick,0,-15,590,190,200
+ground/gbrick,0,-15,590,-20,-2
