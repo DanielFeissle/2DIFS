@@ -69,13 +69,14 @@ public class ShowPopupExample : EditorWindow
         TextAsset txt_act_chunk=null;
         //3-30-2023
         //Chunk data zone
+         
         if (System.IO.File.Exists("Assets/Resources/scenes/_scene_loader_chunk.txt"))
         {
             StreamReader reader_chunk = new StreamReader("Assets/Resources/scenes/_scene_loader_chunk.txt");
             txt_chunk = reader_chunk.ReadToEnd();
             txt_act_chunk = (TextAsset)Resources.Load("Assets/Resources/scenes/_scene_loader_chunk.txt", typeof(TextAsset));
         }
-
+         
 
         ////////////////////////////////////
         //1-26-2023 Final piece of overhead data modification plan
@@ -225,22 +226,24 @@ GRY,{gravy}
                     //                    blarg = blarg + "ground/" + PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name + ","+obj.layer+","+obj.GetComponent<Renderer>().bounds.min.x+","+ obj.GetComponent<Renderer>().bounds.max.x +","+ obj.GetComponent<Renderer>().bounds.min.y +","+ obj.GetComponent<Renderer>().bounds.max.y+@"
                     //       blarg = blarg + "ground/" + PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name + ","+obj.layer+","+obj.transform.position.x+","+ obj.transform.position.x +","+ obj.transform.position.y +","+ obj.transform.position.y+@"
 
-                    if (obj.GetComponent("marker_standalone")) //add this in the normal regard
+                    if (! obj.GetComponent("marker_standalone")) //add this in the normal regard
                     {
                         try
                         {
                             blarg = blarg + "ground/" + PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + @"
 ";
-                        }
-                        catch (Exception ex)
+                          
+                        } catch (Exception ex)
                         {
+                           
                             blarg = blarg + "ground/" + obj.name.Split('-')[1].Split('/')[1] + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + @"
 ";
+                           
                         }
                     }
 
-                 
-                 
+
+
                 }
 
                 if (txt_chunk != "")
@@ -266,7 +269,7 @@ GRY,{gravy}
                    blarg= blarg.Replace("\r\n\r\n", "\r\n");
                     
                 }
-
+                
                 string path = "Assets/Resources/scenes/"+STL+".txt_temp";
                 string ACTpath = "Assets/Resources/scenes/" + STL + ".txt";
                 //Write some text to the test.txt file
@@ -279,7 +282,7 @@ GRY,{gravy}
                     if (ff != "")
                     {
                         writer.Write(ff);
-                        Debug.Log("THIS IS " + ff);
+                      //  Debug.Log("THIS IS " + ff);
                     }
                     
                 }

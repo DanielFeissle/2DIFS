@@ -2320,6 +2320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneLoad: 0
+  downRefresh: 60
 --- !u!114 &519420035
 MonoBehaviour:
   m_ObjectHideFlags: 0

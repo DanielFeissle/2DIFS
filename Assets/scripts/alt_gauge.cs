@@ -13,6 +13,7 @@ public class alt_gauge : MonoBehaviour
     }
     public float dips = .75f;
     public double act_alt;
+    public float hit_pos;
     // Update is called once per frame
     void Update()
     {
@@ -68,6 +69,7 @@ public class alt_gauge : MonoBehaviour
                                     GameObject txtAlt = GameObject.Find("txt_alt_OBJ");
                                     //    Debug.Log("CUR POSY" + pos);
                                     act_alt = Math.Round(pos, 2);
+                                    hit_pos = hit.collider.gameObject.transform.position.y;
                                     txtAlt.GetComponent<Text>().text = "ALT: " + (Math.Round(pos, 2));
                                     if (pos < .5f)
                                     {

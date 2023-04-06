@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[InitializeOnLoad]
+//[InitializeOnLoad]
 
 public class editor_last_placed : MonoBehaviour
 {

@@ -210,11 +210,26 @@ public class world_scene_editor : MonoBehaviour
                 float endX = Convert.ToSingle(sclir[3]);
                 float startY = Convert.ToSingle(sclir[4]);
                 float endY = Convert.ToSingle(sclir[5]);
+
+
+
                 //1-24-2023 NOTED: REMOVED adding +1 to width and height. The issue is in the save function found in ShowPopUpExample.cs
                 for (float x = startX; x < endX; x = x + width)
                 {
                     for (float y = startY; y < endY; y = y + height)
                     {
+                        chunkx = 0;
+                        chunky = 0;
+                        for (float xL = startX; xL < endX; xL = xL + width)
+                        {
+                            for (float yL = startY; yL < endY; yL = yL + height)
+                            {
+                                chunkx++;
+                            }
+                            chunky++;
+                        }
+
+
                         GameObject picky2 = Instantiate(Resources.Load(sclir[0])) as GameObject;
                         Debug.Log("BUILDING" + sclir[0] + ":" + x + "," + y);
                         picky2.name = sceneRead +"-"+ sclir[0] + "-" + x + "," + y;
@@ -228,23 +243,24 @@ public class world_scene_editor : MonoBehaviour
                         //Now that we have the Type we can use it to Add Component
                         picky2.AddComponent(MyScriptType);
                         chunkx++;
-                        if (chunkx > 1 || chunky > 1)
-                        {
-                           
-                        }
-                        else
+
+
+
+
+                        if (chunkx > 2 || chunky > 2)
                         {
                             string ScriptName2 = "marker_standalone";
-                           
+
                             System.Type MyScriptType2 = System.Type.GetType(ScriptName2 + ",Assembly-CSharp");
-                            picky2.AddComponent(MyScriptType);
+                            picky2.AddComponent(MyScriptType2);
                         }
+
                     }
                     chunky++;
                 }
 
 
-                if (chunkx > 1 || chunky > 1)
+                if (chunkx > 2 || chunky > 2)
                 {
                     writer_chunk.WriteLine(tta);
                 }

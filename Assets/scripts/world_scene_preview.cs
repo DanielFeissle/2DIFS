@@ -82,6 +82,7 @@ public class world_scene_preview : MonoBehaviour
     GameObject[] damy;
     private Camera cam;
     float furthestXPos = 0;
+    float furthestYPos = 0;
     float delay = 1.45f; //only half delay
     float nextUsage;
     bool scenePreview = false;
@@ -111,6 +112,7 @@ public class world_scene_preview : MonoBehaviour
     public void ReadString(string sceneRead)
     {
         furthestXPos = 0;
+        furthestYPos = 0;
         nextUsage = Time.time + delay;
         scenePreview = true;
         StopAllCoroutines();
@@ -252,6 +254,10 @@ public class world_scene_preview : MonoBehaviour
                         {
                             furthestXPos = picky2.transform.position.x;
                         }
+                        if (picky2.transform.position.y > furthestYPos)
+                        {
+                            furthestYPos = picky2.transform.position.y;
+                        }
                     }
                 }
 
@@ -262,6 +268,23 @@ public class world_scene_preview : MonoBehaviour
             }
 
         }
+        //4-6-2023
+        //https://stackoverflow.com/questions/71013982/change-the-size-of-camera-to-fit-a-gameobject-in-unity-c
+        //scale camera based on scene
+        float w = furthestXPos/2;
+        float h = furthestYPos;
+        float xx = w * 0.5f - 1.5f;
+        float yy = h * 0.5f - 0.5f;
+        Debug.Log("THE VALUES ARE" + xx + "," + yy);
+        Camera.main.transform.position = new Vector3(xx, yy, -10f);
+
+        Camera.main.orthographicSize = ((w > h * Camera.main.aspect) ? (float)w / (float)Camera.main.pixelWidth * Camera.main.pixelHeight : h) / 2;
+
+        //minimap camera may be removed or commented out :)
+        Camera minicam = GameObject.Find("map_camera").GetComponent<Camera>();
+        minicam.transform.position = new Vector3(xx, yy, -10f);
+
+        minicam.orthographicSize = ((w > h * minicam.aspect) ? (float)w / (float)minicam.pixelWidth * minicam.pixelHeight : h) / 2;
         Debug.Log("--------------------------------------DONE");
       //  Camera.main.GetComponent<cam_distance>().sceneLoad = false;
     }

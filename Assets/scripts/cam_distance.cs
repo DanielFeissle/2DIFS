@@ -91,11 +91,12 @@ public class cam_distance : MonoBehaviour
             nextUsage = Time.time + delay;
         }
      }
-
-
+    //4-5-2023 downRefresh is used in conjunction with the alt_gauge. This number will temp bypass checks and rerender everything below the player. If a new object is present it will update
+    public int downRefresh = 60; //how many frames before decull bottom side to poll if new ground is below player
+    int downRefreshCount = 0;
     private void rendThis(GameObject[] bar)
     {
-
+        downRefreshCount++;
         cam = Camera.main;
         Vector3 p = cam.ScreenToWorldPoint(new Vector3(0, cam.pixelHeight, cam.nearClipPlane)); //top left
         Vector3 q = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, cam.nearClipPlane)); //bottom right
@@ -135,7 +136,29 @@ public class cam_distance : MonoBehaviour
                 }
                     else
                     {
-                        if ((g.transform.position.x < (q.x + 15) && (g.transform.position.x > (p.x - 15))) && (g.transform.position.y < (p.y + 15) && (g.transform.position.y > (q.y - 15))))
+                        if (downRefreshCount>downRefresh)
+                        {
+                          
+                              if ((g.transform.position.x < (q.x + 15) && (g.transform.position.x > (p.x - 15))) && (g.transform.position.y < (p.y + 15)))
+                            {
+                                //   g.GetComponent<Renderer>().enabled = true;
+                                //      Debug.Log("THE FOLLOWING IS" + g.name);
+                                g.SetActive(true);
+                                this.gameObject.GetComponent<lighting_tool>().LightThisUp(g);
+                            }
+                            else if (g.transform.position.x < (p.x - 15) || g.transform.position.y < (p.y + 15))
+                            {
+                                //   g.GetComponent<Renderer>().enabled = false;
+                                g.SetActive(false);
+
+                            }
+                            else
+                            {
+                                //  g.GetComponent<Renderer>().enabled = false;
+                                g.SetActive(false);
+                            }
+                        }
+                        else if ((g.transform.position.x < (q.x + 15) && (g.transform.position.x > (p.x - 15))) && (g.transform.position.y < (p.y + 15)) && (g.transform.position.y > (q.y - 15) || GameObject.Find("altimeter").GetComponent<alt_gauge>().hit_pos-2<g.transform.position.y)) //&& (g.transform.position.y > (q.y - 15))
                         {
                             //   g.GetComponent<Renderer>().enabled = true;
                             //      Debug.Log("THE FOLLOWING IS" + g.name);
@@ -162,6 +185,10 @@ public class cam_distance : MonoBehaviour
                 }
             }
 
+        }
+        if (downRefreshCount>downRefresh )
+        {
+            downRefreshCount = 0;
         }
     }
 
