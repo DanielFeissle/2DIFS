@@ -1043,7 +1043,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     Supacont.transform.rotation = this.gameObject.transform.rotation;
                     Supacont.GetComponent<SpriteRenderer>().enabled = false;
                     Supacont.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 394 *engineSpool * Time.deltaTime);
-                    if (altitude > 100)
+                    if (GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt > 100)
                     {
                         Supacont.GetComponent<SpriteRenderer>().enabled = true;
                     }
@@ -1082,7 +1082,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 if (transform.rotation.eulerAngles.z > 0 && transform.rotation.eulerAngles.z < 45)
                 {
 
-                    if (engineSpool > 90 && altitude < 100)
+                    if (engineSpool > 90 && GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt < 100)
                     {
                         rb.AddRelativeForce(Vector3.up * 2400 * Time.deltaTime * 2);
 
@@ -1101,7 +1101,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
 
                 
 
-                    if (altitude < 150)
+                    if (GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt < 150)
                     {
                         rb.mass = 60;
                         rb.drag = .5f;

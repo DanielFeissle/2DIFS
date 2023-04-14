@@ -78,6 +78,7 @@ public class world_scene_editor : MonoBehaviour
         //  float RADBCK = 1;
         //  float RAD = 1;
         int count = 0;
+        int initcount = 0;
      //   int xpos = 0;
         //12-8-2022
         //perhaps a better method to catch if a file does not exist
@@ -102,7 +103,11 @@ public class world_scene_editor : MonoBehaviour
             else if (tta.Substring(0, 1) == "#")
             {
                 Debug.Log("line comment");
-
+                if (initcount!=0)
+                {
+//store this into temp memory
+                    writer_chunk.WriteLine(tta);
+                }
             }
             else if (tta.Substring(0, 3) == "GTO")
             {
@@ -188,6 +193,12 @@ public class world_scene_editor : MonoBehaviour
             }
             else
             {
+                if (initcount==0)
+                {
+                    initcount = count;
+                }
+              
+                
                 int chunkx = 0;
                 int chunky = 0;
                 string[] sclir = tta.Split(',');

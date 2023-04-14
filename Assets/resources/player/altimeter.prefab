@@ -115,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dips: 0.814
   act_alt: 0
+  hit_pos: 0
 --- !u!114 &3545653940683804878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,4 +157,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 708440d91769a7b4b81761ff9beae3d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: 0.54
+  offset: 0.04

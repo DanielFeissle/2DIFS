@@ -22,11 +22,14 @@ GRX,4
 #GRY, gravity scale y
 GRY,-13
 # Prefab,LayerOrder,StartX,EndX,StartY,EndY
-ground/building1,0,31.38526,33.94526,27.63006,30.19006
-ground/gerter1,0,52.1089,52.8385,28.70941,30.47427
+ground/building1,0,25.88936,28.44936,22.56447,25.12447
+ground/building1,0,31,33.56,22.56447,25.12447
 ground/airport,0,0,555,0,2.56
+#leftmost
 ground/gbrick,0,-25,0,0,200
+#rightmost
 ground/gbrick,0,555,590,0,200
+#topmost
 ground/gbrick,0,-15,590,190,200
+#BOTTOM
 ground/gbrick,0,-15,590,-20,-2
-ground/airport,0,250,555,20,22
