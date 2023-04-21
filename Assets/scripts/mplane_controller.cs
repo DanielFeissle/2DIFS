@@ -801,6 +801,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 toggleLandGear = false;
                 tireAni();
                 quickTireSet = false;
+                    GameObject.Destroy(GameObject.Find("fss"));
                 for (int i = 0; i < 3; i++)
                 {
                     if (i == 0)

@@ -39,8 +39,10 @@ public class alt_gauge : MonoBehaviour
 
                                 if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead==false)
                                 {
-                                    float pos = this.transform.position.y - hit.collider.bounds.center.y;
-
+                                    //4-18-2023
+                                    //Updated to hopefully fix hit detection for many different types of objects. this is the altimeter using the raycaster
+                                    float pos = this.transform.position.y - hit.point.y+(GameObject.Find("Player_plane").transform.position.y-this.transform.position.y);
+                                    //  float pos = this.transform.position.y- hit.collider.bounds.center.y;
                                     //8-2-2022
                                     //this is to smooth out the ground
                                     // if (pos<0.34f   )
@@ -71,7 +73,7 @@ public class alt_gauge : MonoBehaviour
                                     act_alt = Math.Round(pos, 2);
                                     hit_pos = hit.collider.gameObject.transform.position.y;
                                     txtAlt.GetComponent<Text>().text = "ALT: " + (Math.Round(pos, 2));
-                                    if (pos < .5f)
+                                    if (pos < .65f)
                                     {
                                         GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground = true;
 

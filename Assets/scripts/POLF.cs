@@ -27,18 +27,28 @@ public class POLF : MonoBehaviour
     public int OBJ_Land_e=99999;
 
     public int GameObjective = 0;
-
+    private Camera cam;
     void Start()
     {
-        
+        cam = Camera.main;
     }
-
+    float _screenWidth;
+    float _screenHeight;
     // Update is called once per frame
     void Update()
     {
+        if (GameObject.Find("fss"))
+        {
+            GameObject fss = GameObject.Find("fss");
+            fss.transform.position = Camera.main.transform.position + new Vector3(0, 0, 10);
 
+            _screenWidth = (Camera.main.orthographicSize * 2) / Screen.height * Screen.width;
+            _screenHeight = Camera.main.orthographicSize * 2;
+            fss.transform.localScale = new Vector3(_screenWidth, _screenHeight);
+        }
         if (GameObjective==0)
         {
+
             //went over objective, can't really turn around.,,.
             if (GameObject.Find("Player_plane").transform.position.x > OBJ_Land_e)
             {
@@ -46,6 +56,9 @@ public class POLF : MonoBehaviour
             }
             if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == false)
             {
+               // Debug.Log("MAX HEIGHT " + GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt);
+             //   Debug.Log("OBJ HEIGHT " + OBJ_Height);
+               // Debug.Log("GROUNDED: " + GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground);
                 if (GameObject.Find("Player_plane").transform.position.x > OBJ_Land_s && GameObject.Find("Player_plane").transform.position.x < OBJ_Land_e && GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt > OBJ_Height && GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed < 5 && GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground == true && timeStart==true)
                 {
                     GameObject uiCongrats = GameObject.Find("txt_OBJ");
@@ -94,6 +107,11 @@ public class POLF : MonoBehaviour
                 delta21.text = stats_msg;//.Substring(0, locCnt);
                 GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt = 0;
 
+                cam = Camera.main;
+                Vector3 p = cam.ScreenToWorldPoint(new Vector3(0, cam.pixelHeight, cam.nearClipPlane)); //top left
+                Vector3 q = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, cam.nearClipPlane)); //bottom right
+                GameObject fss = Instantiate(Resources.Load("menu\\flight_stats_sign")) as GameObject;
+                fss.name = "fss";
 
             }
             else if (Time.time > nextUsage && timeStart == true) //continue scrolling
