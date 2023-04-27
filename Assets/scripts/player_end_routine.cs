@@ -109,6 +109,7 @@ public class player_end_routine : MonoBehaviour
         eject_cr = false;
         GameObject.Find("img_discussion").GetComponent<text_chucker>().textCall = "ui_death_noeject";
         GameObject.Find("img_discussion").GetComponent<text_chucker>().readMode = 0;
+        indeje.transform.parent = Camera.main.transform;
         Destroy(GetComponent<player_end_routine>());
     }
 }

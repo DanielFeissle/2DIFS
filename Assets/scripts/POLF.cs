@@ -42,9 +42,7 @@ public class POLF : MonoBehaviour
             GameObject fss = GameObject.Find("fss");
             fss.transform.position = Camera.main.transform.position + new Vector3(0, 0, 10);
 
-            _screenWidth = (Camera.main.orthographicSize * 2) / Screen.height * Screen.width;
-            _screenHeight = Camera.main.orthographicSize * 2;
-            fss.transform.localScale = new Vector3(_screenWidth, _screenHeight);
+
         }
         if (GameObjective==0)
         {
@@ -87,6 +85,8 @@ public class POLF : MonoBehaviour
                 delta21.text = "";//.Substring(0, locCnt);
                 GameObject uiAltiText22 = GameObject.Find("txt_OBJ");
                 uiAltiText22.gameObject.GetComponent<Text>().enabled = true;
+                GameObject uiAltiText222 = GameObject.Find("img_obj_difference");
+                uiAltiText222.gameObject.GetComponent<Image>().enabled = true;
 
                 GameObject bluTXT = GameObject.Find("bluLoading");
                 bluTXT.gameObject.GetComponent<SpriteRenderer>().enabled = true;
@@ -112,6 +112,13 @@ public class POLF : MonoBehaviour
                 Vector3 q = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, cam.nearClipPlane)); //bottom right
                 GameObject fss = Instantiate(Resources.Load("menu\\flight_stats_sign")) as GameObject;
                 fss.name = "fss";
+                _screenWidth = (Camera.main.orthographicSize * 2) / Screen.height * Screen.width;
+                _screenHeight = Camera.main.orthographicSize * 2;
+                fss.transform.localScale = new Vector3(_screenWidth, _screenHeight);
+                GameObject.Find("Canvas").GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
+                GameObject.Find("Canvas").GetComponent<Canvas>().worldCamera = Camera.main;
+                GameObject.Find("Canvas").GetComponent<Canvas>().sortingOrder = 40;
+                GameObject.Find("img_stat_extra").GetComponent<Image>().enabled = true;
 
             }
             else if (Time.time > nextUsage && timeStart == true) //continue scrolling
@@ -151,6 +158,8 @@ public class POLF : MonoBehaviour
                 delta21.text = "";//.Substring(0, locCnt);
                 GameObject uiAltiText22 = GameObject.Find("txt_OBJ");
                 uiAltiText22.gameObject.GetComponent<Text>().enabled = true;
+                GameObject uiAltiText222 = GameObject.Find("img_obj_difference");
+                uiAltiText222.gameObject.GetComponent<Image>().enabled = true;
 
                 GameObject bluTXT = GameObject.Find("bluLoading");
                 bluTXT.gameObject.GetComponent<SpriteRenderer>().enabled = true;
@@ -176,6 +185,8 @@ public class POLF : MonoBehaviour
             uiAltiText2.gameObject.GetComponent<Text>().enabled = false;
             GameObject bluTXT = GameObject.Find("bluLoading");
             bluTXT.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            GameObject uiAltiText222 = GameObject.Find("img_obj_difference");
+            uiAltiText222.gameObject.GetComponent<Image>().enabled = false;
 
             this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
             timeStart = true;

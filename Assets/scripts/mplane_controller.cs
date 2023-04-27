@@ -769,6 +769,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     Camera.main.GetComponent<HUD_buttons>().wheelUpDown("up");
                     countStrain = 0;
                     gib = 0;
+                    GameObject.Find("Canvas").GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
                     //4-27-2022 selective cleanup, finall added
                     string GIBS = "p_back,p_mid,p_mid_NO_WING,p_wing_bot,p_wing_top,p_front,jump_seat,box_a,par_drop";
                     Debug.Log("START TIME:" + Time.time);
@@ -802,6 +803,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 tireAni();
                 quickTireSet = false;
                     GameObject.Destroy(GameObject.Find("fss"));
+                    GameObject.Find("img_stat_extra").GetComponent<Image>().enabled = false;
                 for (int i = 0; i < 3; i++)
                 {
                     if (i == 0)

@@ -27,7 +27,7 @@ TagManager:
   - map
   - map_blocker
   - UI_back
-  - 
+  - UI_front
   - 
   - 
   - 
@@ -52,4 +52,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: New Layer
+    uniqueID: 1719481549
     locked: 0
