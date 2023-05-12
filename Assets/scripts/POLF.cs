@@ -25,8 +25,13 @@ public class POLF : MonoBehaviour
     public int OBJ_Height=9999;
     public int OBJ_Land_s=9999;
     public int OBJ_Land_e=99999;
-
+    public int grade_score = 0;
     public int GameObjective = 0;
+
+    //5-11-2023 plan is to allow scenes to set grading conditionals
+    public int grading_A = 3000;
+    public int grading_C = 1500;
+    public int grading_F = 1;
     private Camera cam;
     void Start()
     {
@@ -96,6 +101,18 @@ public class POLF : MonoBehaviour
             {
                 curSceneOver = true;
                 stats_msg = "Flight facts: \n" + "Max Speed: " + MaxSpeed + "\n Impact: " + impactDev + "\n Max Altitude: " + MaxAlt + "\n Total Elapsed time: " + curTime + "Bailed: " + GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject;
+                grade_score = ((int)MaxSpeed)-((int)impactDev)+(((int)MaxAlt)*OBJ_Height) -((int)curTime);
+                string extraWords = "";
+                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject ==false && GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == true)
+                {
+                    // grade_score = -2147483647;
+                    grade_score = -999999999;
+                    extraWords = "\nURDEAD";
+                }
+
+                 
+
+                               stats_msg = stats_msg + "\n\nRATING: " + grade_score+extraWords;
                 Camera.main.GetComponent<HUD_buttons>().powerSwitch("off");
                 Camera.main.GetComponent<HUD_buttons>().wheelUpDown("down");
                 Camera.main.GetComponent<HUD_buttons>().WheelLandAlrt("!");
@@ -119,7 +136,27 @@ public class POLF : MonoBehaviour
                 GameObject.Find("Canvas").GetComponent<Canvas>().worldCamera = Camera.main;
                 GameObject.Find("Canvas").GetComponent<Canvas>().sortingOrder = 40;
                 GameObject.Find("img_stat_extra").GetComponent<Image>().enabled = true;
-
+                string gradeIconToLoad = "thumb_up";
+                if (grade_score> grading_A)
+                {
+                    gradeIconToLoad = "thumb_up";
+                }
+              else  if (grade_score > grading_C)
+                {
+                    gradeIconToLoad = "cminy";
+                }
+                else if (grade_score > grading_F)
+                {
+                    gradeIconToLoad = "poo";
+                }
+                else
+                {
+                    gradeIconToLoad = "cross";
+                }
+                GameObject img_rating_icon = Instantiate(Resources.Load(gradeIconToLoad)) as GameObject;
+                img_rating_icon.name = "img_rating_icon";
+                img_rating_icon.transform.parent = GameObject.Find("img_stat_extra").transform;
+                img_rating_icon.transform.position = GameObject.Find("img_stat_extra").transform.position + new Vector3(2, 2.5f);
             }
             else if (Time.time > nextUsage && timeStart == true) //continue scrolling
             {

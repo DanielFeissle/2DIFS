@@ -804,6 +804,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 quickTireSet = false;
                     GameObject.Destroy(GameObject.Find("fss"));
                     GameObject.Find("img_stat_extra").GetComponent<Image>().enabled = false;
+                    Destroy(GameObject.Find("img_rating_icon"));
                 for (int i = 0; i < 3; i++)
                 {
                     if (i == 0)

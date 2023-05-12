@@ -559,6 +559,7 @@ MonoBehaviour:
   OBJ_Height: 0
   OBJ_Land_s: 0
   OBJ_Land_e: 0
+  grade_score: 0
   GameObjective: 0
 --- !u!61 &48705584
 BoxCollider2D:
@@ -5443,8 +5444,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1, y: 0.9}
   m_AnchorMax: {x: 0.1, y: 0.9}
-  m_AnchoredPosition: {x: 0.48846436, y: -0.6020508}
-  m_SizeDelta: {x: 1012.8755, y: 283.95105}
+  m_AnchoredPosition: {x: 0.419769, y: -0.5762901}
+  m_SizeDelta: {x: 801.63745, y: 232.42966}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1091256140
 MonoBehaviour:
@@ -5468,10 +5469,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 49
+    m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 81
     m_Alignment: 0
     m_AlignByGeometry: 0
