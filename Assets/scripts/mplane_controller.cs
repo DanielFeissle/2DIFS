@@ -707,7 +707,8 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     Camera.main.GetComponent<CameraController>().offset = CamOffSetStd;
                     Camera.main.GetComponent<CameraController>().player = this.gameObject;
                     Camera.main.orthographicSize = cameraDef;
-
+                 //   GameObject.Find("txt_OBJ").transform.position = new Vector3(GameObject.Find("txt_OBJ").transform.position.x, GameObject.Find("txt_OBJ").transform.position.y, 0);
+                    // GameObject.Find("img_obj_difference").transform.position = new Vector3(GameObject.Find("img_obj_difference").transform.position.x, GameObject.Find("img_obj_difference").transform.position.y, 0); //reset back to viewing range
                     zzengineOnOff = false;
                     FX_EXP_ACTIVE = false;
                     zzShutDownFin = true;

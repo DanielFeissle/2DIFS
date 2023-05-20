@@ -25,6 +25,9 @@ public class IntSliderExample : EditorWindow
     private SerializedProperty walkSpeedProperty;
     float gravx = 0;
     float gravy = -9.81f;
+     int grading_A = 3000;
+     int grading_C = 1500;
+     int grading_F = 1;
     [CustomEditor(typeof(editor_world_storage), true)]
     [MenuItem("Tools/Scene Settings")]
     static void Init()
@@ -140,6 +143,19 @@ public class IntSliderExample : EditorWindow
                 getHeight = int.Parse(sclir[2]);
                 lstart = int.Parse(sclir[3]);
                 lend = int.Parse(sclir[4]);
+                try
+                {
+                    grading_A = int.Parse(sclir[5]);
+                    grading_C = int.Parse(sclir[6]);
+                    grading_F = int.Parse(sclir[7]);
+                }
+                catch
+                {
+                    grading_A = 3000;
+                    grading_C = 1500;
+                    grading_F = 1;
+                }
+
                 //  Camera.main.GetComponent<weather>().background_radiosity = int.Parse(sclir[1]);
             }
         }
@@ -168,6 +184,9 @@ public class IntSliderExample : EditorWindow
         getHeight = EditorGUILayout.IntField("Height to reach", getHeight);
         lstart = EditorGUILayout.IntField("Distance start range", lstart);
         lend = EditorGUILayout.IntField("Distance end range", lend);
+        grading_A = EditorGUILayout.IntField("Distance end range", grading_A);
+        grading_C = EditorGUILayout.IntField("Distance end range", grading_C);
+        grading_F = EditorGUILayout.IntField("Distance end range", grading_F);
         //    CloudLevel = EditorGUILayout.IntSlider(CloudLevel, 1, 10);
         if (GUILayout.Button("Stage Changes"))
             stageChanges();
@@ -188,7 +207,7 @@ public class IntSliderExample : EditorWindow
         writer.WriteLine("FPS," + FPS);
         writer.WriteLine("GRX," + gravx);
         writer.WriteLine("GRY," + gravy);
-        writer.WriteLine("OBJ," + objTXT+","+getHeight+","+lstart+","+lend);
+        writer.WriteLine("OBJ," + objTXT+","+getHeight+","+lstart+","+lend+ "," + grading_A+ "," + grading_C + "," + grading_F);
 
         writer.Close();
     }

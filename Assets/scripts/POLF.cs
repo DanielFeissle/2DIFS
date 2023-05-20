@@ -39,9 +39,73 @@ public class POLF : MonoBehaviour
     }
     float _screenWidth;
     float _screenHeight;
+    void funcICO()
+    {
+        string gradeIconToLoad = "thumb_up";
+        if (grade_score > grading_A)
+        {
+            gradeIconToLoad = "thumb_up";
+        }
+        else if (grade_score > grading_C)
+        {
+            gradeIconToLoad = "cminy";
+        }
+        else if (grade_score > grading_F)
+        {
+            gradeIconToLoad = "poo";
+        }
+        else
+        {
+            gradeIconToLoad = "cross";
+        }
+        GameObject img_rating_icon = Instantiate(Resources.Load(gradeIconToLoad)) as GameObject;
+        img_rating_icon.name = "img_rating_icon";
+        img_rating_icon.transform.parent = GameObject.Find("img_stat_extra").transform;
+        img_rating_icon.transform.position = GameObject.Find("img_stat_extra").transform.position + new Vector3(2, 2.5f);
+    }
+
+    void funcTROLO()
+    {
+        stats_msg = "Flight facts: \n" + "Max Speed: " + MaxSpeed + "\n Impact: " + impactDev + "\n Max Altitude: " + MaxAlt + "\n Total Elapsed time: " + curTime + "Bailed: " + GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject;
+        if (grade_score>1)
+        {
+            grade_score = ((int)MaxSpeed) - ((int)impactDev) + (((int)MaxAlt) * OBJ_Height) - ((int)curTime);
+
+        }
+
+
+
+
+        stats_msg = stats_msg + "\n\nRATING: " + grade_score + extraWords;
+        Camera.main.GetComponent<HUD_buttons>().powerSwitch("off");
+        Camera.main.GetComponent<HUD_buttons>().wheelUpDown("down");
+        Camera.main.GetComponent<HUD_buttons>().WheelLandAlrt("!");
+        Camera.main.GetComponent<HUD_buttons>().SpeedWarn("!");
+        Camera.main.GetComponent<HUD_buttons>().GeneralWarn("!");
+        //the case is gone, retry stage-
+        GameObject uiAltiText2 = GameObject.Find("txt_stats");
+        Text delta21 = uiAltiText2.GetComponent<Text>();
+        delta21.text = stats_msg;//.Substring(0, locCnt);
+        GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt = 0;
+
+        cam = Camera.main;
+        Vector3 p = cam.ScreenToWorldPoint(new Vector3(0, cam.pixelHeight, cam.nearClipPlane)); //top left
+        Vector3 q = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, cam.nearClipPlane)); //bottom right
+        GameObject fss = Instantiate(Resources.Load("menu\\flight_stats_sign")) as GameObject;
+        fss.name = "fss";
+        _screenWidth = (Camera.main.orthographicSize * 2) / Screen.height * Screen.width;
+        _screenHeight = Camera.main.orthographicSize * 2;
+        fss.transform.localScale = new Vector3(_screenWidth, _screenHeight);
+        GameObject.Find("Canvas").GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
+        GameObject.Find("Canvas").GetComponent<Canvas>().worldCamera = Camera.main;
+        GameObject.Find("Canvas").GetComponent<Canvas>().sortingOrder = 40;
+        GameObject.Find("img_stat_extra").GetComponent<Image>().enabled = true;
+    }
+    string extraWords = "";
     // Update is called once per frame
     void Update()
     {
+        
         if (GameObject.Find("fss"))
         {
             GameObject fss = GameObject.Find("fss");
@@ -64,6 +128,11 @@ public class POLF : MonoBehaviour
                // Debug.Log("GROUNDED: " + GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground);
                 if (GameObject.Find("Player_plane").transform.position.x > OBJ_Land_s && GameObject.Find("Player_plane").transform.position.x < OBJ_Land_e && GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt > OBJ_Height && GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed < 5 && GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground == true && timeStart==true)
                 {
+                    grade_score = ((int)MaxSpeed) - ((int)impactDev) + (((int)MaxAlt) * OBJ_Height) - ((int)curTime);
+                    extraWords = "complete!";
+                    stats_msg = stats_msg + "\n\nRATING: " + grade_score + extraWords;
+                    funcTROLO();
+                    funcICO();
                     GameObject uiCongrats = GameObject.Find("txt_OBJ");
                     uiCongrats.gameObject.GetComponent<Text>().text = "                                     You win!";
                     uiCongrats.gameObject.GetComponent<Text>().enabled = true;
@@ -75,6 +144,8 @@ public class POLF : MonoBehaviour
 
             if (curSceneOver == true && GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == false)
             {
+                
+
                 GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt = 0;
                 //12-1-2021 this means that the player restarted the scene again
                 this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
@@ -95,68 +166,23 @@ public class POLF : MonoBehaviour
 
                 GameObject bluTXT = GameObject.Find("bluLoading");
                 bluTXT.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+                extraWords = "";
 
             }
-            if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == true && curSceneOver == false)
+            if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == true && curSceneOver == false && extraWords=="")
             {
+               
+                //    GameObject.Find("img_obj_difference").transform.position = new Vector3(GameObject.Find("img_obj_difference").transform.position.x, GameObject.Find("img_obj_difference").transform.position.y, -6000);
+                //   GameObject.Find("img_obj_difference").GetComponent<RectTransform>().transform.position = new Vector3(GameObject.Find("img_obj_difference").GetComponent<RectTransform>().transform.position.x, GameObject.Find("img_obj_difference").GetComponent<RectTransform>().transform.position.y, -6000);
                 curSceneOver = true;
-                stats_msg = "Flight facts: \n" + "Max Speed: " + MaxSpeed + "\n Impact: " + impactDev + "\n Max Altitude: " + MaxAlt + "\n Total Elapsed time: " + curTime + "Bailed: " + GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject;
-                grade_score = ((int)MaxSpeed)-((int)impactDev)+(((int)MaxAlt)*OBJ_Height) -((int)curTime);
-                string extraWords = "";
-                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject ==false && GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == true)
+                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject == false && GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == true)
                 {
                     // grade_score = -2147483647;
                     grade_score = -999999999;
                     extraWords = "\nURDEAD";
                 }
-
-                 
-
-                               stats_msg = stats_msg + "\n\nRATING: " + grade_score+extraWords;
-                Camera.main.GetComponent<HUD_buttons>().powerSwitch("off");
-                Camera.main.GetComponent<HUD_buttons>().wheelUpDown("down");
-                Camera.main.GetComponent<HUD_buttons>().WheelLandAlrt("!");
-                Camera.main.GetComponent<HUD_buttons>().SpeedWarn("!");
-                Camera.main.GetComponent<HUD_buttons>().GeneralWarn("!");
-                //the case is gone, retry stage-
-                GameObject uiAltiText2 = GameObject.Find("txt_stats");
-                Text delta21 = uiAltiText2.GetComponent<Text>();
-                delta21.text = stats_msg;//.Substring(0, locCnt);
-                GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt = 0;
-
-                cam = Camera.main;
-                Vector3 p = cam.ScreenToWorldPoint(new Vector3(0, cam.pixelHeight, cam.nearClipPlane)); //top left
-                Vector3 q = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, cam.nearClipPlane)); //bottom right
-                GameObject fss = Instantiate(Resources.Load("menu\\flight_stats_sign")) as GameObject;
-                fss.name = "fss";
-                _screenWidth = (Camera.main.orthographicSize * 2) / Screen.height * Screen.width;
-                _screenHeight = Camera.main.orthographicSize * 2;
-                fss.transform.localScale = new Vector3(_screenWidth, _screenHeight);
-                GameObject.Find("Canvas").GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
-                GameObject.Find("Canvas").GetComponent<Canvas>().worldCamera = Camera.main;
-                GameObject.Find("Canvas").GetComponent<Canvas>().sortingOrder = 40;
-                GameObject.Find("img_stat_extra").GetComponent<Image>().enabled = true;
-                string gradeIconToLoad = "thumb_up";
-                if (grade_score> grading_A)
-                {
-                    gradeIconToLoad = "thumb_up";
-                }
-              else  if (grade_score > grading_C)
-                {
-                    gradeIconToLoad = "cminy";
-                }
-                else if (grade_score > grading_F)
-                {
-                    gradeIconToLoad = "poo";
-                }
-                else
-                {
-                    gradeIconToLoad = "cross";
-                }
-                GameObject img_rating_icon = Instantiate(Resources.Load(gradeIconToLoad)) as GameObject;
-                img_rating_icon.name = "img_rating_icon";
-                img_rating_icon.transform.parent = GameObject.Find("img_stat_extra").transform;
-                img_rating_icon.transform.position = GameObject.Find("img_stat_extra").transform.position + new Vector3(2, 2.5f);
+                funcTROLO();
+                funcICO();
             }
             else if (Time.time > nextUsage && timeStart == true) //continue scrolling
             {
