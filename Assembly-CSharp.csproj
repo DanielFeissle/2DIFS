@@ -75,6 +75,7 @@
     <Compile Include="Assets\scripts\screenWrapper.cs" />
     <Compile Include="Assets\scripts\edit_obj_show_runtime.cs" />
     <Compile Include="Assets\scripts\ball_paddle.cs" />
+    <Compile Include="Assets\scripts\gai.cs" />
     <Compile Include="Assets\scripts\btn_title_stage_select.cs" />
     <Compile Include="Assets\scripts\cam_distance_PREVIEW_READONLY.cs" />
     <Compile Include="Assets\scripts\Exp2017.cs" />
@@ -131,7 +132,7 @@
     <Compile Include="Assets\scripts\scene_grav_change.cs" />
     <Compile Include="Assets\scripts\GEN_UI_Ani_Rand_Delay.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
-    <Compile Include="Assets\scripts\gai.cs" />
+    <Compile Include="Assets\scripts\missle_launch_behavior.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />

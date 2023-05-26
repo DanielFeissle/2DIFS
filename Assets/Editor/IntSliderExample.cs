@@ -184,9 +184,9 @@ public class IntSliderExample : EditorWindow
         getHeight = EditorGUILayout.IntField("Height to reach", getHeight);
         lstart = EditorGUILayout.IntField("Distance start range", lstart);
         lend = EditorGUILayout.IntField("Distance end range", lend);
-        grading_A = EditorGUILayout.IntField("Distance end range", grading_A);
-        grading_C = EditorGUILayout.IntField("Distance end range", grading_C);
-        grading_F = EditorGUILayout.IntField("Distance end range", grading_F);
+        grading_A = EditorGUILayout.IntField("Grade A", grading_A);
+        grading_C = EditorGUILayout.IntField("Grade C", grading_C);
+        grading_F = EditorGUILayout.IntField("Grade F", grading_F);
         //    CloudLevel = EditorGUILayout.IntSlider(CloudLevel, 1, 10);
         if (GUILayout.Button("Stage Changes"))
             stageChanges();

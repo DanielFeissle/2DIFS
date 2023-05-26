@@ -131,9 +131,18 @@ public class world_scene_editor : MonoBehaviour
                     GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Height = Convert.ToInt32(sclir[2]);
                     GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Land_s = Convert.ToInt32(sclir[3]);
                     GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Land_e = Convert.ToInt32(sclir[4]);
-                    GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().grading_A = Convert.ToInt32(sclir[5]);
-                    GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().grading_C = Convert.ToInt32(sclir[6]);
-                    GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().grading_F = Convert.ToInt32(sclir[7]);
+                    try
+                    {
+                        GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().grading_A = Convert.ToInt32(sclir[5]);
+                        GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().grading_C = Convert.ToInt32(sclir[6]);
+                        GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().grading_F = Convert.ToInt32(sclir[7]);
+                    }
+                    catch
+                    {
+                        GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().grading_A = 3000;
+                        GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().grading_C = 1500;
+                        GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().grading_F = 1;
+                    }
                     getHeight = Convert.ToInt32(sclir[2]); //height to obtain
                      lstart = Convert.ToInt32(sclir[3]); //land start
                      lend = Convert.ToInt32(sclir[4]); //land end

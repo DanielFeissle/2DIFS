@@ -1,9 +1,9 @@
 CLD,68
-WTH,72
-WND,1361
-RAD,0.57
-RAB,0.35
+WTH,20
+WND,700
+RAD,1
+RAB,1
 FPS,96
-GRX,4
-GRY,-13
-OBJ,sdfsdfasdf!!!,40,0,999
+GRX,0
+GRY,-9.81
+OBJ,Just glide. Glide down the hole,0,60,600
