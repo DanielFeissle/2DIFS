@@ -27,6 +27,7 @@ public class POLF : MonoBehaviour
     public int OBJ_Land_e=99999;
     public int grade_score = 0;
     public int GameObjective = 0;
+    public bool StageStarted = false;
 
     //5-11-2023 plan is to allow scenes to set grading conditionals
     public int grading_A = 3000;
@@ -133,6 +134,7 @@ public class POLF : MonoBehaviour
                     stats_msg = stats_msg + "\n\nRATING: " + grade_score + extraWords;
                     funcTROLO();
                     funcICO();
+                    GameObject.Find("Player_plane").GetComponent<mplane_controller>().autoProgress = true;
                     GameObject uiCongrats = GameObject.Find("txt_OBJ");
                     uiCongrats.gameObject.GetComponent<Text>().text = "                                     You win!";
                     uiCongrats.gameObject.GetComponent<Text>().enabled = true;
@@ -144,8 +146,8 @@ public class POLF : MonoBehaviour
 
             if (curSceneOver == true && GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == false)
             {
-                
 
+               GameObject.Find("Player_plane").GetComponent<mplane_controller>().autoProgress = false;
                 GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt = 0;
                 //12-1-2021 this means that the player restarted the scene again
                 this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
@@ -171,7 +173,7 @@ public class POLF : MonoBehaviour
             }
             if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == true && curSceneOver == false && extraWords=="")
             {
-               
+                GameObject.Find("Player_plane").GetComponent<mplane_controller>().autoProgress = true;
                 //    GameObject.Find("img_obj_difference").transform.position = new Vector3(GameObject.Find("img_obj_difference").transform.position.x, GameObject.Find("img_obj_difference").transform.position.y, -6000);
                 //   GameObject.Find("img_obj_difference").GetComponent<RectTransform>().transform.position = new Vector3(GameObject.Find("img_obj_difference").GetComponent<RectTransform>().transform.position.x, GameObject.Find("img_obj_difference").GetComponent<RectTransform>().transform.position.y, -6000);
                 curSceneOver = true;
@@ -244,6 +246,7 @@ public class POLF : MonoBehaviour
     {
         if (collision.name=="Player_plane")
         {
+            StageStarted = true;
             GameObject uiAltiText2 = GameObject.Find("txt_OBJ");
             uiAltiText2.gameObject.GetComponent<Text>().enabled = false;
             GameObject bluTXT = GameObject.Find("bluLoading");

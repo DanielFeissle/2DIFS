@@ -623,6 +623,15 @@ public class mplane_controller : MonoBehaviour
     public int postmortem = 0;
     bool quickTireSet = false;
     public bool qreset = false;
+    public bool autoProgress = false;
+    bool autoProgressCleared = false;
+    float delayAUTO = 1; //only half delay
+    int autoCount = 0;
+    int autoKeyDelayCount = 0;
+    float nextUsageAUTO;
+    public bool MasterAutoProgressSetting = true;
+    bool timerCounterAUTO = false;
+    bool quickTime = false;
     //what you did code
     // 0- alive and a ok (not dead)
     // 1-hull breach
@@ -645,21 +654,102 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         }
         if (GameObject.Find("altimeter").gameObject.GetComponent<menu_runtime>().specButtonStat == -1)
         {
+            if (onground == true)
+            {
+                rb.mass = 60;
+                rb.drag = .5f;
+                heavyMass = false;
+            }
+            //5-29-2023 auto restart scenes added also with MasterAutoProgressSetting as a potential config to disable it
+            if ((Time.time > nextUsageAUTO && autoProgress == true)||quickTime==true) //continue scrolling // 
+            {
+                if (autoKeyDelayCount>2)
+                {
+                    quickTime = true;
+                    if (Input.anyKeyDown)
+                    {
+                      
+                       if (GameObject.Find("CircleTimer"))
+                       {
+                           if (timerCounterAUTO==false)
+                           {
+                               timerCounterAUTO = true;
+                               GameObject.Find("CircleTimer").GetComponent<Animator>().speed = 1;
+                               GameObject.Find("CircleTimer").GetComponent<Animator>().Play("10SecDelay(128x128)", -1, 0f);
+                               autoProgress = true;
+                           }
+                           else
+                           {
+                               timerCounterAUTO = false;
+                               GameObject.Find("CircleTimer").GetComponent<Animator>().speed = 0;
 
-            if (onground==true)
-        {
-            rb.mass = 60;
-            rb.drag = .5f;
-            heavyMass = false;
-        }
+                               autoProgress = true;
+                           }
+
+
+
+                           //  GameObject.Destroy(GameObject.Find("CircleTimer"));
+                       }
+                      // autoProgress = false;
+                  
+                     autoCount = 0;
+                      nextUsageAUTO = Time.time + delayAUTO; //it is on display
+                    }
+                }
+                autoKeyDelayCount++;
+
+            }
+            if ((autoProgress == true ) && MasterAutoProgressSetting==true) //|| timerCounterAUTO==false
+            {
+                if (!GameObject.Find("CircleTimer"))
+                {
+                    GameObject CircleTimer = Instantiate(Resources.Load("CircleTimer")) as GameObject;
+                    CircleTimer.name = "CircleTimer";
+                    CircleTimer.transform.parent = GameObject.Find("img_stat_extra").transform;
+                    CircleTimer.transform.position = GameObject.Find("img_stat_extra").transform.position + new Vector3(2, 0);
+
+                }
+                if (Time.time > nextUsageAUTO && timerCounterAUTO==true) //continue scrolling
+                {
+                    if (autoCount>9)
+                    {
+                        autoProgressCleared = true;
+                        autoCount = 0;
+                        autoProgress = false;
+                        autoKeyDelayCount = 0;
+                        if (GameObject.Find("CircleTimer"))
+                        {
+                            GameObject.Destroy(GameObject.Find("CircleTimer"));
+                        }
+                    }
+                    autoCount++;
+                    Debug.Log("++++++++++++++++++++The counter "+autoCount);
+                    nextUsageAUTO = Time.time + delayAUTO; //it is on display
+
+                } 
+           
+            }
             if (Input.GetButtonDown("Debug Reset"))
             {
                 Debug.Log("THE STAGE HAS BEEN CALLED UPON");
                 this.gameObject.GetComponent<WorldFlowTrack>().TrackStage();
             }
             //NOTE TO SELF, This is the magic reset button for restarting the stage- thanks df 3-30-2022!
-        if (Input.GetButtonDown("Fire3") || (plane_recovered==true && peject ==true))
+        if ((Input.GetButtonDown("Fire3") || (plane_recovered==true && peject ==true)) || autoProgressCleared==true)
         {
+                quickTime = false;
+                GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().StageStarted = false;  //this resets back to not active state
+                autoProgressCleared = false;
+                autoCount = 0;
+                autoProgress = false;
+                autoKeyDelayCount = 0;
+
+                if (GameObject.Find("CircleTimer"))
+                {
+                    GameObject.Find("CircleTimer").GetComponent<Animator>().speed = 1;
+                    GameObject.Destroy(GameObject.Find("CircleTimer"));
+                }
+                autoProgressCleared = false;
                 maxAlt = 0;
                 tempAlt = 0;
                 GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt=0;
@@ -851,6 +941,10 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     Speed = 0;
                 }
                 Speed = 0;
+                autoProgress = false;
+
+                
+                
             }
         RaycastHit2D hit = Physics2D.Raycast(new Vector3(transform.position.x, transform.position.y - 0.1f, 0), -Vector2.up);
       //  Debug.Log(hit.collider.name);
