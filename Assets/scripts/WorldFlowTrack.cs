@@ -16,11 +16,26 @@ public class WorldFlowTrack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        LoadPlayer();
         txt = (TextAsset)Resources.Load("scenes\\" + flow, typeof(TextAsset));
      //   DontDestroyOnLoad(gameObject.transform);
         if (SceneManager.GetActiveScene().name == "SampleScene")
         {
             SendStage();
+        }
+
+    }
+    public void saveplayer()
+    {
+        BinSaveSystem.SaveScene(this);
+    }
+    public void LoadPlayer()
+    {
+       PlayerData data= BinSaveSystem.LoadPlayer();
+        if (data!=null)
+        {
+            scene = data.level_scene;
+            world = data.level_world;
         }
 
     }
@@ -32,7 +47,7 @@ public class WorldFlowTrack : MonoBehaviour
             string[] splitter = GameObject.Find("sela").GetComponent<LevelHistory>().NameOfLevel.Split('x');
             loadedWorld = Convert.ToInt32(splitter[0]);
              loadedScene = Convert.ToInt32(splitter[1]);
-
+           
             scene = loadedScene-1;
              world = loadedWorld-1;
 
@@ -51,7 +66,8 @@ public class WorldFlowTrack : MonoBehaviour
 
     public void TrackStage()
     {
-     //   SceneManager.LoadScene("SampleScene");
+        saveplayer();
+        //   SceneManager.LoadScene("SampleScene");
         Debug.Log("CURRENT----------------------------WORLD" + world +", SCENE"+ scene);
         scene++;
         

@@ -107,6 +107,7 @@
     <Compile Include="Assets\scripts\realDeleteAfterPlainAniScript.cs" />
     <Compile Include="Assets\scripts\world_flow_ui_disp.cs" />
     <Compile Include="Assets\scripts\editor_world_storage.cs" />
+    <Compile Include="Assets\scripts\missle_launch_behavior.cs" />
     <Compile Include="Assets\scripts\lighting_tool.cs" />
     <Compile Include="Assets\scripts\showFPS.cs" />
     <Compile Include="Assets\scripts\mplane_controller.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Assets\scripts\WorldFlowTrack.cs" />
     <Compile Include="Assets\scripts\realGenericButton.cs" />
     <Compile Include="Assets\scripts\wogen1.cs" />
+    <Compile Include="Assets\scripts\ui_level_selection_track.cs" />
     <Compile Include="Assets\scripts\Blit.cs" />
     <Compile Include="Assets\scripts\TouchAndDie.cs" />
     <Compile Include="Assets\scripts\real_dest_after_touch.cs" />
@@ -132,7 +134,8 @@
     <Compile Include="Assets\scripts\scene_grav_change.cs" />
     <Compile Include="Assets\scripts\GEN_UI_Ani_Rand_Delay.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
-    <Compile Include="Assets\scripts\missle_launch_behavior.cs" />
+    <Compile Include="Assets\scripts\PlayerData.cs" />
+    <Compile Include="Assets\scripts\BinSaveSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />
