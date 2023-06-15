@@ -98,6 +98,7 @@
     <Compile Include="Assets\scripts\VertMinusCameraFOV.cs" />
     <Compile Include="Assets\scripts\general_match_axis.cs" />
     <Compile Include="Assets\scripts\general_child_remover.cs" />
+    <Compile Include="Assets\scripts\PlayerData.cs" />
     <Compile Include="Assets\scripts\menu_runtime.cs" />
     <Compile Include="Assets\scripts\general_invent_kill.cs" />
     <Compile Include="Assets\scripts\WorldLoader.cs" />
@@ -133,9 +134,9 @@
     <Compile Include="Assets\scripts\player_end_routine.cs" />
     <Compile Include="Assets\scripts\scene_grav_change.cs" />
     <Compile Include="Assets\scripts\GEN_UI_Ani_Rand_Delay.cs" />
-    <Compile Include="Assets\scripts\alt_gauge.cs" />
-    <Compile Include="Assets\scripts\PlayerData.cs" />
     <Compile Include="Assets\scripts\BinSaveSystem.cs" />
+    <Compile Include="Assets\scripts\alt_gauge.cs" />
+    <Compile Include="Assets\scripts\input_field.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />

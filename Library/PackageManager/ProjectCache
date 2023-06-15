@@ -1,20 +1,20 @@
 m_ProjectFiles:
   m_ManifestFileStatus:
-    m_FilePath: G:/dfeis/Documents/UnityProjects/2DIFS/2DIFS/Packages/manifest.json
+    m_FilePath: I:/projects/2DIFS/Packages/manifest.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637873082397450096
-    m_Hash: 3226764590
+      ticks: 638222951230112450
+    m_Hash: 3117639938
   m_LockFileStatus:
-    m_FilePath: G:/dfeis/Documents/UnityProjects/2DIFS/2DIFS/Packages/packages-lock.json
+    m_FilePath: I:/projects/2DIFS/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637873082398282043
-    m_Hash: 210139248
+      ticks: 638222951230112450
+    m_Hash: 1296748255
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
@@ -25,7 +25,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 4.0.1
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.2d.pixel-perfect@4.0.1
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.2d.pixel-perfect@4.0.1
       assetPath: Packages/com.unity.2d.pixel-perfect
       name: com.unity.2d.pixel-perfect
       displayName: 2D Pixel Perfect
@@ -34,7 +34,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: 
+      type: tool
       description: 'The 2D Pixel Perfect package contains the Pixel Perfect Camera
         component which ensures your pixel art remains crisp and clear at different
         resolutions, and stable in motion.
@@ -65,6 +65,8 @@ m_PackageAssets:
         - 5.0.0-pre.2
         - 5.0.0
         - 5.0.1
+        - 5.0.2
+        - 5.0.3
         compatible:
         - 4.0.1
         verified: 4.0.1
@@ -100,7 +102,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 4.1.3
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.2d.psdimporter@4.1.3
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.2d.psdimporter@4.1.3
       assetPath: Packages/com.unity.2d.psdimporter
       name: com.unity.2d.psdimporter
       displayName: 2D PSD Importer
@@ -109,7 +111,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 2D
-      type: 
+      type: asset
       description: A ScriptedImporter for importing Adobe Photoshop PSB (Photoshop
         Big) file format. The ScriptedImporter is currently targeted for users who
         wants to create multi Sprite character animation using Unity 2D Animation
@@ -157,6 +159,7 @@ m_PackageAssets:
         - 4.1.3
         - 4.2.0
         - 4.3.0
+        - 4.3.1
         - 5.0.0-pre.1
         - 5.0.0-pre.2
         - 5.0.1
@@ -170,10 +173,24 @@ m_PackageAssets:
         - 6.0.1
         - 6.0.2
         - 6.0.3
+        - 6.0.4
+        - 6.0.5
+        - 6.0.6
+        - 6.0.7
         - 7.0.0-pre.3
         - 7.0.0-pre.4
         - 7.0.0
+        - 7.0.1
+        - 7.0.2
+        - 7.0.3
         - 8.0.0-pre.1
+        - 8.0.0-pre.3
+        - 8.0.0
+        - 8.0.1
+        - 8.0.2
+        - 9.0.0-pre.1
+        - 9.0.0-pre.2
+        - 9.0.0
         compatible:
         - 4.1.0
         - 4.1.1
@@ -220,7 +237,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -237,7 +254,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.2d.sprite@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.2d.sprite@1.0.0
       assetPath: Packages/com.unity.2d.sprite
       name: com.unity.2d.sprite
       displayName: 2D Sprite
@@ -288,7 +305,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 5.1.7
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.2d.spriteshape@5.1.7
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.2d.spriteshape@5.1.7
       assetPath: Packages/com.unity.2d.spriteshape
       name: com.unity.2d.spriteshape
       displayName: 2D SpriteShape
@@ -297,7 +314,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 2D
-      type: 
+      type: asset
       description: SpriteShape Runtime & Editor Package contains the tooling and
         the runtime component that allows you to create very organic looking spline
         based 2D worlds. It comes with intuitive configurator and a highly performant
@@ -372,10 +389,21 @@ m_PackageAssets:
         - 7.0.2
         - 7.0.3
         - 7.0.4
+        - 7.0.5
+        - 7.0.6
+        - 7.0.7
         - 8.0.0-pre.4
         - 8.0.0-pre.5
         - 8.0.0
+        - 8.0.1
         - 9.0.0-pre.1
+        - 9.0.0
+        - 9.0.1
+        - 9.0.2
+        - 10.0.0-pre.1
+        - 10.0.0-pre.2
+        - 10.0.0
+        - 10.0.1
         compatible:
         - 5.1.3
         - 5.1.4
@@ -428,7 +456,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -445,7 +473,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.2d.tilemap@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.2d.tilemap@1.0.0
       assetPath: Packages/com.unity.2d.tilemap
       name: com.unity.2d.tilemap
       displayName: 2D Tilemap Editor
@@ -495,7 +523,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.7.1
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.collab-proxy@1.7.1
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.collab-proxy@1.7.1
       assetPath: Packages/com.unity.collab-proxy
       name: com.unity.collab-proxy
       displayName: Version Control
@@ -504,7 +532,7 @@ m_PackageAssets:
         email: 
         url: 
       category: Editor
-      type: 
+      type: asset
       description: The Version Control package gives you the ability to use either
         Collaborate or Plastic SCM for Unity (beta) in the Unity editor. To use Plastic
         SCM for Unity (beta), a Plastic SCM subscription is required. Learn more
@@ -549,6 +577,7 @@ m_PackageAssets:
         - 1.14.15
         - 1.14.16
         - 1.14.17
+        - 1.14.18
         - 1.15.1
         - 1.15.4
         - 1.15.7
@@ -558,6 +587,12 @@ m_PackageAssets:
         - 1.15.15
         - 1.15.16
         - 1.15.17
+        - 1.15.18
+        - 1.17.0
+        - 1.17.1
+        - 1.17.2
+        - 1.17.6
+        - 1.17.7
         - 2.0.0-preview.6
         - 2.0.0-preview.8
         - 2.0.0-preview.15
@@ -565,6 +600,11 @@ m_PackageAssets:
         - 2.0.0-preview.20
         - 2.0.0-preview.21
         - 2.0.0-preview.22
+        - 2.0.0
+        - 2.0.1
+        - 2.0.3
+        - 2.0.4
+        - 2.0.5
         - 2.1.0-preview.3
         - 2.1.0-preview.5
         - 2.1.0-preview.6
@@ -585,6 +625,7 @@ m_PackageAssets:
         - 1.14.15
         - 1.14.16
         - 1.14.17
+        - 1.14.18
         - 1.15.1
         - 1.15.4
         - 1.15.7
@@ -594,6 +635,12 @@ m_PackageAssets:
         - 1.15.15
         - 1.15.16
         - 1.15.17
+        - 1.15.18
+        - 1.17.0
+        - 1.17.1
+        - 1.17.2
+        - 1.17.6
+        - 1.17.7
         - 2.0.0-preview.6
         - 2.0.0-preview.8
         - 2.0.0-preview.15
@@ -601,6 +648,11 @@ m_PackageAssets:
         - 2.0.0-preview.20
         - 2.0.0-preview.21
         - 2.0.0-preview.22
+        - 2.0.0
+        - 2.0.1
+        - 2.0.3
+        - 2.0.4
+        - 2.0.5
         - 2.1.0-preview.3
         - 2.1.0-preview.5
         - 2.1.0-preview.6
@@ -633,7 +685,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -650,7 +702,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 2.0.7
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.ide.rider@2.0.7
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.ide.rider@2.0.7
       assetPath: Packages/com.unity.ide.rider
       name: com.unity.ide.rider
       displayName: JetBrains Rider Editor
@@ -659,7 +711,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: 
+      type: asset
       description: The JetBrains Rider Editor package provides an integration for
         using the JetBrains Rider IDE as a code editor for Unity. It adds support
         for generating .csproj files for code completion and auto-discovery of installations.
@@ -697,6 +749,14 @@ m_PackageAssets:
         - 3.0.12
         - 3.0.13
         - 3.0.14
+        - 3.0.15
+        - 3.0.16
+        - 3.0.17
+        - 3.0.18
+        - 3.0.20
+        - 3.0.21
+        - 3.0.22
+        - 3.0.24
         compatible:
         - 1.0.2
         - 1.0.6
@@ -728,6 +788,14 @@ m_PackageAssets:
         - 3.0.12
         - 3.0.13
         - 3.0.14
+        - 3.0.15
+        - 3.0.16
+        - 3.0.17
+        - 3.0.18
+        - 3.0.20
+        - 3.0.21
+        - 3.0.22
+        - 3.0.24
         verified: 2.0.7
       dependencies:
       - name: com.unity.test-framework
@@ -750,7 +818,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -767,7 +835,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 2.0.14
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.ide.visualstudio@2.0.14
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.ide.visualstudio@2.0.14
       assetPath: Packages/com.unity.ide.visualstudio
       name: com.unity.ide.visualstudio
       displayName: Visual Studio Editor
@@ -776,7 +844,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: 
+      type: asset
       description: Code editor integration for supporting Visual Studio as code editor
         for unity. Adds support for generating csproj files for intellisense purposes,
         auto discovery of installations, etc.
@@ -802,6 +870,9 @@ m_PackageAssets:
         - 2.0.12
         - 2.0.14
         - 2.0.15
+        - 2.0.16
+        - 2.0.17
+        - 2.0.18
         compatible:
         - 1.0.2
         - 1.0.3
@@ -821,7 +892,10 @@ m_PackageAssets:
         - 2.0.12
         - 2.0.14
         - 2.0.15
-        verified: 2.0.15
+        - 2.0.16
+        - 2.0.17
+        - 2.0.18
+        verified: 2.0.18
       dependencies:
       - name: com.unity.test-framework
         version: 1.1.9
@@ -843,7 +917,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -860,7 +934,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.2.5
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.ide.vscode@1.2.5
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.ide.vscode@1.2.5
       assetPath: Packages/com.unity.ide.vscode
       name: com.unity.ide.vscode
       displayName: Visual Studio Code Editor
@@ -869,7 +943,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: 
+      type: asset
       description: Code editor integration for supporting Visual Studio Code as code
         editor for unity. Adds support for generating csproj files for intellisense
         purposes, auto discovery of installations, etc.
@@ -916,7 +990,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -933,7 +1007,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 10.5.1
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.render-pipelines.universal@10.5.1
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.render-pipelines.universal@10.5.1
       assetPath: Packages/com.unity.render-pipelines.universal
       name: com.unity.render-pipelines.universal
       displayName: Universal RP
@@ -942,7 +1016,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: 
+      type: asset
       description: The Universal Render Pipeline (URP) is a prebuilt Scriptable Render
         Pipeline, made by Unity. URP provides artist-friendly workflows that let
         you quickly and easily create optimized graphics across a range of platforms,
@@ -994,6 +1068,8 @@ m_PackageAssets:
         - 10.8.0
         - 10.8.1
         - 10.9.0
+        - 10.10.0
+        - 10.10.1
         compatible:
         - 10.5.1
         - 10.6.0
@@ -1035,7 +1111,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -1052,7 +1128,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.1.31
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.test-framework@1.1.31
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.test-framework@1.1.31
       assetPath: Packages/com.unity.test-framework
       name: com.unity.test-framework
       displayName: Test Framework
@@ -1061,7 +1137,7 @@ m_PackageAssets:
         email: 
         url: 
       category: Unity Test Framework
-      type: 
+      type: asset
       description: Test framework for running Edit mode and Play mode tests in Unity.
       status: 4
       errors: []
@@ -1100,7 +1176,16 @@ m_PackageAssets:
         - 1.1.29
         - 1.1.30
         - 1.1.31
+        - 1.1.33
+        - 1.3.0
+        - 1.3.1
+        - 1.3.2
+        - 1.3.3
+        - 1.3.4
+        - 1.3.5
+        - 1.3.7
         - 2.0.1-exp.1
+        - 2.0.1-exp.2
         - 2.0.1-pre.12
         - 2.0.1-pre.18
         compatible:
@@ -1108,10 +1193,19 @@ m_PackageAssets:
         - 1.1.29
         - 1.1.30
         - 1.1.31
+        - 1.1.33
+        - 1.3.0
+        - 1.3.1
+        - 1.3.2
+        - 1.3.3
+        - 1.3.4
+        - 1.3.5
+        - 1.3.7
         - 2.0.1-exp.1
+        - 2.0.1-exp.2
         - 2.0.1-pre.12
         - 2.0.1-pre.18
-        verified: 1.1.31
+        verified: 1.1.33
       dependencies:
       - name: com.unity.ext.nunit
         version: 1.0.6
@@ -1137,7 +1231,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -1154,7 +1248,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 3.0.6
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.textmeshpro@3.0.6
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.textmeshpro@3.0.6
       assetPath: Packages/com.unity.textmeshpro
       name: com.unity.textmeshpro
       displayName: TextMeshPro
@@ -1163,7 +1257,7 @@ m_PackageAssets:
         email: 
         url: 
       category: Text Rendering
-      type: 
+      type: asset
       description: 'TextMeshPro is the ultimate text solution for Unity. It''s the
         perfect replacement for Unity''s UI Text and the legacy Text Mesh.
 
@@ -1272,12 +1366,15 @@ m_PackageAssets:
         - 3.2.0-pre.1
         - 3.2.0-pre.2
         - 3.2.0-pre.3
+        - 3.2.0-pre.4
         - 4.0.0-pre.1
+        - 4.0.0-pre.2
         compatible:
         - 3.0.6
         - 3.2.0-pre.1
         - 3.2.0-pre.2
         - 3.2.0-pre.3
+        - 3.2.0-pre.4
         verified: 3.0.6
       dependencies:
       - name: com.unity.ugui
@@ -1303,7 +1400,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -1320,7 +1417,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.4.8
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.timeline@1.4.8
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.timeline@1.4.8
       assetPath: Packages/com.unity.timeline
       name: com.unity.timeline
       displayName: Timeline
@@ -1329,7 +1426,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: 
+      type: asset
       description: Use Unity Timeline to create cinematic content, game-play sequences,
         audio sequences, and complex particle effects.
       status: 4
@@ -1404,10 +1501,18 @@ m_PackageAssets:
         - 1.6.2
         - 1.6.3
         - 1.6.4
+        - 1.6.5
         - 1.7.0-pre.1
         - 1.7.0-pre.2
         - 1.7.0
         - 1.7.1
+        - 1.7.2
+        - 1.7.3
+        - 1.7.4
+        - 1.8.0
+        - 1.8.1
+        - 1.8.2
+        - 1.8.3
         compatible:
         - 1.4.8
         - 1.5.0-pre.2
@@ -1432,10 +1537,18 @@ m_PackageAssets:
         - 1.6.2
         - 1.6.3
         - 1.6.4
+        - 1.6.5
         - 1.7.0-pre.1
         - 1.7.0-pre.2
         - 1.7.0
         - 1.7.1
+        - 1.7.2
+        - 1.7.3
+        - 1.7.4
+        - 1.8.0
+        - 1.8.1
+        - 1.8.2
+        - 1.8.3
         verified: 1.4.8
       dependencies:
       - name: com.unity.modules.director
@@ -1469,7 +1582,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -1486,7 +1599,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.toolchain.win-x86_64-linux-x86_64@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.toolchain.win-x86_64-linux-x86_64@1.0.0
       assetPath: Packages/com.unity.toolchain.win-x86_64-linux-x86_64
       name: com.unity.toolchain.win-x86_64-linux-x86_64
       displayName: Toolchain Win Linux x64
@@ -1495,7 +1608,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: 
+      type: asset
       description: Cross-compilation toolchain to build player target Linux x86_64
         on host Windows x86_64
       status: 4
@@ -1521,6 +1634,11 @@ m_PackageAssets:
         - 0.1.21-preview
         - 1.0.0
         - 2.0.0
+        - 2.0.1
+        - 2.0.2
+        - 2.0.3
+        - 2.0.4
+        - 2.0.5
         compatible:
         - 0.1.4-preview
         - 0.1.5-preview
@@ -1541,6 +1659,11 @@ m_PackageAssets:
         - 0.1.21-preview
         - 1.0.0
         - 2.0.0
+        - 2.0.1
+        - 2.0.2
+        - 2.0.3
+        - 2.0.4
+        - 2.0.5
         verified: 
       dependencies:
       - name: com.unity.sysroot
@@ -1565,7 +1688,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -1582,7 +1705,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.ugui@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.ugui@1.0.0
       assetPath: Packages/com.unity.ugui
       name: com.unity.ugui
       displayName: Unity UI
@@ -1602,6 +1725,7 @@ m_PackageAssets:
       versions:
         all:
         - 1.0.0
+        - 3.0.0-exp.1
         compatible:
         - 1.0.0
         verified: 1.0.0
@@ -1645,7 +1769,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.ai@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.ai@1.0.0
       assetPath: Packages/com.unity.modules.ai
       name: com.unity.modules.ai
       displayName: AI
@@ -1693,7 +1817,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.androidjni@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.androidjni@1.0.0
       assetPath: Packages/com.unity.modules.androidjni
       name: com.unity.modules.androidjni
       displayName: Android JNI
@@ -1741,7 +1865,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.animation@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.animation@1.0.0
       assetPath: Packages/com.unity.modules.animation
       name: com.unity.modules.animation
       displayName: Animation
@@ -1789,7 +1913,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.assetbundle@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.assetbundle@1.0.0
       assetPath: Packages/com.unity.modules.assetbundle
       name: com.unity.modules.assetbundle
       displayName: Asset Bundle
@@ -1837,7 +1961,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.audio@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.audio@1.0.0
       assetPath: Packages/com.unity.modules.audio
       name: com.unity.modules.audio
       displayName: Audio
@@ -1885,7 +2009,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.cloth@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.cloth@1.0.0
       assetPath: Packages/com.unity.modules.cloth
       name: com.unity.modules.cloth
       displayName: Cloth
@@ -1937,7 +2061,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.director@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.director@1.0.0
       assetPath: Packages/com.unity.modules.director
       name: com.unity.modules.director
       displayName: Director
@@ -1993,7 +2117,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.imageconversion@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.imageconversion@1.0.0
       assetPath: Packages/com.unity.modules.imageconversion
       name: com.unity.modules.imageconversion
       displayName: Image Conversion
@@ -2042,7 +2166,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.imgui@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.imgui@1.0.0
       assetPath: Packages/com.unity.modules.imgui
       name: com.unity.modules.imgui
       displayName: IMGUI
@@ -2090,7 +2214,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.jsonserialize@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.jsonserialize@1.0.0
       assetPath: Packages/com.unity.modules.jsonserialize
       name: com.unity.modules.jsonserialize
       displayName: JSONSerialize
@@ -2138,7 +2262,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.particlesystem@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.particlesystem@1.0.0
       assetPath: Packages/com.unity.modules.particlesystem
       name: com.unity.modules.particlesystem
       displayName: Particle System
@@ -2186,7 +2310,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.physics@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.physics@1.0.0
       assetPath: Packages/com.unity.modules.physics
       name: com.unity.modules.physics
       displayName: Physics
@@ -2234,7 +2358,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.physics2d@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.physics2d@1.0.0
       assetPath: Packages/com.unity.modules.physics2d
       name: com.unity.modules.physics2d
       displayName: Physics 2D
@@ -2282,7 +2406,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.screencapture@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.screencapture@1.0.0
       assetPath: Packages/com.unity.modules.screencapture
       name: com.unity.modules.screencapture
       displayName: Screen Capture
@@ -2334,7 +2458,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.terrain@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.terrain@1.0.0
       assetPath: Packages/com.unity.modules.terrain
       name: com.unity.modules.terrain
       displayName: Terrain
@@ -2382,7 +2506,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.terrainphysics@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.terrainphysics@1.0.0
       assetPath: Packages/com.unity.modules.terrainphysics
       name: com.unity.modules.terrainphysics
       displayName: Terrain Physics
@@ -2438,7 +2562,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.tilemap@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.tilemap@1.0.0
       assetPath: Packages/com.unity.modules.tilemap
       name: com.unity.modules.tilemap
       displayName: Tilemap
@@ -2490,7 +2614,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.ui@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.ui@1.0.0
       assetPath: Packages/com.unity.modules.ui
       name: com.unity.modules.ui
       displayName: UI
@@ -2538,7 +2662,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.uielements@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.uielements@1.0.0
       assetPath: Packages/com.unity.modules.uielements
       name: com.unity.modules.uielements
       displayName: UIElements
@@ -2602,7 +2726,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.umbra@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.umbra@1.0.0
       assetPath: Packages/com.unity.modules.umbra
       name: com.unity.modules.umbra
       displayName: Umbra
@@ -2650,7 +2774,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.unityanalytics@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.unityanalytics@1.0.0
       assetPath: Packages/com.unity.modules.unityanalytics
       name: com.unity.modules.unityanalytics
       displayName: Unity Analytics
@@ -2706,7 +2830,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.unitywebrequest@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.unitywebrequest@1.0.0
       assetPath: Packages/com.unity.modules.unitywebrequest
       name: com.unity.modules.unitywebrequest
       displayName: Unity Web Request
@@ -2754,7 +2878,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle@1.0.0
       assetPath: Packages/com.unity.modules.unitywebrequestassetbundle
       name: com.unity.modules.unitywebrequestassetbundle
       displayName: Unity Web Request Asset Bundle
@@ -2810,7 +2934,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.unitywebrequestaudio@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.unitywebrequestaudio@1.0.0
       assetPath: Packages/com.unity.modules.unitywebrequestaudio
       name: com.unity.modules.unitywebrequestaudio
       displayName: Unity Web Request Audio
@@ -2866,7 +2990,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.unitywebrequesttexture@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.unitywebrequesttexture@1.0.0
       assetPath: Packages/com.unity.modules.unitywebrequesttexture
       name: com.unity.modules.unitywebrequesttexture
       displayName: Unity Web Request Texture
@@ -2922,7 +3046,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.unitywebrequestwww@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.unitywebrequestwww@1.0.0
       assetPath: Packages/com.unity.modules.unitywebrequestwww
       name: com.unity.modules.unitywebrequestwww
       displayName: Unity Web Request WWW
@@ -2994,7 +3118,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.vehicles@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.vehicles@1.0.0
       assetPath: Packages/com.unity.modules.vehicles
       name: com.unity.modules.vehicles
       displayName: Vehicles
@@ -3046,7 +3170,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.video@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.video@1.0.0
       assetPath: Packages/com.unity.modules.video
       name: com.unity.modules.video
       displayName: Video
@@ -3106,7 +3230,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.vr@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.vr@1.0.0
       assetPath: Packages/com.unity.modules.vr
       name: com.unity.modules.vr
       displayName: VR
@@ -3168,7 +3292,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.wind@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.wind@1.0.0
       assetPath: Packages/com.unity.modules.wind
       name: com.unity.modules.wind
       displayName: Wind
@@ -3216,7 +3340,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.xr@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.xr@1.0.0
       assetPath: Packages/com.unity.modules.xr
       name: com.unity.modules.xr
       displayName: XR
@@ -3276,7 +3400,7 @@ m_PackageAssets:
       isDirectDependency: 0
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.subsystems@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.subsystems@1.0.0
       assetPath: Packages/com.unity.modules.subsystems
       name: com.unity.modules.subsystems
       displayName: Subsystems
@@ -3328,7 +3452,7 @@ m_PackageAssets:
       isDirectDependency: 0
       version: 1.0.0
       source: 2
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.modules.uielementsnative@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.modules.uielementsnative@1.0.0
       assetPath: Packages/com.unity.modules.uielementsnative
       name: com.unity.modules.uielementsnative
       displayName: UIElements Native
@@ -3387,7 +3511,7 @@ m_PackageAssets:
       isDirectDependency: 0
       version: 1.0.0
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.sysroot@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.sysroot@1.0.0
       assetPath: Packages/com.unity.sysroot
       name: com.unity.sysroot
       displayName: Sysroot Base
@@ -3396,7 +3520,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: 
+      type: asset
       description: This is the base sysroot package required by all sysroot and toolchain
         packages
       status: 4
@@ -3417,6 +3541,10 @@ m_PackageAssets:
         - 0.1.19-preview
         - 1.0.0
         - 2.0.0
+        - 2.0.2
+        - 2.0.3
+        - 2.0.4
+        - 2.0.5
         compatible:
         - 0.1.7-preview
         - 0.1.8-preview
@@ -3432,6 +3560,10 @@ m_PackageAssets:
         - 0.1.19-preview
         - 1.0.0
         - 2.0.0
+        - 2.0.2
+        - 2.0.3
+        - 2.0.4
+        - 2.0.5
         verified: 
       dependencies: []
       resolvedDependencies: []
@@ -3447,7 +3579,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -3464,7 +3596,7 @@ m_PackageAssets:
       isDirectDependency: 0
       version: 1.0.0
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.sysroot.linux-x86_64@1.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.sysroot.linux-x86_64@1.0.0
       assetPath: Packages/com.unity.sysroot.linux-x86_64
       name: com.unity.sysroot.linux-x86_64
       displayName: Sysroot Linux x64
@@ -3473,7 +3605,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: 
+      type: asset
       description: Sysroot used to build unity player for linux x86_64
       status: 4
       errors: []
@@ -3491,6 +3623,10 @@ m_PackageAssets:
         - 0.1.15-preview
         - 1.0.0
         - 2.0.0
+        - 2.0.1
+        - 2.0.2
+        - 2.0.3
+        - 2.0.4
         compatible:
         - 0.1.6-preview
         - 0.1.7-preview
@@ -3504,6 +3640,10 @@ m_PackageAssets:
         - 0.1.15-preview
         - 1.0.0
         - 2.0.0
+        - 2.0.1
+        - 2.0.2
+        - 2.0.3
+        - 2.0.4
         verified: 
       dependencies:
       - name: com.unity.sysroot
@@ -3523,7 +3663,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -3540,7 +3680,7 @@ m_PackageAssets:
       isDirectDependency: 0
       version: 1.0.6
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.ext.nunit@1.0.6
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.ext.nunit@1.0.6
       assetPath: Packages/com.unity.ext.nunit
       name: com.unity.ext.nunit
       displayName: Custom NUnit
@@ -3549,7 +3689,7 @@ m_PackageAssets:
         email: 
         url: 
       category: Libraries
-      type: 
+      type: asset
       description: Custom version of the nunit package build to work with Unity.
         Used by the Unity Test Framework.
       status: 4
@@ -3563,6 +3703,7 @@ m_PackageAssets:
         - 1.0.5
         - 1.0.6
         - 2.0.2
+        - 2.0.3
         compatible:
         - 0.1.5-preview
         - 0.1.6-preview
@@ -3571,6 +3712,7 @@ m_PackageAssets:
         - 1.0.5
         - 1.0.6
         - 2.0.2
+        - 2.0.3
         verified: 1.0.6
       dependencies: []
       resolvedDependencies: []
@@ -3586,7 +3728,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -3603,7 +3745,7 @@ m_PackageAssets:
       isDirectDependency: 0
       version: 1.1.0
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.mathematics@1.1.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.mathematics@1.1.0
       assetPath: Packages/com.unity.mathematics
       name: com.unity.mathematics
       displayName: Mathematics
@@ -3684,7 +3826,7 @@ m_PackageAssets:
       isDirectDependency: 0
       version: 10.5.1
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.render-pipelines.core@10.5.1
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.render-pipelines.core@10.5.1
       assetPath: Packages/com.unity.render-pipelines.core
       name: com.unity.render-pipelines.core
       displayName: Core RP Library
@@ -3693,7 +3835,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: 
+      type: asset
       description: SRP Core makes it easier to create or customize a Scriptable Render
         Pipeline (SRP). SRP Core contains reusable code, including boilerplate code
         for working with platform-specific graphics APIs, utility functions for common
@@ -3801,6 +3943,8 @@ m_PackageAssets:
         - 10.8.0
         - 10.8.1
         - 10.9.0
+        - 10.10.0
+        - 10.10.1
         compatible:
         - 10.5.1
         - 10.6.0
@@ -3824,7 +3968,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -3841,7 +3985,7 @@ m_PackageAssets:
       isDirectDependency: 0
       version: 10.5.1
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.shadergraph@10.5.1
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.shadergraph@10.5.1
       assetPath: Packages/com.unity.shadergraph
       name: com.unity.shadergraph
       displayName: Shader Graph
@@ -3850,7 +3994,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: 
+      type: asset
       description: The Shader Graph package adds a visual Shader editing tool to
         Unity. You can use this tool to create Shaders in a visual way instead of
         writing code. Specific render pipelines can implement specific graph features.
@@ -3955,6 +4099,8 @@ m_PackageAssets:
         - 10.8.0
         - 10.8.1
         - 10.9.0
+        - 10.10.0
+        - 10.10.1
         compatible:
         - 10.5.1
         - 10.6.0
@@ -3984,7 +4130,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -4001,7 +4147,7 @@ m_PackageAssets:
       isDirectDependency: 0
       version: 2.0.0
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0
       assetPath: Packages/com.unity.nuget.newtonsoft-json
       name: com.unity.nuget.newtonsoft-json
       displayName: Newtonsoft Json
@@ -4010,7 +4156,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: 
+      type: library
       description: 'Newtonsoft Json for use in Unity projects and Unity packages.
         Currently synced to version 12.0.2.
 
@@ -4038,6 +4184,7 @@ m_PackageAssets:
         - 2.0.2
         - 3.0.1
         - 3.0.2
+        - 3.1.0
         compatible:
         - 1.0.0-preview.2
         - 1.0.0-preview.3
@@ -4052,6 +4199,7 @@ m_PackageAssets:
         - 2.0.2
         - 3.0.1
         - 3.0.2
+        - 3.1.0
         verified: 2.0.2
       dependencies: []
       resolvedDependencies: []
@@ -4081,7 +4229,7 @@ m_PackageAssets:
       isDirectDependency: 0
       version: 4.0.4
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.2d.common@4.0.4
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.2d.common@4.0.4
       assetPath: Packages/com.unity.2d.common
       name: com.unity.2d.common
       displayName: 2D Common
@@ -4090,7 +4238,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 2D
-      type: 
+      type: asset
       description: 2D Common is a package that contains shared functionalities that
         are used by most of the other 2D packages.
       status: 4
@@ -4118,6 +4266,7 @@ m_PackageAssets:
         - 4.0.4
         - 4.1.0
         - 4.2.0
+        - 4.2.1
         - 5.0.0-pre.1
         - 5.0.0-pre.2
         - 5.0.0
@@ -4128,10 +4277,22 @@ m_PackageAssets:
         - 6.0.1
         - 6.0.2
         - 6.0.3
+        - 6.0.4
+        - 6.0.5
+        - 6.0.6
         - 7.0.0-pre.3
         - 7.0.0-pre.4
         - 7.0.0
+        - 7.0.1
+        - 7.0.2
+        - 7.0.3
         - 8.0.0-pre.1
+        - 8.0.0-pre.2
+        - 8.0.0
+        - 8.0.1
+        - 9.0.0-pre.1
+        - 9.0.0-pre.2
+        - 9.0.0
         compatible:
         - 4.0.3
         - 4.0.4
@@ -4164,7 +4325,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -4181,7 +4342,7 @@ m_PackageAssets:
       isDirectDependency: 0
       version: 4.0.2
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.2d.path@4.0.2
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.2d.path@4.0.2
       assetPath: Packages/com.unity.2d.path
       name: com.unity.2d.path
       displayName: 2D Path
@@ -4190,7 +4351,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 2D
-      type: 
+      type: asset
       description: "2D Path provides tooling to edit shapes (polygons and B\xE9zier
         splines) in EditorWindows and the SceneView."
       status: 4
@@ -4235,7 +4396,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -4252,7 +4413,7 @@ m_PackageAssets:
       isDirectDependency: 1
       version: 5.0.10
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.2d.animation@5.0.10
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.2d.animation@5.0.10
       assetPath: Packages/com.unity.2d.animation
       name: com.unity.2d.animation
       displayName: 2D Animation
@@ -4261,7 +4422,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 2D
-      type: 
+      type: asset
       description: 2D Animation provides all the necessary tooling and runtime components
         for skeletal animation using Sprites.
       status: 4
@@ -4338,6 +4499,9 @@ m_PackageAssets:
         - 5.1.1
         - 5.2.0
         - 5.2.1
+        - 5.2.3
+        - 5.2.4
+        - 5.2.6
         - 6.0.0-pre.1
         - 6.0.0-pre.2
         - 6.0.1
@@ -4353,11 +4517,26 @@ m_PackageAssets:
         - 7.0.3
         - 7.0.4
         - 7.0.5
+        - 7.0.6
+        - 7.0.7
+        - 7.0.8
+        - 7.0.9
+        - 7.0.10
         - 8.0.0-pre.3
         - 8.0.0-pre.4
         - 8.0.0
         - 8.0.1
+        - 8.0.2
+        - 8.0.3
+        - 8.0.4
+        - 8.0.5
         - 9.0.0-pre.1
+        - 9.0.0-pre.3
+        - 9.0.0
+        - 9.0.1
+        - 10.0.0-pre.1
+        - 10.0.0-pre.2
+        - 10.0.0
         compatible:
         - 5.0.6
         - 5.0.7
@@ -4406,7 +4585,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -4423,7 +4602,7 @@ m_PackageAssets:
       isDirectDependency: 0
       version: 4.3.2
       source: 1
-      resolvedPath: G:\dfeis\Documents\UnityProjects\2DIFS\2DIFS\Library\PackageCache\com.unity.searcher@4.3.2
+      resolvedPath: I:\projects\2DIFS\Library\PackageCache\com.unity.searcher@4.3.2
       assetPath: Packages/com.unity.searcher
       name: com.unity.searcher
       displayName: Searcher
@@ -4432,16 +4611,46 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: 
+      type: asset
       description: General search window for use in the Editor. First target use
         is for GraphView node search.
       status: 4
       errors: []
       versions:
         all:
+        - 4.0.0-preview
+        - 4.0.0
+        - 4.0.7-preview
+        - 4.0.7
+        - 4.0.8-preview
+        - 4.0.9
+        - 4.1.0-preview
+        - 4.1.0
+        - 4.2.0
+        - 4.3.0
+        - 4.3.1
         - 4.3.2
+        - 4.6.0-preview
+        - 4.7.0-preview
+        - 4.9.1
+        - 4.9.2
         compatible:
+        - 4.0.0-preview
+        - 4.0.0
+        - 4.0.7-preview
+        - 4.0.7
+        - 4.0.8-preview
+        - 4.0.9
+        - 4.1.0-preview
+        - 4.1.0
+        - 4.2.0
+        - 4.3.0
+        - 4.3.1
         - 4.3.2
+        - 4.6.0-preview
+        - 4.7.0-preview
+        - 4.9.1
+        - 4.9.2
         verified: 4.3.2
       dependencies: []
       resolvedDependencies: []
@@ -4456,11 +4665,11 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 0
+      datePublishedTicks: 637509898070000000
       documentationUrl: 
       hasRepository: 1
       repository:
@@ -4470,5 +4679,5 @@ m_PackageAssets:
         path: 
   m_LocalPackages:
     m_LocalFileStatus: []
-m_ProjectPath: G:/dfeis/Documents/UnityProjects/2DIFS/2DIFS/Packages
+m_ProjectPath: I:/projects/2DIFS/Packages
 m_EditorVersion: 2020.3.16f1 (049d6eca3c44)

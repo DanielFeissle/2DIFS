@@ -26,6 +26,7 @@ public class POLF : MonoBehaviour
     public int OBJ_Land_s=9999;
     public int OBJ_Land_e=99999;
     public int grade_score = 0;
+    public int saved_grade_score = 0;
     public int GameObjective = 0;
     public bool StageStarted = false;
 
@@ -58,6 +59,17 @@ public class POLF : MonoBehaviour
         else
         {
             gradeIconToLoad = "cross";
+        }
+       // if (grade_score>saved_grade_score)
+        {
+            saved_grade_score = grade_score; //new score to be saved
+            //6-14-2023
+            //this section is where the high score is set. search keyword for future reference is
+            //what is the shorthand name for forumla units? 
+            //not good? what rymes with boron
+            //still stinks?
+            //pu!
+            GameObject.Find("sela").GetComponent<LevelHistory>().high_score[GameObject.Find("sela").GetComponent<LevelHistory>().world, GameObject.Find("sela").GetComponent<LevelHistory>().scene-1]=saved_grade_score; //6-15-2023-might be an issue with array positions
         }
         GameObject img_rating_icon = Instantiate(Resources.Load(gradeIconToLoad)) as GameObject;
         img_rating_icon.name = "img_rating_icon";
@@ -139,7 +151,8 @@ public class POLF : MonoBehaviour
                     uiCongrats.gameObject.GetComponent<Text>().text = "                                     You win!";
                     uiCongrats.gameObject.GetComponent<Text>().enabled = true;
                     GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead = true;
-
+                //    GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().
+                    GameObject.Find("sela").GetComponent<LevelHistory>().LoadSameStateScene(GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().world, GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().scene);//todo 6-12-2023:update score tracking array
                 }
             }
 

@@ -10,9 +10,11 @@ public class btn_stage_selection : MonoBehaviour
 
     void TaskOnClick()
     {
-        if (Camera.main.GetComponent<level_select_data>().scene_to_load== this.GetComponentInChildren<Text>().text)
+        //6-15-2023
+        //keeping the old style for now, could rather just use this.name, since the level is in the name.
+        if (Camera.main.GetComponent<level_select_data>().scene_to_load== this.GetComponentInChildren<Text>().text.Split('\n')[0])
         {
-            GameObject.Find("sela").GetComponent<LevelHistory>().LoadScene("SampleScene", this.GetComponentInChildren<Text>().text);
+            GameObject.Find("sela").GetComponent<LevelHistory>().LoadScene("SampleScene", this.GetComponentInChildren<Text>().text.Split('\n')[0]);
             try
             {
                 //string debugText = GameObject.Find("txt_debugCommand").GetComponent<InputField>().text;
@@ -30,8 +32,8 @@ public class btn_stage_selection : MonoBehaviour
         else //else- select /load the preview in the pane
         {
             Camera.main.GetComponent<level_select_data>().deleteAll();
-            Camera.main.GetComponent<level_select_data>().scene_to_load = this.GetComponentInChildren<Text>().text;
-            Camera.main.GetComponent<world_scene_preview>().ReadString(this.GetComponentInChildren<Text>().text);
+            Camera.main.GetComponent<level_select_data>().scene_to_load = this.GetComponentInChildren<Text>().text.Split('\n')[0];
+            Camera.main.GetComponent<world_scene_preview>().ReadString(this.GetComponentInChildren<Text>().text.Split('\n')[0]);
         }
      
 

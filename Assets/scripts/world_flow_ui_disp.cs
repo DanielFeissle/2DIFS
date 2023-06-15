@@ -116,7 +116,16 @@ public class world_flow_ui_disp : MonoBehaviour
                 GameObject UI_Button_OBJ = Instantiate(Resources.Load("scene_select_ui\\scene_button")) as GameObject;
                 UI_Button_OBJ.transform.parent = GameObject.Find("Canvas").transform;
                 UI_Button_OBJ.name = (w+1) + "x" + (l+1);
-                UI_Button_OBJ.GetComponentInChildren<Text>().text = (w+1) + "x" + (l+1);
+                UI_Button_OBJ.GetComponentInChildren<Text>().text = (w+1) + "x" + (l+1)+"\nSCORE:" + GameObject.Find("sela").GetComponent<LevelHistory>().high_score[w + 1, l + 1];
+                UI_Button_OBJ.GetComponentInChildren<Text>().fontSize = 100;
+                if (GameObject.Find("sela").GetComponent<LevelHistory>().world>=w+1 && GameObject.Find("sela").GetComponent<LevelHistory>().scene>l) //6-15-2023 //if issue with unlock/progression, please consult
+                {
+                    UI_Button_OBJ.GetComponent<Button>().interactable = true;
+                }
+                else
+                {
+                    UI_Button_OBJ.GetComponent<Button>().interactable = false;
+                }
                 UI_Button_OBJ.transform.localPosition = new Vector3(poin1, poin2);
                 //  UI_Button_OBJ.GetComponent<RectTransform>().anchoredPosition = UI_Button_OBJ.transform.localPosition;
                 UI_Button_OBJ.GetComponent<RectTransform>().anchorMax = new Vector2(anc1, anc2);
