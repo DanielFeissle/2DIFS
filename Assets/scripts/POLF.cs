@@ -69,7 +69,7 @@ public class POLF : MonoBehaviour
             //not good? what rymes with boron
             //still stinks?
             //pu!
-            GameObject.Find("sela").GetComponent<LevelHistory>().high_score[GameObject.Find("sela").GetComponent<LevelHistory>().world, GameObject.Find("sela").GetComponent<LevelHistory>().scene-1]=saved_grade_score; //6-15-2023-might be an issue with array positions
+            GameObject.Find("sela").GetComponent<LevelHistory>().high_score[GameObject.Find("sela").GetComponent<LevelHistory>().curworld, GameObject.Find("sela").GetComponent<LevelHistory>().curscene]=saved_grade_score; //6-15-2023-might be an issue with array positions
         }
         GameObject img_rating_icon = Instantiate(Resources.Load(gradeIconToLoad)) as GameObject;
         img_rating_icon.name = "img_rating_icon";

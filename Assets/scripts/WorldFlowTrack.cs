@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class WorldFlowTrack : MonoBehaviour
 {
@@ -49,6 +50,9 @@ public class WorldFlowTrack : MonoBehaviour
         string[] scf = bkg[1].Split(',');
 
         GameObject.Find("checkerBoard(256x256)").GetComponent<WorldLoader>().phonehome(scf[scene]);
+        GameObject.Find("sela").GetComponent<LevelHistory>().curscene = scene + 1;
+        GameObject.Find("sela").GetComponent<LevelHistory>().curworld = world + 1;
+        GameObject.Find("hi_score").GetComponent<Text>().text= GameObject.Find("sela").GetComponent<LevelHistory>().curworld+"x"+ GameObject.Find("sela").GetComponent<LevelHistory>().curscene+":"+ GameObject.Find("sela").GetComponent<LevelHistory>().high_score[GameObject.Find("sela").GetComponent<LevelHistory>().curworld, GameObject.Find("sela").GetComponent<LevelHistory>().curscene];
     }
 
     public void TrackStage()
@@ -97,8 +101,9 @@ public class WorldFlowTrack : MonoBehaviour
         }
 
 
-
-
+        GameObject.Find("sela").GetComponent<LevelHistory>().curscene = scene+1;
+        GameObject.Find("sela").GetComponent<LevelHistory>().curworld = world+1;
+        GameObject.Find("hi_score").GetComponent<Text>().text = GameObject.Find("sela").GetComponent<LevelHistory>().curworld + "x" + GameObject.Find("sela").GetComponent<LevelHistory>().curscene + ":" + GameObject.Find("sela").GetComponent<LevelHistory>().high_score;
     }
 
     // Update is called once per frame

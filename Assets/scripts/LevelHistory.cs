@@ -12,8 +12,14 @@ using UnityEngine.SceneManagement;
 public class LevelHistory : MonoBehaviour {
     private List<string> sceneHistory = new List<string>();  //running history of scenes
     public string NameOfLevel = null;
+    //MAX REACHED
     public int world = 0;
     public int scene = 0;// Use this for initialization
+    //END OF MAX REACHED
+    //CURRENT LEVEL SELECTION
+    public int curworld = 1;
+    public int curscene = 1;// Use this for initialization
+    //END CURRENT LEVEL SELECTION
     public int[,] high_score = new int[9, 5]; //6-12-2023-for now just creating an empty 9x99 array
     public int curStageScore = 0;
     int priorWorld = 0;
@@ -25,6 +31,8 @@ public class LevelHistory : MonoBehaviour {
   //  public PlayerData readTextComponent;
   public void resetPlayerData()
     {
+        curworld = 1;
+        curscene = 1;
         world = 1;
         scene = 1;
         for (int i = 0; i < high_score.GetLength(0); i++)
