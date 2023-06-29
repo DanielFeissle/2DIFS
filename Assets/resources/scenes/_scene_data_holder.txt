@@ -6,4 +6,4 @@ RAB,1
 FPS,96
 GRX,0
 GRY,-9.81
-OBJ,Just glide. Glide down the hole,0,60,600
+OBJ,sdfsdfasdf!!!,170,0,999

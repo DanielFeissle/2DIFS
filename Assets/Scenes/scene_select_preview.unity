@@ -1003,6 +1003,7 @@ MonoBehaviour:
   OBJ_Land_s: 0
   OBJ_Land_e: 0
   grade_score: 0
+  saved_grade_score: 0
   GameObjective: 0
   StageStarted: 0
   grading_A: 3000

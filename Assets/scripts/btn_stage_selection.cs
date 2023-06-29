@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class btn_stage_selection : MonoBehaviour
 {
    
     public Button yourButton;
-
+    public Animator ani;
     void TaskOnClick()
     {
         //6-15-2023
@@ -41,10 +42,13 @@ public class btn_stage_selection : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ani = this.GetComponent<Animator>();
+        ani.SetBool("ISPRESSED", false);
         yourButton = this.gameObject.GetComponent<Button>();
 
            Button btn = yourButton.GetComponent<Button>();
         btn.onClick.AddListener(TaskOnClick);
+        
     }
 
     // Update is called once per frame
@@ -52,4 +56,5 @@ public class btn_stage_selection : MonoBehaviour
     {
         
     }
+
 }

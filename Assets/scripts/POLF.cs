@@ -142,7 +142,7 @@ public class POLF : MonoBehaviour
                 if (GameObject.Find("Player_plane").transform.position.x > OBJ_Land_s && GameObject.Find("Player_plane").transform.position.x < OBJ_Land_e && GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt > OBJ_Height && GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed < 5 && GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground == true && timeStart==true)
                 {
                     grade_score = ((int)MaxSpeed) - ((int)impactDev) + (((int)MaxAlt) * OBJ_Height) - ((int)curTime);
-                    extraWords = "complete!";
+                    extraWords = "\nPS: : "+GameObject.Find("hi_score").GetComponent<Text>().text + "\ncomplete!";
                     stats_msg = stats_msg + "\n\nRATING: " + grade_score + extraWords;
                     funcTROLO();
                     funcICO();
@@ -181,7 +181,7 @@ public class POLF : MonoBehaviour
 
                 GameObject bluTXT = GameObject.Find("bluLoading");
                 bluTXT.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-                extraWords = "";
+                extraWords = "\nPS: : " + GameObject.Find("hi_score").GetComponent<Text>().text + "\n";
 
             }
             if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == true && curSceneOver == false && extraWords=="")
@@ -194,7 +194,7 @@ public class POLF : MonoBehaviour
                 {
                     // grade_score = -2147483647;
                     grade_score = -999999999;
-                    extraWords = "\nURDEAD";
+                    extraWords = "\nPS: : " + GameObject.Find("hi_score").GetComponent<Text>().text + "\nURDEAD";
                 }
                 funcTROLO();
                 funcICO();

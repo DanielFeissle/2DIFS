@@ -54,9 +54,20 @@ public class btn_title_start : MonoBehaviour
 
 
     }
+    GameObject lastSelected;
     // Update is called once per frame
     void Update()
     {
+        //6-27-2023 check to see if player is no longer selecting or not
+        if (EventSystem.current.currentSelectedGameObject==null)
+        {
+            //  EventSystem.current.SetSelectedGameObject(EventSystem.current.firstSelectedGameObject);
+            EventSystem.current.SetSelectedGameObject(lastSelected);
+        }
+        else
+        {
+            lastSelected = EventSystem.current.currentSelectedGameObject;
+        }
         if (Time.time > nextUsage && buttton_clicked==true) //continue scrolling
         {
             buttton_clicked = false;

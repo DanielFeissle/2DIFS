@@ -76,6 +76,8 @@ public class WorldFlowTrack : MonoBehaviour
         }
 
         Debug.Log("NEXT----------------------------WORLD" + world + ", SCENE" + scene);
+        // var trimmed = scf[scene].Substring(0, scf[scene+1].LastIndexOf("\r\n"));
+        scf[scene] = scf[scene].TrimEnd(new char[] { '\r', '\n' });
         var dataset = Resources.Load<TextAsset>("scenes\\"+scf[scene]);
         if (dataset != null)
         {

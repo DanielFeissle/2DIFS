@@ -707,7 +707,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     CircleTimer.name = "CircleTimer";
                     CircleTimer.transform.parent = GameObject.Find("img_stat_extra").transform;
                     CircleTimer.transform.position = GameObject.Find("img_stat_extra").transform.position + new Vector3(2, 0);
-
+                    timerCounterAUTO = true;
                 }
                 if (Time.time > nextUsageAUTO && timerCounterAUTO==true) //continue scrolling
                 {

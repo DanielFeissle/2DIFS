@@ -32,7 +32,7 @@ public class fx_pdead : MonoBehaviour
             if (fxcnt>randFX)
             {
                 fxcnt = 0;
-                Debug.Log("WHAT I TO LOAD IS " + ResourceLoad);
+            //    Debug.Log("WHAT I TO LOAD IS " + ResourceLoad);
                 GameObject FX_obj = Instantiate(Resources.Load(ResourceLoad)) as GameObject;
                 FX_obj.name = "FX_obj";
                 FX_obj.transform.position = this.transform.position+new Vector3(offsetx, offsety,0);
