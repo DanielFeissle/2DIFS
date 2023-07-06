@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,10 +7,11 @@ using UnityEngine.SceneManagement;
 //core script
 //https://forum.unity.com/threads/how-can-i-open-previous-scene.652507/
 //retrieved 6-25-2020
-
-    //specr3 use case
-    //attach to the player and call these functions
+//specr3 use case
+//attach to the player and call these functions
 public class LevelHistory : MonoBehaviour {
+
+
     private List<string> sceneHistory = new List<string>();  //running history of scenes
     public string NameOfLevel = null;
     //MAX REACHED
@@ -105,6 +107,7 @@ public class LevelHistory : MonoBehaviour {
                 }
             }
             Debug.Log("MAX WORLD:" + world + "MAX SCENE:" + scene);
+
         }
 
     }
@@ -127,6 +130,7 @@ public class LevelHistory : MonoBehaviour {
         {
             scene = s + 2;
         }
+
         saveplayer();
     }
     [RuntimeInitializeOnLoadMethod]

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class WorldFlowTrack : MonoBehaviour
 {
+    Level_Flow_Paths LvlFlw = new Level_Flow_Paths();
     public int world = 0;
     public int scene = 0;
     public string flow = "flow";
@@ -75,6 +76,18 @@ public class WorldFlowTrack : MonoBehaviour
             world = 0;
         }
 
+
+        string maxlevel = LvlFlw.checkLevels(scene, world);
+        //set world to new value?
+        Debug.Log("+++++++++++++The world tracked value is " + maxlevel);
+      //  world = Convert.ToInt32(maxlevel.Split('x')[0]);
+      if (scene== Convert.ToInt32(maxlevel.Split('x')[1]))
+        {
+            world++;
+            scene = 0;
+            GameObject.Find("sela").GetComponent<LevelHistory>().scene = 0;
+            GameObject.Find("sela").GetComponent<LevelHistory>().world = GameObject.Find("sela").GetComponent<LevelHistory>().world+1;
+        }
         Debug.Log("NEXT----------------------------WORLD" + world + ", SCENE" + scene);
         // var trimmed = scf[scene].Substring(0, scf[scene+1].LastIndexOf("\r\n"));
         scf[scene] = scf[scene].TrimEnd(new char[] { '\r', '\n' });
@@ -98,14 +111,17 @@ public class WorldFlowTrack : MonoBehaviour
         }
         else
         {
-            Debug.Log("Warning file not found in resources!? Returning to previous scene");
-            scene--;
+          //  Debug.Log("Warning file not found in resources!? Returning to previous scene");
+            Debug.Log("Go to end game page. This is how we tell if the route is finished (drf 7-6-2023");
+            GameObject.Find("sela").GetComponent<LevelHistory>().LoadScene("outro1", "end_stage"); //1 is name of actual scene, 2 is the meta information
+            //scene--;
         }
 
 
         GameObject.Find("sela").GetComponent<LevelHistory>().curscene = scene+1;
         GameObject.Find("sela").GetComponent<LevelHistory>().curworld = world+1;
-        GameObject.Find("hi_score").GetComponent<Text>().text = GameObject.Find("sela").GetComponent<LevelHistory>().curworld + "x" + GameObject.Find("sela").GetComponent<LevelHistory>().curscene + ":" + GameObject.Find("sela").GetComponent<LevelHistory>().high_score;
+        Debug.Log("The following is the level "+GameObject.Find("sela").GetComponent<LevelHistory>().curworld + ":"+ GameObject.Find("sela").GetComponent<LevelHistory>().curscene);
+        GameObject.Find("hi_score").GetComponent<Text>().text = GameObject.Find("sela").GetComponent<LevelHistory>().curworld + "x" + GameObject.Find("sela").GetComponent<LevelHistory>().curscene + ":" + GameObject.Find("sela").GetComponent<LevelHistory>().high_score[GameObject.Find("sela").GetComponent<LevelHistory>().curworld, GameObject.Find("sela").GetComponent<LevelHistory>().curscene];
     }
 
     // Update is called once per frame

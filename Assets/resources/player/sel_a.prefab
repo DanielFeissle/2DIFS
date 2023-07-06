@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6602847317393331144}
   - component: {fileID: 390276354326015694}
+  - component: {fileID: 7638376298244051159}
   m_Layer: 0
   m_Name: sel_a
   m_TagString: Untagged
@@ -49,3 +50,15 @@ MonoBehaviour:
   curworld: 1
   curscene: 1
   curStageScore: 0
+--- !u!114 &7638376298244051159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004369637153222280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78d707eb325c87540a5d5def7c98b2ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
