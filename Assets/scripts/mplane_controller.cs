@@ -561,6 +561,7 @@ public class mplane_controller : MonoBehaviour
                                 Debug.Log("HEY YOUR DEAD NOW" + collision.gameObject.tag);
                                 tireDisappear();
                                 pdead = true;
+                                autoProgress = true;
                             }
                         }
                     }
@@ -721,6 +722,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                         {
                             GameObject.Destroy(GameObject.Find("CircleTimer"));
                         }
+
                     }
                     autoCount++;
                     Debug.Log("++++++++++++++++++++The counter "+autoCount);
@@ -737,6 +739,35 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             //NOTE TO SELF, This is the magic reset button for restarting the stage- thanks df 3-30-2022!
         if ((Input.GetButtonDown("Fire3") || (plane_recovered==true && peject ==true)) || autoProgressCleared==true)
         {
+                if (GameObject.Find("fss"))
+                {
+                    GameObject.Destroy(GameObject.Find("fss"));
+                }
+                
+                qreset = false;
+                autoProgress = false;
+                autoProgressCleared = false;
+                delayAUTO = 1; //only half delay
+                autoCount = 0;
+                autoKeyDelayCount = 0;
+                //      nextUsageAUTO;
+                MasterAutoProgressSetting = true;
+                timerCounterAUTO = false;
+
+
+             //   timerCounterAUTO = true;
+                Camera.main.GetComponent<HUD_buttons>().powerSwitch("off");
+                _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\flight\\spooling2");
+                this.GetComponent<mplane_audio>().afx_q();
+                if (engineSpool < 1)
+                {
+                    engineSpool = 5;
+                }
+
+                ff = StartCoroutine(EjectControledPowerOff());
+                zzengineOnOff = true;
+                zzShutDownFin = false;
+
                 quickTime = false;
                 GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().StageStarted = false;  //this resets back to not active state
                 autoProgressCleared = false;
@@ -942,9 +973,9 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 }
                 Speed = 0;
                 autoProgress = false;
+                pdead = false;
 
-                
-                
+
             }
         RaycastHit2D hit = Physics2D.Raycast(new Vector3(transform.position.x, transform.position.y - 0.1f, 0), -Vector2.up);
       //  Debug.Log(hit.collider.name);

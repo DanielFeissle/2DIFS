@@ -127,6 +127,7 @@
     <Compile Include="Assets\scripts\input_field.cs" />
     <Compile Include="Assets\scripts\wogen1.cs" />
     <Compile Include="Assets\scripts\ui_level_selection_track.cs" />
+    <Compile Include="Assets\scripts\Level_Flow_Paths.cs" />
     <Compile Include="Assets\scripts\Blit.cs" />
     <Compile Include="Assets\scripts\TouchAndDie.cs" />
     <Compile Include="Assets\scripts\real_dest_after_touch.cs" />
@@ -139,7 +140,7 @@
     <Compile Include="Assets\scripts\GEN_UI_Ani_Rand_Delay.cs" />
     <Compile Include="Assets\scripts\BinSaveSystem.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
-    <Compile Include="Assets\scripts\Level_Flow_Paths.cs" />
+    <Compile Include="Assets\scripts\timer_countdown_init.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />

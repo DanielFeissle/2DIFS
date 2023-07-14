@@ -18,7 +18,7 @@ public class POLF : MonoBehaviour
     float nextUsage;
 
     bool timeStart = false;
-    bool curSceneOver = false;
+   public bool curSceneOver = false;
 
     //These are temp vars to be replaced at runtime by the WorldLoader script
     public string OBJ_title="EMPTY";
@@ -60,7 +60,7 @@ public class POLF : MonoBehaviour
         {
             gradeIconToLoad = "cross";
         }
-       // if (grade_score>saved_grade_score)
+        if (grade_score>saved_grade_score)
         {
             saved_grade_score = grade_score; //new score to be saved
             //6-14-2023
@@ -70,6 +70,13 @@ public class POLF : MonoBehaviour
             //still stinks?
             //pu!
             GameObject.Find("sela").GetComponent<LevelHistory>().high_score[GameObject.Find("sela").GetComponent<LevelHistory>().curworld, GameObject.Find("sela").GetComponent<LevelHistory>().curscene]=saved_grade_score; //6-15-2023-might be an issue with array positions
+        }
+
+        //7-12-2023
+        //fix issue of multiple image rating icons
+        if (GameObject.Find("img_rating_icon"))
+        {
+            GameObject.Destroy(GameObject.Find("img_rating_icon"));
         }
         GameObject img_rating_icon = Instantiate(Resources.Load(gradeIconToLoad)) as GameObject;
         img_rating_icon.name = "img_rating_icon";
@@ -104,11 +111,15 @@ public class POLF : MonoBehaviour
         cam = Camera.main;
         Vector3 p = cam.ScreenToWorldPoint(new Vector3(0, cam.pixelHeight, cam.nearClipPlane)); //top left
         Vector3 q = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, cam.nearClipPlane)); //bottom right
-        GameObject fss = Instantiate(Resources.Load("menu\\flight_stats_sign")) as GameObject;
-        fss.name = "fss";
-        _screenWidth = (Camera.main.orthographicSize * 2) / Screen.height * Screen.width;
-        _screenHeight = Camera.main.orthographicSize * 2;
-        fss.transform.localScale = new Vector3(_screenWidth, _screenHeight);
+        if (!GameObject.Find("fss"))
+        {
+            GameObject fss = Instantiate(Resources.Load("menu\\flight_stats_sign")) as GameObject;
+            fss.name = "fss";
+            _screenWidth = (Camera.main.orthographicSize * 2) / Screen.height * Screen.width;
+            _screenHeight = Camera.main.orthographicSize * 2;
+            fss.transform.localScale = new Vector3(_screenWidth, _screenHeight);
+        }
+
         GameObject.Find("Canvas").GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
         GameObject.Find("Canvas").GetComponent<Canvas>().worldCamera = Camera.main;
         GameObject.Find("Canvas").GetComponent<Canvas>().sortingOrder = 40;
@@ -126,8 +137,8 @@ public class POLF : MonoBehaviour
 
 
         }
-        if (GameObjective==0)
-        {
+      //  if (GameObjective==0)
+      //  {
 
             //went over objective, can't really turn around.,,.
             if (GameObject.Find("Player_plane").transform.position.x > OBJ_Land_e)
@@ -184,14 +195,15 @@ public class POLF : MonoBehaviour
                 extraWords = "\nPS: : " + GameObject.Find("hi_score").GetComponent<Text>().text + "\n";
 
             }
-            if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == true && curSceneOver == false && extraWords=="")
-            {
+            if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == true && curSceneOver == false) //&& extraWords==""
+        {
                 GameObject.Find("Player_plane").GetComponent<mplane_controller>().autoProgress = true;
                 //    GameObject.Find("img_obj_difference").transform.position = new Vector3(GameObject.Find("img_obj_difference").transform.position.x, GameObject.Find("img_obj_difference").transform.position.y, -6000);
                 //   GameObject.Find("img_obj_difference").GetComponent<RectTransform>().transform.position = new Vector3(GameObject.Find("img_obj_difference").GetComponent<RectTransform>().transform.position.x, GameObject.Find("img_obj_difference").GetComponent<RectTransform>().transform.position.y, -6000);
                 curSceneOver = true;
-                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject == false && GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == true)
+                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject == false && GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == true && GameObject.Find("Player_plane").GetComponent<mplane_controller>().postmortem >0)
                 {
+                Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ALERT DEAD");
                     // grade_score = -2147483647;
                     grade_score = -999999999;
                     extraWords = "\nPS: : " + GameObject.Find("hi_score").GetComponent<Text>().text + "\nURDEAD";
@@ -243,11 +255,11 @@ public class POLF : MonoBehaviour
                 bluTXT.gameObject.GetComponent<SpriteRenderer>().enabled = true;
 
             }
-        }
-        else if ( GameObjective==1)
-        {
+    //    }
+    //    else if ( GameObjective==1)
+    //    {
 
-        }
+   //     }
       
 
 
