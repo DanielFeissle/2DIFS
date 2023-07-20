@@ -224,8 +224,11 @@ public class POLF : MonoBehaviour
                 }
                 if (GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt > MaxAlt)
                 {
-                    MaxAlt = GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt;
-                }
+                //7-19-2023 
+                //while altitude is ok, in more complex stages this is not an accurate repersentation of the height obtained
+                // MaxAlt = GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt;
+                MaxAlt = GameObject.Find("Player_plane").GetComponent<mplane_controller>().altitude;
+            }
 
 
                 curTime = curTime + 0.1;
@@ -278,7 +281,9 @@ public class POLF : MonoBehaviour
             bluTXT.gameObject.GetComponent<SpriteRenderer>().enabled = false;
             GameObject uiAltiText222 = GameObject.Find("img_obj_difference");
             uiAltiText222.gameObject.GetComponent<Image>().enabled = false;
-
+            //07192023:REF_PREVENT
+            GameObject.Find("Player_plane").GetComponent<PolygonCollider2D>().enabled = true;
+            GameObject.Find("planeTOP").GetComponent<TouchAndDie>().enabled = true;
             this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
             timeStart = true;
         }

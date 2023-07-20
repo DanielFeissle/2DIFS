@@ -1,0 +1,65 @@
+#lines that start with # are comments 
+#values are seperated by commas (,)
+#objective for scene
+#GTO game type objective (0-Height/distance obj, 1-Land on gameobject name, 2-Pass checkpoints, 3-Grab object and get to designated end point)
+GTO,0
+#OBJ,Scene title, GET Height (+or-), Land start, Land End
+OBJ,Gauntlet I,60,350,770
+#CLD,Cloud Height
+CLD,68
+#WTH, Weather 0-99 higher number more clouds/rain
+WTH,20
+#WND, Wind level -4000 to 4000
+WND,700
+#RAD, RADIOSITy level 0 to 1
+RAD,1
+#RAB, Background Radiosit leve 0 to 1
+RAB,1
+#FPS, target fps for the scene
+FPS,96
+#GRX, gravity scale x
+GRX,0
+#GRY, gravity scale y
+GRY,-9.81
+# Prefab,LayerOrder,StartX,EndX,StartY,EndY
+ground/gerter1,0,265.26,265.9896,89.77974,91.5446
+ground/gerter1,0,287.8386,288.5682,89.64974,91.4146
+ground/gerter1,0,287.84,288.5696,106.62,108.3849
+ground/gerter1,0,304.1486,304.8782,89.64974,91.4146
+ground/gerter1,0,312.5486,313.2782,89.55974,91.3246
+ground/gerter1,0,318.9486,319.6782,89.81974,91.5846
+ground/gerter1,0,319.01,319.7396,106.58,108.3449
+ground/gerter1,0,328.99,329.7196,106.56,108.3249
+ground/gerter1,0,312.47,313.1996,106.62,108.3849
+ground/gbrick,0,376.1,378.66,105.09,107.65
+ground/gerter1,0,328.61,329.3396,89.81974,91.5846
+ground/gerter1,0,343.6446,344.3742,89.6205,91.38536
+ground/gbrick,0,376.04,378.6,100.06,102.62
+ground/gbrick,0,344.13,346.69,105.09,107.65
+ground/gai/cacti_lad,0,128.141,128.781,88.60099,89.24099
+ground/gai/cacti_lad,0,218.5064,219.1464,88.75843,89.39843
+ground/gai/cacti_lad,0,220.1936,220.8336,88.88412,89.52412
+ground/gai/cacti_lad,0,217.9669,218.6069,92.64053,93.28053
+ground/gai/cacti_lad,0,220.0968,220.7368,93.22141,93.86141
+ground/gerter1,0,304.33,305.0596,104.56,110.9329
+#ground/gai,0,218.0778,218.7178,88.76601,89.40601
+#ground/cacti_lad,0,128.141,128.781,88.60099,89.24099
+ground/gbrick,0,-25,0,0,200
+#rightmost
+ground/gbrick,0,770,790,0,200
+#topmost
+ground/gbrick,0,-15,1090,190,200
+#BOTTOM
+ground/gbrick,0,-15,1090,-20,-2
+#bottom rise 1
+ground/gbrick,0,150,380,0,30
+#top rise 1
+ground/gbrick,0,150,380,160,190
+#bottom rise 2
+ground/gbrick,0,180,380,30,60
+#top rise 2
+ground/gbrick,0,180,380,130,160
+#bottom rise 3
+ground/gbrick,0,220,380,60,90
+#top rise 3
+ground/gbrick,0,220,380,110,130

@@ -51,7 +51,7 @@ public class mplane_controller : MonoBehaviour
         nextUsage23 = Time.time + delay23; //it is on display
         cameraDef = Camera.main.orthographicSize;
         nextUsage = Time.time + delay; //it is on display
-        startLoc = transform.position;
+        startLoc = transform.position+new Vector3(0,0.75f,0);
         SteuAngle = transform.rotation;
         Vector3 pos = transform.position;
         rb = GetComponent<Rigidbody2D>();
@@ -956,13 +956,25 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                         engineSpool = 0;
                         StartCoroutine(SlowBounceOnRecover());
                         //asdf
+                        rb.velocity = Vector3.zero;
                         transform.position = plSp;
+                        rb.velocity = Vector3.zero;
                         GameObject.Find("checkerBoard(256x256)").transform.position = plSp + new Vector3(5, 0, 0);
+                        //07192023:REF_PREVENT
+                      //  GameObject.Find("Player_plane").GetComponent<PolygonCollider2D>().enabled=false;
+                       // GameObject.Find("planeTOP").GetComponent<TouchAndDie>().enabled = false;
+                      
                     }
                 else
                     {
-                        GameObject.Find("checkerBoard(256x256)").transform.position = new Vector3(7.74f, -1.3905f, 0); //6-23-2022hardcoded might fix....
+                        //07192023:REF_PREVENT
+                      //  GameObject.Find("Player_plane").GetComponent<PolygonCollider2D>().enabled = false;
+                        GameObject.Find("checkerBoard(256x256)").transform.position = new Vector3(7.74f, -1.3905f, 0); //6-23-2022hardcoded might fix.... //-1.3905f
+                        //GameObject.Find("planeTOP").GetComponent<TouchAndDie>().enabled = false;
+                        rb.velocity = Vector3.zero;
                         transform.position = startLoc;
+                        rb.velocity = Vector3.zero;
+                        
                     }
                     plane_recovered = false;
                     transform.rotation = SteuAngle;

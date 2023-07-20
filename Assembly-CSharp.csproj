@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\wind_player_affector.cs" />
+    <Compile Include="Assets\scripts\timer_countdown_init.cs" />
     <Compile Include="Assets\scripts\weather_gc.cs" />
     <Compile Include="Assets\scripts\ani_wind_affector.cs" />
     <Compile Include="Assets\scripts\marker_standalone.cs" />
@@ -140,12 +141,13 @@
     <Compile Include="Assets\scripts\GEN_UI_Ani_Rand_Delay.cs" />
     <Compile Include="Assets\scripts\BinSaveSystem.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
-    <Compile Include="Assets\scripts\timer_countdown_init.cs" />
+    <Compile Include="Assets\scripts\FadeScreenSet.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />
     <None Include="Assets\resources\scenes\_scene_data_holder-bak.txt" />
     <None Include="Assets\resources\scenes\2x3.txt" />
+    <None Include="Assets\resources\scenes\1x45.txt" />
     <None Include="Assets\resources\scenes\1x2.txt" />
     <None Include="Assets\resources\text\ui_death_noeject.txt" />
     <None Include="Assets\resources\scenes\flow.txt" />
@@ -159,6 +161,8 @@
     <None Include="Assets\resources\scenes\2x1.txt" />
     <None Include="Assets\resources\scenes\_scene_data_holder.txt" />
     <None Include="Assets\resources\scenes\1x4.txt" />
+    <None Include="Assets\resources\scenes\1x44.txt" />
+    <None Include="Assets\resources\scenes\1x456.txt" />
     <None Include="Assets\resources\scenes\readme.txt" />
     <None Include="Assets\resources\scenes\_scene_loader_chunk.txt" />
     <None Include="Assets\resources\scenes\1x4 - Copy.txt" />

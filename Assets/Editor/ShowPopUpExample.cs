@@ -63,7 +63,7 @@ public class ShowPopupExample : EditorWindow
     [MenuItem("Tools/Scene Save")]
     static void InitSave()
     {
-        var STL = EditorInputDialog.Show("Question", "Type name of scene to be saved in resources/scenes/XXX", "");
+        var STL = EditorInputDialog.Show("SAVE-Question", "Type name of scene to be saved in resources/scenes/XXX", "");
         StreamReader reader = new StreamReader("Assets/Resources/scenes/_scene_data_holder.txt");
         string txt_chunk="";
         TextAsset txt_act_chunk=null;
@@ -230,18 +230,82 @@ GRY,{gravy}
                     {
                         try
                         {
-                            blarg = blarg + "ground/" + PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + @"
+
+                            //7-18-2023
+                            //this allows for folder support in the editor menus
+                            string prefabPath = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(GameObject.Find(obj.name));
+                            Debug.Log("Prefab Path: " + prefabPath);
+                            int count_str = 0;
+                            string total_path = PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name;
+                            foreach (string st in prefabPath.Split('/'))
+                            {
+                                Debug.Log("YOUR STRING IS " + st);
+                                if (st.Contains(".prefab"))
+                                {
+                                   
+                                    total_path = total_path +"/" +st.Split('.')[0];
+                                    Debug.Log("QUITING AT " + st + "-------" + total_path);
+                                    break;
+                                }
+                                if (count_str>0)
+                                {
+                                    
+                                    if (total_path.Length > 0 && total_path.Substring(total_path.Length - 1, 1) != "/")
+                                    {
+                                        total_path = total_path + "/" + st;
+                                    }
+                                    else
+                                    {
+                                        total_path = total_path + "" + st;
+                                    }
+                                    Debug.Log("BUILDING STRINGS AT " + total_path);
+                                }
+                                if (st.Contains("ground"))
+                                    {
+                                    count_str++;
+                                    total_path = "";
+                                }
+                                 
+                                    
+                            }
+                            //PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name
+                            blarg = blarg + "ground/" + total_path + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + @"
 ";
                           
                         } catch (Exception ex)
                         {
-                           
-                            blarg = blarg + "ground/" + obj.name.Split('-')[1].Split('/')[1] + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + @"
-";
-                           
-                        }
-                    }
+                            //7-18-2023
+                            //this allows for folder support in the editor menus
+                            string total_path = obj.name.Split('-')[1].Split('/')[1];
+                            if (obj.name.Split('-')[1].Split('/').Length>1)
+                            {
+                                int count_str = 0;
+                                total_path = "";
+                                foreach (string st in obj.name.Split('-')[1].Split('/'))
+                                    {
+                                    if (count_str!=0)
+                                    {
+                                        if (total_path.Length>0&&total_path.Substring(total_path.Length-1,1)!="/")
+                                        {
+                                            total_path = total_path + "/" + st;
+                                        }
+                                        else
+                                        {
+                                            total_path = total_path + "" + st;
+                                        }
+                                        
+                                    }
+                                    count_str++;
+                                }
+                            }
 
+                            blarg = blarg + "ground/" + total_path + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + @"
+";
+                      //      string prefabPath = PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).ToString();
+                      //      Debug.Log("THE PATH IS " + prefabPath);
+                        }
+
+                    }
 
 
                 }
