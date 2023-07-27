@@ -35,6 +35,8 @@ public class POLF : MonoBehaviour
     public int grading_C = 1500;
     public int grading_F = 1;
     private Camera cam;
+
+
     void Start()
     {
         cam = Camera.main;
@@ -60,6 +62,10 @@ public class POLF : MonoBehaviour
         {
             gradeIconToLoad = "cross";
         }
+        //7-26-2023
+        //now should no longer always be zero
+        saved_grade_score = GameObject.Find("sela").GetComponent<LevelHistory>().high_score[GameObject.Find("sela").GetComponent<LevelHistory>().curworld, GameObject.Find("sela").GetComponent<LevelHistory>().curscene];
+        Debug.Log("YTINU TIME:" +curTime+": "+ grade_score + "(CURR SCORE)>" + saved_grade_score + "(Saved_Score)");
         if (grade_score>saved_grade_score)
         {
             saved_grade_score = grade_score; //new score to be saved
@@ -153,6 +159,10 @@ public class POLF : MonoBehaviour
                 if (GameObject.Find("Player_plane").transform.position.x > OBJ_Land_s && GameObject.Find("Player_plane").transform.position.x < OBJ_Land_e && GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt > OBJ_Height && GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed < 5 && GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground == true && timeStart==true)
                 {
                     grade_score = ((int)MaxSpeed) - ((int)impactDev) + (((int)MaxAlt) * OBJ_Height) - ((int)curTime);
+                if (grade_score<1)
+                {
+                    grade_score = UnityEngine.Random.Range(2, 22);
+                }
                     extraWords = "\nPS: : "+GameObject.Find("hi_score").GetComponent<Text>().text + "\ncomplete!";
                     stats_msg = stats_msg + "\n\nRATING: " + grade_score + extraWords;
                     funcTROLO();
@@ -229,6 +239,8 @@ public class POLF : MonoBehaviour
                 // MaxAlt = GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt;
                 MaxAlt = GameObject.Find("Player_plane").GetComponent<mplane_controller>().altitude;
             }
+
+
 
 
                 curTime = curTime + 0.1;

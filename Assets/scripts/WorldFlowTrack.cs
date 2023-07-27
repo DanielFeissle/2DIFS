@@ -43,17 +43,22 @@ public class WorldFlowTrack : MonoBehaviour
 
             GameObject.Find("sela").GetComponent<LevelHistory>().NameOfLevel = "Start";
         }
-       
+
+      
 
         string[] blar = txt.text.Split('\n');
         Debug.Log("-----------WORLD LEVELS-------------------" + blar.Length);
         string[] bkg = blar[world].Split(';'); //0 is background 1 is the world content flow
         string[] scf = bkg[1].Split(',');
 
-        GameObject.Find("checkerBoard(256x256)").GetComponent<WorldLoader>().phonehome(scf[scene]);
+        // ERROR
+        
+             GameObject.Find("checkerBoard(256x256)").GetComponent<WorldLoader>().phonehome(scf[scene]);
         GameObject.Find("sela").GetComponent<LevelHistory>().curscene = scene + 1;
         GameObject.Find("sela").GetComponent<LevelHistory>().curworld = world + 1;
         GameObject.Find("hi_score").GetComponent<Text>().text= GameObject.Find("sela").GetComponent<LevelHistory>().curworld+"x"+ GameObject.Find("sela").GetComponent<LevelHistory>().curscene+":"+ GameObject.Find("sela").GetComponent<LevelHistory>().high_score[GameObject.Find("sela").GetComponent<LevelHistory>().curworld, GameObject.Find("sela").GetComponent<LevelHistory>().curscene];
+        
+       
     }
 
     public void TrackStage()

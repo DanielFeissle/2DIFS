@@ -7,6 +7,7 @@ using UnityEngine.XR;
 
 public class mplane_controller : MonoBehaviour
 {
+    int alternator1 = 1;
     private Rigidbody2D rb;
     public float moveVertSense;
     public float moveHorSense;
@@ -253,8 +254,11 @@ public class mplane_controller : MonoBehaviour
                     Camera.main.GetComponent<HUD_buttons>().powerSwitch("on");
                     _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\flight\\spooling2_start");
                     this.GetComponent<mplane_audio>().afx();
-                     //  StopCoroutine(ff);
+                    //  StopCoroutine(ff);
                     ff = null;
+                    ff = StartCoroutine(PowerON());
+                    
+                }
                     zzengineOnOff = false;
                     zzShutDownFin = true;
                     nextUsage23 = Time.time + delay23; //it is on display
@@ -282,8 +286,7 @@ public class mplane_controller : MonoBehaviour
                 AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
                 AudioSource.PlayClipAtPoint(_audio7, this.transform.position, 100);
             }
-           
-        }
+
             //   Debug.Log("Your Value for Trigger is " + TriggerRight);
             if (Input.GetButtonDown("EJECT") && peject == false)
         {
@@ -743,7 +746,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 {
                     GameObject.Destroy(GameObject.Find("fss"));
                 }
-                
+                GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().grade_score = 2;
                 qreset = false;
                 autoProgress = false;
                 autoProgressCleared = false;
@@ -788,8 +791,8 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 {
                     //call this when a stage complete
                     Debug.Log("-==jjjjjj=====================================LOADING");
-                    this.gameObject.GetComponent<WorldFlowTrack>().scene++;
-                    this.gameObject.GetComponent<WorldFlowTrack>().SendStage();
+                   // this.gameObject.GetComponent<WorldFlowTrack>().scene++;
+                    this.gameObject.GetComponent<WorldFlowTrack>().TrackStage();
                 }
                 Vector3 plSp=Vector3.zero;
             if (pdead == true || peject==true)
@@ -960,10 +963,14 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                         transform.position = plSp;
                         rb.velocity = Vector3.zero;
                         GameObject.Find("checkerBoard(256x256)").transform.position = plSp + new Vector3(5, 0, 0);
+                        GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = false;
+                        GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = false;
+                        GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
+                        GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
                         //07192023:REF_PREVENT
-                      //  GameObject.Find("Player_plane").GetComponent<PolygonCollider2D>().enabled=false;
-                       // GameObject.Find("planeTOP").GetComponent<TouchAndDie>().enabled = false;
-                      
+                        //  GameObject.Find("Player_plane").GetComponent<PolygonCollider2D>().enabled=false;
+                        // GameObject.Find("planeTOP").GetComponent<TouchAndDie>().enabled = false;
+
                     }
                 else
                     {
@@ -974,7 +981,11 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                         rb.velocity = Vector3.zero;
                         transform.position = startLoc;
                         rb.velocity = Vector3.zero;
-                        
+                        GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = false;
+                        GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = false;
+                        GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
+                        GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
+
                     }
                     plane_recovered = false;
                     transform.rotation = SteuAngle;
@@ -987,6 +998,25 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 autoProgress = false;
                 pdead = false;
 
+                for (int i=0;i<10;i++)
+                {
+                    //if (curTime < 3)
+                    {
+                        //7-27-2023
+                        alternator1 = alternator1 * -1;
+                     
+                        if (alternator1 < 0)
+                        {
+                            GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = false;
+                            GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = false;
+                        }
+                        else
+                        {
+                            GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
+                            GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
+                        }
+                    }
+                }
 
             }
         RaycastHit2D hit = Physics2D.Raycast(new Vector3(transform.position.x, transform.position.y - 0.1f, 0), -Vector2.up);
@@ -1778,6 +1808,42 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         colSignal = false;
       postmortem =0;
     }
+
+    //7-27-2023
+    //this should help adjust player height to ground by enabling and disabling the colliders
+    private IEnumerator PowerON()
+    {
+        GameObject.Find("planeTOP").GetComponent<TouchAndDie>().enabled = false;
+        YieldInstruction timedWait = new WaitForSeconds(0.5f);
+        invincible = true;
+        for (int i = 0; i < 5; i++)
+        {
+            //if (curTime < 3)
+            {
+                //7-27-2023
+                alternator1 = alternator1 * -1;
+
+                if (alternator1 < 0)
+                {
+                    GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = false;
+                    GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = false;
+                }
+                else
+                {
+                    GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
+                    GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
+                }
+                yield return timedWait;
+             //   this.gameObject.transform.position = this.transform.position + new Vector3(0, .1f, 0);
+            }
+        }
+        
+        GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
+        GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
+        GameObject.Find("planeTOP").GetComponent<TouchAndDie>().enabled = true;
+        
+    }
+
 
     private IEnumerator EjectControledPowerOff()
     {
