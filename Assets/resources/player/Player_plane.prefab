@@ -1835,6 +1835,7 @@ MonoBehaviour:
   - cloud
   - PlaInd
   - PlaDebris
+  - FakeGround
 --- !u!1 &6289427525342529801
 GameObject:
   m_ObjectHideFlags: 0

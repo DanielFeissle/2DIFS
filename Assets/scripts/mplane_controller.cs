@@ -1039,13 +1039,15 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             }
 
         }
-
-        if (colSignal==true && invincible==false)
+        //8-22-2023
+        //added the StageStarted check to prevent plane from game overing in a safe area
+        if (colSignal==true && invincible==false && GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().StageStarted==true)
         {
             if (postmortem==1)
             {
                 if (gib < 5)
                 {
+                      
                     GameObject pback = Instantiate(Resources.Load("player\\gib\\p_back")) as GameObject;
                     pback.name = "p_back";
                     pback.transform.position = new Vector2(transform.position.x - 0.5f, transform.position.y);
@@ -1544,7 +1546,17 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
     void Update()
     {
         ani = this.GetComponent<Animator>();
-        HullStress();
+         if (GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().StageStarted == true)
+        {
+            //8-24-2023
+            //only run this once the stage is in start mode
+            HullStress();
+        }
+         else if (WingHP!=100)
+         {
+            WingHP = 100;
+         }
+        
         //  GameObject.Find("HOLDER").GetComponent<Transform>().transform.position = this.transform.position;
         //   GameObject.Find("HOLDER").GetComponent<Transform>().transform.eulerAngles = this.transform.eulerAngles;
         if (pdead==false && peject == false && GameObject.Find("altimeter").gameObject.GetComponent<menu_runtime>().specButtonStat==-1)

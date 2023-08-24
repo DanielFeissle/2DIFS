@@ -58,6 +58,12 @@ public class wheelHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().StageStarted == false && wheelHP!=100)
+        {
+            //8-24-2023
+            //set wheel hp to 100 until after the stage is in started mode
+            wheelHP = 100;
+        }
         //  transform.position = GameObject.Find("planeSkid_front").transform.position + offset;
 
 

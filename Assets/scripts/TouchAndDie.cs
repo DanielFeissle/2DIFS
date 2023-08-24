@@ -34,6 +34,12 @@ public class TouchAndDie : MonoBehaviour
         }
         if (valFound==false)
         {
+            //8-22-2023
+            //root cause of the exploding start
+            //player would hit the tagged item FakeGround
+            //this would be triggered in planeTOP of the touchanddie script
+            //adding the FakeGround to the ignore list should help/prevent
+            //Other changes include updating the StageStarted check. But the issue would still persist after starting
             GameObject.Find("Player_plane").GetComponent<mplane_controller>().colSignal = true;
             GameObject.Find("Player_plane").GetComponent<mplane_controller>().postmortem = 1;
           
