@@ -215,8 +215,18 @@ public class POLF : MonoBehaviour
                 {
                 Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ALERT DEAD");
                     // grade_score = -2147483647;
+                    if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().postmortem==2)
+                {
+                    grade_score = -9999;
+                    extraWords = "\nPS: : " + GameObject.Find("hi_score").GetComponent<Text>().text + "\n>...<";
+
+                }
+                    else
+                {
                     grade_score = -999999999;
                     extraWords = "\nPS: : " + GameObject.Find("hi_score").GetComponent<Text>().text + "\nURDEAD";
+                }
+                    
                 }
                 funcTROLO();
                 funcICO();

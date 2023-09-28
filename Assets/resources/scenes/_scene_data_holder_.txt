@@ -1,0 +1,9 @@
+CLD,68
+WTH,20
+WND,700
+RAD,1
+RAB,1
+FPS,96
+GRX,0
+GRY,-9.81
+OBJ,Welcome to the next level!,0,200,999,3000,1500,1

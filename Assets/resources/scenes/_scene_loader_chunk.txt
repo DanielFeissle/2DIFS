@@ -1,22 +1,11 @@
-ground/gerter1,0,304.33,305.0596,104.56,110.9329
-#ground/gai,0,218.0778,218.7178,88.76601,89.40601
-#ground/cacti_lad,0,128.141,128.781,88.60099,89.24099
+ground/airport,0,0,1000,0,2.56
+#leftmost
 ground/gbrick,0,-25,0,0,200
 #rightmost
-ground/gbrick,0,770,790,0,200
+ground/gbrick,0,555,590,0,200
 #topmost
 ground/gbrick,0,-15,1090,190,200
 #BOTTOM
 ground/gbrick,0,-15,1090,-20,-2
-#bottom rise 1
-ground/gbrick,0,150,380,0,30
-#top rise 1
-ground/gbrick,0,150,380,160,190
-#bottom rise 2
-ground/gbrick,0,180,380,30,60
-#top rise 2
-ground/gbrick,0,180,380,130,160
-#bottom rise 3
-ground/gbrick,0,220,380,60,90
-#top rise 3
-ground/gbrick,0,220,380,110,130
+#This section is for landing at the top part
+ground/gbrick,0,400,1090,150,155

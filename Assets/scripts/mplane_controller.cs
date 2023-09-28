@@ -44,11 +44,15 @@ public class mplane_controller : MonoBehaviour
     float delay23 = 0.1f; //only half delay
     float nextUsage23;
     bool FX_EXP_ACTIVE = false;
+    bool start_triggered_once = false;
+    string priorButton = "off";
+    bool startupSeqComplete = false;
     // Start is called before the first frame update
     void Start()
     {
         metime = Time.time;
         _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\flight\\spooling2_start");
+        _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\nothing");
         nextUsage23 = Time.time + delay23; //it is on display
         cameraDef = Camera.main.orthographicSize;
         nextUsage = Time.time + delay; //it is on display
@@ -240,36 +244,45 @@ public class mplane_controller : MonoBehaviour
             //8-8-2022 now we can turn on or off all
             if (Input.GetButtonDown("TogglePower") && peject == false && pdead == false)
         {
-          
+
             //   someTime=Math.Abs(_audio7.length - Time.time);
+            
             someTime = Time.time - _audio7.length;
-            if (zzShutDownFin==true && someTime> metime)
+            Debug.Log("LOGGERT"+someTime + ">" + metime);
+            _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\nothing");
+            if (zzShutDownFin==true && someTime> metime && GameObject.Find("pic_power_toggle").GetComponent<Image>().enabled==false && priorButton=="off" )
             {
+               
                 metime2 = Time.time + _audio7.length;
               //  someTime2 = Time.time - _audio7.length*2;
                 metime = Time.time;
 
+                if (someTime < metime) {
+
+               
                 if (zzengineOnOff == true)
                 {
                     GameObject psfx = Instantiate(Resources.Load("player\\player_start_fx")) as GameObject;
                     psfx.name = "plane_startengine_smoke";
                     psfx.transform.position = this.transform.position;
-                    
 
-                    Camera.main.GetComponent<HUD_buttons>().powerSwitch("on");
-                    _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\flight\\spooling2_start");
+
+                        Camera.main.GetComponent<HUD_buttons>().powerSwitch("on");
+                        _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\flight\\spooling2_start");
                     this.GetComponent<mplane_audio>().afx();
                     //  StopCoroutine(ff);
                     ff = null;
                     ff = StartCoroutine(PowerON());
-                    
+
                 }
-                    zzengineOnOff = false;
+                    
                     zzShutDownFin = true;
                     nextUsage23 = Time.time + delay23; //it is on display
                 }
-                else
+            }
+                else if (GameObject.Find("pic_power_toggle").GetComponent<Image>().enabled == true && priorButton == "on" && startupSeqComplete == true)
                 {
+                start_triggered_once = false;
                     Camera.main.GetComponent<HUD_buttons>().powerSwitch("off");
                     _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\flight\\spooling2");
                     this.GetComponent<mplane_audio>().afx_q();
@@ -277,8 +290,8 @@ public class mplane_controller : MonoBehaviour
                     {
                         engineSpool = 5;
                     }
-                   
-                    ff = StartCoroutine(EjectControledPowerOff());
+                priorButton = "off";
+                ff = StartCoroutine(EjectControledPowerOff());
                     zzengineOnOff = true;
                     zzShutDownFin = false;
                     nextUsage23 = Time.time + delay23; //it is on display
@@ -747,6 +760,10 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             //NOTE TO SELF, This is the magic reset button for restarting the stage- thanks df 3-30-2022!
         if ((Input.GetButtonDown("Fire3") || (plane_recovered==true && peject ==true)) || autoProgressCleared==true)
         {
+                startupSeqComplete = false;
+                zzengineOnOff = false;
+                start_triggered_once = true;
+                priorButton = "off";
                 //9-14-2023
                 //this if statement prevents the bug of reseting the stage and breaking the restart functions
                 if (pdead==true||peject==true)
@@ -1838,6 +1855,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
     //this should help adjust player height to ground by enabling and disabling the colliders
     private IEnumerator PowerON()
     {
+        startupSeqComplete = false;
         GameObject.Find("planeTOP").GetComponent<TouchAndDie>().enabled = false;
         YieldInstruction timedWait = new WaitForSeconds(0.25f);
         invincible = true;
@@ -1847,17 +1865,37 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             {
                 //7-27-2023
                 alternator1 = alternator1 * -1;
-
+                AudioClip _audio76;
+                int rando23 = UnityEngine.Random.Range(0, 100);
+                if (rando23<33)
+                {
+                    _audio76 = Resources.Load<AudioClip>("_FX\\SFX\\flight\\sci-fi_weapon_pistol_shot_01");
+                }
+                else if (rando23<66)
+                {
+                    _audio76 = Resources.Load<AudioClip>("_FX\\SFX\\flight\\sci-fi_weapon_pistol_shot_02");
+                }
+                else
+                {
+                    _audio76 = Resources.Load<AudioClip>("_FX\\SFX\\flight\\sci-fi_weapon_pistol_shot_03");
+                }
+                
                 if (alternator1 < 0)
                 {
                     GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = false;
                     GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = false;
                     GameObject psfx = Instantiate(Resources.Load("player\\player_start_fx")) as GameObject;
+                    
+                    AudioSource.PlayClipAtPoint(_audio76, this.transform.position, 100);
+                    AudioSource.PlayClipAtPoint(_audio76, this.transform.position, 100);
                     psfx.name = "plane_startengine_smoke";
                     psfx.transform.position = this.transform.position;
                 }
                 else
                 {
+                  
+                    AudioSource.PlayClipAtPoint(_audio76, this.transform.position, 100);
+                    AudioSource.PlayClipAtPoint(_audio76, this.transform.position, 100);
                     GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
                     GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
                     GameObject psfx = Instantiate(Resources.Load("player\\player_start_fx")) as GameObject;
@@ -1872,7 +1910,10 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
         GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
         GameObject.Find("planeTOP").GetComponent<TouchAndDie>().enabled = true;
-        
+        startupSeqComplete = true;
+        zzengineOnOff = false;
+        start_triggered_once = true;
+        priorButton = "on";
     }
 
 
