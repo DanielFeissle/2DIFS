@@ -165,6 +165,24 @@ public class WorldLoader : MonoBehaviour
                 string[] sclir = tta.Split(',');
                // Debug.Log(Resources.Load(sclir[0].ToString()));
                 GameObject picky = Instantiate(Resources.Load(sclir[0])) as GameObject;
+                ////////////////////////////////
+                //10-12-2023
+                //this is to backwards compat existing scenes, if they don't have the rotate or scale configured. Use the default
+                float rotateZ = 0;
+                float scaleX = picky.transform.localScale.x;
+                float scaleY = picky.transform.localScale.y;
+                Debug.Log("WHAT IS THE LENGTH" + sclir.Length);
+                if (sclir.Length > 7)
+                {
+
+                    scaleX = Convert.ToSingle(sclir[6]);
+                    scaleY = Convert.ToSingle(sclir[7]);
+                    rotateZ = Convert.ToSingle(sclir[8]);
+                }
+                picky.transform.localScale = new Vector3(scaleX, scaleY, 1);
+
+
+                ////////////////////////////////
                 if (sclir[1]=="1")
                 {
                     picky.tag = "ground";
@@ -187,6 +205,13 @@ public class WorldLoader : MonoBehaviour
                     for (float y = startY; y < endY; y = y + height)
                     {
                         GameObject picky2 = Instantiate(Resources.Load(sclir[0])) as GameObject;
+                        //10-12-2023
+                        //  picky2.transform.eulerAngles = Vector3.forward * rotateZ;
+
+                        picky2.transform.localScale = new Vector3(scaleX, scaleY, 1);
+                        picky2.transform.rotation = Quaternion.Euler(Vector3.forward * rotateZ);
+
+                        //10-12-2023
                         Debug.Log("BUILDING"+sclir[0] + ":" + x + "," + y);
                         picky2.name = sceneRead + sclir[0]+":"+x+","+y;
                         picky2.transform.position = new Vector2(x, y);

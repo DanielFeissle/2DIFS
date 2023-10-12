@@ -149,6 +149,7 @@
     <None Include="Assets\resources\scenes\2x3.txt" />
     <None Include="Assets\resources\scenes\1x45.txt" />
     <None Include="Assets\resources\scenes\1x2.txt" />
+    <None Include="Assets\resources\scenes\2x2 -Finished_but_testing.txt" />
     <None Include="Assets\resources\text\ui_death_noeject.txt" />
     <None Include="Assets\resources\scenes\flow.txt" />
     <None Include="Assets\resources\scenes\ggg.txt" />
@@ -163,6 +164,7 @@
     <None Include="Assets\resources\scenes\1x4.txt" />
     <None Include="Assets\resources\scenes\1x44.txt" />
     <None Include="Assets\resources\scenes\1x456.txt" />
+    <None Include="Assets\resources\scenes\2x2_NOPE.txt" />
     <None Include="Assets\resources\scenes\readme.txt" />
     <None Include="Assets\resources\scenes\_scene_loader_chunk.txt" />
     <None Include="Assets\resources\scenes\1x4 - Copy.txt" />
@@ -171,6 +173,7 @@
     <None Include="Assets\resources\scenes\fff.txt" />
     <None Include="Assets\resources\scenes\1x3.txt" />
     <None Include="Assets\resources\scenes\_scene_data_holder_.txt" />
+    <None Include="Assets\resources\scenes\2x2 - Copy.txt" />
     <None Include="Assets\resources\scenes\rtdfh.txt" />
     <None Include="Assets\resources\scenes\1x1 - Copy (2).txt" />
   </ItemGroup>

@@ -269,7 +269,7 @@ GRY,{gravy}
                                     
                             }
                             //PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name
-                            blarg = blarg + "ground/" + total_path + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + @"
+                            blarg = blarg + "ground/" + total_path + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y+","+obj.transform.localScale.x+","+obj.transform.localScale.y+","+obj.transform.eulerAngles.z + @"
 ";
                           
                         } catch (Exception ex)
@@ -299,7 +299,7 @@ GRY,{gravy}
                                 }
                             }
 
-                            blarg = blarg + "ground/" + total_path + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + @"
+                            blarg = blarg + "ground/" + total_path + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + "," + obj.transform.localScale.x + "," + obj.transform.localScale.y + "," + obj.transform.eulerAngles.z + @"
 ";
                       //      string prefabPath = PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).ToString();
                       //      Debug.Log("THE PATH IS " + prefabPath);
