@@ -293,16 +293,32 @@ public class world_scene_editor : MonoBehaviour
                         //Now that we have the Type we can use it to Add Component
                         picky2.AddComponent(MyScriptType);
                         chunkx++;
+                        picky2.GetComponentInChildren<MeshRenderer>().enabled = false;
 
+                        Component[] mmeshRender;
+                        mmeshRender = picky2.GetComponentsInChildren<MeshRenderer>();
 
+                        foreach (MeshRenderer remove_mesh in mmeshRender)
+                            remove_mesh.GetComponent<MeshRenderer>().enabled = false;
+                        //    joint.useSpring = false;
+                   //     picky2.GetComponentsInChildren<MeshRenderer>().
 
 
                         if (chunkx > 2 || chunky > 2)
                         {
                             string ScriptName2 = "marker_standalone";
-
+                            picky2.name = sceneRead + "-" + sclir[0] + "-" + x + "," + y+"__bulk_edit_in_text_mode_no_editor_changes4u__";
+                            picky2.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f, 1f);
+                           
+                            picky2.GetComponentInChildren<SpriteRenderer>().color = new Color(1f, 0f, 0f, 1f);
                             System.Type MyScriptType2 = System.Type.GetType(ScriptName2 + ",Assembly-CSharp");
                             picky2.AddComponent(MyScriptType2);
+
+                            Component[] sprite_color;
+                            sprite_color = picky2.GetComponentsInChildren<SpriteRenderer>();
+
+                            foreach (SpriteRenderer change_color in sprite_color)
+                                change_color.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f, 1f);
                         }
 
                     }

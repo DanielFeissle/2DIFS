@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 using System.IO;
 using System;
+using System.Text.RegularExpressions;
 
 public class ShowPopupExample : EditorWindow
 {
@@ -269,6 +270,8 @@ GRY,{gravy}
                                     
                             }
                             //PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name
+
+                            total_path = total_path.Substring(1, total_path.Length-1);
                             blarg = blarg + "ground/" + total_path + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y+","+obj.transform.localScale.x+","+obj.transform.localScale.y+","+obj.transform.eulerAngles.z + @"
 ";
                           

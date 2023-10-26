@@ -4,8 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-//[InitializeOnLoad]
+[InitializeOnLoad]
 
 public class editor_last_placed : MonoBehaviour
 {
@@ -105,9 +104,15 @@ public class editor_last_placed : MonoBehaviour
         LastSelected = OrderedSelection.Count == 0 ? null : OrderedSelection[OrderedSelection.Count - 1];
         if (logLastSelected)
         {
+
             if (LastSelected != null)
             {
-            //    if (LastSelected.transform.position!=0)
+                
+                if (Selection.activeObject.name.Contains("__bulk_edit_in_text_mode_no_editor_changes4u__"))
+                {
+                    Selection.objects = null;
+                }
+                //    if (LastSelected.transform.position!=0)
                 {
 
 
@@ -131,7 +136,9 @@ public class editor_last_placed : MonoBehaviour
     string xtest;
     static void OnSelectionModified(GameObject _go, SelectionChange _change)
     {
-        switch (_change)
+
+
+            switch (_change)
         {
             case SelectionChange.Add:
                 //Debug.Log($"added: {_go.name}");
