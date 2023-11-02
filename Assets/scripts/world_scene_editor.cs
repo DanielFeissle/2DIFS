@@ -307,7 +307,7 @@ public class world_scene_editor : MonoBehaviour
                         if (chunkx > 2 || chunky > 2)
                         {
                             string ScriptName2 = "marker_standalone";
-                            picky2.name = sceneRead + "-" + sclir[0] + "-" + x + "," + y+"__bulk_edit_in_text_mode_no_editor_changes4u__";
+                            picky2.name = sceneRead + "-" + sclir[0] + "-" + x + "," + y+"###LINE:"+ count+"###" + "__bulk_edit_in_text_mode_no_editor_changes4u__";
                             picky2.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f, 1f);
                            
                             picky2.GetComponentInChildren<SpriteRenderer>().color = new Color(1f, 0f, 0f, 1f);

@@ -107,9 +107,9 @@ public class editor_last_placed : MonoBehaviour
 
             if (LastSelected != null)
             {
-                
                 if (Selection.activeObject.name.Contains("__bulk_edit_in_text_mode_no_editor_changes4u__"))
                 {
+                    Debug.Log(Selection.activeObject.name);
                     Selection.objects = null;
                 }
                 //    if (LastSelected.transform.position!=0)
@@ -132,6 +132,7 @@ public class editor_last_placed : MonoBehaviour
         Add,
         Remove
     }
+
     Vector3 blarg =new Vector3 (0, 0, 0);
     string xtest;
     static void OnSelectionModified(GameObject _go, SelectionChange _change)
@@ -142,6 +143,26 @@ public class editor_last_placed : MonoBehaviour
         {
             case SelectionChange.Add:
                 //Debug.Log($"added: {_go.name}");
+                //11-1-2023
+                //this will remove the minimap meshes from the editor point of view as soon as they get put into the editor
+                int count = 0;
+
+                for (int i = 0; i < _go.transform.childCount; i++)
+                {
+                    count++;
+                    
+                }
+
+                if (count>1)
+                {
+                    _go.GetComponentInChildren<MeshRenderer>().enabled = false;
+
+                    Component[] mmeshRender;
+                    mmeshRender = _go.GetComponentsInChildren<MeshRenderer>();
+
+                    foreach (MeshRenderer remove_mesh in mmeshRender)
+                        remove_mesh.GetComponent<MeshRenderer>().enabled = false;
+                }
                 break;
             case SelectionChange.Remove:
                 if (_go == null)
@@ -153,6 +174,10 @@ public class editor_last_placed : MonoBehaviour
                     //Debug.Log($"remove: {_go.name}");
                     if (!_go.GetComponent("marker_standalone"))
                     {
+
+                     
+
+
                         string ScriptName2 = "marker_standalone";
                         System.Type MyScriptType2 = System.Type.GetType(ScriptName2 + ",Assembly-CSharp");
                         _go.AddComponent(MyScriptType2);

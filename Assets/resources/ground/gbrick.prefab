@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1841245777525855261}
   - component: {fileID: 1101569561360765940}
   - component: {fileID: -8193553234031773994}
+  - component: {fileID: -2750713841746179169}
   m_Layer: 0
   m_Name: gbrick
   m_TagString: ground
@@ -110,6 +111,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.28, y: 1.28}
   m_EdgeRadius: 0
+--- !u!114 &-2750713841746179169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3635278772297065227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61222648d2f6914081894de078e90fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6002449091096187257
 GameObject:
   m_ObjectHideFlags: 0

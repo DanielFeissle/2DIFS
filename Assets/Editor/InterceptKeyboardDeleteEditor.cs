@@ -4,7 +4,8 @@ using UnityEditor;
 using UnityEngine;
 //retrived10-26-2023
 //https://forum.unity.com/threads/unity-editor-disable-delete-of-a-scene-gameobject.85497/
-[CustomEditor(typeof(GameObject))]
+//[CustomEditor(typeof(GameObject))]
+[InitializeOnLoad]
 public class InterceptKeyboardDeleteEditor : Editor
 {
     // NOTE: you can still delete GameObjects by right click and select delete in Hierarchy view
@@ -40,6 +41,7 @@ public class InterceptKeyboardDeleteEditor : Editor
         {
             if (Selection.activeObject.name.Contains("__bulk_edit_in_text_mode_no_editor_changes4u__"))
             {
+                Debug.Log("CANCEL");
                 //e.Use(); // warning
                 e.type = EventType.Used;
             }

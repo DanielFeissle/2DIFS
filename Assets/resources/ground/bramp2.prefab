@@ -587,6 +587,7 @@ GameObject:
   - component: {fileID: 1294444852397813366}
   - component: {fileID: -40959044882406271}
   - component: {fileID: -2767923378952467300}
+  - component: {fileID: -4918930993998782777}
   m_Layer: 0
   m_Name: bramp2
   m_TagString: ground
@@ -703,6 +704,18 @@ PolygonCollider2D:
       - {x: -0.64, y: -0.63913924}
       - {x: 0.64, y: -0.64}
       - {x: 0.64, y: -0.25}
+--- !u!114 &-4918930993998782777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656552992689213480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61222648d2f6914081894de078e90fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5967606785893576037
 GameObject:
   m_ObjectHideFlags: 0
