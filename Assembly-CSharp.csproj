@@ -142,6 +142,7 @@
     <Compile Include="Assets\scripts\GEN_UI_Ani_Rand_Delay.cs" />
     <Compile Include="Assets\scripts\BinSaveSystem.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
+    <Compile Include="Assets\scripts\marker_standalone_movable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />
@@ -154,6 +155,7 @@
     <None Include="Assets\resources\scenes\flow.txt" />
     <None Include="Assets\resources\scenes\ggg.txt" />
     <None Include="Assets\resources\scenes\1x1 - Copy.txt" />
+    <None Include="Assets\resources\scenes\2x3_STD.txt" />
     <None Include="Assets\resources\test.txt" />
     <None Include="Assets\resources\scenes\q.txt" />
     <None Include="Assets\resources\scenes\e.txt" />
@@ -168,6 +170,7 @@
     <None Include="Assets\resources\scenes\readme.txt" />
     <None Include="Assets\resources\scenes\_scene_loader_chunk.txt" />
     <None Include="Assets\resources\scenes\1x4 - Copy.txt" />
+    <None Include="Assets\resources\scenes\2x4.txt" />
     <None Include="Assets\resources\scenes\s.txt" />
     <None Include="Assets\resources\scenes\1x1.txt" />
     <None Include="Assets\resources\scenes\fff.txt" />

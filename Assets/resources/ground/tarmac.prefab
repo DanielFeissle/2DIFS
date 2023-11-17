@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9065907469329599631}
   - component: {fileID: 128140718255323649}
   - component: {fileID: 128140718255323663}
+  - component: {fileID: -3293846606243484362}
   m_Layer: 0
   m_Name: tarmac
   m_TagString: ground
@@ -110,6 +111,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.1397727, y: 1.0734482}
   m_EdgeRadius: 0
+--- !u!114 &-3293846606243484362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4745807956992788615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e541db7d0dec33b4f9028629661d7147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7518019606277939930
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +171,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7518019606277939930}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

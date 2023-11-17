@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 4054509649396313830}
   - component: {fileID: 3533444801891171511}
   - component: {fileID: 3533444801891171510}
+  - component: {fileID: 7491705894924475848}
   m_Layer: 0
   m_Name: sage_lass
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,3 +103,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7491705894924475848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7081480930567462593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61222648d2f6914081894de078e90fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

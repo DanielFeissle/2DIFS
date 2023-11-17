@@ -112,6 +112,7 @@ public class editor_last_placed : MonoBehaviour
                     Debug.Log(Selection.activeObject.name);
                     Selection.objects = null;
                 }
+ 
                 //    if (LastSelected.transform.position!=0)
                 {
 
@@ -145,6 +146,11 @@ public class editor_last_placed : MonoBehaviour
                 //Debug.Log($"added: {_go.name}");
                 //11-1-2023
                 //this will remove the minimap meshes from the editor point of view as soon as they get put into the editor
+                //if (GameObject.Find(_go.transform.name).GetComponent<marker_standalone>())
+                if (!_go.GetComponent("marker_standalone_movable") && _go.transform.tag!="ground")
+                {
+                    break;
+                }
                 int count = 0;
 
                 for (int i = 0; i < _go.transform.childCount; i++)
@@ -152,9 +158,10 @@ public class editor_last_placed : MonoBehaviour
                     count++;
                     
                 }
-
-                if (count>1)
+                Debug.Log("============" + _go.transform.childCount+","+ _go.transform.name);
+                if (count>0)
                 {
+                    Debug.Log(_go);
                     _go.GetComponentInChildren<MeshRenderer>().enabled = false;
 
                     Component[] mmeshRender;
@@ -162,6 +169,9 @@ public class editor_last_placed : MonoBehaviour
 
                     foreach (MeshRenderer remove_mesh in mmeshRender)
                         remove_mesh.GetComponent<MeshRenderer>().enabled = false;
+
+
+ 
                 }
                 break;
             case SelectionChange.Remove:
@@ -172,13 +182,13 @@ public class editor_last_placed : MonoBehaviour
                 else
                 {
                     //Debug.Log($"remove: {_go.name}");
-                    if (!_go.GetComponent("marker_standalone"))
+                    if (!_go.GetComponent("marker_standalone_movable") && _go.transform.tag=="ground")
                     {
 
                      
 
 
-                        string ScriptName2 = "marker_standalone";
+                        string ScriptName2 = "marker_standalone_movable";
                         System.Type MyScriptType2 = System.Type.GetType(ScriptName2 + ",Assembly-CSharp");
                         _go.AddComponent(MyScriptType2);
                     }

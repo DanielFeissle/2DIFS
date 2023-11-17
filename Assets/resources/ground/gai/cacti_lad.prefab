@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5106853992434353186}
   - component: {fileID: 5106853992434353187}
   - component: {fileID: -5886153407672903707}
+  - component: {fileID: -5977130282178350965}
+  - component: {fileID: 8494619429302682838}
   m_Layer: 0
   m_Name: cacti_lad
   m_TagString: ground
@@ -155,3 +157,27 @@ PolygonCollider2D:
       - {x: 0.28, y: -0.64}
       - {x: 0.37, y: -0.53999996}
       - {x: 0.35, y: -0.25}
+--- !u!114 &-5977130282178350965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538052203302521390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61222648d2f6914081894de078e90fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8494619429302682838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538052203302521390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e541db7d0dec33b4f9028629661d7147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

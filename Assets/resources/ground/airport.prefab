@@ -458,7 +458,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4441520498499475403}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -516,6 +516,7 @@ GameObject:
   - component: {fileID: 5060648563871663787}
   - component: {fileID: 4987759999592838003}
   - component: {fileID: 5406727807651129578}
+  - component: {fileID: 2646716491582418656}
   m_Layer: 0
   m_Name: airport
   m_TagString: ground
@@ -620,3 +621,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.12, y: 1.029815}
   m_EdgeRadius: 0
+--- !u!114 &2646716491582418656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8806759316957545123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e541db7d0dec33b4f9028629661d7147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

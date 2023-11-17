@@ -4,32 +4,38 @@
 #GTO game type objective (0-Height/distance obj, 1-Land on gameobject name, 2-Pass checkpoints, 3-Grab object and get to designated end point)
 GTO,0
 #OBJ,Scene title, GET Height (+or-), Land start, Land End
-OBJ,sdfsdfasdf!!!,40,0,999
+OBJ,Bumps and bruises..,4,200,999
 #CLD,Cloud Height
 CLD,68
 #WTH, Weather 0-99 higher number more clouds/rain
-WTH,72
+WTH,20
 #WND, Wind level -4000 to 4000
-WND,1361
+WND,700
 #RAD, RADIOSITy level 0 to 1
-RAD,0.35
+RAD,1
 #RAB, Background Radiosit leve 0 to 1
-RAB,0.57
+RAB,1
 #FPS, target fps for the scene
 FPS,96
 #GRX, gravity scale x
-GRX,4
+GRX,0
 #GRY, gravity scale y
-GRY,-13
+GRY,-9.81
 # Prefab,LayerOrder,StartX,EndX,StartY,EndY
-ground/building1,0,25.88936,28.44936,22.56447,25.12447
-ground/building1,0,31,33.56,22.56447,25.12447
-ground/airport,0,0,555,0,2.56
+ground/gbrick,0,55.2308,57.7908,14.44506,17.00506,4,4,0
+ground/gbrick,0,71.47,93.21256,16.29,37.5621,27.2652,20.3964,319.34
+ground/building1,0,26.37321,28.93321,11.75074,14.31074,1,1,0
+ground/plant1,0,36.08694,38.64695,10.33268,12.89268,1,1,0
+ground/ramp1,0,48.0341,62.33961,11.2899,27.62159,5.442987,3.33416,60.39001
+ground/airport,0,0,90,0,2.56
 #leftmost
-ground/gbrick,0,-25,0,0,200
+ground/gbrick,0,-25,0,0,30,4,4,0
 #rightmost
-ground/gbrick,0,555,590,0,200
+ground/gbrick,0,240,280,0,30
 #topmost
-ground/gbrick,0,-15,590,190,200
+ground/gbrick,0,-15,250,25,45
+ground/gbrick,0,100,250,10,25
 #BOTTOM
-ground/gbrick,0,-15,590,-20,-2
+ground/gbrick,0,-15,250,-20,-2,4,4,0
+#This section is for landing at the top part
+#ground/gbrick,0,400,1090,150,155
