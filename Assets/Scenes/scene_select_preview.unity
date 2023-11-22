@@ -590,6 +590,7 @@ GameObject:
   - component: {fileID: 1039189221}
   - component: {fileID: 1039189220}
   - component: {fileID: 1039189223}
+  - component: {fileID: 1039189224}
   m_Layer: 5
   m_Name: btn_back
   m_TagString: Untagged
@@ -714,6 +715,21 @@ MonoBehaviour:
   yourButton: {fileID: 1039189220}
   buttonVal: 5
   listner: {fileID: 1902624917}
+--- !u!114 &1039189224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039189218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f22567ca16eb044962e8cbf5151811, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yourButton: {fileID: 0}
+  buttonVal: 0
+  listner: {fileID: 0}
 --- !u!1 &1141972826
 GameObject:
   m_ObjectHideFlags: 0
@@ -998,6 +1014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f1d781e964cd6849ab5224ec9a9fdcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curSceneOver: 0
   OBJ_title: 
   OBJ_Height: 0
   OBJ_Land_s: 0

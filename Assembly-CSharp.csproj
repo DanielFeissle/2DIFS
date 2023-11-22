@@ -133,6 +133,7 @@
     <Compile Include="Assets\scripts\Blit.cs" />
     <Compile Include="Assets\scripts\TouchAndDie.cs" />
     <Compile Include="Assets\scripts\real_dest_after_touch.cs" />
+    <Compile Include="Assets\scripts\marker_standalone_movable.cs" />
     <Compile Include="Assets\scripts\frame_rate.cs" />
     <Compile Include="Assets\scripts\general_riser.cs" />
     <Compile Include="Assets\scripts\minimap_player_control.cs" />
@@ -142,7 +143,7 @@
     <Compile Include="Assets\scripts\GEN_UI_Ani_Rand_Delay.cs" />
     <Compile Include="Assets\scripts\BinSaveSystem.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
-    <Compile Include="Assets\scripts\marker_standalone_movable.cs" />
+    <Compile Include="Assets\scripts\button_enable_inter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />

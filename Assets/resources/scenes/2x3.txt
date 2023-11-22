@@ -4,7 +4,7 @@
 #GTO game type objective (0-Height/distance obj, 1-Land on gameobject name, 2-Pass checkpoints, 3-Grab object and get to designated end point)
 GTO,0
 #OBJ,Scene title, GET Height (+or-), Land start, Land End
-OBJ,Bumps and bruises..,4,200,999
+OBJ,A pipe dream,72,237,999
 #CLD,Cloud Height
 CLD,68
 #WTH, Weather 0-99 higher number more clouds/rain
@@ -22,19 +22,30 @@ GRX,0
 #GRY, gravity scale y
 GRY,-9.81
 # Prefab,LayerOrder,StartX,EndX,StartY,EndY
-ground/gbrick,0,55.2308,57.7908,14.44506,17.00506,4,4,0
-ground/gbrick,0,71.47,93.21256,16.29,37.5621,27.2652,20.3964,319.34
-ground/building1,0,26.37321,28.93321,11.75074,14.31074,1,1,0
-ground/plant1,0,36.08694,38.64695,10.33268,12.89268,1,1,0
-ground/ramp1,0,48.0341,62.33961,11.2899,27.62159,5.442987,3.33416,60.39001
+ground/bramp2,0,64.14,118.8797,50.16,104.8997,85.5308,85.5308,0
+ground/bramp2,0,53.2,107.9397,-7,47.73972,85.5308,85.5308,180
+ground/gbrick,0,179.0076,239.9016,11.3151,26.97253,95.14696,24.46473,0
+ground/gerter1,0,149.1738,155.8467,30.9503,35.46216,2.606613,1.762444,0
+ground/bramp2,0,191.8,246.5397,34.4,89.13972,85.5308,85.5308,180
+ground/bramp2,0,183.4,238.1397,81.1,135.8397,85.5308,85.5308,0
+ground/gbrick,0,248.9834,251.5434,89.23109,91.79108,4,4,0
+ground/gbrick,0,254.02,256.58,89.4,91.96,4,4,0
+ground/gbrick,0,259.05,261.61,89.44,92,4,4,0
+ground/gbrick,0,264.04,266.6,89.57,92.13,4,4,0
+ground/gbrick,0,269.07,271.63,89.82,92.38,4,4,0
+ground/gbrick,0,273.98,276.54,89.86,92.42,4,4,0
+ground/gbrick,0,279.1,281.66,89.94,92.5,4,4,0
+ground/gbrick,0,278.68,281.24,85.24,87.8,4,4,0
+ground/gbrick,0,278.81,281.37,80.08,82.64,4,4,0
+ground/gbrick,0,278.77,281.33,75.17,77.73,4,4,0
 ground/airport,0,0,90,0,2.56
 #leftmost
-ground/gbrick,0,-25,0,0,30,4,4,0
+ground/gbrick,0,-25,0,0,75,4,4,0
 #rightmost
-ground/gbrick,0,240,280,0,30
+ground/gbrick,0,240,280,0,75
 #topmost
-ground/gbrick,0,-15,250,25,45
-ground/gbrick,0,100,250,10,25
+#ground/gbrick,0,-15,250,25,45
+ground/gbrick,0,-15,110,50,75
 #BOTTOM
 ground/gbrick,0,-15,250,-20,-2,4,4,0
 #This section is for landing at the top part

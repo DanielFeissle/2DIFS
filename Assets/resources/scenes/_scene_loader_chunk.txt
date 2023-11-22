@@ -1,11 +1,11 @@
 ground/airport,0,0,90,0,2.56
 #leftmost
-ground/gbrick,0,-25,0,0,30,4,4,0
+ground/gbrick,0,-25,0,0,75,4,4,0
 #rightmost
-ground/gbrick,0,240,280,0,30
+ground/gbrick,0,240,280,0,75
 #topmost
-ground/gbrick,0,-15,250,25,45
-ground/gbrick,0,100,250,10,25
+#ground/gbrick,0,-15,250,25,45
+ground/gbrick,0,-15,110,50,75
 #BOTTOM
 ground/gbrick,0,-15,250,-20,-2,4,4,0
 #This section is for landing at the top part
