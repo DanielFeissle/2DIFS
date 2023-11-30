@@ -215,7 +215,7 @@ public class world_scene_editor : MonoBehaviour
                 int chunky = 0;
                 string[] sclir = tta.Split(',');
                 // Debug.Log(Resources.Load(sclir[0].ToString()));
-
+                 
                 GameObject picky = Instantiate(Resources.Load(sclir[0])) as GameObject;
                 ////////////////////////////////
                 //10-12-2023
@@ -293,7 +293,11 @@ public class world_scene_editor : MonoBehaviour
                         //Now that we have the Type we can use it to Add Component
                         picky2.AddComponent(MyScriptType);
                         chunkx++;
-                        picky2.GetComponentInChildren<MeshRenderer>().enabled = false;
+                        if (picky2.GetComponent<MeshRenderer>())
+                        {
+                            picky2.GetComponentInChildren<MeshRenderer>().enabled = false;
+                        }
+
 
                         Component[] mmeshRender;
                         mmeshRender = picky2.GetComponentsInChildren<MeshRenderer>();
@@ -301,9 +305,9 @@ public class world_scene_editor : MonoBehaviour
                         foreach (MeshRenderer remove_mesh in mmeshRender)
                             remove_mesh.GetComponent<MeshRenderer>().enabled = false;
                         //    joint.useSpring = false;
-                   //     picky2.GetComponentsInChildren<MeshRenderer>().
+                        //     picky2.GetComponentsInChildren<MeshRenderer>().
 
-
+                        //                        if (picky2.transform.localRotation.z==0)
                         if (chunkx > 2 || chunky > 2)
                         {
                             string ScriptName2 = "marker_standalone";

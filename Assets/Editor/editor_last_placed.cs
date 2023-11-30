@@ -109,7 +109,7 @@ public class editor_last_placed : MonoBehaviour
             {
                 if (Selection.activeObject.name.Contains("__bulk_edit_in_text_mode_no_editor_changes4u__"))
                 {
-                    Debug.Log(Selection.activeObject.name);
+                    Debug.Log(Selection.activeObject.name+ "ROTATION: "+GameObject.Find(Selection.activeObject.name).transform.localRotation);
                     Selection.objects = null;
                 }
  

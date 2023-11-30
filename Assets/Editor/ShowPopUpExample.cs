@@ -234,6 +234,7 @@ GRY,{gravy}
 
                             //7-18-2023
                             //this allows for folder support in the editor menus
+                            Debug.Log("OBJ Name: "+obj.name);
                             string prefabPath = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(GameObject.Find(obj.name));
                             Debug.Log("Prefab Path: " + prefabPath);
                             int count_str = 0;
@@ -250,14 +251,16 @@ GRY,{gravy}
                                 }
                                 if (count_str>0)
                                 {
-                                    
+                                    //11-30-2023
+                                    //in the else statement, I added the / to handle subfolders
+                                    //check back here if there are issues further down the road. keyword ground ai, subfolder
                                     if (total_path.Length > 0 && total_path.Substring(total_path.Length - 1, 1) != "/")
                                     {
                                         total_path = total_path + "/" + st;
                                     }
                                     else
                                     {
-                                        total_path = total_path + "" + st;
+                                        total_path = total_path + "/" + st;
                                     }
                                     Debug.Log("BUILDING STRINGS AT " + total_path);
                                 }
@@ -272,6 +275,8 @@ GRY,{gravy}
                             //PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).name
 
                             total_path = total_path.Substring(1, total_path.Length-1);
+
+
                             blarg = blarg + "ground/" + total_path + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y+","+obj.transform.localScale.x+","+obj.transform.localScale.y+","+obj.transform.eulerAngles.z + @"
 ";
                           
@@ -302,10 +307,22 @@ GRY,{gravy}
                                 }
                             }
 
-                            blarg = blarg + "ground/" + total_path + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + "," + obj.transform.localScale.x + "," + obj.transform.localScale.y + "," + obj.transform.eulerAngles.z + @"
+
+
+                            if (obj.transform.localRotation.z==0)
+                            {
+                                blarg = blarg + "ground/" + total_path + "," + obj.layer + "," + obj.transform.position.x + "," + obj.GetComponent<Renderer>().bounds.max.x + "," + obj.transform.position.y + "," + obj.GetComponent<Renderer>().bounds.max.y + "," + obj.transform.localScale.x + "," + obj.transform.localScale.y + "," + obj.transform.eulerAngles.z + @"
 ";
-                      //      string prefabPath = PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).ToString();
-                      //      Debug.Log("THE PATH IS " + prefabPath);
+                            }
+                            else
+                            {
+                                blarg = blarg + "ground/" + total_path + "," + obj.layer + "," + obj.transform.position.x + "," + obj.transform.position.x + 1 + "," + obj.transform.position.y + "," + obj.transform.position.y + 1 + "," + obj.transform.localScale.x + "," + obj.transform.localScale.y + "," + obj.transform.eulerAngles.z + @"
+";
+                            }
+
+
+                            //      string prefabPath = PrefabUtility.GetCorrespondingObjectFromOriginalSource(obj).ToString();
+                            //      Debug.Log("THE PATH IS " + prefabPath);
                         }
 
                     }
