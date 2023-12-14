@@ -758,8 +758,9 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 this.gameObject.GetComponent<WorldFlowTrack>().TrackStage();
             }
             //NOTE TO SELF, This is the magic reset button for restarting the stage- thanks df 3-30-2022!
-        if ((Input.GetButtonDown("Fire3") || (plane_recovered==true && peject ==true)) || autoProgressCleared==true)
+        if ((Input.GetButtonDown("Fire3") && (pdead==true || peject==true)|| (plane_recovered==true && peject ==true)) || autoProgressCleared==true)
         {
+                //12-13-2023 fix quick restart by pressing Fire3 button to bypass normal startup method ( && (pdead==true || peject==true))
                 startupSeqComplete = false;
                 zzengineOnOff = false;
                 start_triggered_once = true;

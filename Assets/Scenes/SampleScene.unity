@@ -8810,6 +8810,7 @@ GameObject:
   - component: {fileID: 1830689324}
   - component: {fileID: 1830689323}
   - component: {fileID: 1830689326}
+  - component: {fileID: 1830689327}
   m_Layer: 5
   m_Name: minimap
   m_TagString: Untagged
@@ -8905,6 +8906,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b1875eb18bb76d4084e6d471dfb1a24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1830689327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830689321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0786faf667d9f94284b6af53eb0e99f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingLayerName: UI
+  orderInLayer: 50
+  MyRenderer: {fileID: 1830689324}
 --- !u!1 &1832250282
 GameObject:
   m_ObjectHideFlags: 0

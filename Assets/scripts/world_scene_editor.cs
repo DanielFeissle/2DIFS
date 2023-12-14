@@ -367,7 +367,8 @@ public class world_scene_editor : MonoBehaviour
         stageChanges();
         writer_chunk.Close();
         Debug.Log("--------------------------------------DONE");
-      //  Camera.main.GetComponent<cam_distance>().sceneLoad = false;
+        GameObject.Find("Canvas").SetActive(false);
+        //  Camera.main.GetComponent<cam_distance>().sceneLoad = false;
     }
 
     void stageChanges()

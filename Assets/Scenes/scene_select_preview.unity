@@ -727,9 +727,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2f22567ca16eb044962e8cbf5151811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yourButton: {fileID: 0}
-  buttonVal: 0
-  listner: {fileID: 0}
+  seconds: 5
+  onPressedOverSeconds:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1141972826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1638,6 +1639,7 @@ GameObject:
   - component: {fileID: 1979161081}
   - component: {fileID: 1979161080}
   - component: {fileID: 1979161079}
+  - component: {fileID: 1979161084}
   m_Layer: 5
   m_Name: minimap
   m_TagString: Untagged
@@ -1733,3 +1735,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+--- !u!114 &1979161084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979161078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0786faf667d9f94284b6af53eb0e99f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingLayerName: UI
+  orderInLayer: 50
+  MyRenderer: {fileID: 1979161081}
