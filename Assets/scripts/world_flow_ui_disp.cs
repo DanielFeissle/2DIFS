@@ -122,6 +122,10 @@ public class world_flow_ui_disp : MonoBehaviour
                 {
                     UI_Button_OBJ.GetComponent<Button>().interactable = true;
                 }
+                else if (GameObject.Find("sela").GetComponent<LevelHistory>().world > w + 1) //2-12-2024: imabck. Fix level select nott following world pri scene load
+                {
+                    UI_Button_OBJ.GetComponent<Button>().interactable = true;
+                }
                 else
                 {
                     UI_Button_OBJ.GetComponent<Button>().interactable = false;
