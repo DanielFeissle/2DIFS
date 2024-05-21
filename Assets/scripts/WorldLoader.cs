@@ -215,6 +215,20 @@ public class WorldLoader : MonoBehaviour
                         Debug.Log("BUILDING"+sclir[0] + ":" + x + "," + y);
                         picky2.name = sceneRead + sclir[0]+":"+x+","+y;
                         picky2.transform.position = new Vector2(x, y);
+
+                        //5-6-2024
+                        //fix the minimap issue that I introduced back in December...
+                        //copy paste pretty much. should have fixed it back in December! oh well, minimap fixed again. I keep breaking that...
+                        // chunkx++;
+                        if (picky2.GetComponent<MeshRenderer>())
+                        {
+                            picky2.GetComponentInChildren<MeshRenderer>().enabled = true;
+                        }
+                        Component[] mmeshRender;
+                        mmeshRender = picky2.GetComponentsInChildren<MeshRenderer>();
+
+                        foreach (MeshRenderer add_mesh in mmeshRender)
+                            add_mesh.GetComponent<MeshRenderer>().enabled = true;
                         //9-29-2022 pulled below from specr2, and probab somewhere else
                         //attach script during runtime
                         //We have a string holding a script name
