@@ -18,8 +18,9 @@ public class alt_gauge : MonoBehaviour
     void Update()
     {
         //   RaycastHit2D f = Physics2D.RaycastAll(gameObject.transform.position, transform.up);
-        RaycastHit2D hit = Physics2D.Raycast(new Vector3(transform.position.x, transform.position.y - 0.1f, 0), -Vector2.up);
-     //   Debug.Log(hit.collider.name);
+      //  RaycastHit2D hit = Physics2D.Raycast(new Vector3(transform.position.x, transform.position.y - 0.1f, 0), -Vector2.up);
+           RaycastHit2D hit = Physics2D.Raycast(new Vector3(transform.position.x, transform.position.y + 0.1f, 0), -Vector2.up);
+        //   Debug.Log(hit.collider.name);
 
 
 
@@ -37,11 +38,13 @@ public class alt_gauge : MonoBehaviour
                             if (hit.collider.gameObject.tag != "FakeGround")
                             {
 
-                                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead==false)
+                                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead==false && hit.collider.gameObject.GetComponent<BoxCollider2D>())
                                 {
                                     //4-18-2023
                                     //Updated to hopefully fix hit detection for many different types of objects. this is the altimeter using the raycaster
                                     float pos = this.transform.position.y - hit.point.y+(GameObject.Find("Player_plane").transform.position.y-this.transform.position.y);
+                                    //5-21-2024 :)
+                                   // float pos = this.transform.position.y - hit.point.y+ (GameObject.Find("Player_plane").GetComponent<BoxCollider2D>().transform.position.y - this.transform.position.y);
                                     //  float pos = this.transform.position.y- hit.collider.bounds.center.y;
                                     //8-2-2022
                                     //this is to smooth out the ground
@@ -49,11 +52,11 @@ public class alt_gauge : MonoBehaviour
                                     {
                                         if ((GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject == false)) //&&(GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed>2)
                                         {
-                                            this.GetComponent<general_riser>().rise(hit.collider.gameObject);
+                                            this.GetComponent<general_riser>().rise(hit.collider.gameObject,hit.point.y);
                                         }
                                         else if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject == true && (GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed > 2))
                                         {
-                                            this.GetComponent<general_riser>().rise(hit.collider.gameObject);
+                                            this.GetComponent<general_riser>().rise(hit.collider.gameObject, hit.point.y);
                                         }
                                         else
                                         {

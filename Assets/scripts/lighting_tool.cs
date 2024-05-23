@@ -18,12 +18,15 @@ public class lighting_tool : MonoBehaviour
         tempColorA.g = Camera.main.GetComponent<weather>().background_radiosity;
         tempColorA.b = Camera.main.GetComponent<weather>().background_radiosity;
         Camera.main.backgroundColor = tempColorA;
+        if (fd.GetComponent<SpriteRenderer>())
+        {
+            var tempColor = fd.GetComponent<SpriteRenderer>().color;
+            tempColor.r = Camera.main.GetComponent<weather>().radiosity;
+            tempColor.g = Camera.main.GetComponent<weather>().radiosity;
+            tempColor.b = Camera.main.GetComponent<weather>().radiosity;
+            fd.GetComponent<SpriteRenderer>().color = tempColor;
+        }
 
-        var tempColor = fd.GetComponent<SpriteRenderer>().color;
-        tempColor.r = Camera.main.GetComponent<weather>().radiosity;
-        tempColor.g = Camera.main.GetComponent<weather>().radiosity;
-        tempColor.b = Camera.main.GetComponent<weather>().radiosity;
-        fd.GetComponent<SpriteRenderer>().color = tempColor;
      
       
     }

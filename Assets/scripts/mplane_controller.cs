@@ -56,7 +56,7 @@ public class mplane_controller : MonoBehaviour
         nextUsage23 = Time.time + delay23; //it is on display
         cameraDef = Camera.main.orthographicSize;
         nextUsage = Time.time + delay; //it is on display
-        startLoc = transform.position+new Vector3(0,0.75f,0);
+        startLoc = transform.position + new Vector3(0, 0.75f, 0);
         SteuAngle = transform.rotation;
         Vector3 pos = transform.position;
         rb = GetComponent<Rigidbody2D>();
@@ -93,14 +93,15 @@ public class mplane_controller : MonoBehaviour
         //or this for multiple audio sources:
         int tempArr = 0;
         foreach (AudioSource aSource in GameObject.Find("PSFX_AMB").GetComponents<AudioSource>())
-        { 
+        {
             generalAS[tempArr] = aSource;
-       //     Debug.Log(generalAS[tempArr].clip.name);
+            //     Debug.Log(generalAS[tempArr].clip.name);
 
             tempArr++;
         }
-
+      
     }
+
     AudioClip _audio7;
     //8-5-2021
     //controller controls improved- now you can play with the controller connected, but it will go to where you are inputing from (keyboard or controller)
@@ -309,7 +310,7 @@ public class mplane_controller : MonoBehaviour
             if (Input.GetButtonDown("EJECT") && peject == false)
         {
             //10-24-2022 should fix plane not crashing issue
-            GameObject.Find("FLATGROUND").GetComponent<EdgeCollider2D>().enabled = false;
+            GameObject.Find("FLATGROUND_ACT").GetComponent<EdgeCollider2D>().enabled = false;
             alt_gauge txt_ground_dist_alt = GameObject.Find("altimeter").GetComponent<alt_gauge>();
            
             if (txt_ground_dist_alt.act_alt > 10 && Speed>10)
@@ -414,7 +415,7 @@ public class mplane_controller : MonoBehaviour
                         pol.enabled = true;
                     }
                 }
-                GameObject.Find("FLATGROUND").GetComponent<EdgeCollider2D>().enabled = true;
+                GameObject.Find("FLATGROUND_ACT").GetComponent<EdgeCollider2D>().enabled = true;
                 //     GameObject.Find("planeSkid_front").SetActive(true);
                 //     GameObject.Find("planeSkid_back").SetActive(true);
                 //  GameObject.Find("minorWheels").SetActive(true);
@@ -453,7 +454,7 @@ public class mplane_controller : MonoBehaviour
                 {
                     cap.enabled = false;
                 }
-                GameObject.Find("FLATGROUND").GetComponent<EdgeCollider2D>().enabled = false;
+                GameObject.Find("FLATGROUND_ACT").GetComponent<EdgeCollider2D>().enabled = false;
                 if (GameObject.Find("minorWheels"))
                 {
               //      GameObject.Find("planeSkid_front").SetActive(false);
@@ -760,6 +761,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             //NOTE TO SELF, This is the magic reset button for restarting the stage- thanks df 3-30-2022!
         if ((Input.GetButtonDown("Fire3") && (pdead==true || peject==true)|| (plane_recovered==true && peject ==true)) || autoProgressCleared==true)
         {
+                altitude = -1.27;
                 //12-13-2023 fix quick restart by pressing Fire3 button to bypass normal startup method ( && (pdead==true || peject==true))
                 startupSeqComplete = false;
                 zzengineOnOff = false;

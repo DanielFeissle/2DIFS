@@ -284,6 +284,7 @@ GRY,{gravy}
                         {
                             //7-18-2023
                             //this allows for folder support in the editor menus
+                            Debug.Log("NAME" + obj.name);
                             string total_path = obj.name.Split('-')[1].Split('/')[1];
                             if (obj.name.Split('-')[1].Split('/').Length>1)
                             {
