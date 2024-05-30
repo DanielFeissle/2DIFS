@@ -54,9 +54,9 @@ public class general_riser : MonoBehaviour
         {
 
             //    GameObject.Find("FLATGROUND").transform.position = GameObject.Find("minorWheels").GetComponent<CapsuleCollider2D>().bounds.center- new Vector3(0.35f, offset, 0);
-           
-          float  fewfe = hit + .28f;
-           
+
+            float fewfe = hit+.08f;
+         
             GameObject.Find("FLATGROUND").transform.position = new Vector3(GameObject.Find("minorWheels").GetComponent<CapsuleCollider2D>().bounds.center.x -0.35f, fewfe, 0);
             // GameObject.Find("FLATGROUND").transform.position = new Vector3(GameObject.Find("minorWheels").GetComponent<CapsuleCollider2D>().bounds.center.x - 0.25f, hit.y - offset, 0);
            

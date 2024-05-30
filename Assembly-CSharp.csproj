@@ -108,6 +108,7 @@
     <Compile Include="Assets\scripts\WorldLoader.cs" />
     <Compile Include="Assets\scripts\player_ground_control.cs" />
     <Compile Include="Assets\scripts\weather_obj.cs" />
+    <Compile Include="Assets\scripts\alt_gauge_ARRAY.cs" />
     <Compile Include="Assets\scripts\contrail.cs" />
     <Compile Include="Assets\scripts\realDeleteAfterPlainAniScript.cs" />
     <Compile Include="Assets\scripts\world_flow_ui_disp.cs" />

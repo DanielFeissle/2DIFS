@@ -26,6 +26,10 @@ public class LevelHistory : MonoBehaviour {
     public int curStageScore = 0;
     int priorWorld = 0;
     int priorScene = 0;
+
+
+    int masterWorld = 1;
+    int masterScene = 1;
     void Start () {
         sceneHistory.Add(SceneManager.GetActiveScene().name);
         LoadPlayer();
@@ -73,6 +77,17 @@ public class LevelHistory : MonoBehaviour {
         }
 
         //  curStageScore = UnityEngine.Random.Range(0, 100);
+
+        //5-28-2024
+        //this should fix the issue of world/scene data being overwrittten by current scene/world
+        if (world<masterWorld)
+        {
+            world = masterWorld;
+        }
+        if (scene<masterScene)
+        {
+            scene = masterScene;
+        }
         BinSaveSystem.SaveScene(this);
        
     }
@@ -94,6 +109,8 @@ public class LevelHistory : MonoBehaviour {
             curStageScore = data.level_high_score[world, scene];
             scene = data.level_scene;
             world = data.level_world;
+            masterWorld = world;
+            masterScene = scene;
             high_score = data.level_high_score;
 
             priorWorld = data.level_world;

@@ -49,7 +49,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  offset: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: -0.525, z: 0}
+  minorAdjustment: 0.02
 --- !u!212 &4658178055624176855
 SpriteRenderer:
   m_ObjectHideFlags: 0
