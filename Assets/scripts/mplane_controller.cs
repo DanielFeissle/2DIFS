@@ -1257,7 +1257,10 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     Supacont.GetComponent<SpriteRenderer>().enabled = true;
                     nextUsage = Time.time + delay; //it is on display
                 }
-                 tempAlt = GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt;
+                //6-4-2024
+                //lolo
+                //    tempAlt = GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt;
+                tempAlt = altitude;
                 if (tempAlt > maxAlt)
                 {
                     maxAlt = tempAlt;

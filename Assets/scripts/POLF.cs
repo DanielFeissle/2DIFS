@@ -242,12 +242,15 @@ public class POLF : MonoBehaviour
                 {
                     impactDev = GameObject.Find("Player_plane").GetComponent<mplane_controller>().impact;
                 }
-                if (GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt > MaxAlt)
+                //6-4-2024
+                //wow, how did july 2023 me miss doing this...
+                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().altitude > MaxAlt)
                 {
                 //7-19-2023 
                 //while altitude is ok, in more complex stages this is not an accurate repersentation of the height obtained
                 // MaxAlt = GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt;
                 MaxAlt = GameObject.Find("Player_plane").GetComponent<mplane_controller>().altitude;
+                Debug.Log("MAXAlt:"+MaxAlt);
             }
 
 
