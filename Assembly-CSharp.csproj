@@ -158,12 +158,16 @@
     <None Include="Assets\resources\scenes\flow.txt" />
     <None Include="Assets\resources\scenes\ggg.txt" />
     <None Include="Assets\resources\scenes\1x1 - Copy.txt" />
+    <None Include="Assets\resources\scenes\3x3.txt" />
     <None Include="Assets\resources\scenes\2x3_STD.txt" />
     <None Include="Assets\resources\test.txt" />
     <None Include="Assets\resources\scenes\q.txt" />
     <None Include="Assets\resources\scenes\e.txt" />
     <None Include="Assets\resources\scenes\ffff.txt" />
     <None Include="Assets\resources\scenes\2x2.txt" />
+    <None Include="Assets\resources\scenes\3x1.txt" />
+    <None Include="Assets\resources\scenes\3x4.txt" />
+    <None Include="Assets\resources\scenes\3x2.txt" />
     <None Include="Assets\resources\scenes\2x1.txt" />
     <None Include="Assets\resources\scenes\_scene_data_holder.txt" />
     <None Include="Assets\resources\scenes\1x4.txt" />
