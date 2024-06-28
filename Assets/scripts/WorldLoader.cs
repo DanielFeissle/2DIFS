@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class WorldLoader : MonoBehaviour
 {
-
+    public float minX, minY, maxX,maxY;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +33,7 @@ public class WorldLoader : MonoBehaviour
     {
         GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().resetStage = true;
 
-
+        minX = 0;
         //clean up stage before loading objects
         general_invent_kill[] myItems = FindObjectsOfType(typeof(general_invent_kill)) as general_invent_kill[];
         Debug.Log("Found " + myItems.Length + " instances with this script attached");
@@ -52,8 +52,14 @@ public class WorldLoader : MonoBehaviour
      
     }
     //https://support.unity3d.com/hc/en-us/articles/115000341143-How-do-I-read-and-write-data-from-a-text-file-
-    static void ReadString(string sceneRead)
+    //static void ReadString(string sceneRead)
+    public void ReadString(string sceneRead)
     {
+        minX = -29;
+        minY = -29;
+        maxX = -29;
+        maxY = -29;
+
         int xpos = 0;
         //12-8-2022
         //perhaps a better method to catch if a file does not exist
@@ -202,8 +208,25 @@ public class WorldLoader : MonoBehaviour
 
                 for (float x=startX;x<endX;x=x+ width)
                 {
+                    if (x<minX)
+                    {
+                        minX = x;
+                    }
+                    if (x>maxX)
+                    {
+                        maxX = x;
+                    }
+                    
                     for (float y = startY; y < endY; y = y + height)
                     {
+                        if (y < minY)
+                        {
+                            minY = y;
+                        }
+                        if (y > maxY)
+                        {
+                            maxY = y;
+                        }
                         GameObject picky2 = Instantiate(Resources.Load(sclir[0])) as GameObject;
                         //10-12-2023
                         //  picky2.transform.eulerAngles = Vector3.forward * rotateZ;

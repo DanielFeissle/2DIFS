@@ -14,7 +14,7 @@ public class cam_distance : MonoBehaviour
     GameObject[] bamy;
     GameObject[] damy;
     private Camera cam;
-
+    bool triggerPauseShow = false;
     float delay = 0.1f; //only half delay
     float nextUsage;
    public bool sceneLoad = true;
@@ -38,14 +38,26 @@ public class cam_distance : MonoBehaviour
 
         //GameObject.FindObjectsOfType(typeof(MonoBehaviour));
         // GameObject.FindGameObjectsWithTag("ground"); 
-
-        if (Time.time > nextUsage)
+        //6-24-2024
+        //pause takes priority and only during player alive seq
+        if (GameObject.Find("altimeter").GetComponent<menu_runtime>().specButtonStat == 1 && triggerPauseShow==false)
+        {
+            triggerPauseShow = true;
+        }
+      else   if (GameObject.Find("altimeter").GetComponent<menu_runtime>().specButtonStat == -1 && triggerPauseShow == true)
+        {
+            triggerPauseShow = false;
+        }
+       if (GameObject.Find("altimeter").GetComponent<menu_runtime>().screenshotDone==true)
+        {
+            triggerPauseShow = false;
+        }
+        if (Time.time > nextUsage || triggerPauseShow==true)
         {
 
 
-           
 
-
+            
 
 
             if (sceneLoad==false)
@@ -90,7 +102,23 @@ public class cam_distance : MonoBehaviour
 
             nextUsage = Time.time + delay;
         }
-     }
+         
+        Camera cam22 = GameObject.Find("pause_camera").GetComponent<Camera>();
+        // Replace the `cam` variable with your camera.
+        float w = GameObject.Find("checkerBoard(256x256)").GetComponent<WorldLoader>().maxX;
+        float h = GameObject.Find("checkerBoard(256x256)").GetComponent<WorldLoader>().maxY;
+        //  float x = w * 0.5f - 0.5f;
+        //  float y = h * 0.5f - 0.5f;
+
+        //  cam22.transform.position = new Vector3(x, y, -10f);
+        float middleSceneX = ( GameObject.Find("checkerBoard(256x256)").GetComponent<WorldLoader>().minX + GameObject.Find("checkerBoard(256x256)").GetComponent<WorldLoader>().maxX) / 2;
+        float middleSceneY = (GameObject.Find("checkerBoard(256x256)").GetComponent<WorldLoader>().minY + GameObject.Find("checkerBoard(256x256)").GetComponent<WorldLoader>().maxY) / 2;
+        Debug.Log("EXACT CENTER IS" + middleSceneX + "," + middleSceneY);
+         cam22.transform.position = new Vector3(middleSceneX, middleSceneY, -10f);
+        cam22.orthographicSize = ((w > h * cam22.aspect) ? (float)w / (float)cam22.pixelWidth * cam22.pixelHeight : h) / 2;
+        // To add padding, just add a value to the result of the `orthographicSize` calculation, like this:
+        // cam.orthographicSize = ((w > h * cam.aspect) ? (float)w / (float)cam.pixelWidth * cam.pixelHeight : h) / 2 + 1;
+    }
     //4-5-2023 downRefresh is used in conjunction with the alt_gauge. This number will temp bypass checks and rerender everything below the player. If a new object is present it will update
     public int downRefresh = 60; //how many frames before decull bottom side to poll if new ground is below player
     int downRefreshCount = 0;
@@ -111,7 +139,8 @@ public class cam_distance : MonoBehaviour
             //3-29-2023 now includes the Y axis of what to render or not
             if (g.gameObject.GetComponent<Renderer>())
             {
-                GameObject pl=GameObject.Find("Player_plane");
+
+                    GameObject pl=GameObject.Find("Player_plane");
                 //6-15-2022- splitting this up to save resources until after char ejects
                 if (pl.GetComponent<mplane_controller>().peject==true)
                 {
@@ -136,7 +165,13 @@ public class cam_distance : MonoBehaviour
                 }
                     else
                     {
-                        if (downRefreshCount>downRefresh)
+                        //6-24-2024
+                        //pause takes priority and only during player alive seq
+                        if (GameObject.Find("altimeter").GetComponent<menu_runtime>().specButtonStat == 1&& GameObject.Find("altimeter").GetComponent<menu_runtime>().screenshotDone == false)
+                        {
+                            g.SetActive(true);
+                        }
+                      else  if (downRefreshCount>downRefresh)
                         {
                           
                               if ((g.GetComponent<Renderer>().bounds.min.x < (q.x + 15) && (g.GetComponent<Renderer>().bounds.max.x > (p.x - 15))) && (g.GetComponent<Renderer>().bounds.min.y < (p.y + 15)))
@@ -183,6 +218,7 @@ public class cam_distance : MonoBehaviour
 
 
                 }
+
             }
 
         }

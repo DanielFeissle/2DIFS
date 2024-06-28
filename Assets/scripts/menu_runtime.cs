@@ -12,6 +12,7 @@ public class menu_runtime : MonoBehaviour
     public GameObject ListnerAndRuntimeOBJ;
     public GameObject playerOBJ;
     int buttonVal = -1;
+    public bool screenshotDone=false;
     // Start is called before the first frame update
     void Start()
     {
@@ -107,6 +108,11 @@ public class menu_runtime : MonoBehaviour
                 btn_Resume.transform.localPosition = new Vector2(50, 0.0f); ////this sets the prefab to the canvas (this is for menu objects), which will control the location
                 EventSystem.current.SetSelectedGameObject(btn_Resume.gameObject); // Highlight the button
 
+
+                GameObject ui_wholeMap = Instantiate(Resources.Load("menu\\pause\\ui_wholeMap")) as GameObject;
+                ui_wholeMap.name = "ui_wholeMap";
+                ui_wholeMap.transform.SetParent(getCand.transform, false);
+                ui_wholeMap.transform.localPosition = new Vector2(-550, -60.0f); ////this sets the prefab to the canvas (this is for menu objects), which will control the location
                 GameObject txt_Pause = Instantiate(Resources.Load("menu\\pause\\txt_PAUSED")) as GameObject;
                 txt_Pause.name = "txt_Pause";
                 txt_Pause.transform.SetParent(getCand.transform, false);
@@ -218,8 +224,23 @@ public class menu_runtime : MonoBehaviour
                 //    blaster.volume = 0.0f;
                 GameObject debug_container = Instantiate(Resources.Load("menu\\pause\\debug\\debug_container")) as GameObject;
                 debug_container.name = "debug_container";
+                // Pass in a callback telling the routine what to do when the snapshot is ready
+                screenshotDone = false;
+
+
+                // GameObject.Find("checkerBoard(256x256)").GetComponent<SnapshotController>().Snapshot(HandleNewSnapshotTexture);
+            //    GameObject.Find("checkerBoard(256x256)").GetComponent<SnapshotController>().Snapshot(HandleNewSnapshotTexture);
+
+
+
+
                 muteSound();
-                Time.timeScale = 0;
+               //6-27-2024
+               //I had the other snapshot method, which seemed to work but there are issues with it. In the end, this method of utilizing the frozen scene works for the purpose of the current applicattion
+              StartCoroutine(WaitForItemsToLoad());
+                
+               // Time.timeScale = 0;
+              //      screenshotDone = true;
             }
             else if ((btn_pauser == 2 || Input.GetButtonUp("Fire2")) && Time.timeScale != 1 && FFF.pdead ==false) //StartButton ,  paused and not dead
             {
@@ -229,9 +250,50 @@ public class menu_runtime : MonoBehaviour
                 specButtonStat = -1;
                 Time.timeScale = 1;
             }
+                else if (Input.GetButtonUp("debug1"))
+            {
+                Time.timeScale = 1;
+                //   GameObject.Find("checkerBoard(256x256)").GetComponent<SnapshotController>().Snapshot(HandleNewSnapshotTexture);
+                screenshotDone = true;
+                Debug.Log("6-27-2024-prob should remove this");
+            }
         }
     }
 
+     IEnumerator WaitForItemsToLoad()
+    {
+        int countdown = 1;
+        //   velocity = (transform.position - pos) / Time.deltaTime;
+        //   pos = transform.position;
+
+        YieldInstruction timedWait = new WaitForSeconds(0.15f);
+
+
+        while (countdown > 0)
+        {
+            yield return timedWait;
+            countdown = countdown - 1;
+            Debug.Log("COUNTDOWN" + countdown);
+
+
+        }
+        screenshotDone = true;
+        Time.timeScale = 0;
+    }
+
+    private void HandleNewSnapshotTexture(Texture2D texture)
+    {
+       
+       var material = GetComponent<Renderer>().material;
+        
+        // IMPORTANT! Textures are not automatically GC collected. 
+        // So in order to not allocate more and more memory consider actively destroying
+        // a texture as soon as you don't need it anymore
+         if (material.mainTexture) Destroy(material.mainTexture);
+
+        material.mainTexture = texture;
+        screenshotDone = true;
+    }
     //sound or music that should be stopped when the pause button is pressed should go here
     void muteSound()
     {
@@ -262,6 +324,8 @@ public class menu_runtime : MonoBehaviour
         Destroy(btn_return);
         GameObject btn_Resume = GameObject.Find("btn_Resume");
         Destroy(btn_Resume);
+        GameObject ui_wholeMap = GameObject.Find("ui_wholeMap");
+        Destroy(ui_wholeMap);
         GameObject txt_Pause = GameObject.Find("txt_Pause");
         Destroy(txt_Pause);
         GameObject sld_FPSS = GameObject.Find("sld_FPSS");
@@ -279,5 +343,9 @@ public class menu_runtime : MonoBehaviour
         GameObject.Find("pic_green_debug_menu").GetComponent<Image>().enabled = false;
         GameObject debug_container = GameObject.Find("debug_container");
         Destroy(debug_container);
+
+      //  var material = GetComponent<Renderer>().material;
+     //   Resources.UnloadUnusedAssets();
+
     }
 }
