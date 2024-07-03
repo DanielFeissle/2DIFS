@@ -229,9 +229,12 @@ public class menu_runtime : MonoBehaviour
 
 
                 // GameObject.Find("checkerBoard(256x256)").GetComponent<SnapshotController>().Snapshot(HandleNewSnapshotTexture);
-            //    GameObject.Find("checkerBoard(256x256)").GetComponent<SnapshotController>().Snapshot(HandleNewSnapshotTexture);
-
-
+                //    GameObject.Find("checkerBoard(256x256)").GetComponent<SnapshotController>().Snapshot(HandleNewSnapshotTexture);
+                //7-2-2024 corrections to new pause map and a you are here locater
+                GameObject uhere = Instantiate(Resources.Load("uhere")) as GameObject;
+                uhere.name = "uhere";
+                uhere.transform.position = GameObject.Find("Player_plane").transform.position;
+          
 
 
                 muteSound();
@@ -343,9 +346,11 @@ public class menu_runtime : MonoBehaviour
         GameObject.Find("pic_green_debug_menu").GetComponent<Image>().enabled = false;
         GameObject debug_container = GameObject.Find("debug_container");
         Destroy(debug_container);
+        GameObject uhere = GameObject.Find("uhere");
+        Destroy(uhere);
 
-      //  var material = GetComponent<Renderer>().material;
-     //   Resources.UnloadUnusedAssets();
+        //  var material = GetComponent<Renderer>().material;
+        //   Resources.UnloadUnusedAssets();
 
     }
 }
