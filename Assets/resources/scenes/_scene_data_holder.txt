@@ -6,4 +6,4 @@ RAB,1
 FPS,96
 GRX,0
 GRY,-9.81
-OBJ,sdfsdfasdf!!!,40,0,999
+OBJ,Notflappy bird,10,800,1400

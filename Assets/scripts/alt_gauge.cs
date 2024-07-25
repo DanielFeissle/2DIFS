@@ -24,7 +24,7 @@ public class alt_gauge : MonoBehaviour
         //  RaycastHit2D hit = Physics2D.Raycast(new Vector3(transform.position.x, transform.position.y - 0.1f, 0), -Vector2.up);
         Vector3 raypos = new Vector3(transform.position.x, transform.position.y - 0.1f, 0);
      //   RaycastHit2D hit = Physics2D.Raycast(raypos, -Vector2.up);
-        Debug.DrawRay(raypos, -Vector2.up, Color.green);
+       // Debug.DrawRay(raypos, -Vector2.up, Color.green);
         //   Debug.Log(hit.collider.name);
 
 
@@ -144,7 +144,21 @@ public class alt_gauge : MonoBehaviour
 
     }
 
+    private void LateUpdate()
+    {
+        Vector3 rayposDia = new Vector3(transform.position.x+0.9f, transform.position.y + 0.1f, 0);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(rayposDia, Vector2.right,1000f);
+        
+        Debug.DrawRay(rayposDia, Vector2.right, Color.green);
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider.gameObject.tag == "ground")
+            {
 
+                Debug.Log("RAYRAY " + hit.collider.name);
+            }
+        }
+    }
 
     /*
     void Update()

@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class cam_distance : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class cam_distance : MonoBehaviour
     float delay = 0.1f; //only half delay
     float nextUsage;
    public bool sceneLoad = true;
+    bool passOnce = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -82,6 +85,81 @@ public class cam_distance : MonoBehaviour
             else
             {
                 {
+                    float oldDistance = 9999;
+                    List<GameObject> unityGameObjects = new List<GameObject>();
+                    GameObject closetsObject=null;
+                    foreach (GameObject g in gamy)
+                    {
+                        //  float dist = Vector3.Distance(this.gameObject.transform.position, g.transform.position
+                        float dist = Vector3.Distance(this.gameObject.transform.position, g.transform.position);
+                        if (dist < oldDistance && g.transform.position.x > GameObject.Find("Player_plane").transform.position.x && (g.GetComponent<Renderer>().bounds.max.y > GameObject.Find("Player_plane").transform.position.y + 4 && g.GetComponent<Renderer>().bounds.min.y < GameObject.Find("Player_plane").transform.position.y + 4))
+                        {
+                            closetsObject = g;
+                            oldDistance = dist;
+                        }
+
+                    }
+                    GameObject priorGE = null;
+                    GameObject priorGA = null;
+                    //   float deltaDist = -5555;
+                    foreach (GameObject g in gamy)
+                    {
+                        if ( g.transform.position.x == closetsObject.transform.position.x)
+                        {
+                            if (g.GetComponent<Renderer>().bounds.min.x <= closetsObject.transform.position.x && g.GetComponent<Renderer>().bounds.max.x >= closetsObject.transform.position.x) //
+                            {
+                                if (priorGE!=null) //compare
+                                {
+                                   // if ((g.gameObject.transform.position.y - priorGE.gameObject.transform.position.y)> deltaDist)
+                                   if (g.GetComponent<Renderer>().bounds.min.y-2> priorGE.GetComponent<Renderer>().bounds.max.y+2)
+                                    {
+                                     //   Debug.Log("dfa"+g.gameObject.name);
+                                        priorGA = g;
+                                    }
+
+                                  //  deltaDist = g.gameObject.transform.position.y - priorGE.gameObject.transform.position.y;
+                                }
+                                    unityGameObjects.Add(g);
+                                Debug.Log("HAY" + g);
+                                priorGE = g;
+                            }
+                        }
+                    }
+                    if (closetsObject != null)
+                    {
+                        GameObject priorG = null;
+                        foreach (GameObject g in unityGameObjects)
+                        {
+                            if (priorG!=null)
+                            {
+                                if ((priorG.GetComponent<Renderer>().bounds.max.y - priorG.GetComponent<Renderer>().bounds.center.y) + priorG.GetComponent<Renderer>().bounds.center.y >= g.GetComponent<Renderer>().bounds.center.y)
+                                {
+                                    Debug.Log("YUP:" + "" + g.name + "uuuuuuu" + (priorG.GetComponent<Renderer>().bounds.max.y - priorG.GetComponent<Renderer>().bounds.center.y) + "+" + priorG.GetComponent<Renderer>().bounds.center.y + "VVVVVVVVVVVVVV" + g.GetComponent<Renderer>().bounds.center.y);
+
+                                }
+                            }
+
+                            priorG = g;
+
+                        }
+                        string opening = "";
+                        if (priorGA!=null)
+                        {
+                           if (priorGA.transform.position.y < GameObject.Find("Player_plane").transform.position.y)
+                            {
+                                opening = "V";
+                            }
+                           else
+                            {
+                                opening = "^";
+                            }
+                        }
+                        Debug.Log("qwe" + oldDistance + "----"+closetsObject.name);
+                        GameObject txt_xwall = GameObject.Find("txt_xwall");
+                        txt_xwall.GetComponent<Text>().text = "XCOR: "+opening+":" + (Math.Round(oldDistance, 2));
+                    }
+                    
+                    passOnce = false;
                     rendThis(gamy);
                     rendThis(bamy);
                     rendThis(damy);
@@ -139,8 +217,7 @@ public class cam_distance : MonoBehaviour
             //3-29-2023 now includes the Y axis of what to render or not
             if (g.gameObject.GetComponent<Renderer>())
             {
-
-                    GameObject pl=GameObject.Find("Player_plane");
+                 GameObject pl=GameObject.Find("Player_plane");
                 //6-15-2022- splitting this up to save resources until after char ejects
                 if (pl.GetComponent<mplane_controller>().peject==true)
                 {

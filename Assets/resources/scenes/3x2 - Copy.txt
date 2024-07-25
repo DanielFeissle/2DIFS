@@ -1,0 +1,76 @@
+#lines that start with # are comments 
+#values are seperated by commas (,)
+#objective for scene
+#GTO game type objective (0-Height/distance obj, 1-Land on gameobject name, 2-Pass checkpoints, 3-Grab object and get to designated end point)
+GTO,0
+#OBJ,Scene title, GET Height (+or-), Land start, Land End
+OBJ,Notflappy bird,40,0,999
+#CLD,Cloud Height
+CLD,68
+#WTH, Weather 0-99 higher number more clouds/rain
+WTH,20
+#WND, Wind level -4000 to 4000
+WND,700
+#RAD, RADIOSITy level 0 to 1
+RAD,1
+#RAB, Background Radiosit leve 0 to 1
+RAB,1
+#FPS, target fps for the scene
+FPS,96
+#GRX, gravity scale x
+GRX,0
+#GRY, gravity scale y
+GRY,-9.81
+# Prefab,LayerOrder,StartX,EndX,StartY,EndY
+ground/airport,0,0,1000,0,2.56
+#leftmost
+ground/gbrick,0,-25,0,0,200
+#rightmost
+ground/gbrick,0,990,1200,0,200
+#topmost
+ground/gbrick,0,-15,1090,190,200
+#BOTTOM
+ground/gbrick,0,-15,1090,-20,-2
+#TOWERS
+#1
+ground/gbrick,0,105,115,-5,14
+ground/gbrick,0,105,115,30,200
+#2
+ground/gbrick,0,155,165,-5,25
+ground/gbrick,0,155,165,75,200
+#3
+ground/gbrick,0,205,215,-5,50
+ground/gbrick,0,205,215,75,200
+#4
+ground/gbrick,0,255,215,-5,30
+ground/gbrick,0,265,215,50,200
+#5
+ground/gbrick,0,295,305,-5,65
+ground/gbrick,0,295,305,100,200
+#6
+ground/gbrick,0,375,385,-5,115
+ground/gbrick,0,375,385,145,200
+#7
+ground/gbrick,0,415,425,-5,100
+ground/gbrick,0,415,425,130,200
+#8
+ground/gbrick,0,485,495,-5,60
+ground/gbrick,0,485,495,100,200
+#9
+ground/gbrick,0,520,530,-5,40
+ground/gbrick,0,520,530,80,200
+#10
+ground/gbrick,0,580,590,-5,90
+ground/gbrick,0,580,590,120,200
+#11
+ground/gbrick,0,630,640,-5,70
+ground/gbrick,0,630,640,80,200
+#12
+ground/gbrick,0,690,700,-5,50
+ground/gbrick,0,690,700,75,200
+#13
+ground/gbrick,0,777,787,-5,10
+ground/gbrick,0,777,787,20,200
+#14
+ground/gbrick,0,810,820,-5,14
+ground/gbrick,0,810,820,30,200

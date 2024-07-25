@@ -5,6 +5,7 @@ using UnityEditor.SceneManagement;
 using System.IO;
 using System;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 public class ShowPopupExample : EditorWindow
 {
@@ -214,8 +215,22 @@ GRY,{gravy}
 ";
                 GameObject[] Objects;
                 Objects = GameObject.FindGameObjectsWithTag("ground");
-                foreach (var obj in Objects)
+                GameObject[] DetailObjects;
+                DetailObjects = GameObject.FindGameObjectsWithTag("detail");
+                //  GameObject[] CombObj = (GameObject[])Objects.Concat(DetailObjects);
+                //  GameObject[] CombObj = new GameObject[Objects.Length + DetailObjects.Length+2];
+                //    Array.Copy(Objects, CombObj, Objects.Length);
+                //  Array.Copy(CombObj, 0, CombObj, Objects.Length, CombObj.Length);
+
+
+                GameObject[] CombObj = new GameObject[Objects.Length + DetailObjects.Length];
+                Array.Copy(Objects, CombObj, Objects.Length);
+                Array.Copy(DetailObjects, 0, CombObj, Objects.Length, DetailObjects.Length);
+
+            //    GameObject[] CombObj = (GameObject[])Objects.Concat(DetailObjects);
+                foreach (var obj in CombObj)
                 {
+                    Debug.Log("OBJ HI MOM" + obj);
                     //   var objPos = obj.transform.position;
 
                     //  var xPos = objPos.x - 100;
