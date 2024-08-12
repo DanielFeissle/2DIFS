@@ -101,32 +101,100 @@ public class cam_distance : MonoBehaviour
                     }
                     GameObject priorGE = null;
                     GameObject priorGA = null;
+                  //  GameObject priorLG = null;
+                    int count = 0;
                     //   float deltaDist = -5555;
                     foreach (GameObject g in gamy)
                     {
-                        if ( g.transform.position.x == closetsObject.transform.position.x)
+                        //if ( g.transform.position.x == closetsObject.transform.position.x)
+                        if (g.GetComponent<Renderer>().bounds.min.x-0<=closetsObject.GetComponent<Renderer>().bounds.center.x && g.GetComponent<Renderer>().bounds.max.x+0 >= closetsObject.GetComponent<Renderer>().bounds.center.x)
                         {
                             if (g.GetComponent<Renderer>().bounds.min.x <= closetsObject.transform.position.x && g.GetComponent<Renderer>().bounds.max.x >= closetsObject.transform.position.x) //
                             {
-                                if (priorGE!=null) //compare
-                                {
-                                   // if ((g.gameObject.transform.position.y - priorGE.gameObject.transform.position.y)> deltaDist)
-                                   if (g.GetComponent<Renderer>().bounds.min.y-2> priorGE.GetComponent<Renderer>().bounds.max.y+2)
-                                    {
-                                     //   Debug.Log("dfa"+g.gameObject.name);
-                                        priorGA = g;
-                                    }
-
-                                  //  deltaDist = g.gameObject.transform.position.y - priorGE.gameObject.transform.position.y;
-                                }
-                                    unityGameObjects.Add(g);
-                                Debug.Log("HAY" + g);
-                                priorGE = g;
+                                unityGameObjects.Add(g);
                             }
                         }
                     }
-                    if (closetsObject != null)
+
+                    //  unityGameObjects.Sort();
+                    //8-7-2024:Important to sort by Y axis. Otherwise this is broken!
+                    unityGameObjects.Sort((o1, o2) => o1.transform.position.y.CompareTo(o2.transform.position.y));
+                    for (int i=unityGameObjects.Count-1;i>0;i--)
                     {
+                        //this loop will start at the higest object and go down. Getting the first notable gap
+                        GameObject g = unityGameObjects[i];
+                        count++;
+                        
+
+
+
+
+                        if (priorGE == null)
+                        {
+                            priorGE = g;
+                        }
+                        if (priorGE != null) //compare
+                        {
+                            // if ((g.gameObject.transform.position.y - priorGE.gameObject.transform.position.y)> deltaDist)
+                            //   if (g.GetComponent<Renderer>().bounds.min.y - 2 > priorGE.GetComponent<Renderer>().bounds.max.y + 2)
+                            float mathfunc = 2;
+                       //     float std_gap = 5; //gap size
+                            if (g.transform.position.y>0)
+                            {
+                                mathfunc = g.GetComponent<Renderer>().bounds.size.y;
+                             //   std_gap = mathfunc;
+                            }
+                            else
+                            {
+                                mathfunc = Mathf.Abs(0-(g.GetComponent<Renderer>().bounds.size.y));
+                            //    std_gap = -1* mathfunc;
+
+                             //   mathfunc = -1*(mathfunc);
+                             //  mathfunc = -(g.GetComponent<Renderer>().bounds.size.y);
+                            }
+
+                            //    if ((Math.Abs(priorGE.transform.position.y) - priorGE.GetComponent<Renderer>().bounds.size.y)  > (g.transform.position.y + mathfunc )) //we found a gap at top level
+                            if ((priorGE.transform.position.y - priorGE.GetComponent<Renderer>().bounds.size.y) > (g.transform.position.y + mathfunc)) //we found a gap at top level
+                            {
+
+                              //   if (i>1)
+                                {
+                                  //  Debug.Log("dfa" + g.gameObject.name + ">"+ priorGE.gameObject.name);
+                                    priorGA = g;
+                                    break;
+                                }
+
+                            }
+
+                            /*
+                            //  deltaDist = g.gameObject.transform.position.y - priorGE.gameObject.transform.position.y;
+                            if (priorLG == null)
+                            {
+                                priorLG = g.gameObject;
+                            }
+                            //get the interiod last highest item
+                            if (g.GetComponent<Renderer>().bounds.max.y + priorGE.GetComponent<Renderer>().bounds.max.y > g.GetComponent<Renderer>().bounds.max.y - 0)
+                            {
+                             
+                             //   if (priorGE.transform.position.y < g.transform.position.y)
+                                {
+
+                                    priorLG = g;
+
+                                }
+
+                            }
+                            */
+                        }
+
+
+                        priorGE = g;
+                    }
+
+
+                        if (closetsObject != null)
+                    {
+                        /*
                         GameObject priorG = null;
                         foreach (GameObject g in unityGameObjects)
                         {
@@ -134,7 +202,7 @@ public class cam_distance : MonoBehaviour
                             {
                                 if ((priorG.GetComponent<Renderer>().bounds.max.y - priorG.GetComponent<Renderer>().bounds.center.y) + priorG.GetComponent<Renderer>().bounds.center.y >= g.GetComponent<Renderer>().bounds.center.y)
                                 {
-                                    Debug.Log("YUP:" + "" + g.name + "uuuuuuu" + (priorG.GetComponent<Renderer>().bounds.max.y - priorG.GetComponent<Renderer>().bounds.center.y) + "+" + priorG.GetComponent<Renderer>().bounds.center.y + "VVVVVVVVVVVVVV" + g.GetComponent<Renderer>().bounds.center.y);
+                                    Debug.Log(":" + "" + g.name + "uuuuuuu" + (priorG.GetComponent<Renderer>().bounds.max.y - priorG.GetComponent<Renderer>().bounds.center.y) + "+" + priorG.GetComponent<Renderer>().bounds.center.y + "VVVVVVVVVVVVVV" + g.GetComponent<Renderer>().bounds.center.y);
 
                                 }
                             }
@@ -142,10 +210,11 @@ public class cam_distance : MonoBehaviour
                             priorG = g;
 
                         }
+                        */
                         string opening = "";
                         if (priorGA!=null)
                         {
-                           if (priorGA.transform.position.y < GameObject.Find("Player_plane").transform.position.y)
+                           if (priorGA.transform.position.y <= GameObject.Find("Player_plane").transform.position.y)
                             {
                                 opening = "V";
                             }
@@ -153,6 +222,10 @@ public class cam_distance : MonoBehaviour
                             {
                                 opening = "^";
                             }
+                        }
+                        if (opening=="") //8-11-2024:handle unknown or flat areas
+                        {
+                            opening = "=";
                         }
                         Debug.Log("qwe" + oldDistance + "----"+closetsObject.name);
                         GameObject txt_xwall = GameObject.Find("txt_xwall");
