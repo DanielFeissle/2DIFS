@@ -88,11 +88,26 @@ public class cam_distance : MonoBehaviour
                     float oldDistance = 9999;
                     List<GameObject> unityGameObjects = new List<GameObject>();
                     GameObject closetsObject=null;
+                    float heightbypass = 0;
+                    /*
+                    if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground == true)
+                    {
+                        heightbypass = 4;
+                    }
+
+                    */
+
+                    if (GameObject.Find("altimeter").GetComponent<alt_gauge>().act_alt < 4.5f)
+                    {
+                        heightbypass = 4.5f;
+                    }
+                    
                     foreach (GameObject g in gamy)
                     {
                         //  float dist = Vector3.Distance(this.gameObject.transform.position, g.transform.position
+
                         float dist = Vector3.Distance(this.gameObject.transform.position, g.transform.position);
-                        if (dist < oldDistance && g.transform.position.x > GameObject.Find("Player_plane").transform.position.x && (g.GetComponent<Renderer>().bounds.max.y > GameObject.Find("Player_plane").transform.position.y + 4 && g.GetComponent<Renderer>().bounds.min.y < GameObject.Find("Player_plane").transform.position.y + 4))
+                        if (dist < oldDistance && g.transform.position.x > GameObject.Find("Player_plane").transform.position.x && (g.GetComponent<Renderer>().bounds.max.y > GameObject.Find("Player_plane").transform.position.y + heightbypass && g.GetComponent<Renderer>().bounds.min.y < GameObject.Find("Player_plane").transform.position.y + heightbypass))
                         {
                             closetsObject = g;
                             oldDistance = dist;
@@ -214,7 +229,8 @@ public class cam_distance : MonoBehaviour
                         string opening = "";
                         if (priorGA!=null)
                         {
-                           if (priorGA.transform.position.y <= GameObject.Find("Player_plane").transform.position.y)
+                            // if (priorGA.transform.position.y <= GameObject.Find("Player_plane").transform.position.y)
+                            if (priorGA.GetComponent<Renderer>().bounds.max.y <= GameObject.Find("Player_plane").GetComponent<Renderer>().bounds.min.y)
                             {
                                 opening = "V";
                             }

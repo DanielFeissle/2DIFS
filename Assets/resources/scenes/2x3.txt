@@ -158,6 +158,8 @@ ground/gbrick,0,-25,0,0,75,4,4,0
 ground/gbrick,0,240,480,0,75
 #topmost
 #ground/gbrick,0,-15,250,25,45
+#topmost2
+ground/gbrick,0,110,250,90,110
 ground/gbrick,0,-15,110,50,75
 #BOTTOM
 ground/gbrick,0,-15,250,-20,-2,4,4,0
