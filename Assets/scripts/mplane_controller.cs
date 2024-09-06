@@ -1010,7 +1010,10 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                             GameObject.Find("checkerBoard(256x256)").transform.position = new Vector3(7.74f, -1.3905f, 0); //6-23-2022hardcoded might fix.... //-1.3905f
                                                                                                                            //GameObject.Find("planeTOP").GetComponent<TouchAndDie>().enabled = false;
                             rb.velocity = Vector3.zero;
-                            transform.position = startLoc;
+                            Debug.Log("RESETHERE!");
+                            transform.position = startLoc+new Vector3(0,0.5f,0);
+                            //  GameObject.Find("FLATGROUND").transform.position = new Vector3(0,this.GetComponent<PolygonCollider2D>().bounds.min.y,0);
+
                             rb.velocity = Vector3.zero;
                             GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = false;
                             GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = false;

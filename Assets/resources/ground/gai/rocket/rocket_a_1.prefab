@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -1744241098113735548}
   - component: {fileID: 3084235812268001800}
   - component: {fileID: 1494834466207630167}
+  - component: {fileID: 6437296010280729150}
   m_Layer: 0
   m_Name: rocket_a_1
   m_TagString: ground
@@ -126,5 +127,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b61222648d2f6914081894de078e90fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6437296010280729150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5312331419017920347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e541db7d0dec33b4f9028629661d7147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

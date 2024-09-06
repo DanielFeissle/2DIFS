@@ -4,7 +4,7 @@
 #GTO game type objective (0-Height/distance obj, 1-Land on gameobject name, 2-Pass checkpoints, 3-Grab object and get to designated end point)
 GTO,0
 #OBJ,Scene title, GET Height (+or-), Land start, Land End
-OBJ,sdfsdfasdf!!!,40,0,999
+OBJ,SCANDAR-DistancebirdII,40,800,1400
 #CLD,Cloud Height
 CLD,68
 #WTH, Weather 0-99 higher number more clouds/rain
@@ -26,8 +26,26 @@ ground/airport,0,0,1000,0,2.56
 #leftmost
 ground/gbrick,0,-25,0,0,200
 #rightmost
-ground/gbrick,0,555,590,0,200
+ground/gbrick,0,1200,1400,0,200
 #topmost
-ground/gbrick,0,-15,1090,190,200
+ground/gbrick,0,-15,1250,190,200
 #BOTTOM
-ground/gbrick,0,-15,1090,-20,-2
+ground/gbrick,0,-15,1250,-20,-2
+#9
+ground/gbrick,0,520,530,-5,40
+ground/gbrick,0,520,530,80,200
+#10
+ground/gbrick,0,580,590,-5,60
+ground/gbrick,0,580,590,100,200
+#11
+ground/gbrick,0,630,640,-5,55
+ground/gbrick,0,630,640,115,200
+#12
+ground/gbrick,0,690,700,-5,50
+ground/gbrick,0,690,700,75,200
+#13
+ground/gbrick,0,777,787,-5,10
+ground/gbrick,0,777,787,70,200
+#14
+ground/gbrick,0,810,820,-5,14
+ground/gbrick,0,810,820,45,200
