@@ -56,7 +56,9 @@ public class alt_gauge : MonoBehaviour
                                             Debug.Log("HITHIT" + hit.collider.name);
                                         
                                         // Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal, Color.green, 2, false);
-                                        Debug.DrawRay(hit.collider.transform.position, hit.normal, Color.yellow, 2, false);
+                                        //9-10-2024
+                                        //uncoment the debug.drawray for helpful debug right below
+                                     ////   Debug.DrawRay(hit.collider.transform.position, hit.normal, Color.yellow, 2, false);
                                         //4-18-2023
                                         //Updated to hopefully fix hit detection for many different types of objects. this is the altimeter using the raycaster
                                         float pos = this.transform.position.y - hit.point.y + (GameObject.Find("Player_plane").transform.position.y - this.transform.position.y);
@@ -144,6 +146,9 @@ public class alt_gauge : MonoBehaviour
 
     }
 
+    //9-10-2024
+    //uncoment this for debug purposes, removed from actual code. helpful but not needed in currently
+    /*
     private void LateUpdate()
     {
         Vector3 rayposDia = new Vector3(transform.position.x+0.9f, transform.position.y + 0.1f, 0);
@@ -159,6 +164,9 @@ public class alt_gauge : MonoBehaviour
             }
         }
     }
+    */
+
+    //9-10-2024 END ^^^^
 
     /*
     void Update()

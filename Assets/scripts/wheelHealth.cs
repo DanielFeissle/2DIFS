@@ -200,7 +200,36 @@ ani_front.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         }
         }
     }
+    //9-10-2024
+    //keeping this in for now, might remove as this section does nothing right now
+    int _overlaps;
 
+    public bool isOverlapping
+    {
+        get
+        {
+            return _overlaps > 0;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag== "FakeGround")
+        {
+            _overlaps++;
+        }
+        
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "FakeGround")
+        {
+            _overlaps--;
+        }
+        
+    }
+    //////////////////////////////////////////////
     /*
     private void OnCollisionEnter2D(Collision2D collision)
     {

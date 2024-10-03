@@ -1584,17 +1584,21 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
     // Update is called once per frame
     void Update()
     {
-        ani = this.GetComponent<Animator>();
-         if (GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().StageStarted == true)
-        {
-            //8-24-2023
-            //only run this once the stage is in start mode
-            HullStress();
-        }
-         else if (WingHP!=100)
-         {
-            WingHP = 100;
-         }
+        if (GameObject.Find("checkerBoard(256x256)"))
+            {
+            ani = this.GetComponent<Animator>();
+            if (GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().StageStarted == true)
+            {
+                //8-24-2023
+                //only run this once the stage is in start mode
+                HullStress();
+            }
+            else if (WingHP != 100)
+            {
+                WingHP = 100;
+            }
+        
+
         
         //  GameObject.Find("HOLDER").GetComponent<Transform>().transform.position = this.transform.position;
         //   GameObject.Find("HOLDER").GetComponent<Transform>().transform.eulerAngles = this.transform.eulerAngles;
@@ -1770,7 +1774,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             }
         }
         }
-
+        }
     }
     float metime2=0;
     float someTime2=1;
@@ -1790,6 +1794,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
     public float raycastDistance = .1f;
     void DetectGround()
     {
+
         RaycastHit2D hit = Physics2D.Raycast(groundRaycaster.position, -Vector2.up, raycastDistance);
         if (hit.collider)
         {
@@ -1860,6 +1865,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
       postmortem =0;
     }
 
+
     //7-27-2023
     //this should help adjust player height to ground by enabling and disabling the colliders
     private IEnumerator PowerON()
@@ -1868,6 +1874,8 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         GameObject.Find("planeTOP").GetComponent<TouchAndDie>().enabled = false;
         YieldInstruction timedWait = new WaitForSeconds(0.25f);
         invincible = true;
+        int stuckcount = 0;
+        bool powerboost = false;
         for (int i = 0; i < 10; i++)
         {
             //if (curTime < 3)
@@ -1894,7 +1902,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = false;
                     GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = false;
                     GameObject psfx = Instantiate(Resources.Load("player\\player_start_fx")) as GameObject;
-                    
+                    GameObject.Find("FLATGROUND_ACT").GetComponent<EdgeCollider2D>().enabled = false;
                     AudioSource.PlayClipAtPoint(_audio76, this.transform.position, 100);
                     AudioSource.PlayClipAtPoint(_audio76, this.transform.position, 100);
                     psfx.name = "plane_startengine_smoke";
@@ -1902,7 +1910,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 }
                 else
                 {
-                  
+                    GameObject.Find("FLATGROUND_ACT").GetComponent<EdgeCollider2D>().enabled = true;
                     AudioSource.PlayClipAtPoint(_audio76, this.transform.position, 100);
                     AudioSource.PlayClipAtPoint(_audio76, this.transform.position, 100);
                     GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
@@ -1911,11 +1919,30 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     psfx.name = "plane_startengine_smoke";
                     psfx.transform.position = this.transform.position;
                 }
+
                 yield return timedWait;
              //   this.gameObject.transform.position = this.transform.position + new Vector3(0, .1f, 0);
             }
+            //  Debug.Log("DDDRRRFFF"+isOverlapping);
+            Debug.Log("DDDRRRFFF_BACK" + GameObject.Find("planeSkid_back").GetComponent<wheelHealth>().isOverlapping);
+            Debug.Log("DDDRRRFFF_FRONT" + GameObject.Find("planeSkid_front").GetComponent<wheelHealth>().isOverlapping);
+            
+            if (GameObject.Find("planeSkid_back").GetComponent<wheelHealth>().isOverlapping)
+            {
+                stuckcount++;
+            }
+            if (GameObject.Find("planeSkid_front").GetComponent<wheelHealth>().isOverlapping)
+            {
+                stuckcount++;
+            }
+            if (stuckcount > 12 && powerboost==false)
+            {
+                Debug.Log("DDDRRRFFF-POWERBOOST!");
+                rb.AddForce(transform.up * 50000f);
+                powerboost = true;
+            }
         }
-        
+
         GameObject.Find("planeSkid_front").GetComponent<CapsuleCollider2D>().enabled = true;
         GameObject.Find("planeSkid_back").GetComponent<CapsuleCollider2D>().enabled = true;
         GameObject.Find("planeTOP").GetComponent<TouchAndDie>().enabled = true;
@@ -1924,6 +1951,8 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         start_triggered_once = true;
         priorButton = "on";
     }
+
+
 
 
     private IEnumerator EjectControledPowerOff()
