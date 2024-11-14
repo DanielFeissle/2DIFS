@@ -274,8 +274,9 @@ public class mplane_controller : MonoBehaviour
                     //  StopCoroutine(ff);
                     ff = null;
                     ff = StartCoroutine(PowerON());
-
-                }
+                        GameObject SupportTower = Instantiate(Resources.Load("player\\support")) as GameObject;
+                        GameObject SupportTruck = Instantiate(Resources.Load("player\\support_b")) as GameObject;
+                    }
                     
                     zzShutDownFin = true;
                     nextUsage23 = Time.time + delay23; //it is on display

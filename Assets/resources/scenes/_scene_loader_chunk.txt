@@ -7,3 +7,5 @@ ground/gbrick,0,1000,1080,0,200
 ground/gbrick,0,-15,1090,190,200
 #BOTTOM
 ground/gbrick,0,-15,1090,-20,-2
+#BOTTOM2
+ground/gbrick,0,250,700,50,60

@@ -60,7 +60,7 @@ public class menu_runtime : MonoBehaviour
                 SceneManager.LoadScene("title_scene");
             }
 
-            Debug.Log("HI THERE");
+                Debug.Log("HI THERE");
            this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen = 0;
         }
 
