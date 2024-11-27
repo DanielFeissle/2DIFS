@@ -11,6 +11,7 @@ public class menu_runtime : MonoBehaviour
     public int specButtonStat = -1;
     public GameObject ListnerAndRuntimeOBJ;
     public GameObject playerOBJ;
+    public int nextLevel = 0;
     int buttonVal = -1;
     public bool screenshotDone=false;
     // Start is called before the first frame update
@@ -59,8 +60,22 @@ public class menu_runtime : MonoBehaviour
               //  Destroy(GameObject.Find("sela"));
                 SceneManager.LoadScene("title_scene");
             }
+            else if (this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen == 4)
+            {
+                //11-25-2024 -I am back! finishing up with ideas
+                //skip to next level because I am not going to playtest every level and rather than leave it broken, give this way
+                btn_pauser = 2;
+                //call the next level through a function
+                //     GameObject.Find("Player_plane").transform.position=new Vector3(GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Land_s + 2, GameObject.Find("Player_plane").transform.position.y, 0);
+                // GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt = GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().OBJ_Height;
+                //GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed < 5 && GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground == true && timeStart == true
+              StartCoroutine(menu_waiter());
+            //  
+               // Debug.Log("drf_11-25");
+               // Time.timeScale = 1;
+            }
 
-                Debug.Log("HI THERE");
+            Debug.Log("HI THERE");
            this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen = 0;
         }
 
@@ -107,6 +122,12 @@ public class menu_runtime : MonoBehaviour
                 btn_Resume.transform.SetParent(getCand.transform, false);
                 btn_Resume.transform.localPosition = new Vector2(50, 0.0f); ////this sets the prefab to the canvas (this is for menu objects), which will control the location
                 EventSystem.current.SetSelectedGameObject(btn_Resume.gameObject); // Highlight the button
+
+
+                GameObject btn_skipLevel = Instantiate(Resources.Load("menu\\pause\\btn_skip_level")) as GameObject;
+                btn_skipLevel.name = "btn_skipLevel";
+                btn_skipLevel.transform.SetParent(getCand.transform, false);
+                btn_skipLevel.transform.localPosition = new Vector2(50, -200.0f); ////this sets the prefab to the canvas (this is for menu objects), which will control the location
 
 
                 GameObject ui_wholeMap = Instantiate(Resources.Load("menu\\pause\\ui_wholeMap")) as GameObject;
@@ -263,7 +284,32 @@ public class menu_runtime : MonoBehaviour
         }
     }
 
-     IEnumerator WaitForItemsToLoad()
+   
+    private IEnumerator menu_waiter()
+    {
+
+        nextLevel = 1;
+        YieldInstruction timedWait = new WaitForSeconds(0.01f);
+        GameObject.Find("bluLoading").GetComponent<SpriteRenderer>().enabled = false;
+       GameObject.Find("checkerBoard(256x256)").GetComponent<SpriteRenderer>().enabled = false;
+             GameObject.Find("minimap").GetComponent<MeshRenderer>().enabled = false;
+    //     GameObject.Find("minimap").gameObject.SetActive(false);//= false;
+    
+        Camera.main.GetComponent<cam_distance>().sceneLoad = false;
+       
+        int sleepCount = 0;
+        while (sleepCount < 50) //a little bit of wait 
+        {
+            yield return timedWait;
+            sleepCount++;
+            Debug.Log("drf_11-25");
+        }
+        Debug.Log("drf_11-25_2024");
+        GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().funcAutoLoader();
+    }
+   
+
+    IEnumerator WaitForItemsToLoad()
     {
         int countdown = 1;
         //   velocity = (transform.position - pos) / Time.deltaTime;
@@ -327,6 +373,8 @@ public class menu_runtime : MonoBehaviour
         Destroy(btn_return);
         GameObject btn_Resume = GameObject.Find("btn_Resume");
         Destroy(btn_Resume);
+        GameObject btn_skipLevel = GameObject.Find("btn_skipLevel");
+        Destroy(btn_skipLevel);
         GameObject ui_wholeMap = GameObject.Find("ui_wholeMap");
         Destroy(ui_wholeMap);
         GameObject txt_Pause = GameObject.Find("txt_Pause");

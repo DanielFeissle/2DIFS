@@ -65,24 +65,33 @@ public class cam_distance : MonoBehaviour
 
             if (sceneLoad==false)
             {
-                if (gamy!=null)
+                 
+             
+              //  if (!GameObject.Find("fss"))
                 {
-                    GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().resetStage = false;
-                    foreach (var obj in gamy)
-                        Destroy(obj);
-                    foreach (var obj in bamy)
-                        Destroy(obj);
-                    foreach (var obj in damy)
-                        Destroy(obj);
-                    sceneLoad = false;
+                    if (gamy != null)
+                    {
+                        GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().resetStage = false;
+                        foreach (var obj in gamy)
+                            Destroy(obj);
+                        foreach (var obj in bamy)
+                            Destroy(obj);
+                        foreach (var obj in damy)
+                            Destroy(obj);
+                        sceneLoad = false;
+                    }
+                    gamy = GameObject.FindGameObjectsWithTag("ground");
+                    bamy = GameObject.FindGameObjectsWithTag("background");
+                    damy = GameObject.FindGameObjectsWithTag("detail");
+                    sceneLoad = true;
                 }
-                gamy = GameObject.FindGameObjectsWithTag("ground");
-                bamy = GameObject.FindGameObjectsWithTag("background");
-                damy = GameObject.FindGameObjectsWithTag("detail");
-               
-                sceneLoad = true;
+
+                //11-26-2024
+                //prevent this from running during scene completion screens (fss gameobject-the background has to be present)
+                //the next else if statement
+
             }
-            else
+            else if (!GameObject.Find("fss"))
             {
                 {
                     float oldDistance = 9999;

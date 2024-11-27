@@ -89,7 +89,69 @@ public class POLF : MonoBehaviour
         img_rating_icon.transform.parent = GameObject.Find("img_stat_extra").transform;
         img_rating_icon.transform.position = GameObject.Find("img_stat_extra").transform.position + new Vector3(2, 2.5f);
     }
+    public void funcAutoLoader()
+    {
+        
+        // Debug.Log("MAX HEIGHT " + GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt);
+        //   Debug.Log("OBJ HEIGHT " + OBJ_Height);
+        // Debug.Log("GROUNDED: " + GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground);
+        if (GameObject.Find("Player_plane").transform.position.x > OBJ_Land_s && GameObject.Find("Player_plane").transform.position.x < OBJ_Land_e && GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt > OBJ_Height && GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed < 5 && GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground == true && timeStart == true ||GameObject.Find("altimeter").GetComponent<menu_runtime>().nextLevel == 1)
+        {
+            grade_score = ((int)MaxSpeed) - ((int)impactDev) + (((int)MaxAlt) * OBJ_Height) - ((int)curTime);
+            if (grade_score < 1)
+            {
+                grade_score = UnityEngine.Random.Range(2, 22);
+            }
+            extraWords = "\nPS: : " + GameObject.Find("hi_score").GetComponent<Text>().text + "\ncomplete!";
+            stats_msg = stats_msg + "\n\nRATING: " + grade_score + extraWords;
+            funcTROLO();
+            funcICO();
+            GameObject.Find("Player_plane").GetComponent<mplane_controller>().autoProgress = true;
+            GameObject uiCongrats = GameObject.Find("txt_OBJ");
+            uiCongrats.gameObject.GetComponent<Text>().text = "                                     You win!";
+            uiCongrats.gameObject.GetComponent<Text>().enabled = true;
+            GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead = true;
+            //    GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().
+            GameObject.Find("sela").GetComponent<LevelHistory>().LoadSameStateScene(GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().world, GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().scene);//todo 6-12-2023:update score tracking array
 
+
+            //11-25-2024 sorry for the double paste here
+            if (GameObject.Find("altimeter").GetComponent<menu_runtime>().nextLevel == 1)
+            {
+                Debug.Log("DRF_11");
+                GameObject.Find("altimeter").GetComponent<menu_runtime>().nextLevel = 0;
+                if (curSceneOver == true && GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == false)
+                {
+
+                    GameObject.Find("Player_plane").GetComponent<mplane_controller>().autoProgress = false;
+                    GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt = 0;
+                    //12-1-2021 this means that the player restarted the scene again
+                    this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+                    timeStart = false;
+                    curTime = 0;
+                    MaxSpeed = 0;
+                    impactDev = 0;
+                    MaxAlt = 0;
+                    bailed = true;
+                    curSceneOver = false;
+                    GameObject uiAltiText2 = GameObject.Find("txt_stats");
+                    Text delta21 = uiAltiText2.GetComponent<Text>();
+                    delta21.text = "";//.Substring(0, locCnt);
+                    GameObject uiAltiText22 = GameObject.Find("txt_OBJ");
+                    uiAltiText22.gameObject.GetComponent<Text>().enabled = true;
+                    GameObject uiAltiText222 = GameObject.Find("img_obj_difference");
+                    uiAltiText222.gameObject.GetComponent<Image>().enabled = true;
+
+                    GameObject bluTXT = GameObject.Find("bluLoading");
+                    bluTXT.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+                    extraWords = "\nPS: : " + GameObject.Find("hi_score").GetComponent<Text>().text + "\n";
+
+                }
+            }
+            //////////////////////////////////////////////////
+           
+        }
+    }
     void funcTROLO()
     {
         stats_msg = "Flight facts: \n" + "Max Speed: " + MaxSpeed + "\n Impact: " + impactDev + "\n Max Altitude: " + MaxAlt + "\n Total Elapsed time: " + curTime + "Bailed: " + GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject;
@@ -153,28 +215,8 @@ public class POLF : MonoBehaviour
             }
             if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == false)
             {
-               // Debug.Log("MAX HEIGHT " + GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt);
-             //   Debug.Log("OBJ HEIGHT " + OBJ_Height);
-               // Debug.Log("GROUNDED: " + GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground);
-                if (GameObject.Find("Player_plane").transform.position.x > OBJ_Land_s && GameObject.Find("Player_plane").transform.position.x < OBJ_Land_e && GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt > OBJ_Height && GameObject.Find("Player_plane").GetComponent<mplane_controller>().Speed < 5 && GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground == true && timeStart==true)
-                {
-                    grade_score = ((int)MaxSpeed) - ((int)impactDev) + (((int)MaxAlt) * OBJ_Height) - ((int)curTime);
-                if (grade_score<1)
-                {
-                    grade_score = UnityEngine.Random.Range(2, 22);
-                }
-                    extraWords = "\nPS: : "+GameObject.Find("hi_score").GetComponent<Text>().text + "\ncomplete!";
-                    stats_msg = stats_msg + "\n\nRATING: " + grade_score + extraWords;
-                    funcTROLO();
-                    funcICO();
-                    GameObject.Find("Player_plane").GetComponent<mplane_controller>().autoProgress = true;
-                    GameObject uiCongrats = GameObject.Find("txt_OBJ");
-                    uiCongrats.gameObject.GetComponent<Text>().text = "                                     You win!";
-                    uiCongrats.gameObject.GetComponent<Text>().enabled = true;
-                    GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead = true;
-                //    GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().
-                    GameObject.Find("sela").GetComponent<LevelHistory>().LoadSameStateScene(GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().world, GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().scene);//todo 6-12-2023:update score tracking array
-                }
+            //11-25-2024, moved to a function for better calling methods from other scripts (button skip/next level from menu)
+                funcAutoLoader();
             }
 
 

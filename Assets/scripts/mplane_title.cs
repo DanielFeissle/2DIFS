@@ -47,6 +47,7 @@ public class mplane_title : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         metime = Time.time;
         _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\flight\\spooling2_start");
         _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\nothing");
@@ -98,6 +99,7 @@ public class mplane_title : MonoBehaviour
             tempArr++;
         }
         */
+        
     }
 
     AudioClip _audio7;
@@ -760,6 +762,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             //NOTE TO SELF, This is the magic reset button for restarting the stage- thanks df 3-30-2022!
             if ((Input.GetButtonDown("Fire3") && (pdead == true || peject == true) || (plane_recovered == true && peject == true)) || autoProgressCleared == true)
             {
+                GameObject.Find("minimap").GetComponent<MeshRenderer>().enabled = true;
                 altitude = -1.27;
                 //12-13-2023 fix quick restart by pressing Fire3 button to bypass normal startup method ( && (pdead==true || peject==true))
                 startupSeqComplete = false;
