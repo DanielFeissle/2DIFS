@@ -762,6 +762,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             //NOTE TO SELF, This is the magic reset button for restarting the stage- thanks df 3-30-2022!
         if ((Input.GetButtonDown("Fire3") && (pdead==true || peject==true)|| (plane_recovered==true && peject ==true)) || autoProgressCleared==true)
         {
+
                 altitude = -1.27;
                 //12-13-2023 fix quick restart by pressing Fire3 button to bypass normal startup method ( && (pdead==true || peject==true))
                 startupSeqComplete = false;
@@ -848,10 +849,13 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                             //  }
 
                         }
-
+                        //12-3-2024:very specific minimap scenario
+                         
+                        //    GameObject.Find("minimap").GetComponent<MeshRenderer>().enabled = true;
+                        
                         //     GameObject.Find("minimap").gameObject.SetActive(true);
                         GameObject fff = GameObject.Find("minimap");
-                        if (fff)
+                        if (fff && fff.GetComponent<minimap_player_control>().mapsize != 1)
                         {
                             fff.GetComponent<MeshRenderer>().enabled = true;
                             fff.GetComponent<minimap_player_control>().enabled = true;
