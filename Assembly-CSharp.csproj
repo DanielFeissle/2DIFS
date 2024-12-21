@@ -124,6 +124,7 @@
     <Compile Include="Assets\scripts\ui_getValue_disp.cs" />
     <Compile Include="Assets\scripts\HUD_SFX_STOP.cs" />
     <Compile Include="Assets\scripts\HUD_buttons.cs" />
+    <Compile Include="Assets\scripts\support_obscure.cs" />
     <Compile Include="Assets\scripts\DeleteEverything.cs" />
     <Compile Include="Assets\scripts\btn_title_quit.cs" />
     <Compile Include="Assets\scripts\level_select_data.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Assets\scripts\ui_level_selection_track.cs" />
     <Compile Include="Assets\scripts\Level_Flow_Paths.cs" />
     <Compile Include="Assets\scripts\Blit.cs" />
+    <Compile Include="Assets\scripts\support_b.cs" />
     <Compile Include="Assets\scripts\TouchAndDie.cs" />
     <Compile Include="Assets\scripts\real_dest_after_touch.cs" />
     <Compile Include="Assets\scripts\marker_standalone_movable.cs" />
@@ -150,8 +152,7 @@
     <Compile Include="Assets\scripts\BinSaveSystem.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
     <Compile Include="Assets\scripts\order_layer.cs" />
-    <Compile Include="Assets\scripts\support_obscure.cs" />
-    <Compile Include="Assets\scripts\support_b.cs" />
+    <Compile Include="Assets\scripts\title_menu_control.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />

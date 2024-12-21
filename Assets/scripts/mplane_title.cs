@@ -1289,7 +1289,8 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 {
                     rb.AddRelativeForce(Vector3.right * engineSpool * 200 * Time.deltaTime);
                 }
-
+                //Debug.Log("IDENT2024 " + transform.rotation.eulerAngles.z); //this helped identify the rotation being used in 2024
+                ///////////////////////////////
                 if (onground == false && peject == false)
                 {
                     if (toggleLandGear == true) //landing gear is gone, so increase the speed
@@ -1334,6 +1335,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                         */
 
                     }
+                    ////////////////////////
                     else if (transform.rotation.eulerAngles.z > 45 && transform.rotation.eulerAngles.z < 74)
                     {
                         res = transform.rotation.eulerAngles.z - 74;
@@ -1346,7 +1348,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                         heavyMass = false;
                         //      rb.AddRelativeForce(Vector3.right * engineSpool * -res * Time.deltaTime);
                     }
-                    else if (transform.rotation.eulerAngles.z > 74 && transform.rotation.eulerAngles.z < 250)
+                    else if (transform.rotation.eulerAngles.z > 74 && transform.rotation.eulerAngles.z < 100)
                     {
                         //  rb.AddRelativeForce(new Vector3(-444, 0,0) * 50 * Time.deltaTime*4);
 
@@ -1367,13 +1369,33 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                         }
 
                     }
+                    else if (transform.rotation.eulerAngles.z > 100 && transform.rotation.eulerAngles.z < 260)
+                    {//12-17-2024:Added this to prevent auto rotate back doing a 360, noscope
+                        //  rb.AddRelativeForce(new Vector3(-444, 0,0) * 50 * Time.deltaTime*4);
+
+
+                        res = transform.rotation.eulerAngles.z - 74;
+                        Quaternion rot = transform.rotation;
+                        rot.eulerAngles = rot.eulerAngles + new Vector3(0, 0, .2f);
+                        transform.rotation = rot;
+                        res = res * 200;
+
+
+                        //  rb.AddRelativeForce(Vector3.down * engineSpool * res * Time.deltaTime);
+                        if (Speed < 20)
+                        {
+                            rb.mass = 175;
+                            rb.drag = .1f;
+                            heavyMass = true;
+                        }
+
+                    }
                     else if (transform.rotation.eulerAngles.z > 250 && transform.rotation.eulerAngles.z < 360)
                     {
-
                         rb.drag = .88f;
                     }
 
-
+                    //////////////////
                     if (Speed < 25)
                     {
                         rb.AddRelativeForce(Vector3.up * 2500 * Time.deltaTime * 4);
@@ -1396,7 +1418,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                         Quaternion rot = transform.rotation;
                         rot.eulerAngles = rot.eulerAngles + new Vector3(0, 0, .01f);
                         transform.rotation = rot;
-                    }
+                    }///////////UP HERE12-17-2024///////////////////
                     else
                     {
                         if (!(transform.rotation.eulerAngles.z > 260 && transform.rotation.eulerAngles.z < 290))

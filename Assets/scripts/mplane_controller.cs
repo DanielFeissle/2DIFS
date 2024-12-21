@@ -1346,28 +1346,49 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                     heavyMass = false;
                     //      rb.AddRelativeForce(Vector3.right * engineSpool * -res * Time.deltaTime);
                 }
-                else if (transform.rotation.eulerAngles.z > 74 && transform.rotation.eulerAngles.z < 250)
-                {
-                    //  rb.AddRelativeForce(new Vector3(-444, 0,0) * 50 * Time.deltaTime*4);
-
-
-                    res = transform.rotation.eulerAngles.z - 74;
-                    Quaternion rot = transform.rotation;
-                    rot.eulerAngles = rot.eulerAngles - new Vector3(0, 0, .1f);
-                    transform.rotation = rot;
-                    res = res * 200;
-
-
-                    //  rb.AddRelativeForce(Vector3.down * engineSpool * res * Time.deltaTime);
-                    if (Speed < 20)
+                    else if (transform.rotation.eulerAngles.z > 74 && transform.rotation.eulerAngles.z < 100)
                     {
-                        rb.mass = 175;
-                        rb.drag = .1f;
-                        heavyMass = true;
-                    }
+                        //  rb.AddRelativeForce(new Vector3(-444, 0,0) * 50 * Time.deltaTime*4);
 
-                }
-                else if (transform.rotation.eulerAngles.z > 250 && transform.rotation.eulerAngles.z < 360)
+
+                        res = transform.rotation.eulerAngles.z - 74;
+                        Quaternion rot = transform.rotation;
+                        rot.eulerAngles = rot.eulerAngles - new Vector3(0, 0, .1f);
+                        transform.rotation = rot;
+                        res = res * 200;
+
+
+                        //  rb.AddRelativeForce(Vector3.down * engineSpool * res * Time.deltaTime);
+                        if (Speed < 20)
+                        {
+                            rb.mass = 175;
+                            rb.drag = .1f;
+                            heavyMass = true;
+                        }
+
+                    }
+                    else if (transform.rotation.eulerAngles.z > 100 && transform.rotation.eulerAngles.z < 260)
+                    {//12-17-2024:Added this to prevent auto rotate back doing a 360, noscope
+                        //  rb.AddRelativeForce(new Vector3(-444, 0,0) * 50 * Time.deltaTime*4);
+
+
+                        res = transform.rotation.eulerAngles.z - 74;
+                        Quaternion rot = transform.rotation;
+                        rot.eulerAngles = rot.eulerAngles + new Vector3(0, 0, .2f);
+                        transform.rotation = rot;
+                        res = res * 200;
+
+
+                        //  rb.AddRelativeForce(Vector3.down * engineSpool * res * Time.deltaTime);
+                        if (Speed < 20)
+                        {
+                            rb.mass = 175;
+                            rb.drag = .1f;
+                            heavyMass = true;
+                        }
+
+                    }
+                    else if (transform.rotation.eulerAngles.z > 250 && transform.rotation.eulerAngles.z < 360)
                 {
 
                         rb.drag = .88f;
