@@ -47,6 +47,15 @@ public class WorldFlowTrack : MonoBehaviour
       
 
         string[] blar = txt.text.Split('\n');
+        //1-8-2025
+        //adding the exit ramp after no more scenes
+        if (world >= blar.Length)
+        {
+            Debug.Log("Mission complete");
+            SceneManager.LoadScene("outro1");
+            //scene = 0;
+          //  world = 0;
+        }
         Debug.Log("-----------WORLD LEVELS-------------------" + blar.Length);
         string[] bkg = blar[world].Split(';'); //0 is background 1 is the world content flow
         string[] scf = bkg[1].Split(',');

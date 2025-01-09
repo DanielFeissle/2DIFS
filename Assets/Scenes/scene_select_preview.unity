@@ -153,7 +153,7 @@ RectTransform:
   m_LocalScale: {x: 0.79598, y: 0.79598, z: 0.79598}
   m_Children: []
   m_Father: {fileID: 1141972827}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -233,7 +233,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1141972827}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -347,18 +347,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 408961428}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 901197188}
-  m_Father: {fileID: 1216717122}
-  m_RootOrder: 3
+  m_Father: {fileID: 1141972827}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.55, y: 0.26}
-  m_AnchorMax: {x: 0.575, y: 0.3}
-  m_AnchoredPosition: {x: -1.7276917, y: 3.0322876}
-  m_SizeDelta: {x: -16.8669, y: -10.507}
+  m_AnchorMin: {x: 0.96, y: 0.92}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -4.299988, y: -5.589096}
+  m_SizeDelta: {x: -0.9577, y: 11.1782}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &408961430
 MonoBehaviour:
@@ -993,6 +993,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 408961429}
   - {fileID: 305370479}
   - {fileID: 113354328}
   m_Father: {fileID: 1216717122}
@@ -1074,7 +1075,6 @@ RectTransform:
   - {fileID: 1141972827}
   - {fileID: 1429360816}
   - {fileID: 1039189219}
-  - {fileID: 408961429}
   m_Father: {fileID: 1902624920}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1897,6 +1897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b1875eb18bb76d4084e6d471dfb1a24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapsize: 2
 --- !u!65 &1979161080
 BoxCollider:
   m_ObjectHideFlags: 0
