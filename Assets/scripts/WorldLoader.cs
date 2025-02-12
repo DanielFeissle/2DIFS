@@ -270,8 +270,9 @@ public class WorldLoader : MonoBehaviour
             }
 
         }
-        Debug.Log("--------------------------------------DONE");
+        Debug.Log("--------------------------------------DONE, world loader");
         Camera.main.GetComponent<cam_distance>().sceneLoad = false;
+       // Camera.main.GetComponent<cam_distance>().resetthis();
     }
 
 }

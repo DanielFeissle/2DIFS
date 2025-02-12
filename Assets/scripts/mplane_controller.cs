@@ -47,9 +47,15 @@ public class mplane_controller : MonoBehaviour
     bool start_triggered_once = false;
     string priorButton = "off";
     bool startupSeqComplete = false;
+    private int lastScreenWidth;
+    private int lastScreenHeight;
+    public bool noHullStress = false;
     // Start is called before the first frame update
     void Start()
     {
+        // Initialize with the current screen size
+        lastScreenWidth = Screen.width;
+        lastScreenHeight = Screen.height;
         metime = Time.time;
         _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\flight\\spooling2_start");
         _audio7 = Resources.Load<AudioClip>("_FX\\SFX\\nothing");
@@ -671,6 +677,7 @@ public class mplane_controller : MonoBehaviour
             this.GetComponent<fx_pdead>().enabled = true;
             GameObject.Find("PSFX_AMB").GetComponent<AudioSource>().enabled = false;
         }
+
         if (ani.GetCurrentAnimatorStateInfo(0).IsName("plane_gust") &&
 ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         {
@@ -762,7 +769,7 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             //NOTE TO SELF, This is the magic reset button for restarting the stage- thanks df 3-30-2022!
         if ((Input.GetButtonDown("Fire3") && (pdead==true || peject==true)|| (plane_recovered==true && peject ==true)) || autoProgressCleared==true)
         {
-
+                GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().funcAutoLoader();
                 altitude = -1.27;
                 //12-13-2023 fix quick restart by pressing Fire3 button to bypass normal startup method ( && (pdead==true || peject==true))
                 startupSeqComplete = false;
@@ -1607,6 +1614,40 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             postmortem = 3;
         }
     }
+    void OnScreenSizeChanged()
+    {
+        GameObject dashedLine = GameObject.Find("det_hash");
+        dashedLine.transform.position = new Vector3(Camera.main.transform.position.x, dashedLine.transform.position.y, dashedLine.transform.position.z);
+        GameObject det_red = GameObject.Find("det_red");
+        det_red.transform.position = new Vector3(det_red.transform.position.x, Camera.main.transform.position.y, det_red.transform.position.z);
+        GameObject det_green = GameObject.Find("det_green");
+        det_green.transform.position = new Vector3(det_green.transform.position.x, Camera.main.transform.position.y, det_green.transform.position.z);
+        // Get the screen dimensions in world units
+        Vector2 screenDimensions = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height)) * 2;
+
+        // Get the object's sprite renderer
+        SpriteRenderer dashedLine_spriteRenderer = dashedLine.GetComponent<SpriteRenderer>();
+        SpriteRenderer colorLineG_spriteRender = det_green.GetComponent<SpriteRenderer>();
+        SpriteRenderer colorLineR_spriteRender = det_red.GetComponent<SpriteRenderer>();
+        if (dashedLine_spriteRenderer != null)
+        {
+            // Get the size of the sprite
+            Vector2 spriteSize = dashedLine_spriteRenderer.bounds.size;
+            Vector2 spriteSize_hor = colorLineG_spriteRender.bounds.size;
+            // Calculate the scale factor to fit the screen
+            //   Vector2 scale = new Vector2(screenDimensions.x / spriteSize.x, screenDimensions.y / spriteSize.y);
+            Vector2 scale = new Vector2(screenDimensions.x / spriteSize.x, 0.5f);
+            Vector2 scale_hor = new Vector2(0.5f, screenDimensions.y / spriteSize_hor.y)*2;
+            // Apply the scale to the object
+            dashedLine_spriteRenderer.transform.localScale = scale;
+            colorLineG_spriteRender.transform.localScale = scale_hor;
+            colorLineR_spriteRender.transform.localScale = scale_hor;
+        }
+        else
+        {
+            Debug.LogError("No SpriteRenderer found on the object.");
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -1615,9 +1656,37 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             ani = this.GetComponent<Animator>();
             if (GameObject.Find("checkerBoard(256x256)").GetComponent<POLF>().StageStarted == true)
             {
+                // Check if the screen size has changed
+                if (Screen.width != lastScreenWidth || Screen.height != lastScreenHeight)
+                {
+                    // Screen size has changed
+                    Debug.Log("Screen size changed!");
+
+                    // Update the stored screen size
+                    lastScreenWidth = Screen.width;
+                    lastScreenHeight = Screen.height;
+
+                    // Perform any additional actions needed when the screen size changes
+                    OnScreenSizeChanged();
+                }
                 //8-24-2023
                 //only run this once the stage is in start mode
-                HullStress();
+                if (noHullStress == false) //2-12-2025:Can lock this out from the pause menu
+                {
+                    HullStress();
+                }
+
+                if (GameObject.Find("det_hash"))
+                {
+                    GameObject dashedLine = GameObject.Find("det_hash");
+                    dashedLine.transform.position = new Vector3(Camera.main.transform.position.x, dashedLine.transform.position.y, dashedLine.transform.position.z);
+
+                    GameObject greenLine = GameObject.Find("det_green");
+                    greenLine.transform.position = new Vector3(greenLine.transform.position.x, Camera.main.transform.position.y, greenLine.transform.position.z);
+
+                    GameObject redLine = GameObject.Find("det_red");
+                    redLine.transform.position = new Vector3(redLine.transform.position.x, Camera.main.transform.position.y, redLine.transform.position.z);
+                }
             }
             else if (WingHP != 100)
             {

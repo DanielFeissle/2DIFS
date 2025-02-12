@@ -31,13 +31,19 @@ public class menu_runtime : MonoBehaviour
     // This gameobject needs to have menu_runtime and the realGenericButtonListner script attached!
     //playerOBJ - Connect this to the player prefab
     //specButtonStat is a custom value- currently designed to be used to tell the player to sodoff and not allow any input or rotation
-
+    public void issueComplete()
+    {
+        //11-25-2024 -I am back! finishing up with ideas
+        //skip to next level because I am not going to playtest every level and rather than leave it broken, give this way
+        btn_pauser = 2;
+        StartCoroutine(menu_waiter());
+    }
     // Update is called once per frame
     void Update()
     {
-
+        
         //   Debug.Log("VALUE IS " + this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen);
-       int fff= GameObject.Find(ListnerAndRuntimeOBJ.name).GetComponent<realGenericButtonListner>().buttonScreeen;
+        int fff= GameObject.Find(ListnerAndRuntimeOBJ.name).GetComponent<realGenericButtonListner>().buttonScreeen;
     //    Debug.Log("WHAT IS " + fff);
         if (this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen != 0)
         {
@@ -60,8 +66,9 @@ public class menu_runtime : MonoBehaviour
               //  Destroy(GameObject.Find("sela"));
                 SceneManager.LoadScene("title_scene");
             }
-            else if (this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen == 4)
+            else if (this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen == 4 || Input.GetButtonUp("Fire34"))
             {
+                Debug.Log("HI THERE");
                 //11-25-2024 -I am back! finishing up with ideas
                 //skip to next level because I am not going to playtest every level and rather than leave it broken, give this way
                 btn_pauser = 2;
@@ -74,11 +81,28 @@ public class menu_runtime : MonoBehaviour
                // Debug.Log("drf_11-25");
                // Time.timeScale = 1;
             }
+            else if (this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen == 5)
+            {
+                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().noHullStress==false)
+                {
+                    GameObject.Find("Player_plane").GetComponent<mplane_controller>().noHullStress = true;
+                    GameObject.Find("txt_bod_stress").GetComponent<Text>().text = "DISABLED";
+                }
+                else
+                {
+                    GameObject.Find("Player_plane").GetComponent<mplane_controller>().noHullStress = false;
+                    GameObject.Find("txt_bod_stress").GetComponent<Text>().text = "HULL STRESS";
 
-            Debug.Log("HI THERE");
+                }
+            }
+
+                Debug.Log("HI THERE");
            this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen = 0;
         }
-
+        if (Input.GetButtonUp("Fire34"))
+        {
+            issueComplete();
+        }
 
         GameObject curPlay = GameObject.Find(playerOBJ.name);
         Transform lard = curPlay.GetComponent<Transform>();
@@ -128,6 +152,19 @@ public class menu_runtime : MonoBehaviour
                 btn_skipLevel.name = "btn_skipLevel";
                 btn_skipLevel.transform.SetParent(getCand.transform, false);
                 btn_skipLevel.transform.localPosition = new Vector2(50, -200.0f); ////this sets the prefab to the canvas (this is for menu objects), which will control the location
+
+                GameObject chk_toggle_hullStress = Instantiate(Resources.Load("menu\\pause\\chk_toggle_hullStress")) as GameObject;
+                chk_toggle_hullStress.name = "chk_toggle_hullStress";
+                chk_toggle_hullStress.transform.SetParent(getCand.transform, false);
+                chk_toggle_hullStress.transform.localPosition = new Vector2(750, -230.0f); ////this sets the prefab to the canvas (this is for menu objects), which will control the location
+                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().noHullStress == false)
+                {
+                    GameObject.Find("chk_toggle_hullStress_checker").GetComponent<Toggle>().isOn = true;
+                }
+                else
+                {
+                    GameObject.Find("chk_toggle_hullStress_checker").GetComponent<Toggle>().isOn = false;
+                }
 
 
                 GameObject ui_wholeMap = Instantiate(Resources.Load("menu\\pause\\ui_wholeMap")) as GameObject;
@@ -296,7 +333,9 @@ public class menu_runtime : MonoBehaviour
     //     GameObject.Find("minimap").gameObject.SetActive(false);//= false;
     
         Camera.main.GetComponent<cam_distance>().sceneLoad = false;
-       
+      //  Camera.main.GetComponent<cam_distance>().resetthis();
+
+
         int sleepCount = 0;
         while (sleepCount < 50) //a little bit of wait 
         {
@@ -375,6 +414,8 @@ public class menu_runtime : MonoBehaviour
         Destroy(btn_Resume);
         GameObject btn_skipLevel = GameObject.Find("btn_skipLevel");
         Destroy(btn_skipLevel);
+        GameObject chk_toggle_hullStress = GameObject.Find("chk_toggle_hullStress");
+        Destroy(chk_toggle_hullStress);
         GameObject ui_wholeMap = GameObject.Find("ui_wholeMap");
         Destroy(ui_wholeMap);
         GameObject txt_Pause = GameObject.Find("txt_Pause");

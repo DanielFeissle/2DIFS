@@ -44,6 +44,7 @@ public class mplane_title : MonoBehaviour
     bool start_triggered_once = false;
     string priorButton = "off";
     bool startupSeqComplete = false;
+    public bool noHullStress = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -1618,7 +1619,11 @@ ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             {
                 //8-24-2023
                 //only run this once the stage is in start mode
-                HullStress();
+                if (noHullStress==false) //2-12-2025:Can lock this out from the pause menu
+                {
+                    HullStress();
+                }
+                
             }
             else if (WingHP != 100)
             {

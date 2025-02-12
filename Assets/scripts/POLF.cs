@@ -89,9 +89,83 @@ public class POLF : MonoBehaviour
         img_rating_icon.transform.parent = GameObject.Find("img_stat_extra").transform;
         img_rating_icon.transform.position = GameObject.Find("img_stat_extra").transform.position + new Vector3(2, 2.5f);
     }
+    public void funcStartScene()
+    {
+     
+            //2-5-2025
+            //this will put in the red/green and height flags to help the player identify the goal during the stage
+
+            //but first we have to check if the objects already exist
+
+            if (GameObject.Find("det_green"))
+            {
+                GameObject.Destroy(GameObject.Find("det_green"));
+            }
+        if (GameObject.Find("det_red"))
+        {
+            GameObject.Destroy(GameObject.Find("det_red"));
+        }
+        if (GameObject.Find("det_hash"))
+        {
+            GameObject.Destroy(GameObject.Find("det_hash"));
+        }
+
+        //now we load in the item during the auto load function
+
+        GameObject det_green = Instantiate(Resources.Load("ground/detail/green")) as GameObject;
+        det_green.name = "det_green";
+        det_green.transform.position = new Vector3(OBJ_Land_s, 0);
+
+        GameObject det_red = Instantiate(Resources.Load("ground/detail/red")) as GameObject;
+        det_red.name = "det_red";
+        det_red.transform.position = new Vector3(OBJ_Land_e, 0);
+
+        GameObject det_hash = Instantiate(Resources.Load("ground/detail/height_dash")) as GameObject;
+        det_hash.name = "det_hash";
+        det_hash.transform.position = new Vector3(0, OBJ_Height);
+
+
+        det_hash.transform.position = new Vector3(Camera.main.transform.position.x, det_hash.transform.position.y, det_hash.transform.position.z);
+
+        det_red.transform.position = new Vector3(det_red.transform.position.x, Camera.main.transform.position.y, det_red.transform.position.z);
+
+        det_green.transform.position = new Vector3(det_green.transform.position.x, Camera.main.transform.position.y, det_green.transform.position.z);
+        // Get the screen dimensions in world units
+        Vector2 screenDimensions = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height)) * 2;
+
+        // Get the object's sprite renderer
+        SpriteRenderer dashedLine_spriteRenderer = det_hash.GetComponent<SpriteRenderer>();
+        SpriteRenderer colorLineG_spriteRender = det_green.GetComponent<SpriteRenderer>();
+        SpriteRenderer colorLineR_spriteRender = det_red.GetComponent<SpriteRenderer>();
+        if (dashedLine_spriteRenderer != null)
+        {
+            // Get the size of the sprite
+            Vector2 spriteSize = dashedLine_spriteRenderer.bounds.size;
+            Vector2 spriteSize_hor = colorLineG_spriteRender.bounds.size;
+            
+
+            // Calculate the scale factor to fit the screen
+            //   Vector2 scale = new Vector2(screenDimensions.x / spriteSize.x, screenDimensions.y / spriteSize.y);
+            Vector2 scale = new Vector2(screenDimensions.x / spriteSize.x, 0.5f);
+            Vector2 scale_hor = new Vector2(0.5f, screenDimensions.y / spriteSize_hor.y)*2;
+
+            // Apply the scale to the object
+            dashedLine_spriteRenderer.transform.localScale = scale;
+            colorLineG_spriteRender.transform.localScale = scale_hor;
+            colorLineR_spriteRender.transform.localScale = scale_hor;
+        }
+        else
+        {
+            Debug.LogError("No SpriteRenderer found on the object.");
+        }
+
+
+    }
     public void funcAutoLoader()
     {
-        
+
+       
+
         // Debug.Log("MAX HEIGHT " + GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt);
         //   Debug.Log("OBJ HEIGHT " + OBJ_Height);
         // Debug.Log("GROUNDED: " + GameObject.Find("Player_plane").GetComponent<mplane_controller>().onground);
@@ -109,20 +183,30 @@ public class POLF : MonoBehaviour
             GameObject.Find("Player_plane").GetComponent<mplane_controller>().autoProgress = true;
             GameObject uiCongrats = GameObject.Find("txt_OBJ");
             uiCongrats.gameObject.GetComponent<Text>().text = "                                     You win!";
+            //2-11-2025
+            //putting this as a function seems to have fixed this issue that may have existed since November 2024
+            GameObject.Find("altimeter").GetComponent<menu_runtime>().issueComplete();
+            GameObject.Find("altimeter").GetComponent<menu_runtime>().nextLevel = 1; //2-11-2025- might fix issue with win condition and objects not loading 
+            curSceneOver = true;
             uiCongrats.gameObject.GetComponent<Text>().enabled = true;
+            GameObject.Find("altimeter").GetComponent<menu_runtime>().nextLevel = 1;
+
+            GameObject.Find("bluLoading").GetComponent<SpriteRenderer>().enabled = false;
+            GameObject.Find("checkerBoard(256x256)").GetComponent<SpriteRenderer>().enabled = false;
+            GameObject.Find("minimap").GetComponent<MeshRenderer>().enabled = false;
             GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead = true;
             //    GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().
             GameObject.Find("sela").GetComponent<LevelHistory>().LoadSameStateScene(GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().world, GameObject.Find("Player_plane").GetComponent<WorldFlowTrack>().scene);//todo 6-12-2023:update score tracking array
 
 
             //11-25-2024 sorry for the double paste here
-            if (GameObject.Find("altimeter").GetComponent<menu_runtime>().nextLevel == 1)
+          //  if (GameObject.Find("altimeter").GetComponent<menu_runtime>().nextLevel == 1)
             {
                 Debug.Log("DRF_11");
                 GameObject.Find("altimeter").GetComponent<menu_runtime>().nextLevel = 0;
                 if (curSceneOver == true && GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == false)
                 {
-
+                    
                     GameObject.Find("Player_plane").GetComponent<mplane_controller>().autoProgress = false;
                     GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt = 0;
                     //12-1-2021 this means that the player restarted the scene again
@@ -216,13 +300,14 @@ public class POLF : MonoBehaviour
             if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == false)
             {
             //11-25-2024, moved to a function for better calling methods from other scripts (button skip/next level from menu)
-                funcAutoLoader();
+            
+            funcAutoLoader();
             }
 
 
             if (curSceneOver == true && GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == false)
             {
-
+            Debug.Log("DRF_10_YOUWIN");
                GameObject.Find("Player_plane").GetComponent<mplane_controller>().autoProgress = false;
                 GameObject.Find("Player_plane").GetComponent<mplane_controller>().maxAlt = 0;
                 //12-1-2021 this means that the player restarted the scene again
@@ -353,6 +438,7 @@ public class POLF : MonoBehaviour
             GameObject.Find("planeTOP").GetComponent<TouchAndDie>().enabled = true;
             this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
             timeStart = true;
+            funcStartScene();
         }
 
     }
