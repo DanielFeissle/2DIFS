@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -111,6 +112,24 @@ public class POLF : MonoBehaviour
         }
 
         //now we load in the item during the auto load function
+
+        //2-19-2025
+        //Delete all markers if they exist
+        string targetName = "det_green,det_red,det_hash";
+        string[] splittarget = targetName.Split(',');
+        GameObject[] allObjects = FindObjectsOfType<GameObject>();
+        foreach (string s in splittarget)
+        {
+            GameObject[] objectsWithSameName = allObjects.Where(obj => obj.name == s).ToArray();
+            foreach (GameObject obj in objectsWithSameName)
+            {
+                if (obj)
+                {
+                    Destroy(obj);
+                }
+            }
+        }
+
 
         GameObject det_green = Instantiate(Resources.Load("ground/detail/green")) as GameObject;
         det_green.name = "det_green";

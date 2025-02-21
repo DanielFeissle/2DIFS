@@ -69,6 +69,7 @@
     <Compile Include="Assets\scripts\fx_pdead.cs" />
     <Compile Include="Assets\scripts\realGenericButtonListner.cs" />
     <Compile Include="Assets\scripts\world_scene_preview.cs" />
+    <Compile Include="Assets\scripts\realGenericCheckBox.cs" />
     <Compile Include="Assets\scripts\POLF.cs" />
     <Compile Include="Assets\scripts\weather.cs" />
     <Compile Include="Assets\scripts\btn_stage_selection.cs" />
@@ -153,7 +154,7 @@
     <Compile Include="Assets\scripts\BinSaveSystem.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
     <Compile Include="Assets\scripts\order_layer.cs" />
-    <Compile Include="Assets\scripts\realGenericCheckBox.cs" />
+    <Compile Include="Assets\scripts\ugbm.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />

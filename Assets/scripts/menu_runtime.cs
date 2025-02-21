@@ -167,6 +167,13 @@ public class menu_runtime : MonoBehaviour
                 }
 
 
+                GameObject txt_music_field = Instantiate(Resources.Load("menu\\pause\\txt_music_field")) as GameObject;
+                txt_music_field.name = "txt_music_field";
+                txt_music_field.transform.SetParent(getCand.transform, false);
+                txt_music_field.transform.localPosition = new Vector2(750, -190.0f); ////this sets the prefab to the canvas (this is for menu objects), which will control the location
+                Debug.Log("DANHERE "+GameObject.Find("Player_plane").GetComponent<ugbm>().musicDirectory);
+                GameObject.Find("txt_ugm").GetComponent<InputField>().text = GameObject.Find("Player_plane").GetComponent<ugbm>().musicDirectory;
+
                 GameObject ui_wholeMap = Instantiate(Resources.Load("menu\\pause\\ui_wholeMap")) as GameObject;
                 ui_wholeMap.name = "ui_wholeMap";
                 ui_wholeMap.transform.SetParent(getCand.transform, false);
@@ -416,6 +423,10 @@ public class menu_runtime : MonoBehaviour
         Destroy(btn_skipLevel);
         GameObject chk_toggle_hullStress = GameObject.Find("chk_toggle_hullStress");
         Destroy(chk_toggle_hullStress);
+        GameObject.Find("Player_plane").GetComponent<ugbm>().musicDirectory=GameObject.Find("txt_ugm").GetComponent<InputField>().text;
+        GameObject.Find("Player_plane").GetComponent<ugbm>().musicLoader();
+        GameObject txt_music_field = GameObject.Find("txt_music_field");
+        Destroy(txt_music_field);
         GameObject ui_wholeMap = GameObject.Find("ui_wholeMap");
         Destroy(ui_wholeMap);
         GameObject txt_Pause = GameObject.Find("txt_Pause");
