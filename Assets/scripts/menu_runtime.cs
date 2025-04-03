@@ -171,13 +171,19 @@ public class menu_runtime : MonoBehaviour
                 txt_music_field.name = "txt_music_field";
                 txt_music_field.transform.SetParent(getCand.transform, false);
                 txt_music_field.transform.localPosition = new Vector2(750, -190.0f); ////this sets the prefab to the canvas (this is for menu objects), which will control the location
-                Debug.Log("DANHERE "+GameObject.Find("Player_plane").GetComponent<ugbm>().musicDirectory);
                 GameObject.Find("txt_ugm").GetComponent<InputField>().text = GameObject.Find("Player_plane").GetComponent<ugbm>().musicDirectory;
 
                 GameObject ui_wholeMap = Instantiate(Resources.Load("menu\\pause\\ui_wholeMap")) as GameObject;
                 ui_wholeMap.name = "ui_wholeMap";
                 ui_wholeMap.transform.SetParent(getCand.transform, false);
                 ui_wholeMap.transform.localPosition = new Vector2(-550, -60.0f); ////this sets the prefab to the canvas (this is for menu objects), which will control the location
+
+                if (GameObject.Find("txt_Pause"))
+                {
+                    Destroy(GameObject.Find("txt_Pause"));
+                }
+
+
                 GameObject txt_Pause = Instantiate(Resources.Load("menu\\pause\\txt_PAUSED")) as GameObject;
                 txt_Pause.name = "txt_Pause";
                 txt_Pause.transform.SetParent(getCand.transform, false);
@@ -423,14 +429,27 @@ public class menu_runtime : MonoBehaviour
         Destroy(btn_skipLevel);
         GameObject chk_toggle_hullStress = GameObject.Find("chk_toggle_hullStress");
         Destroy(chk_toggle_hullStress);
-        GameObject.Find("Player_plane").GetComponent<ugbm>().musicDirectory=GameObject.Find("txt_ugm").GetComponent<InputField>().text;
-        GameObject.Find("Player_plane").GetComponent<ugbm>().musicLoader();
+        if (GameObject.Find("txt_ugm").GetComponent<InputField>().text=="")
+        {
+            GameObject.Find("Player_plane").GetComponent<ugbm>().musicDirectory = "";
+            GameObject.Find("Player_plane").GetComponent<ugbm>().musicLoader();
+        }
+        else
+        {
+            GameObject.Find("Player_plane").GetComponent<ugbm>().musicDirectory = GameObject.Find("txt_ugm").GetComponent<InputField>().text;
+            GameObject.Find("Player_plane").GetComponent<ugbm>().musicLoader();
+        }
+
         GameObject txt_music_field = GameObject.Find("txt_music_field");
         Destroy(txt_music_field);
         GameObject ui_wholeMap = GameObject.Find("ui_wholeMap");
         Destroy(ui_wholeMap);
-        GameObject txt_Pause = GameObject.Find("txt_Pause");
-        Destroy(txt_Pause);
+        if (GameObject.Find("txt_Pause"))
+        {
+            GameObject.Find("txt_Pause").GetComponent<Text>().text = "RESUME..";
+            StartCoroutine(DestroyWithDelay());
+        }
+
         GameObject sld_FPSS = GameObject.Find("sld_FPSS");
         Destroy(sld_FPSS);
         GameObject sld_weather = GameObject.Find("sld_weather");
@@ -453,4 +472,14 @@ public class menu_runtime : MonoBehaviour
         //   Resources.UnloadUnusedAssets();
 
     }
+    public float pause_delay = 3f; // Time in seconds to wait before destroying the object
+    private IEnumerator DestroyWithDelay()
+    {
+        yield return new WaitForSeconds(pause_delay); // Wait for the specified delay
+        GameObject txt_Pause = GameObject.Find("txt_Pause");
+        Destroy(txt_Pause);
+        Debug.Log("GameObject destroyed after " + pause_delay + " seconds.");
+    }
+
+
 }

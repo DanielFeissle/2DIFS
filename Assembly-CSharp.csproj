@@ -91,6 +91,7 @@
     <Compile Include="Assets\scripts\weather_rain.cs" />
     <Compile Include="Assets\scripts\debug_menu_ui.cs" />
     <Compile Include="Assets\scripts\title_remove_persist.cs" />
+    <Compile Include="Assets\scripts\title_truck_angle.cs" />
     <Compile Include="Assets\scripts\fx_general_shrink_delete.cs" />
     <Compile Include="Assets\scripts\mplane_title.cs" />
     <Compile Include="Assets\scripts\world_scene_editor.cs" />
@@ -155,7 +156,6 @@
     <Compile Include="Assets\scripts\BinSaveSystem.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
     <Compile Include="Assets\scripts\order_layer.cs" />
-    <Compile Include="Assets\scripts\title_truck_angle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />
@@ -181,6 +181,7 @@
     <None Include="Assets\resources\scenes\3x1.txt" />
     <None Include="Assets\resources\scenes\3x4.txt" />
     <None Include="Assets\resources\scenes\3x2.txt" />
+    <None Include="Assets\resources\_FX\BMX\location.txt" />
     <None Include="Assets\resources\scenes\2x1.txt" />
     <None Include="Assets\resources\scenes\_scene_data_holder.txt" />
     <None Include="Assets\resources\scenes\1x4.txt" />

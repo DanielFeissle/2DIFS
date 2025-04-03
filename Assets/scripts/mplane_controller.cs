@@ -314,7 +314,7 @@ public class mplane_controller : MonoBehaviour
             }
 
             //   Debug.Log("Your Value for Trigger is " + TriggerRight);
-            if (Input.GetButtonDown("EJECT") && peject == false)
+            if (Input.GetButtonDown("EJECT") && peject == false &&Time.timeScale!=0)
         {
             //10-24-2022 should fix plane not crashing issue
             GameObject.Find("FLATGROUND_ACT").GetComponent<EdgeCollider2D>().enabled = false;

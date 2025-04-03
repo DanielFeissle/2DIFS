@@ -15,8 +15,18 @@ public class title_screen_control : MonoBehaviour
     public Vector3 endPosition = new Vector3(10, -1.2f, -10);
 
 
+    public Vector3 CameraHor1_startPositio = new Vector3(10, -1.2f, -10);
+    public Vector3 CameraHor1_endPosition = new Vector3(45, -1.2f, -10);
+
+    public Vector3 CameraHor2_startPositio = new Vector3(45, -1.2f, -10);
+    public Vector3 CameraHor2_endPosition = new Vector3(10, 20, -10);
+
     public Vector3 plane_startPositio = new Vector3(-1, -1.44f, 0);
     public Vector3 plane_endPosition = new Vector3(60, -1.44f, 0);
+
+
+    public Vector3 plane2_startPositio = new Vector3(0, 20, 0);
+    public Vector3 plane2_endPosition = new Vector3(30, 10, 0);
 
     public int RandomDelay = 5;
     int delayCount = 0;
@@ -26,7 +36,7 @@ public class title_screen_control : MonoBehaviour
     public float planeSpeed = 0.2f;
     float nextUsage;
     float delay = 1.0f; //only half delay
-
+    bool triggeredGameObject = false;
     private void Awake()
     {
         RandomDelay= Mathf.RoundToInt(UnityEngine.Random.Range(1, 10));
@@ -39,10 +49,13 @@ public class title_screen_control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        // Move the GameObject towards the end position
-        if (mainMenuLocation == 1)
+        if (mainMenuLocation==0)
         {
+
+        }
+     else   if (mainMenuLocation == 1)
+        {
+            // Move the GameObject towards the end position
             //we do the first task, which is to wait a little random while
             if (Time.time > nextUsage)
             {
@@ -93,18 +106,144 @@ public class title_screen_control : MonoBehaviour
             PlaneMoveLeftToRight();
 
         }
+        else if (mainMenuLocation==6)
+        {
+            title_plane.transform.position = plane_startPositio;
+            this.transform.position = CameraHor1_startPositio;
+            mainMenuLocation = 7;
+        }
+        else if (mainMenuLocation==7)
+        {
+            mainCameraMoveRightward();
+        }
+        else if (mainMenuLocation==8)
+        {
+            if (Time.time > nextUsage)
+            {
+                transform.position = CameraHor2_startPositio;
+                delayCount++;
+                nextUsage = Time.time + delay; //it is on display
+            }
+            if (delayCount > 3)
+            {
+                RandomDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 10));
+                mainMenuLocation = 2;
+                delayCount = 0;
+                this.transform.position = CameraHor2_startPositio;
+                mainMenuLocation = 9;
+            }
+
+        }
+        else if (mainMenuLocation == 9)
+        {
+            if (triggeredGameObject==false)
+            {
+                GameObject.Find("rocket_act_1").GetComponent<missle_launch_behavior>().target = GameObject.Find("tank").transform;
+                triggeredGameObject = true;
+            }
+           
+            mainCameraMoveDiag();
+        }
+        else if (mainMenuLocation==10)
+        {
+            if (triggeredGameObject == false)
+            {
+                GameObject.Find("rocket_act_1 (1)").GetComponent<missle_launch_behavior>().target = GameObject.Find("Player_plane_title").transform;
+                triggeredGameObject = true;
+            }
+            
+            mainMenuLocation = 11;
+            title_plane.transform.position = plane2_startPositio;
+        }
+        else if (mainMenuLocation == 11)
+        {
+            PlaneMoveAir();
+            triggeredGameObject = false;
+            if (GameObject.Find("rocket_act_1 (1)").GetComponent<missle_launch_behavior>().targetHit == true)
+            {
+                GameObject.Find("Player_plane_title").transform.position = new Vector2(-0.93f, -2.04f);
+                mainMenuLocation = 12;
+                GameObject.Find("rocket_act_1 (1)").GetComponent<missle_launch_behavior>().targetHit = false;
+            }            
+        }
+        else if (mainMenuLocation==12)
+        {
+            
+            // target = GameObject.Find("Player_plane_title").transform;
+            //boom
+        }
 
 
 
 
     }
 
+    private void boomScreen()
+    {
+        //timer to return to end exp
+        mainMenuLocation = 0;
+        GameObject.Find("Player_plane_title").transform.position = new Vector2(-0.93f, -2.04f);
+    }
+
+    private void PlaneMoveAir()
+    {
+
+        title_plane.transform.position = Vector3.Lerp(title_plane.transform.position, plane2_endPosition, 0.55f * Time.deltaTime);
+        if (Mathf.Round(title_plane.transform.position.x) >= Mathf.Round(plane2_endPosition.x))
+        {
+            if (Mathf.Round(title_plane.transform.position.y) == Mathf.Round(plane2_endPosition.y))
+            {
+                delayCount = 0;
+                nextUsage = Time.time + delay; //it is on display
+                mainMenuLocation = 12;
+
+
+            }
+
+        }
+    }
+
+
+    private void mainCameraMoveDiag()
+    {
+        transform.position = Vector3.Lerp(transform.position, CameraHor2_endPosition, 0.5f * Time.deltaTime);
+        if (Mathf.Round(transform.position.x) == Mathf.Round(CameraHor2_endPosition.x))
+        {
+            if (Mathf.Round(transform.position.y) == Mathf.Round(CameraHor2_endPosition.y))
+            {
+                delayCount = 0;
+                nextUsage = Time.time + delay; //it is on display
+                triggeredGameObject = false;
+                mainMenuLocation = 10;
+
+
+            }
+
+        }
+    }
+
+    private void mainCameraMoveRightward()
+    {
+        transform.position = Vector3.Lerp(transform.position, CameraHor1_endPosition, 0.5f * Time.deltaTime);
+        if (Mathf.Round(transform.position.x) == Mathf.Round(CameraHor1_endPosition.x))
+        {
+            if (Mathf.Round(transform.position.y) == Mathf.Round(CameraHor1_endPosition.y))
+            {
+                delayCount = 0;
+                nextUsage = Time.time + delay; //it is on display
+                mainMenuLocation = 8;
+
+
+            }
+
+        }
+    }
 
     private void PlaneMoveLeftToRight()
     {
       
         title_plane.transform.position = Vector3.Lerp(title_plane.transform.position, plane_endPosition, planeSpeed * Time.deltaTime);
-        if (Mathf.Round(title_plane.transform.position.x) == Mathf.Round(plane_endPosition.x))
+        if (Mathf.Round(title_plane.transform.position.x+20) >= Mathf.Round(plane_endPosition.x)) //+20 to help speed this transition up
         {
             if (Mathf.Round(title_plane.transform.position.y) == Mathf.Round(plane_endPosition.y))
             {

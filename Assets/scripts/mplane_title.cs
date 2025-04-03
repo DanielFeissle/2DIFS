@@ -309,7 +309,7 @@ public class mplane_title : MonoBehaviour
         }
 
         //   Debug.Log("Your Value for Trigger is " + TriggerRight);
-        if (Input.GetButtonDown("EJECT") && peject == false)
+        if (Input.GetButtonDown("EJECT") && peject == false && Time.timeScale != 0)
         {
             //10-24-2022 should fix plane not crashing issue
             GameObject.Find("FLATGROUND_ACT").GetComponent<EdgeCollider2D>().enabled = false;
@@ -489,6 +489,7 @@ public class mplane_title : MonoBehaviour
     public float impact;
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         impact = Vector3.Magnitude(rb.velocity);
         //   Debug.Log(collision.gameObject.name+"  "+impact);
 
@@ -629,8 +630,11 @@ public class mplane_title : MonoBehaviour
     {
         // onground = false;
     }
+   
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+
         if (collision.gameObject.tag == "PlaInd")
         {
             //   rb.bodyType=RigidbodyType2D.Static;

@@ -131,3 +131,6 @@ crashlytics-build.properties
 
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
+
+*Assets/resources/_FX/BMX/*wav
+*Assets/resources/_FX/BMX/*wav.meta
