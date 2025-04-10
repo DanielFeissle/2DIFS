@@ -8,10 +8,12 @@ public class missle_launch_behavior : MonoBehaviour
     public float rotationSpeed = 5f; // Speed of rotation
     public float speed = 50.0f;
     Vector2 startPos;
+    Vector3 startRot;
     private void Start()
     {
         //target = GameObject.Find("Player_plane_title").transform;
         startPos = this.transform.position;
+        startRot  = transform.eulerAngles;
         Debug.Log("RETURN_TO " + startPos);
     }
     public bool targetHit;
@@ -46,8 +48,6 @@ public class missle_launch_behavior : MonoBehaviour
                     if (target.gameObject.tag == "Player")
                     {
                         //3-31-2025 for a very specifcic and rushed scene
-
-                        Debug.Log("DANF3-31");
                         targetHit = true;
                         GameObject.Find("Player_plane_title").transform.position = new Vector2(-0.93f, -2.04f);
 
@@ -57,11 +57,17 @@ public class missle_launch_behavior : MonoBehaviour
                     //3-26-2025
                     target = null;
                     this.transform.position = startPos;
+                    transform.eulerAngles = startRot;
                     Debug.Log("RETURN_TO " + startPos);
                 }
 
             }
 
+        } else if (this.transform.position.y != startPos.y)
+        {
+            //reset position if no target is present
+            this.transform.position = startPos;
+            transform.eulerAngles = startRot;
         }
     }
 

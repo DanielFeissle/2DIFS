@@ -2054,7 +2054,6 @@ MonoBehaviour:
   zzengineOnOff: 0
   noHullStress: 0
   impact: 0
-  targetHit: 0
   per: {fileID: 0}
   OBJaltitude: 0
   altitude: 0
@@ -2556,6 +2555,7 @@ MonoBehaviour:
   plane2_startPositio: {x: 0, y: 20, z: 0}
   plane2_endPosition: {x: 30, y: 10, z: 0}
   RandomDelay: 5
+  TitleDelay: 30
   speed: 1
   planeSpeed: 0.15
 --- !u!114 &519420035
@@ -2570,6 +2570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb65e95ef8d7f9440b7142be2bcca99d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceFolder: _FX/BMX
   audioSource: {fileID: 402501603}
   musicDirectory: C:/Projects/music
 --- !u!114 &519420036

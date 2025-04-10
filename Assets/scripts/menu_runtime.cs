@@ -95,6 +95,23 @@ public class menu_runtime : MonoBehaviour
 
                 }
             }
+            else if (this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen == 6)
+            {
+                //hide debug text values in game
+                if (GameObject.Find("InputDisp").GetComponent<Text>().enabled == false)
+                {
+                 //   GameObject.Find("chk_toggle_debug_checker").GetComponent<Toggle>().isOn = false;
+                    GameObject.Find("InputDisp").GetComponent<Text>().enabled = true;
+                    GameObject.Find("dbg_fps").GetComponent<Text>().enabled = true;
+                }
+                else
+                {
+                  //  GameObject.Find("chk_toggle_debug_checker").GetComponent<Toggle>().isOn = true;
+                    GameObject.Find("InputDisp").GetComponent<Text>().enabled = false;
+                    GameObject.Find("dbg_fps").GetComponent<Text>().enabled = false;
+                }
+
+            }
 
                 Debug.Log("HI THERE");
            this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen = 0;
@@ -164,6 +181,24 @@ public class menu_runtime : MonoBehaviour
                 else
                 {
                     GameObject.Find("chk_toggle_hullStress_checker").GetComponent<Toggle>().isOn = false;
+                }
+
+
+                GameObject chk_debug_active = Instantiate(Resources.Load("menu\\pause\\chk_debug_active")) as GameObject;
+                chk_debug_active.name = "chk_debug_active";
+                chk_debug_active.transform.SetParent(getCand.transform, false);
+                chk_debug_active.transform.localPosition = new Vector2(750, -260.0f); ////this sets the prefab to the canvas (this is for menu objects), which will control the location
+                if (GameObject.Find("InputDisp").GetComponent<Text>().enabled == false)
+                {
+                    GameObject.Find("chk_toggle_debug_checker").GetComponent<Toggle>().isOn = false;
+                    GameObject.Find("InputDisp").GetComponent<Text>().enabled = false;
+                    GameObject.Find("dbg_fps").GetComponent<Text>().enabled = false;
+                }
+                else
+                {
+                    GameObject.Find("chk_toggle_debug_checker").GetComponent<Toggle>().isOn = true;
+                    GameObject.Find("InputDisp").GetComponent<Text>().enabled = true;
+                    GameObject.Find("dbg_fps").GetComponent<Text>().enabled = true;
                 }
 
 
@@ -429,6 +464,8 @@ public class menu_runtime : MonoBehaviour
         Destroy(btn_skipLevel);
         GameObject chk_toggle_hullStress = GameObject.Find("chk_toggle_hullStress");
         Destroy(chk_toggle_hullStress);
+        GameObject chk_debug_active = GameObject.Find("chk_debug_active");
+        Destroy(chk_debug_active);
         if (GameObject.Find("txt_ugm").GetComponent<InputField>().text=="")
         {
             GameObject.Find("Player_plane").GetComponent<ugbm>().musicDirectory = "";

@@ -153,11 +153,14 @@ public class ugbm : MonoBehaviour
             if (audioSource != null && !audioSource.isPlaying && musicDirectory != "")
             {
                 audioIndex++;
-                StartCoroutine(PlayMusic2(musicFiles[audioIndex]));
+                //4-8-2025
+                //check index before playing
                 if (audioIndex > musicFiles.Length - 1)
                 {
                     audioIndex = 0;
                 }
+                StartCoroutine(PlayMusic2(musicFiles[audioIndex]));
+
             }
             else
             {

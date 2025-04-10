@@ -29,6 +29,7 @@ public class title_screen_control : MonoBehaviour
     public Vector3 plane2_endPosition = new Vector3(30, 10, 0);
 
     public int RandomDelay = 5;
+    public int TitleDelay = 30;
     int delayCount = 0;
     GameObject title_plane;
     //Player_plane_title
@@ -40,8 +41,9 @@ public class title_screen_control : MonoBehaviour
     private void Awake()
     {
         RandomDelay= Mathf.RoundToInt(UnityEngine.Random.Range(1, 10));
+        TitleDelay = Mathf.RoundToInt(UnityEngine.Random.Range(30, 60));
         Debug.Log("ILIVE!!");
-        mainMenuLocation = 1; //start the title screen process
+        mainMenuLocation = 0;
         nextUsage = Time.time + delay; //it is on display
         title_plane = GameObject.Find("Player_plane_title");
     }
@@ -49,12 +51,46 @@ public class title_screen_control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+        if (Input.anyKey || Input.anyKeyDown ||
+    Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+        {
+            if (GameObject.Find("Canvas").GetComponent<Canvas>().enabled == false)
+            {
+                GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
+            }
+            delayCount = 0;
+            if (mainMenuLocation!=0)
+            {
+                //4-8-2025
+                //reset main menu here back to position zero
+                returnToOrigPos();
+            }
+            TitleDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 5));
+            mainMenuLocation = 0;
+        }
+
+
         if (mainMenuLocation==0)
         {
-
+            //in title pre loop
+            if (Time.time > nextUsage)
+            {
+                // transform.position = startPositio;
+                delayCount++;
+                nextUsage = Time.time + delay; //it is on display
+            }
+            if (delayCount > TitleDelay)
+            {
+                RandomDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 10));
+                mainMenuLocation = 1; //start the title screen process
+                delayCount = 0;
+            }
         }
      else   if (mainMenuLocation == 1)
         {
+            GameObject.Find("Canvas").GetComponent<Canvas>().enabled=false;
             // Move the GameObject towards the end position
             //we do the first task, which is to wait a little random while
             if (Time.time > nextUsage)
@@ -168,13 +204,33 @@ public class title_screen_control : MonoBehaviour
         }
         else if (mainMenuLocation==12)
         {
-            
+            //reset title delay random wait
+            TitleDelay = Mathf.RoundToInt(UnityEngine.Random.Range(30, 60));
+            mainMenuLocation = 0;
             // target = GameObject.Find("Player_plane_title").transform;
             //boom
         }
 
 
 
+
+    }
+
+    private void returnToOrigPos()
+    {
+        GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
+        RandomDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 10));
+        nextUsage = Time.time + delay; //it is on display
+        TitleDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 5));
+        startPositio = new Vector3(10, -1.2f, -10);
+        this.transform.position = startPositio;
+        delayCount = 0;
+        title_plane.transform.position = plane_startPositio;
+        GameObject.Find("rocket_act_1 (1)").GetComponent<missle_launch_behavior>().targetHit = false;
+        GameObject.Find("rocket_act_1").GetComponent<missle_launch_behavior>().targetHit = false;
+        GameObject.Find("rocket_act_1").GetComponent<missle_launch_behavior>().target = null;
+        GameObject.Find("rocket_act_1 (1)").GetComponent<missle_launch_behavior>().target = null;
+        //GameObject.Find("rocket_act_1 (1)").GetComponent<missle_launch_behavior>().targetHit = false;
 
     }
 
