@@ -4,7 +4,7 @@
 #GTO game type objective (0-Height/distance obj, 1-Land on gameobject name, 2-Pass checkpoints, 3-Grab object and get to designated end point)
 GTO,0
 #OBJ,Scene title, GET Height (+or-), Land start, Land End
-OBJ,SCANDAR-DistancebirdII,40,800,1400
+OBJ,SCANDAR-Distant Aim,70,400,420
 #CLD,Cloud Height
 CLD,68
 #WTH, Weather 0-99 higher number more clouds/rain
@@ -22,30 +22,55 @@ GRX,0
 #GRY, gravity scale y
 GRY,-9.81
 # Prefab,LayerOrder,StartX,EndX,StartY,EndY
-ground/airport,0,0,1000,0,2.56
+ground/bramp2,0,349.94,352.5,61.46,64.02,4,4,0
+ground/bramp2,0,354.974,357.534,62.857,65.417,4,4,0
+ground/bramp2,0,360.08,362.64,64.32,66.88,4,4,0
+ground/bramp2,0,365.146,367.706,65.743,68.30299,4,4,0
+ground/bramp2,0,370.18,372.74,67.14,69.7,4,4,0
+ground/bramp2,0,375.286,377.846,68.603,71.16299,4,4,0
+ground/bramp2,0,380.37,382.93,70.02,72.57999,4,4,0
+ground/bramp2,0,390.51,393.07,72.88,75.43999,4,4,0
+ground/bramp2,0,385.404,387.964,71.417,73.977,4,4,0
+ground/gbrick,0,355.0278,357.5878,57.84396,60.40396,4,4,0
+ground/gbrick,0,360.1,362.66,59.15,61.71,4,4,0
+ground/gbrick,0,365.18,367.74,60.62,63.18,4,4,0
+ground/gbrick,0,370.29,372.85,62.04,64.6,4,4,0
+ground/gbrick,0,375.35,377.91,63.47,66.03,4,4,0
+ground/gbrick,0,380.39,382.95,64.89,67.45,4,4,0
+ground/gbrick,0,385.5,388.06,66.29,68.85,4,4,0
+ground/gbrick,0,390.53,393.09,67.74,70.3,4,4,0
+ground/gbrick,0,390.53,393.09,62.65,65.21,4,4,0
+ground/gbrick,0,390.53,393.09,57.56,60.12,4,4,0
+ground/gbrick,0,385.5,388.06,61.27,63.83,4,4,0
+ground/gbrick,0,380.42,382.98,59.92,62.48,4,4,0
+ground/gbrick,0,375.29,377.85,58.47,61.03,4,4,0
+ground/gbrick,0,370.26,372.82,57.02,59.58,4,4,0
+ground/gbrick,0,393.84,396.4,77.01,79.57,4,4,0
+ground/gbrick,0,388.72,391.28,76.92,79.48,4,4,0
+ground/gbrick,0,383.69,386.25,76.92,79.48,4,4,0
+ground/gbrick,0,378.6,381.16,76.97,79.53,4,4,0
+ground/gbrick,0,373.57,376.13,77,79.56,4,4,0
+ground/gbrick,0,368.53,371.09,77,79.56,4,4,0
+ground/gbrick,0,363.36,365.92,77.03,79.59,4,4,0
+ground/gbrick,0,358.37,360.93,77.11,79.67,4,4,0
+ground/gbrick,0,363.36,365.92,77.03,79.59,4,4,0
+ground/gbrick,0,403.76,406.32,77.01,79.57,4,4,0
+ground/gbrick,0,398.6361,401.1961,76.86449,79.42448,4,4,0
+ground/gbrick,0,408.79,411.35,72.03,74.59,4,4,0
+ground/gbrick,0,413.82,416.38,67,69.56,4,4,0
+ground/gbrick,0,418.65,421.21,61.97,64.53,4,4,0
+ground/gbrick,0,423.82,426.38,61.28,63.84,4,4,0
+ground/airport,0,0,350,0,2.56
 #leftmost
 ground/gbrick,0,-25,0,0,200
 #rightmost
-ground/gbrick,0,1200,1400,0,200
+ground/gbrick,0,700,800,0,200
 #topmost
-ground/gbrick,0,-15,1250,190,200
+ground/gbrick,0,-15,800,190,200
 #BOTTOM
-ground/gbrick,0,-15,1250,-20,-2
+ground/gbrick,0,-15,800,-20,-2
+#BOTTOM2
+ground/gbrick,0,350,800,0,60
 #9
-ground/gbrick,0,520,530,-5,40
-ground/gbrick,0,520,530,80,200
-#10
-ground/gbrick,0,580,590,-5,60
-ground/gbrick,0,580,590,100,200
-#11
-ground/gbrick,0,630,640,-5,55
-ground/gbrick,0,630,640,115,200
-#12
-ground/gbrick,0,690,700,-5,50
-ground/gbrick,0,690,700,75,200
-#13
-ground/gbrick,0,777,787,-5,10
-ground/gbrick,0,777,787,70,200
-#14
-ground/gbrick,0,810,820,-5,14
-ground/gbrick,0,810,820,45,200
+ground/gbrick,0,350,360,-5,50
+ground/gbrick,0,350,360,70,200
