@@ -37,7 +37,10 @@ public class title_screen_control : MonoBehaviour
     public float planeSpeed = 0.2f;
     float nextUsage;
     float delay = 1.0f; //only half delay
+    float nextUsage_exp;
+    float delay_exp = 0.1f; //only half delay
     bool triggeredGameObject = false;
+    bool intro_finished = false;
     private void Awake()
     {
         RandomDelay= Mathf.RoundToInt(UnityEngine.Random.Range(1, 10));
@@ -51,7 +54,6 @@ public class title_screen_control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
 
         if (Input.anyKey || Input.anyKeyDown ||
     Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
@@ -69,11 +71,21 @@ public class title_screen_control : MonoBehaviour
             }
             TitleDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 5));
             mainMenuLocation = 0;
+            intro_finished = false;
         }
 
 
         if (mainMenuLocation==0)
         {
+            if (intro_finished==true)
+            {
+                if (Time.time > nextUsage_exp)
+                {
+                    randomExp();
+                    randomMis();
+                 nextUsage_exp = Time.time + delay_exp; //it is on display
+                }
+            }
             //in title pre loop
             if (Time.time > nextUsage)
             {
@@ -85,6 +97,7 @@ public class title_screen_control : MonoBehaviour
             {
                 RandomDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 10));
                 mainMenuLocation = 1; //start the title screen process
+                intro_finished = false;
                 delayCount = 0;
             }
         }
@@ -207,12 +220,49 @@ public class title_screen_control : MonoBehaviour
             //reset title delay random wait
             TitleDelay = Mathf.RoundToInt(UnityEngine.Random.Range(30, 60));
             mainMenuLocation = 0;
+            intro_finished = true;
             // target = GameObject.Find("Player_plane_title").transform;
             //boom
         }
 
 
 
+
+    }
+
+
+    private void randomMis()
+    {
+        Camera camera = Camera.main;
+
+        // Define random X and Y within the left and top portion of the viewport
+        float randomX = Random.Range(0f, 0.5f); // Left half
+        float randomY = Random.Range(0.5f, 1f); // Top half
+
+        // Convert viewport coordinates to world coordinates
+        Vector3 randomWorldPosition = camera.ViewportToWorldPoint(new Vector3(randomX, randomY, camera.nearClipPlane));
+        Debug.Log("Send the object here:" + randomWorldPosition);
+
+    }
+
+    private void randomExp()
+    {
+
+        int rando = UnityEngine.Random.Range(1, 50);
+        for (int i=0;i<rando;i++)
+        {
+            // Get the camera's width and height in world units
+            float screenX = Random.Range(0, Screen.width);
+            float screenY = Random.Range(0, Screen.height);
+
+            // Convert screen position to world position
+        //    Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(screenX, screenY,0));
+         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(screenX, screenY,10));
+
+            GameObject RepeatGround33 = Instantiate(Resources.Load("Exp2017")) as GameObject;
+            RepeatGround33.name = "px" + worldPosition;
+            RepeatGround33.transform.position = worldPosition;// new Vector2(transform.position.x + UnityEngine.Random.Range(-2, 2), transform.position.y - UnityEngine.Random.Range(-2, 2));
+        }
 
     }
 

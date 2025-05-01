@@ -4,7 +4,7 @@
 #GTO game type objective (0-Height/distance obj, 1-Land on gameobject name, 2-Pass checkpoints, 3-Grab object and get to designated end point)
 GTO,0
 #OBJ,Scene title, GET Height (+or-), Land start, Land End
-OBJ,TowerKick,240,400,44
+OBJ,TowerKick,40,340,400
 #CLD,Cloud Height
 CLD,68
 #WTH, Weather 0-99 higher number more clouds/rain
