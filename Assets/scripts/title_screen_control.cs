@@ -1,13 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class title_screen_control : MonoBehaviour
 {
+    public Canvas canvas; // Reference to the Canvas
+    Font myFont; //= Resources.Load<Font>("Arial.tff");
+    public Color startColor = Color.white; // Initial color
+    public Color endColor = Color.red;  // Target color
+    public float duration = 4f;           // Duration of the fade
+    private float elapsedTime = 0f;
+    private Camera cam;
+    bool dialFlag = false;
     // Start is called before the first frame update
     void Start()
     {
-       // StartCoroutine(SlowBounceOnRecover());
+        //   canvas = Camera.main.GetComponentInChildren<Canvas>().GetComponent<Canvas>();
+        canvas = GameObject.Find("canvas_demo").GetComponent<Canvas>();
+
+        cam = Camera.main;
+        cam.backgroundColor = startColor; // Set the initial background color
+        Debug.Log("MY FONT IS " + myFont);
+        myFont = GameObject.Find("txt_title").GetComponent<Text>().font;
+       
+        
+        // StartCoroutine(SlowBounceOnRecover());
     }
     public int mainMenuLocation = 0; //main menu location transition
 
@@ -41,6 +59,8 @@ public class title_screen_control : MonoBehaviour
     float delay_exp = 0.1f; //only half delay
     bool triggeredGameObject = false;
     bool intro_finished = false;
+    bool intro_pipeline_complete = false;
+
     private void Awake()
     {
         RandomDelay= Mathf.RoundToInt(UnityEngine.Random.Range(1, 10));
@@ -51,22 +71,58 @@ public class title_screen_control : MonoBehaviour
         title_plane = GameObject.Find("Player_plane_title");
     }
 
+    void CreateTextBlock(string textContent, Vector2 position, float duration,Color text_color)
+    {
+       
+
+        // Create a new GameObject
+        GameObject textObject = new GameObject("DynamicText");
+
+        // Set the parent to the Canvas
+        textObject.transform.SetParent(canvas.transform);
+
+        // Add a Text component to the GameObject
+        Text textComponent = textObject.AddComponent<Text>();
+
+        // Set the text content
+        textComponent.text = textContent;
+
+        // Set the font and size (you may need to assign a font from your project)
+        // textComponent.font = myFont; //Resources.GetBuiltinResource<Font>("Arial.tff");
+        textComponent.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
+        textComponent.resizeTextForBestFit = true;
+        textComponent.resizeTextMinSize = 128;
+        textComponent.resizeTextMaxSize = 128;
+        textComponent.horizontalOverflow = HorizontalWrapMode.Overflow;
+        textComponent.verticalOverflow = VerticalWrapMode.Overflow;
+        textComponent.fontSize = 128;
+        textComponent.fontStyle = FontStyle.Bold;
+        textComponent.color = text_color;
+        // Set the position and other properties
+        RectTransform rectTransform = textObject.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = position;
+        rectTransform.sizeDelta = new Vector2(200, 50); // Adjust size as needed
+        GameObject.Destroy(textObject, duration);
+    }
+
     // Update is called once per frame
     void Update()
     {
-
+        
         if (Input.anyKey || Input.anyKeyDown ||
     Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
         {
             if (GameObject.Find("Canvas").GetComponent<Canvas>().enabled == false)
             {
+                cam.backgroundColor = startColor;
                 GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
             }
             delayCount = 0;
-            if (mainMenuLocation!=0)
+            if (mainMenuLocation!=0|| intro_pipeline_complete==true)
             {
                 //4-8-2025
                 //reset main menu here back to position zero
+                intro_pipeline_complete = false;
                 returnToOrigPos();
             }
             TitleDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 5));
@@ -97,12 +153,15 @@ public class title_screen_control : MonoBehaviour
             {
                 RandomDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 10));
                 mainMenuLocation = 1; //start the title screen process
+                elapsedTime = 0f;
                 intro_finished = false;
                 delayCount = 0;
             }
         }
      else   if (mainMenuLocation == 1)
         {
+            intro_pipeline_complete = false;
+            cam.backgroundColor = startColor;
             GameObject.Find("Canvas").GetComponent<Canvas>().enabled=false;
             // Move the GameObject towards the end position
             //we do the first task, which is to wait a little random while
@@ -163,6 +222,7 @@ public class title_screen_control : MonoBehaviour
         }
         else if (mainMenuLocation==7)
         {
+
             mainCameraMoveRightward();
         }
         else if (mainMenuLocation==8)
@@ -173,13 +233,21 @@ public class title_screen_control : MonoBehaviour
                 delayCount++;
                 nextUsage = Time.time + delay; //it is on display
             }
-            if (delayCount > 3)
+
+            if (delayCount > 1 && dialFlag==false)
             {
-                RandomDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 10));
-                mainMenuLocation = 2;
-                delayCount = 0;
+                dialFlag = true;
+             //   RandomDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 10));
+             //  mainMenuLocation = 2;
+             // delayCount = 0;
+                CreateTextBlock(",,.!!", new Vector2(-350, -150), 2.0f, Color.yellow);
                 this.transform.position = CameraHor2_startPositio;
+
+            }
+            if (delayCount>3)
+            {
                 mainMenuLocation = 9;
+                dialFlag = false;
             }
 
         }
@@ -207,16 +275,23 @@ public class title_screen_control : MonoBehaviour
         else if (mainMenuLocation == 11)
         {
             PlaneMoveAir();
+            if (dialFlag==false)
+            {
+                CreateTextBlock("...!W!", new Vector2(550, -450), 2.0f, Color.red);
+                dialFlag = true;
+            }
             triggeredGameObject = false;
             if (GameObject.Find("rocket_act_1 (1)").GetComponent<missle_launch_behavior>().targetHit == true)
             {
                 GameObject.Find("Player_plane_title").transform.position = new Vector2(-0.93f, -2.04f);
                 mainMenuLocation = 12;
                 GameObject.Find("rocket_act_1 (1)").GetComponent<missle_launch_behavior>().targetHit = false;
+                dialFlag = false;
             }            
         }
         else if (mainMenuLocation==12)
         {
+            intro_pipeline_complete = true;
             //reset title delay random wait
             TitleDelay = Mathf.RoundToInt(UnityEngine.Random.Range(30, 60));
             mainMenuLocation = 0;
@@ -230,24 +305,46 @@ public class title_screen_control : MonoBehaviour
 
     }
 
-
+    [SerializeField] Transform spawnTransform;
     private void randomMis()
     {
+
+        cam = Camera.main;
+        Vector3 p = cam.ScreenToWorldPoint(new Vector3(0, cam.pixelHeight, cam.nearClipPlane)); //top left
+        Vector3 q = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, cam.nearClipPlane)); //bottom right
+
+
+
         Camera camera = Camera.main;
 
         // Define random X and Y within the left and top portion of the viewport
-        float randomX = Random.Range(0f, 0.5f); // Left half
-        float randomY = Random.Range(0.5f, 1f); // Top half
+        float randomX = p.x; //- Mathf.Abs(10);//Random.Range(-5f, -1.5f); // Left half
 
+        float randomY = Random.Range(q.y, p.y); // Random.Range(0.5f, 1f); // Top half
+        Debug.Log("The random target is: "+randomX + "," + randomY);
         // Convert viewport coordinates to world coordinates
-        Vector3 randomWorldPosition = camera.ViewportToWorldPoint(new Vector3(randomX, randomY, camera.nearClipPlane));
+        Vector3 randomWorldPosition = new Vector3(randomX, randomY, 0);//camera.ScreenToWorldPoint(new Vector3(randomX, randomY, 0)); //ViewportToWorldPoint //camera.nearClipPlane
         Debug.Log("Send the object here:" + randomWorldPosition);
+
+        GameObject mx = Instantiate(Resources.Load("ground/gai/rocket/rocket_a_1")) as GameObject;
+        
+        spawnTransform.position = randomWorldPosition;
+        
+        mx.name = "mx" + randomWorldPosition;
+        spawnTransform.name = mx.name;
+        mx.transform.position = GameObject.Find("truck_loaded").transform.position;
+        
+        mx.GetComponent<missle_launch_behavior>().target = spawnTransform;
 
     }
 
     private void randomExp()
     {
-
+        if (cam != null && elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            cam.backgroundColor = Color.Lerp(startColor, endColor, elapsedTime / duration);
+        }
         int rando = UnityEngine.Random.Range(1, 50);
         for (int i=0;i<rando;i++)
         {
@@ -315,6 +412,7 @@ public class title_screen_control : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, CameraHor2_endPosition, 0.5f * Time.deltaTime);
         if (Mathf.Round(transform.position.x) == Mathf.Round(CameraHor2_endPosition.x))
         {
+
             if (Mathf.Round(transform.position.y) == Mathf.Round(CameraHor2_endPosition.y))
             {
                 delayCount = 0;
@@ -331,12 +429,21 @@ public class title_screen_control : MonoBehaviour
     private void mainCameraMoveRightward()
     {
         transform.position = Vector3.Lerp(transform.position, CameraHor1_endPosition, 0.5f * Time.deltaTime);
+        if (Camera.main.transform.position.x > 40)
+        {
+            if (dialFlag == false)
+            {
+                dialFlag = true;
+                CreateTextBlock("!@! :<", new Vector2(-550, 150), 7.0f, Color.green);
+            }
+        }
         if (Mathf.Round(transform.position.x) == Mathf.Round(CameraHor1_endPosition.x))
         {
             if (Mathf.Round(transform.position.y) == Mathf.Round(CameraHor1_endPosition.y))
             {
                 delayCount = 0;
                 nextUsage = Time.time + delay; //it is on display
+                dialFlag = false;
                 mainMenuLocation = 8;
 
 

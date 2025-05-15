@@ -134,3 +134,5 @@ crashlytics-build.properties
 
 *Assets/resources/_FX/BMX/*wav
 *Assets/resources/_FX/BMX/*wav.meta
+*Assets/resources/_FX/BMX/special/*wav
+*Assets/resources/_FX/BMX/special/*wav.meta
