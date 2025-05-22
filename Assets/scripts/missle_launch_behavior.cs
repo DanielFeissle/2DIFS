@@ -125,12 +125,24 @@ public class missle_launch_behavior : MonoBehaviour
             }
 
 
-        } else if (this.transform.position.y != startPos.y)
+        } else if (this.transform.position.y != startPos.y )
         {
             //reset position if no target is present
             this.transform.position = startPos;
             transform.eulerAngles = startRot;
         }
+        if (target == null)
+        {
+
+            if (this.transform.position.y != startPos.y && this.transform.position.x != startPos.y)
+            {
+                this.transform.position = startPos;
+                transform.eulerAngles = startRot;
+                Debug.Log("RETURN_TO " + startPos);
+                this.GetComponent<AudioSource>().enabled = false;
+            }
+        }
+
     }
 
 

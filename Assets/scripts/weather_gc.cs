@@ -23,23 +23,36 @@ public class weather_gc : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //3-7-2022 now clouds go in the direction of generation
-        rb.AddForce(Vector3.right * Camera.main.GetComponent<weather>().AirSpeed*-5 * Time.deltaTime);
-        float dist = Vector3.Distance(Camera.main.transform.position, transform.position);
-
-        if (GetComponent<Renderer>().isVisible)
-        //  {
-        //   if (m_Renderer.isVisible)
+        try
         {
-            ////debug.log("object is visible");
-        } else
-        {
-            if (dist> rendDist)
+            //3-7-2022 now clouds go in the direction of generation
+            if (Camera.main.GetComponent<weather>())
             {
-                Destroy(this.gameObject);
+                rb.AddForce(Vector3.right * Camera.main.GetComponent<weather>().AirSpeed * -5 * Time.deltaTime);
+                float dist = Vector3.Distance(Camera.main.transform.position, transform.position);
+
+                if (GetComponent<Renderer>().isVisible)
+                //  {
+                //   if (m_Renderer.isVisible)
+                {
+                    ////debug.log("object is visible");
+                }
+                else
+                {
+                    if (dist > rendDist)
+                    {
+                        Destroy(this.gameObject);
+                    }
+
+                }
             }
-         
+
         }
+        catch
+        {
+            Debug.Log("ERROR_ON_LOAD " + this.name + " ERROR: ");
+        }
+
 
        
 
@@ -49,47 +62,51 @@ public class weather_gc : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        int weatherDetector = Camera.main.GetComponent<weather>().cloudy;
-        if (weatherDetector > 55)  //3-15-2022 55 is rainhy weather, 65 and above is thunderboomers
+        if (Camera.main.GetComponent<weather>())
         {
-            if (collision.CompareTag("cloud"))
+            int weatherDetector = Camera.main.GetComponent<weather>().cloudy;
+            if (weatherDetector > 55)  //3-15-2022 55 is rainhy weather, 65 and above is thunderboomers
             {
-                var objects = GameObject.FindGameObjectsWithTag("rain");
-                if (objects.Length < 10)
+                if (collision.CompareTag("cloud"))
                 {
-                    GameObject RAIN = Instantiate(Resources.Load("weather\\rain")) as GameObject;
-                    RAIN.name = "rain";
-                    RAIN.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
-                    RAIN.transform.rotation = this.gameObject.transform.rotation;
-                    RAIN.transform.localScale = new Vector3(Random.Range(20, 35), Random.Range(20, 40), 1);
-                }
-
-            }
-        }
-            if (weatherDetector > 65)
-        {
-            if (collision.CompareTag("cloud"))
-            {
-                if (this.gameObject.GetComponent<Renderer>().isVisible==true)
-                {
-
-                    var objects = GameObject.FindGameObjectsWithTag("lighting");
-                    if (objects.Length<1)
+                    var objects = GameObject.FindGameObjectsWithTag("rain");
+                    if (objects.Length < 10)
                     {
-                        GameObject LMAN = Instantiate(Resources.Load("weather\\lighting")) as GameObject;
-                        LMAN.name = "lrod";
-                        LMAN.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
-                        LMAN.transform.rotation = this.gameObject.transform.rotation;
-                        LMAN.transform.localScale = new Vector3(Random.Range(.25f,2), Random.Range(1,5), 1);
-                    }    
+                        GameObject RAIN = Instantiate(Resources.Load("weather\\rain")) as GameObject;
+                        RAIN.name = "rain";
+                        RAIN.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+                        RAIN.transform.rotation = this.gameObject.transform.rotation;
+                        RAIN.transform.localScale = new Vector3(Random.Range(20, 35), Random.Range(20, 40), 1);
+                    }
+
+                }
+            }
+            if (weatherDetector > 65)
+            {
+                if (collision.CompareTag("cloud"))
+                {
+                    if (this.gameObject.GetComponent<Renderer>().isVisible == true)
+                    {
+
+                        var objects = GameObject.FindGameObjectsWithTag("lighting");
+                        if (objects.Length < 1)
+                        {
+                            GameObject LMAN = Instantiate(Resources.Load("weather\\lighting")) as GameObject;
+                            LMAN.name = "lrod";
+                            LMAN.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+                            LMAN.transform.rotation = this.gameObject.transform.rotation;
+                            LMAN.transform.localScale = new Vector3(Random.Range(.25f, 2), Random.Range(1, 5), 1);
+                        }
+
+
+
+                    }
 
 
 
                 }
-              
-
-
             }
         }
+
     }
 }

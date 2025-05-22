@@ -69,15 +69,27 @@ public class title_screen_control : MonoBehaviour
         mainMenuLocation = 0;
         nextUsage = Time.time + delay; //it is on display
         title_plane = GameObject.Find("Player_plane_title");
+        
+        this.GetComponent<AudioSource>().clip= Resources.Load<AudioClip>("_FX\\BMX\\special\\Abandoned_World_Loop");
+        this.GetComponent<AudioSource>().loop = true;
+        this.GetComponent<AudioSource>().Play();
     }
 
     void CreateTextBlock(string textContent, Vector2 position, float duration,Color text_color)
     {
-       
+
+        //9-29-2022 pulled below from specr2, and probab somewhere else
+        //attach script during runtime
+        //We have a string holding a script name
+        string ScriptName = "dialog_bop_bep";
+        //We need to fetch the Type
+        System.Type MyScriptType = System.Type.GetType(ScriptName + ",Assembly-CSharp");
+        //Now that we have the Type we can use it to Add Component
+        
 
         // Create a new GameObject
         GameObject textObject = new GameObject("DynamicText");
-
+        textObject.AddComponent(MyScriptType);
         // Set the parent to the Canvas
         textObject.transform.SetParent(canvas.transform);
 
@@ -105,6 +117,7 @@ public class title_screen_control : MonoBehaviour
         GameObject.Destroy(textObject, duration);
     }
 
+    bool fx_in_title_demo = false;
     // Update is called once per frame
     void Update()
     {
@@ -116,6 +129,13 @@ public class title_screen_control : MonoBehaviour
             {
                 cam.backgroundColor = startColor;
                 GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
+                if (fx_in_title_demo==true)
+                {
+                    this.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("_FX\\BMX\\special\\Abandoned_World_Loop");
+                    this.GetComponent<AudioSource>().loop = true;
+                    this.GetComponent<AudioSource>().Play();
+                    fx_in_title_demo = false;
+                }
             }
             delayCount = 0;
             if (mainMenuLocation!=0|| intro_pipeline_complete==true)
@@ -140,6 +160,10 @@ public class title_screen_control : MonoBehaviour
                     randomExp();
                     randomMis();
                  nextUsage_exp = Time.time + delay_exp; //it is on display
+                                                        // SendKeys.SendWait("{SPACE}");
+
+
+
                 }
             }
             //in title pre loop
@@ -154,12 +178,46 @@ public class title_screen_control : MonoBehaviour
                 RandomDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 10));
                 mainMenuLocation = 1; //start the title screen process
                 elapsedTime = 0f;
-                intro_finished = false;
+                
                 delayCount = 0;
+
+                ///////////////////////////
+                if (intro_finished==true)
+                {
+                    if (GameObject.Find("Canvas").GetComponent<Canvas>().enabled == false)
+                    {
+                        cam.backgroundColor = startColor;
+                        GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
+                        if (fx_in_title_demo == true)
+                        {
+                            this.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("_FX\\BMX\\special\\Abandoned_World_Loop");
+                            this.GetComponent<AudioSource>().loop = true;
+                            this.GetComponent<AudioSource>().Play();
+                            fx_in_title_demo = false;
+                        }
+                    }
+                    delayCount = 0;
+                    if (mainMenuLocation != 0 || intro_pipeline_complete == true)
+                    {
+                        //4-8-2025
+                        //reset main menu here back to position zero
+                        intro_pipeline_complete = false;
+                        returnToOrigPos();
+                    }
+                    TitleDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 5));
+                    mainMenuLocation = 0;
+                    intro_finished = false;
+                }
+
+                intro_finished = false;
             }
         }
      else   if (mainMenuLocation == 1)
         {
+            this.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("_FX\\BMX\\special\\OSS_short");
+            this.GetComponent<AudioSource>().loop = false;
+            this.GetComponent<AudioSource>().Play();
+            fx_in_title_demo = true;
             intro_pipeline_complete = false;
             cam.backgroundColor = startColor;
             GameObject.Find("Canvas").GetComponent<Canvas>().enabled=false;
@@ -365,6 +423,10 @@ public class title_screen_control : MonoBehaviour
 
     private void returnToOrigPos()
     {
+
+        this.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("_FX\\BMX\\special\\Abandoned_World_Loop");
+        this.GetComponent<AudioSource>().loop = true;
+        this.GetComponent<AudioSource>().Play();
         GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
         RandomDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 10));
         nextUsage = Time.time + delay; //it is on display
@@ -377,6 +439,7 @@ public class title_screen_control : MonoBehaviour
         GameObject.Find("rocket_act_1").GetComponent<missle_launch_behavior>().targetHit = false;
         GameObject.Find("rocket_act_1").GetComponent<missle_launch_behavior>().target = null;
         GameObject.Find("rocket_act_1 (1)").GetComponent<missle_launch_behavior>().target = null;
+        triggeredGameObject = false;
         //GameObject.Find("rocket_act_1 (1)").GetComponent<missle_launch_behavior>().targetHit = false;
 
     }
