@@ -16,15 +16,29 @@ public class missle_launch_behavior : MonoBehaviour
         startPos = this.transform.position;
         startRot  = transform.eulerAngles;
         Debug.Log("RETURN_TO " + startPos);
+
+        string ccpt = "_FX/VFX/launch";
+        _audio7 = Resources.Load<AudioClip>(ccpt);
     }
     public bool targetHit;
+    AudioClip _audio7;
+
+    bool launched = true;
     public float xThreshold = 0; // Set this to the X coordinate limit
     void Update()
     {
 
         if (target != null || targpos!=null)
         {
+            if (launched==false)
+            {
 
+                AudioSource.PlayClipAtPoint(_audio7, GameObject.Find("Truck").transform.position, 100);
+                AudioSource.PlayClipAtPoint(_audio7, GameObject.Find("Truck").transform.position, 100);
+                AudioSource.PlayClipAtPoint(_audio7, GameObject.Find("Truck").transform.position, 100);
+                AudioSource.PlayClipAtPoint(_audio7, GameObject.Find("Truck").transform.position, 100);
+                launched = true;
+            }
 
             if (this.name.Contains("mx")) //5-5-2025spec item, handled differently 
             {
@@ -127,22 +141,25 @@ public class missle_launch_behavior : MonoBehaviour
 
         } else if (this.transform.position.y != startPos.y )
         {
+            launched = false;
             //reset position if no target is present
             this.transform.position = startPos;
             transform.eulerAngles = startRot;
         }
+        /*
         if (target == null)
         {
 
             if (this.transform.position.y != startPos.y && this.transform.position.x != startPos.y)
             {
+              //  launched = false;
                 this.transform.position = startPos;
                 transform.eulerAngles = startRot;
                 Debug.Log("RETURN_TO " + startPos);
                 this.GetComponent<AudioSource>().enabled = false;
             }
         }
-
+        */
     }
 
 

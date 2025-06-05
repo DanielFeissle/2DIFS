@@ -63,7 +63,7 @@ public class title_screen_control : MonoBehaviour
 
     private void Awake()
     {
-        RandomDelay= Mathf.RoundToInt(UnityEngine.Random.Range(1, 10));
+        RandomDelay= Mathf.RoundToInt(UnityEngine.Random.Range(45, 75));
         TitleDelay = Mathf.RoundToInt(UnityEngine.Random.Range(30, 60));
         Debug.Log("ILIVE!!");
         mainMenuLocation = 0;
@@ -127,6 +127,8 @@ public class title_screen_control : MonoBehaviour
         {
             if (GameObject.Find("Canvas").GetComponent<Canvas>().enabled == false)
             {
+               
+
                 cam.backgroundColor = startColor;
                 GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
                 if (fx_in_title_demo==true)
@@ -135,7 +137,13 @@ public class title_screen_control : MonoBehaviour
                     this.GetComponent<AudioSource>().loop = true;
                     this.GetComponent<AudioSource>().Play();
                     fx_in_title_demo = false;
+                    
                 }
+            }
+            else
+            {
+                Camera.main.GetComponent<title_logo_text_flow>().enabled = false;//reset the counter if movement is detected
+                Camera.main.GetComponent<title_logo_text_flow>().enabled = true;
             }
             delayCount = 0;
             if (mainMenuLocation!=0|| intro_pipeline_complete==true)
@@ -145,7 +153,7 @@ public class title_screen_control : MonoBehaviour
                 intro_pipeline_complete = false;
                 returnToOrigPos();
             }
-            TitleDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 5));
+            TitleDelay = Mathf.RoundToInt(UnityEngine.Random.Range(45, 75));
             mainMenuLocation = 0;
             intro_finished = false;
         }
@@ -175,7 +183,7 @@ public class title_screen_control : MonoBehaviour
             }
             if (delayCount > TitleDelay)
             {
-                RandomDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 10));
+                RandomDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 5));
                 mainMenuLocation = 1; //start the title screen process
                 elapsedTime = 0f;
                 
@@ -206,6 +214,7 @@ public class title_screen_control : MonoBehaviour
                     }
                     TitleDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 5));
                     mainMenuLocation = 0;
+                    TitleDelay = Mathf.RoundToInt(UnityEngine.Random.Range(45, 75));
                     intro_finished = false;
                 }
 
@@ -231,7 +240,7 @@ public class title_screen_control : MonoBehaviour
             }
             if (delayCount>RandomDelay)
             {
-                RandomDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 10));
+                RandomDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 5));
                 mainMenuLocation = 2;
                 delayCount = 0;
             }
@@ -259,7 +268,7 @@ public class title_screen_control : MonoBehaviour
             }
             if (delayCount > RandomDelay)
             {
-                RandomDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 10));
+                RandomDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 5));
                 mainMenuLocation = 5;
                 title_plane.transform.position = plane_startPositio;
                 delayCount = 0;

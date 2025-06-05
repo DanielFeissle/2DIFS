@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{17876C5F-1B1C-E8CA-E60F-EFDF03629B30}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -128,6 +127,7 @@
     <Compile Include="Assets\scripts\showFPS.cs" />
     <Compile Include="Assets\scripts\mplane_controller.cs" />
     <Compile Include="Assets\scripts\ui_getValue_disp.cs" />
+    <Compile Include="Assets\scripts\dialog_bop_bep.cs" />
     <Compile Include="Assets\scripts\HUD_SFX_STOP.cs" />
     <Compile Include="Assets\scripts\HUD_buttons.cs" />
     <Compile Include="Assets\scripts\support_obscure.cs" />
@@ -158,7 +158,7 @@
     <Compile Include="Assets\scripts\BinSaveSystem.cs" />
     <Compile Include="Assets\scripts\alt_gauge.cs" />
     <Compile Include="Assets\scripts\order_layer.cs" />
-    <Compile Include="Assets\scripts\dialog_bop_bep.cs" />
+    <Compile Include="Assets\scripts\title_logo_text_flow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\resources\scenes\scene1.txt" />
@@ -210,7 +210,6 @@
     <None Include="Assets\resources\scenes\1x1 - Copy (2).txt" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.16f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
