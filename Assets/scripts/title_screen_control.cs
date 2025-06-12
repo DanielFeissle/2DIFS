@@ -42,13 +42,17 @@ public class title_screen_control : MonoBehaviour
     public Vector3 plane_startPositio = new Vector3(-1, -1.44f, 0);
     public Vector3 plane_endPosition = new Vector3(60, -1.44f, 0);
 
-
+    private Vector3 plane_endPosition2 = new Vector3(60, -2.04f, 0);
+    public Vector3 endPosition2 = new Vector3(10, -1.2f, -10);
+    
     public Vector3 plane2_startPositio = new Vector3(0, 20, 0);
     public Vector3 plane2_endPosition = new Vector3(30, 10, 0);
+    public int RandomPlaneActionOnWait = 5;
 
     public int RandomDelay = 5;
     public int TitleDelay = 30;
     int delayCount = 0;
+    int delayPlaneCount = 0;
     GameObject title_plane;
     //Player_plane_title
     public float speed = 1.0f;
@@ -65,6 +69,7 @@ public class title_screen_control : MonoBehaviour
     {
         RandomDelay= Mathf.RoundToInt(UnityEngine.Random.Range(45, 75));
         TitleDelay = Mathf.RoundToInt(UnityEngine.Random.Range(30, 60));
+        RandomPlaneActionOnWait = Mathf.RoundToInt(UnityEngine.Random.Range(15, 30));
         Debug.Log("ILIVE!!");
         mainMenuLocation = 0;
         nextUsage = Time.time + delay; //it is on display
@@ -177,9 +182,17 @@ public class title_screen_control : MonoBehaviour
             //in title pre loop
             if (Time.time > nextUsage)
             {
+                delayPlaneCount++;
                 // transform.position = startPositio;
                 delayCount++;
                 nextUsage = Time.time + delay; //it is on display
+            }
+            if (delayPlaneCount > RandomPlaneActionOnWait)
+            {
+                RandomPlaneActionOnWait = Mathf.RoundToInt(UnityEngine.Random.Range(15, 30));
+                delayPlaneCount = 0;
+                StartCoroutine(PlaneMoveLeftToRight2());
+                //PlaneMoveLeftToRight2();
             }
             if (delayCount > TitleDelay)
             {
@@ -214,9 +227,11 @@ public class title_screen_control : MonoBehaviour
                     }
                     TitleDelay = Mathf.RoundToInt(UnityEngine.Random.Range(1, 5));
                     mainMenuLocation = 0;
+                    RandomPlaneActionOnWait = Mathf.RoundToInt(UnityEngine.Random.Range(15, 30));
                     TitleDelay = Mathf.RoundToInt(UnityEngine.Random.Range(45, 75));
                     intro_finished = false;
                 }
+                 
 
                 intro_finished = false;
             }
@@ -432,7 +447,6 @@ public class title_screen_control : MonoBehaviour
 
     private void returnToOrigPos()
     {
-
         this.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("_FX\\BMX\\special\\Abandoned_World_Loop");
         this.GetComponent<AudioSource>().loop = true;
         this.GetComponent<AudioSource>().Play();
@@ -575,6 +589,55 @@ public class title_screen_control : MonoBehaviour
         }
     }
 
+
+    //use these for random times on title screen
+    //6-11-2025
+
+
+
+    IEnumerator PlaneMoveLeftToRight2()
+    {
+
+    
+
+        while (Mathf.Round(title_plane.transform.position.x + 20) <= Mathf.Round(plane_endPosition2.x)) //+20 to help speed this transition up
+        {
+            yield return new WaitForSeconds(0.001f);
+            title_plane.transform.position = Vector3.Lerp(title_plane.transform.position, plane_endPosition2, planeSpeed * Time.deltaTime);
+
+        }
+        title_plane.transform.position = plane_startPositio;
+
+    }
+    /*
+    private void PlaneMoveLeftToRight2()
+    {
+
+        title_plane.transform.position = Vector3.Lerp(title_plane.transform.position, plane_endPosition2, planeSpeed * Time.deltaTime);
+        if (Mathf.Round(title_plane.transform.position.x + 20) >= Mathf.Round(plane_endPosition.x)) //+20 to help speed this transition up
+        {
+            if (Mathf.Round(title_plane.transform.position.y) == Mathf.Round(plane_endPosition.y))
+            {
+                title_plane.transform.position = plane_startPositio;
+
+            }
+
+        }
+    }
+    */
+    private void MoveAndFollowPlaneDown2()
+    {
+        transform.position = Vector3.Lerp(transform.position, endPosition, speed * Time.deltaTime);
+        if (Mathf.Round(transform.position.x) == Mathf.Round(endPosition.x))
+        {
+            if (Mathf.Round(transform.position.y) == Mathf.Round(endPosition.y))
+            {
+                nextUsage = Time.time + delay; //it is on display
+            }
+
+        }
+    }
+    //6-11-2025 end
 
     private IEnumerator SlowBounceOnRecover()
     {

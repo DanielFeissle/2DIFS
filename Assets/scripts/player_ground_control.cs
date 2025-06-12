@@ -7,14 +7,27 @@ public class player_ground_control : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         rb = GetComponent<Rigidbody2D>();
         ani = this.GetComponent<Animator>();
         spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
         nextUsage = Time.time + delay; //it is on display
-      if  (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject == true)
+                                       //6-12-2025
+                                       //for use outside of scene
+        if (!(GameObject.Find("Player_plane")))
+        {
+            ani.SetBool("IS_PAR_GROUNDED", true);
+            ani.SetBool("IS_ALIVE", true);
+
+        }
+        if ((GameObject.Find("Player_plane")))
+        {
+            if  (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject == true)
         {
             ani.SetBool("IS_ALIVE", true);
         }
+        }
+
     //    GameObject.Find("Player_plane").tag = "PlaDebris";
     }
     [SerializeField] SpriteRenderer spriteRenderer;
@@ -205,21 +218,37 @@ public class player_ground_control : MonoBehaviour
 
         if (collision.gameObject.tag == "ground" || collision.gameObject.tag == "PlaDebris")
         {
-            if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject==true) //7-27-2022, hopeful this fixes the rare bug
+
+                //6-12-2025
+                //for use outside of scene
+                if ((GameObject.Find("Player_plane")))
+            {
+                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject == true) //7-27-2022, hopeful this fixes the rare bug
+                {
+                    if (ani.GetCurrentAnimatorStateInfo(0).IsName("Eject_Phase2_stable"))
+                    {
+
+                        rb.gravityScale = 1;//0.14f;
+                        ani.SetBool("IS_PAR_GROUNDED", true);
+                        GameObject pardrop = Instantiate(Resources.Load("player\\par_drop")) as GameObject;
+                        pardrop.name = "par_drop";
+                        pardrop.transform.position = new Vector2(transform.position.x + 0.0f, transform.position.y - 0.0f);
+                    }
+                    ani.SetBool("IS_JUMP", false);
+                    plaGround = true;
+                }
+            }
+            else
             {
                 if (ani.GetCurrentAnimatorStateInfo(0).IsName("Eject_Phase2_stable"))
                 {
 
                     rb.gravityScale = 1;//0.14f;
                     ani.SetBool("IS_PAR_GROUNDED", true);
-                    GameObject pardrop = Instantiate(Resources.Load("player\\par_drop")) as GameObject;
-                    pardrop.name = "par_drop";
-                    pardrop.transform.position = new Vector2(transform.position.x + 0.0f, transform.position.y - 0.0f);
                 }
                 ani.SetBool("IS_JUMP", false);
                 plaGround = true;
             }
-
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -447,11 +476,22 @@ public class player_ground_control : MonoBehaviour
             }
             else
             {
-                if ((GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead==false) || (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject == true))
+                //6-12-2025
+                //for use outside of scene
+                if ((GameObject.Find("Player_plane")))
+                    {
+                    if ((GameObject.Find("Player_plane").GetComponent<mplane_controller>().pdead == false) || (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject == true))
+                    {
+                        dirRest = false;
+                        ani.SetBool("IS_BREATHER", true);
+                    }
+                }
+                else
                 {
                     dirRest = false;
                     ani.SetBool("IS_BREATHER", true);
                 }
+
 
             }
            
@@ -461,7 +501,7 @@ public class player_ground_control : MonoBehaviour
                 plaGround = false;
                 //   ani.SetBool("IS_BREATH_LONG", true);
                 ani.SetBool("IS_JUMP", true);
-                rb.AddRelativeForce(Vector3.up * 777 *2  * 8);
+                rb.AddRelativeForce(Vector3.up * 777 *2  * 12);
             }
         }
 
@@ -480,21 +520,29 @@ public class player_ground_control : MonoBehaviour
 
         if (this.GetComponent<SpriteRenderer>().isVisible==true)
         {
-            if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject==true)
+
+            //6-12-2025
+            //for use outside of scene
+            if ((GameObject.Find("Player_plane")))
             {
-                if (ZoomTriggered==false)
+                if (GameObject.Find("Player_plane").GetComponent<mplane_controller>().peject == true)
                 {
-                    ZoomTriggered = true;
-                    Camera.main.GetComponent<CameraController>().enabled = false;
-                    Camera.main.transform.position = this.transform.position;
-                    Camera.main.GetComponent<CameraController>().enabled = true;
-                    Camera.main.GetComponent<CameraController>().player = null;
-                    StartCoroutine(ZoomIn());
+                    if (ZoomTriggered == false)
+                    {
+                        ZoomTriggered = true;
+                        Camera.main.GetComponent<CameraController>().enabled = false;
+                        Camera.main.transform.position = this.transform.position;
+                        Camera.main.GetComponent<CameraController>().enabled = true;
+                        Camera.main.GetComponent<CameraController>().player = null;
+                        StartCoroutine(ZoomIn());
+                    }
+
+
+
                 }
-             
-
-
             }
+
+
 
         }
     }
