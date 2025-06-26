@@ -16,6 +16,7 @@ TagManager:
   - PlaDebris
   - FakeGround
   - paddle
+  - nav_trigger
   layers:
   - Default
   - TransparentFX
