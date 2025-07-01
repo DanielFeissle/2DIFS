@@ -73,8 +73,16 @@ public class outro_player : MonoBehaviour
             imageTransform.anchoredPosition += new Vector2(0, speed * Time.deltaTime);
         }
 
-        if (imageTransform.transform.position.y>-1000)
+        Vector3 screenPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, imageTransform.position);
+
+        // Convert the screen position to a world position
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, Camera.main.nearClipPlane));
+
+       // Debug.Log("Scrolling_text"+worldPosition);
+
+        if (worldPosition.y > -250)
         {
+          
             //exit
             if (begin_resource_list==false)
             {
