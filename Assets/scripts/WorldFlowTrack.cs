@@ -30,19 +30,36 @@ public class WorldFlowTrack : MonoBehaviour
 
     public void SendStage()
     {
-
-        if (GameObject.Find("sela").GetComponent<LevelHistory>().NameOfLevel != "Start")
+        try
         {
-            string[] splitter = GameObject.Find("sela").GetComponent<LevelHistory>().NameOfLevel.Split('x');
-            loadedWorld = Convert.ToInt32(splitter[0]);
-             loadedScene = Convert.ToInt32(splitter[1]);
-           
-            scene = loadedScene-1;
-             world = loadedWorld-1;
+            if (GameObject.Find("sela").GetComponent<LevelHistory>().NameOfLevel != "Start")
+            {
+                string[] splitter = GameObject.Find("sela").GetComponent<LevelHistory>().NameOfLevel.Split('x');
+                loadedWorld = Convert.ToInt32(splitter[0]);
+                loadedScene = Convert.ToInt32(splitter[1]);
+
+                scene = loadedScene - 1;
+                world = loadedWorld - 1;
 
 
-            GameObject.Find("sela").GetComponent<LevelHistory>().NameOfLevel = "Start";
+                GameObject.Find("sela").GetComponent<LevelHistory>().NameOfLevel = "Start";
+            }
         }
+        catch
+        {
+            //11-17-2022 this script gets called once per game load
+            if (!GameObject.Find("sela"))
+            {
+                GameObject pback = Instantiate(Resources.Load("player\\sel_a")) as GameObject;
+                pback.name = "sela";
+                pback.transform.position = new Vector2(0, 0);
+                DontDestroyOnLoad(pback.gameObject);
+            }
+
+            scene =  1;
+            world =  1;
+        }
+
 
       
 

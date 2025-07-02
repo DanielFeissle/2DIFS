@@ -65,7 +65,15 @@ public class POLF : MonoBehaviour
         }
         //7-26-2023
         //now should no longer always be zero
-        saved_grade_score = GameObject.Find("sela").GetComponent<LevelHistory>().high_score[GameObject.Find("sela").GetComponent<LevelHistory>().curworld, GameObject.Find("sela").GetComponent<LevelHistory>().curscene];
+        try
+        {
+            saved_grade_score = GameObject.Find("sela").GetComponent<LevelHistory>().high_score[GameObject.Find("sela").GetComponent<LevelHistory>().curworld, GameObject.Find("sela").GetComponent<LevelHistory>().curscene];
+
+        }
+        catch
+        {
+            saved_grade_score = 10;
+        }
         Debug.Log("YTINU TIME:" +curTime+": "+ grade_score + "(CURR SCORE)>" + saved_grade_score + "(Saved_Score)");
         if (grade_score>saved_grade_score)
         {

@@ -41,7 +41,18 @@ public class menu_runtime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (!GameObject.Find("minimap"))
+        {
+            GameObject minimap = Instantiate(Resources.Load("ui\\minimap")) as GameObject;
+            minimap.name = "minimap";
+            minimap.transform.position = new Vector3(6.913f, -3.84f, 1.93f);
+        }
+        if (!GameObject.Find("Cube"))
+        {
+            GameObject minimap = Instantiate(Resources.Load("ui\\Cube")) as GameObject;
+            minimap.name = "Cube";
+            minimap.transform.position = new Vector3(11.0006f, -3.75883f, 10f);
+        }
         //   Debug.Log("VALUE IS " + this.gameObject.GetComponent<realGenericButtonListner>().buttonScreeen);
         int fff= GameObject.Find(ListnerAndRuntimeOBJ.name).GetComponent<realGenericButtonListner>().buttonScreeen;
     //    Debug.Log("WHAT IS " + fff);

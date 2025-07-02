@@ -75,7 +75,7 @@ public class title_screen_control : MonoBehaviour
         nextUsage = Time.time + delay; //it is on display
         title_plane = GameObject.Find("Player_plane_title");
         
-        this.GetComponent<AudioSource>().clip= Resources.Load<AudioClip>("_FX\\BMX\\special\\Abandoned_World_Loop");
+        this.GetComponent<AudioSource>().clip= Resources.Load<AudioClip>("_FX\\SBMX\\special\\Abandoned_World_Loop");
         this.GetComponent<AudioSource>().loop = true;
         this.GetComponent<AudioSource>().Play();
     }
@@ -138,7 +138,7 @@ public class title_screen_control : MonoBehaviour
                 GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
                 if (fx_in_title_demo==true)
                 {
-                    this.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("_FX\\BMX\\special\\Abandoned_World_Loop");
+                    this.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("_FX\\SBMX\\special\\Abandoned_World_Loop");
                     this.GetComponent<AudioSource>().loop = true;
                     this.GetComponent<AudioSource>().Play();
                     fx_in_title_demo = false;
@@ -211,7 +211,7 @@ public class title_screen_control : MonoBehaviour
                         GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
                         if (fx_in_title_demo == true)
                         {
-                            this.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("_FX\\BMX\\special\\Abandoned_World_Loop");
+                            this.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("_FX\\SBMX\\special\\Abandoned_World_Loop");
                             this.GetComponent<AudioSource>().loop = true;
                             this.GetComponent<AudioSource>().Play();
                             fx_in_title_demo = false;
@@ -238,7 +238,7 @@ public class title_screen_control : MonoBehaviour
         }
      else   if (mainMenuLocation == 1)
         {
-            this.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("_FX\\BMX\\special\\OSS_short");
+            this.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("_FX\\SBMX\\special\\OSS_short");
             this.GetComponent<AudioSource>().loop = false;
             this.GetComponent<AudioSource>().Play();
             fx_in_title_demo = true;
@@ -447,7 +447,7 @@ public class title_screen_control : MonoBehaviour
 
     private void returnToOrigPos()
     {
-        this.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("_FX\\BMX\\special\\Abandoned_World_Loop");
+        this.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("_FX\\SBMX\\special\\Abandoned_World_Loop");
         this.GetComponent<AudioSource>().loop = true;
         this.GetComponent<AudioSource>().Play();
         GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
